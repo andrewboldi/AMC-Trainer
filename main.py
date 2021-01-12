@@ -28,7 +28,7 @@ problem = get(link).text.replace("'", '"').replace(r"//latex.artofproblemsolving
 
 problem = problem.split(r"</span></h2>")[1].split(r"<h2>")[0]
 # problem = problem.split(r'<h2><span class="mw-headline" id="Problem">Problem</span></h2>')[1].split(r'<h2><span class="mw-headline"')[0]
-f = open('randomAMC.html', 'wb')
+f = open('index.html', 'wb')
 message = f"""<html>
 {problem}
 </html>
@@ -36,4 +36,4 @@ message = f"""<html>
 
 f.write(bytes(message, 'utf-8'))
 import webbrowser as wb
-wb.open(r"file://D:/pg/amc/randomAMC.html")
+wb.open(r"file://D:/pg/amc/index.html")
