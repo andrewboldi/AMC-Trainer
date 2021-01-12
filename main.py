@@ -1,6 +1,7 @@
 # Credits to ARay10 for lines 1-22
 import random
-amc = int(input("AMC 8, 10, or 12? Enter 0 for random"))
+# amc = int(input("AMC 8, 10, or 12? (Enter 0 for random): "))
+amc = 0
 if amc == 0:
  amc = random.choice([8,10,12])
 ab = True
