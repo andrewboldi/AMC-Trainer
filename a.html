@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <body>
+
+        <p>Generate random AMC problem</p>
+
+        <p id="problem">Click button</p>
+
+        <select id="ddlViewBy">
+          <option value=8>AMC 8</option>
+          <option value=10>AMC 10</option>
+          <option value=12>AMC 12</option>
+          <option value="Random" selected="selected">Random</option>
+        </select>
+
+        <button type="button" id="new_problem">New problem</button>
+    <script>
+        document.getElementById("new_problem").onclick = function() {get_new_problem()};
+
+function shuffle(array) {
+      var currentIndex = array.length, temporaryValue, randomIndex;
+
+      // While there remain elements to shuffle...
+      while (0 !== currentIndex) {
+
+              // Pick a remaining element...
+              randomIndex = Math.floor(Math.random() * currentIndex);
+              currentIndex -= 1;
+
+              // And swap it with the current element.
+              temporaryValue = array[currentIndex];
+              array[currentIndex] = array[randomIndex];
+              array[randomIndex] = temporaryValue;
+            }
+
+      return array;
+}
+
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
+}
+
+function get_new_problem() {
+      var type = document.getElementById("ddlViewBy").value;
+      if (type == "Random") {
+          var arr1 = shuffle([8, 10, 12]);
+          type = arr1[0];
+      }
+
+      var if_ab = true;
+
+      var arr2 = [];
+      for (i = 2000; i < 2021; i++){
+          arr2.push(i)
+      }
+      arr2 = shuffle(arr2);
+      yr = arr2[0];
+
+      if (type == 8) {
+          if_ab = false;
+      } else if ((type == 10 || type == 12) && (yr < 2002)) {
+          if_ab = false;
+      }
+
+      var arr3 = []
+      for (i = 1; i < 26; i++){
+          arr3.push(i)
+      }
+      arr3 = shuffle(arr3);
+      prob = arr3[0];
+      
+      var year    =     yr.toString();
+      var amc     =     type.toString();
+      var problem =     prob.toString();
+      
+      var link = "";
+      if (if_ab == true) {
+          a_b = shuffle(["A", "B"]);
+          a_b = a_b[0];
+          var aorb = a_b.toString();
+          link = link.concat("https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, aorb, "_Problems/Problem_", problem);
+      } else {
+          link = link.concat("https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, "_Problems/Problem_", problem)
+      }
+
+
+      document.getElementById("problem").innerHTML = link;
+}
+
+    </script>
+
+    </body>
+</html>
+
