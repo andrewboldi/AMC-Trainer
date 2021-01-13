@@ -11,16 +11,11 @@
         button {text-align:center;}
       </style>
 </head>
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-5115D9RV7M"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+<body>
+    <noscript>
+		<iframe src="https://www.googletagmanager.com/ns.html?id=G-5115D9RV7M" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+	</noscript>
 
-    gtag('config', 'G-5115D9RV7M');
-</script>
-    <body>
         <h1>Generate AMC problems</h1>
 
         <p id="problem"></p>
@@ -35,7 +30,6 @@
         <button type="button" id="new_problem">New problem</button>
         <a href="" id="SolutionLink">Solution</a>
         </p>
-
     <script>
         document.getElementById("new_problem").onclick = function() {get_new_problem()};
 
