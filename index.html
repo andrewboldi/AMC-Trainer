@@ -1,8 +1,141 @@
+<!DOCTYPE html>
 <html>
+    <head>
+      <style>
+        h1 {text-align: center;}
+        p {text-align: center;}
+        select {text-align:center;}
+        option {text-align:center;}
+        button {text-align:center;}
+      </style>
+</head>
+    <body>
+        <h1>Generate AMC problems</h1>
 
-<p>Three <img src="http://latex.artofproblemsolving.com/d/b/2/db233efaaf004184bf1e6bfb30f92e062965290e.png" class="latex" alt="$\text{A&#39;s}$" style="vertical-align: 0px" width="23" height="12" />, three <img src="http://latex.artofproblemsolving.com/5/7/5/5758604e17720a8acfa5c6fa2afc582857701a86.png" class="latex" alt="$\text{B&#39;s}$" width="22" height="11" />, and three <img src="http://latex.artofproblemsolving.com/7/e/6/7e604789b7cbae85b2a247b8a34563c489690e4b.png" class="latex" alt="$\text{C&#39;s}$" style="vertical-align: 0px" width="22" height="12" /> are placed in the nine spaces so that each row and column contain one of each letter. If <img src="http://latex.artofproblemsolving.com/7/c/4/7c43070a2acf8f4e25d98e48c404d9348a26d40b.png" class="latex" alt="$\text{A}$" style="vertical-align: 0px" width="12" height="12" /> is placed in the upper left corner, how many arrangements are possible?
-</p><p><img src="http://latex.artofproblemsolving.com/a/8/b/a8bdf881057552dc4d90a565dcc73fef0f5ccf5f.png" class="latexcenter" alt="[asy] size((80)); draw((0,0)--(9,0)--(9,9)--(0,9)--(0,0)); draw((3,0)--(3,9)); draw((6,0)--(6,9)); draw((0,3)--(9,3)); draw((0,6)--(9,6)); label(&quot;A&quot;, (1.5,7.5)); [/asy]" width="135" height="135" />
-</p><p><img src="http://latex.artofproblemsolving.com/f/6/8/f68a620e8d126d7a4d48fcd5878a055aaa4ab6db.png" class="latex" alt="$\textbf{(A)}\ 2\qquad\textbf{(B)}\ 3\qquad\textbf{(C)}\ 4\qquad\textbf{(D)}\ 5\qquad\textbf{(E)}\ 6$" style="vertical-align: -4px" width="348" height="17" />
-</p>
+        <p id="problem"></p>
 
+        <p id="Problems"> 
+        <select id="ddlViewBy">
+          <option value=8>AMC 8</option>
+          <option value=10>AMC 10</option>
+          <option value=12>AMC 12</option>
+          <option value="Random" selected="selected">Random</option>
+        </select>
+        <button type="button" id="new_problem">New problem</button>
+        <a href="" id="SolutionLink">Solution</a>
+        </p>
+
+    <script>
+        document.getElementById("new_problem").onclick = function() {get_new_problem()};
+
+var HttpClient = function() {
+    this.get = function(aUrl, aCallback) {
+        var anHttpRequest = new XMLHttpRequest();
+        anHttpRequest.onreadystatechange = function() { 
+            if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
+                aCallback(anHttpRequest.responseText);
+        }
+
+        anHttpRequest.open( "GET", aUrl, true );            
+        anHttpRequest.send( null );
+    }
+}
+
+function shuffle(array) {
+      var currentIndex = array.length, temporaryValue, randomIndex;
+
+      // While there remain elements to shuffle...
+      while (0 !== currentIndex) {
+
+              // Pick a remaining element...
+              randomIndex = Math.floor(Math.random() * currentIndex);
+              currentIndex -= 1;
+
+              // And swap it with the current element.
+              temporaryValue = array[currentIndex];
+              array[currentIndex] = array[randomIndex];
+              array[randomIndex] = temporaryValue;
+            }
+
+      return array;
+}
+
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
+}
+
+function get_new_problem() {
+      var type = document.getElementById("ddlViewBy").value;
+      if (type == "Random") {
+          var arr1 = shuffle([8, 10, 12]);
+          type = arr1[0];
+      }
+
+      var if_ab = true;
+
+      var arr2 = [];
+      for (i = 2000; i < 2021; i++){
+          arr2.push(i)
+      }
+      arr2 = shuffle(arr2);
+      yr = arr2[0];
+
+      if (type == 8) {
+          if_ab = false;
+      } else if ((type == 10 || type == 12) && (yr < 2002)) {
+          if_ab = false;
+      }
+
+      var arr3 = []
+      for (i = 1; i < 26; i++){
+          arr3.push(i)
+      }
+      arr3 = shuffle(arr3);
+      prob = arr3[0];
+      
+      var year    =     yr.toString();
+      var amc     =     type.toString();
+      var problem =     prob.toString();
+      
+      var link = "";
+      if (if_ab == true) {
+          a_b = shuffle(["A", "B"]);
+          a_b = a_b[0];
+          var aorb = a_b.toString();
+          link = link.concat("https://cors-anywhere.herokuapp.com/https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, aorb, "_Problems/Problem_", problem);
+      } else {
+          link = link.concat("https://cors-anywhere.herokuapp.com/https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, "_Problems/Problem_", problem);
+      }
+      
+
+      var solutions = link.split("https://cors-anywhere.herokuapp.com/")[1];
+      var SolutionTag = document.getElementById('SolutionLink');
+      SolutionTag.setAttribute("href", solutions);
+
+      var url = link; 
+
+      let xhr = new XMLHttpRequest();
+      xhr.open('GET', url, true);
+      xhr.send();
+
+      xhr.onreadystatechange = processRequest;
+      function processRequest(e) {
+          if (xhr.readyState == 4 && xhr.status == 200) {
+              var response = xhr.responseText;
+              response = response.replaceAll("'", '"');
+              response = response.replaceAll('<a href=\"', '<a href=\"https://www.artofproblemsolving.com');
+              response = response.replaceAll("//latex.artofproblemsolving.com", "http://latex.artofproblemsolving.com");
+              response = response.split("</span></h2>")[1].split("<h2>")[0];
+              console.log(response);
+              document.getElementById("problem").innerHTML = response;
+          }
+      }
+        
+}
+    </script>
+
+    </body>
 </html>
+
