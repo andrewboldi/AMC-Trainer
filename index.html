@@ -160,6 +160,7 @@ function get_new_problem() {
               response = response.replaceAll("//latex.artofproblemsolving.com", "https://latex.artofproblemsolving.com");
               response = response.split("</span></h2>")[1].split("<h2>")[0];
               response = response.replaceAll("</p><p><img src=", "<br></br></p><p><img src=");
+              response = response.replaceAll("<a href=", "<a target='_blank\' href=")
               console.log(link);
               console.log(response);
               document.getElementById("problem").innerHTML = response;
