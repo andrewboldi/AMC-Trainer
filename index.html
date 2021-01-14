@@ -30,7 +30,7 @@
         </select>
         <button type="button" id="new_problem">New problem</button>
         <button type="button" onclick="Answer()">Answer</button>
-        <span style="display: none;" id="get_answer">hihihihi</span>
+        <span style="display: none;" id="get_answer">No problems loaded !</span>
         
         <a target="_blank" href="" id="SolutionLink">Solution</a>
         </p>
@@ -44,6 +44,14 @@ function Answer() {
       } else {
           x.style.display = "none";
       }
+}
+
+function sleep(milliseconds) {
+  const date = Date.now();
+  let currentDate = null;
+  do {
+    currentDate = Date.now();
+  } while (currentDate - date < milliseconds);
 }
 
 var HttpClient = function() {
@@ -86,6 +94,8 @@ function getRandomIntInclusive(min, max) {
 
 function get_new_problem() {
       var type = document.getElementById("ddlViewBy").value;
+      document.getElementById("get_answer").style.display="none";
+      document.getElementById("get_answer").innerHtml="";
       if (type == "Random") {
           var arr1 = shuffle([8, 10, 12]);
           type = arr1[0];
@@ -154,6 +164,8 @@ function get_new_problem() {
               console.log(response);
               document.getElementById("problem").innerHTML = response;
       
+      sleep(1000);
+
       let xhr2 = new XMLHttpRequest();
       xhr2.open('GET', answer_key_link, true);
       xhr2.send()
