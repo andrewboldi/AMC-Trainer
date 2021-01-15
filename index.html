@@ -4,35 +4,90 @@
       
     <style>
 
-        h1 {text-align: center;}
-        p {
-            text-align: center;
-            margin-left: 200px;
-            margin-right: 200px;
-        }
-        select {text-align:center;}
-        option {text-align:center;}
-        button {text-align:center;}
-      </style>
-</head>
-<body>
 
+.ftw-button {
+border: none;
+max-width: 80%;
+text-align: center;
+width: 170px;
+border-radius: 10px;
+box-shadow: 3px 3px 6px #ccc;
+color: rgba(0, 0, 0, 0.2);
+background-repeat: no-repeat;
+font-weight: 500;
+text-shadow: none;
+text-transform: uppercase;
+letter-spacing: 1px;
+font-size: 1.2em;
+height: 40px;
+line-height: 40px;
+}
+.ftw-login-button {
+margin: auto;
+background-image: linear-gradient(to right, rgb(243, 116, 33), rgb(255, 184, 59));
+}
+.ftw-button:hover::before {
+transform: scale(0.9);
+opacity: 0;
+}
+
+.ftw-button::before {
+color: white;
+height: 20px;
+content: attr(data-hover);
+position: absolute;
+transition: all 0.3s;
+opacity: 0.3s; 
+}
+.ftw-button:hover { 
+cursor: pointer;
+box-shadow: 3px 3px 12px #aaa;
+transition: all 0.5s;
+}
+.ddl-login-button {
+text-align: center;
+margin: auto;
+background-image:
+linear-gradient(to right, rgb(243, 116, 33), rgb(255, 184, 59));
+}
+.ddl-button {
+border: none;
+max-width: 80%;
+text-align: center;
+width: 170px;
+color: rgb(255, 255, 255);
+border-radius: 10px;
+box-shadow: 3px 3px 6px #ccc;
+background-repeat: no-repeat;
+font-weight: 500;
+text-shadow: none;
+text-transform: uppercase;
+letter-spacing: 1px;
+font-size: 1.2em;
+height: 40px;
+line-height: 40px;
+} 
+      h1 {text-align: center;}
+      p { text-align: center; margin-left: 200px; margin-right: 200px; }
+</style> 
+    </head> 
+    <body>
         <h1>Generate AMC problems</h1>
-
         <p id="problem"></p>
-
         <p id="Problems"> 
-        <select id="ddlViewBy">
+        <select id="ddlViewBy" class="ddl-button ddl-login-button ftw-lobby ftw-play cc_pointer">
           <option value=8>AMC 8</option>
           <option value=10>AMC 10</option>
           <option value=12>AMC 12</option>
           <option value="Random" selected="selected">Random</option>
         </select>
-        <button type="button" id="new_problem">New problem</button>
-        <button type="button" onclick="Answer()">Answer</button>
+        <button type="button" id="new_problem" class="ftw-button ftw-login-button" data-hover="Next">Next</button>
+        <button type="button" class="ftw-button ftw-login-button" data-hover="Answer" onclick="Answer()">Answer</button>
+        <button onclick="window.open('about:blank', '_blank');" id="SolutionLink" class="ftw-button ftw-login-button" data-hover="Solution">Solution</button>
+        </p>
+        <p>
         <span style="display: none;" id="get_answer">No problems loaded !</span>
-        
-        <a target="_blank" href="" id="SolutionLink">Solution</a>
+        </p>
         </p>
     <script>
         document.getElementById("new_problem").onclick = function() {get_new_problem()};
@@ -142,8 +197,9 @@ function get_new_problem() {
       
 
       var solutions = link.split("https://cors-anywhere.herokuapp.com/")[1];
+      var sols = "".concat("window.open('",solutions, "','_blank');")
       var SolutionTag = document.getElementById('SolutionLink');
-      SolutionTag.setAttribute("href", solutions);
+      SolutionTag.setAttribute("onclick", sols);
 
       var url = link; 
 
@@ -164,8 +220,8 @@ function get_new_problem() {
               console.log(link);
               console.log(response);
               document.getElementById("problem").innerHTML = response;
-      
-      sleep(1000);
+      document.get
+      sleep(5000);
 
       let xhr2 = new XMLHttpRequest();
       xhr2.open('GET', answer_key_link, true);
