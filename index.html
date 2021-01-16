@@ -210,7 +210,10 @@ function get_new_problem() {
               response = response.split("</span></h2>")[1].split("<h2>")[0];
               response = response.replaceAll("</p><p><img src=", "<br></br></p><p><img src=");
               response = response.replaceAll("<a href=", "<a target='_blank\' href=")
+              console.log("<-----New Problem------->")
+              console.log("<-----Problem Link------>")
               console.log(link);
+              console.log("<-----Problem Code------>")
               console.log(response);
               document.getElementById("problem").innerHTML = response;
       document.get
@@ -228,7 +231,9 @@ function get_new_problem() {
               response2 = response2.split('<li>');
               response2 = response2[problem];
               response2 = response2.substring(0);
+              console.log("<-----Answer Key Link----->")
               console.log(answer_key_link);
+              console.log("<-----Problem Answer------>")
               console.log(response2);
               document.getElementById("get_answer").innerHTML = response2;
           }
