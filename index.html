@@ -188,15 +188,15 @@ function get_new_problem() {
           a_b = shuffle(["A", "B"]);
           a_b = a_b[0];
           var aorb = a_b.toString();
-          link = link.concat("https://cors-anywhere.herokuapp.com/https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, aorb, "_Problems/Problem_", problem);
-          answer_key_link = answer_key_link.concat("https://cors-anywhere.herokuapp.com/https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, aorb, "_Answer_Key");
+          link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, aorb, "_Problems/Problem_", problem);
+          answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, aorb, "_Answer_Key");
       } else {
-          link = link.concat("https://cors-anywhere.herokuapp.com/https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, "_Problems/Problem_", problem);
-          answer_key_link = answer_key_link.concat("https://cors-anywhere.herokuapp.com/https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, "_Answer_Key_");
+          link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, "_Problems/Problem_", problem);
+          answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, "_Answer_Key_");
       }
       
 
-      var solutions = link.split("https://cors-anywhere.herokuapp.com/")[1];
+      var solutions = link.split("https://wandering-sky-a896.cbracketdash.workers.dev/?")[1];
       var sols = "".concat("window.open('",solutions, "','_blank');")
       var SolutionTag = document.getElementById('SolutionLink');
       SolutionTag.setAttribute("onclick", sols);
