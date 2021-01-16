@@ -101,13 +101,6 @@ function Answer() {
       }
 }
 
-function sleep(milliseconds) {
-  const date = Date.now();
-  let currentDate = null;
-  do {
-    currentDate = Date.now();
-  } while (currentDate - date < milliseconds);
-}
 
 var HttpClient = function() {
     this.get = function(aUrl, aCallback) {
@@ -221,7 +214,6 @@ function get_new_problem() {
               console.log(response);
               document.getElementById("problem").innerHTML = response;
       document.get
-      sleep(5000);
 
       let xhr2 = new XMLHttpRequest();
       xhr2.open('GET', answer_key_link, true);
