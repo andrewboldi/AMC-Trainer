@@ -205,8 +205,8 @@ function get_new_problem() {
           if (xhr.readyState == 4 && xhr.status == 200) {
               var response = xhr.responseText;
               response = response.replaceAll("'", '"');
-              response = response.replaceAll('<a href=\"', '<a href=\"https://www.artofproblemsolving.com');
-              response = response.replaceAll("//latex.artofproblemsolving.com", "https://latex.artofproblemsolving.com");
+              response = response.replaceAll('<a href=\"', '<a href=\"https://wandering-sky-a896.cbracketdash.workers.dev/?https://www.artofproblemsolving.com');
+              response = response.replaceAll("//latex.artofproblemsolving.com", "https://wandering-sky-a896.cbracketdash.workers.dev/?https://latex.artofproblemsolving.com");
               response = response.split("</span></h2>")[1].split("<h2>")[0];
               response = response.replaceAll("</p><p><img src=", "<br></br></p><p><img src=");
               response = response.replaceAll("<a href=", "<a target='_blank\' href=")
