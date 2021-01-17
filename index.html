@@ -1,10 +1,26 @@
+<!---- 
+AMC Problem Generator
+Copyright (C) 2021
+THIS PROGARM IS FREE SOFTWARE; YOU CAN REDISTRIBUTE IT AND/OR MODIFY
+IT UNDER THE TERMS OF THE GNU GENERAL PUBLIC LICENSE AS PUBLISHED BY
+THE FERE SOFTWARE FOUNDATION; EITHER VERSION 2 OF THE LICENSE, OR 
+VERSION 2.1
+
+THIS PROGRAM IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL
+BUT WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF
+MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  SEE THE
+GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
+---->
+
+
+
 <!DOCTYPE html>
 <html>
     <head>
    <style>
 
 
-.ftw-button {
+.new-button {
 border: none;
 max-width: 80%;
 text-align: center;
@@ -21,16 +37,16 @@ font-size: 1.2em;
 height: 40px;
 line-height: 40px;
 }
-.ftw-login-button {
+.two-button {
 margin: auto;
 background-image: linear-gradient(to right, rgb(145, 254, 158), rgb(0, 201, 255));
 }
-.ftw-button:hover::before {
+.new-button:hover::before {
 transform: scale(0.9);
 opacity: 0;
 }
 
-.ftw-button::before {
+.new-button::before {
 color: white;
 height: 20px;
 content: attr(data-hover);
@@ -38,12 +54,12 @@ position: absolute;
 transition: all 0.3s;
 opacity: 0.3s; 
 }
-.ftw-button:hover { 
+.new-button:hover { 
 cursor: pointer;
 box-shadow: 3px 3px 12px #aaa;
 transition: all 0.5s;
 }
-.ddl-login-button {
+.ddl-two-button {
 text-align: center;
 margin: auto;
 background-image:
@@ -74,15 +90,15 @@ line-height: 40px;
         <img src="https://lh3.googleusercontent.com/-x2X5ScAU1_U/YAOd9BoDiSI/AAAAAAAAMic/IYuBqvLTwIMvXE679vJ2lqyUA47ijVAgACK8BGAsYHg/s512/2021-01-16.png" style="display:block; margin-top: 30px; margin-left: auto; margin-right: auto;">
         <p id="problem"></p>
         <p id="Problems"> 
-        <select id="ddlViewBy" class="ddl-button ddl-login-button ftw-lobby ftw-play cc_pointer">
+        <select id="ddlViewBy" class="ddl-button ddl-two-button ftw-lobby ftw-play cc_pointer">
           <option value=8>AMC 8</option>
           <option value=10>AMC 10</option>
           <option value=12>AMC 12</option>
           <option value="Random" selected="selected">Random</option>
         </select>
-        <button type="button" id="new_problem" class="ftw-button ftw-login-button" data-hover="Next">Next</button>
-        <button type="button" class="ftw-button ftw-login-button" data-hover="Answer" onclick="Answer()">Answer</button>
-        <button onclick="window.open('about:blank', '_blank');" id="SolutionLink" class="ftw-button ftw-login-button" data-hover="Solution">Solution</button>
+        <button type="button" id="new_problem" class="new-button two-button" data-hover="Next">Next</button>
+        <button type="button" class="new-button two-button" data-hover="Answer" onclick="Answer()">Answer</button>
+        <button onclick="window.open('about:blank', '_blank');" id="SolutionLink" class="new-button two-button" data-hover="Solution">Solution</button>
         </p>
         <p>
         <span style="display: none;" id="get_answer">No problems loaded !</span>
