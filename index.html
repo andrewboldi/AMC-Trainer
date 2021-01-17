@@ -186,16 +186,26 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
         }
 
         var if_ab = true;
+        var isAJHSME;
 
         var arr2 = [];
         for (i = 2000; i < 2021; i++) {
-            arr2.push(i)
+            arr2.push(i);
         }
         arr2 = shuffle(arr2);
         yr = arr2[0];
 
+        var arrA = [];
+        for (i=1985; i < 1999; i++){
+            arrA.push(i);
+        }
+        arrA = shuffle(arrA)
+        yearAJ = arrA[0]
+
         if (type == 8) {
             if_ab = false;
+            isAJHSME = shuffle([0,1]);
+            isAJHSME = isAJHSME[0];
         } else if ((type == 10 || type == 12) && (yr < 2002)) {
             if_ab = false;
         }
@@ -213,7 +223,11 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
 
         var link = "";
         var answer_key_link = "";
-        if (if_ab == true) {
+
+        if ((amc == "8") && (isAJHSME == 1)) {
+            link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", yearAJ, "_AJHSME_", "Problems/Problem_", problem);
+            answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", yearAJ, "_AJHSME_Answer_Key");
+        } else if (if_ab == true) {
             a_b = shuffle(["A", "B"]);
             a_b = a_b[0];
             var aorb = a_b.toString();
