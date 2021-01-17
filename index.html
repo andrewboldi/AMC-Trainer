@@ -11,254 +11,259 @@ BUT WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF
 MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  SEE THE
 GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
 ---->
-
-
-
 <!DOCTYPE html>
 <html>
     <head>
-   <style>
+        <style>
+            .new-button {
+                border: none;
+                max-width: 80%;
+                text-align: center;
+                width: 170px;
+                border-radius: 10px;
+                box-shadow: 3px 3px 6px #ccc;
+                color: rgba(0, 0, 0, 0.2);
+                background-repeat: no-repeat;
+                font-weight: 500;
+                text-shadow: none;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                font-size: 1.2em;
+                height: 40px;
+                line-height: 40px;
+            }
 
+            .two-button {
+                margin: auto;
+                background-image: linear-gradient(to right, rgb(145, 254, 158), rgb(0, 201, 255));
+            }
 
-.new-button {
-border: none;
-max-width: 80%;
-text-align: center;
-width: 170px;
-border-radius: 10px;
-box-shadow: 3px 3px 6px #ccc;
-color: rgba(0, 0, 0, 0.2);
-background-repeat: no-repeat;
-font-weight: 500;
-text-shadow: none;
-text-transform: uppercase;
-letter-spacing: 1px;
-font-size: 1.2em;
-height: 40px;
-line-height: 40px;
-}
-.two-button {
-margin: auto;
-background-image: linear-gradient(to right, rgb(145, 254, 158), rgb(0, 201, 255));
-}
-.new-button:hover::before {
-transform: scale(0.9);
-opacity: 0;
-}
+            .new-button:hover::before {
+                transform: scale(0.9);
+                opacity: 0;
+            }
 
-.new-button::before {
-color: white;
-height: 20px;
-content: attr(data-hover);
-position: absolute;
-transition: all 0.3s;
-opacity: 0.3s; 
-}
-.new-button:hover { 
-cursor: pointer;
-box-shadow: 3px 3px 12px #aaa;
-transition: all 0.5s;
-}
-.ddl-two-button {
-text-align: center;
-margin: auto;
-background-image:
-linear-gradient(to right, rgb(145, 254, 158), rgb(0, 201, 255));
-}
-.ddl-button {
-border: none;
-max-width: 80%;
-text-align: center;
-width: 170px;
-color: rgb(255, 255, 255);
-border-radius: 10px;
-box-shadow: 3px 3px 6px #ccc;
-background-repeat: no-repeat;
-font-weight: 500;
-text-shadow: none;
-text-transform: uppercase;
-letter-spacing: 1px;
-font-size: 1.2em;
-height: 40px;
-line-height: 40px;
-} 
-      h1 {text-align: center;}
-      p { text-align: center; margin-left: 200px; margin-right: 200px; }
-</style> 
-    </head> 
+            .new-button::before {
+                color: white;
+                height: 20px;
+                content: attr(data-hover);
+                position: absolute;
+                transition: all 0.3s;
+                opacity: 0.3s;
+            }
+
+            .new-button:hover {
+                cursor: pointer;
+                box-shadow: 3px 3px 12px #aaa;
+                transition: all 0.5s;
+            }
+
+            .ddl-two-button {
+                text-align: center;
+                margin: auto;
+                background-image: linear-gradient(to right, rgb(145, 254, 158), rgb(0, 201, 255));
+            }
+
+            .ddl-button {
+                border: none;
+                max-width: 80%;
+                text-align: center;
+                width: 170px;
+                color: rgb(255, 255, 255);
+                border-radius: 10px;
+                box-shadow: 3px 3px 6px #ccc;
+                background-repeat: no-repeat;
+                font-weight: 500;
+                text-shadow: none;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                font-size: 1.2em;
+                height: 40px;
+                line-height: 40px;
+            }
+
+            h1 {
+                text-align: center;
+            }
+
+            p {
+                text-align: center;
+                margin-left: 200px;
+                margin-right: 200px;
+            }
+        </style>
+    </head>
     <body style="background-image: url('https://lh3.googleusercontent.com/-YijoK4TetK4/YAOSnzcu5qI/AAAAAAAABgc/xg0HOTZSrEklDjFcZyDYdq1Eo4EMu9tYACK8BGAsYHg/s0/2021-01-16.png'); width: 99%; height: 10000000000000000000px; background-position: center; background-repeat: no-repeat; background-size: 100% 100%;">
         <img src="https://lh3.googleusercontent.com/-x2X5ScAU1_U/YAOd9BoDiSI/AAAAAAAAMic/IYuBqvLTwIMvXE679vJ2lqyUA47ijVAgACK8BGAsYHg/s512/2021-01-16.png" style="display:block; margin-top: 30px; margin-left: auto; margin-right: auto;">
         <p id="problem"></p>
-        <p id="Problems"> 
-        <select id="ddlViewBy" class="ddl-button ddl-two-button ftw-lobby ftw-play cc_pointer">
-          <option value=8>AMC 8</option>
-          <option value=10>AMC 10</option>
-          <option value=12>AMC 12</option>
-          <option value="Random" selected="selected">Random</option>
-        </select>
-        <button type="button" id="new_problem" class="new-button two-button" data-hover="Next">Next</button>
-        <button type="button" class="new-button two-button" data-hover="Answer" onclick="Answer()">Answer</button>
-        <button onclick="window.open('about:blank', '_blank');" id="SolutionLink" class="new-button two-button" data-hover="Solution">Solution</button>
+        <p id="Problems">
+            <select id="ddlViewBy" class="ddl-button ddl-two-button ftw-lobby ftw-play cc_pointer">
+                <option value=8>AMC 8</option>
+                <option value=10>AMC 10</option>
+                <option value=12>AMC 12</option>
+                <option value="Random" selected="selected">Random</option>
+            </select>
+            <button type="button" id="new_problem" class="new-button two-button" data-hover="Next">Next</button>
+            <button type="button" class="new-button two-button" data-hover="Answer" onclick="Answer()">Answer</button>
+            <button onclick="window.open('about:blank', '_blank');" id="SolutionLink" class="new-button two-button" data-hover="Solution">Solution</button>
         </p>
         <p>
-        <span style="display: none;" id="get_answer">No problems loaded !</span>
+            <span style="display: none;" id="get_answer">No problems loaded !</span>
         </p>
-        </p>
-    <script>
-        document.getElementById("new_problem").onclick = function() {get_new_problem()};
-
-function Answer() {
-      var x = document.getElementById("get_answer");
-      if (x.style.display === "none") {
-          x.style.display = "block";
-      } else {
-          x.style.display = "none";
-      }
-}
-
-
-var HttpClient = function() {
-    this.get = function(aUrl, aCallback) {
-        var anHttpRequest = new XMLHttpRequest();
-        anHttpRequest.onreadystatechange = function() { 
-            if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
-                aCallback(anHttpRequest.responseText);
-        }
-
-        anHttpRequest.open( "GET", aUrl, true );            
-        anHttpRequest.send( null );
+</p><script>
+    document.getElementById("new_problem").onclick = function() {
+        get_new_problem()
     }
-}
+    ;
 
-function shuffle(array) {
-      var currentIndex = array.length, temporaryValue, randomIndex;
+    function Answer() {
+        var x = document.getElementById("get_answer");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
 
-      // While there remain elements to shuffle...
-      while (0 !== currentIndex) {
-
-              // Pick a remaining element...
-              randomIndex = Math.floor(Math.random() * currentIndex);
-              currentIndex -= 1;
-
-              // And swap it with the current element.
-              temporaryValue = array[currentIndex];
-              array[currentIndex] = array[randomIndex];
-              array[randomIndex] = temporaryValue;
+    var HttpClient = function() {
+        this.get = function(aUrl, aCallback) {
+            var anHttpRequest = new XMLHttpRequest();
+            anHttpRequest.onreadystatechange = function() {
+                if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
+                    aCallback(anHttpRequest.responseText);
             }
 
-      return array;
-}
+            anHttpRequest.open("GET", aUrl, true);
+            anHttpRequest.send(null);
+        }
+    }
 
-function getRandomIntInclusive(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
-}
+    function shuffle(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
 
-function get_new_problem() {
-      var type = document.getElementById("ddlViewBy").value;
-      document.getElementById("get_answer").style.display="none";
-      document.getElementById("get_answer").innerHtml="";
-      if (type == "Random") {
-          var arr1 = shuffle([8, 10, 12]);
-          type = arr1[0];
-      }
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
 
-      var if_ab = true;
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
 
-      var arr2 = [];
-      for (i = 2000; i < 2021; i++){
-          arr2.push(i)
-      }
-      arr2 = shuffle(arr2);
-      yr = arr2[0];
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
 
-      if (type == 8) {
-          if_ab = false;
-      } else if ((type == 10 || type == 12) && (yr < 2002)) {
-          if_ab = false;
-      }
+        return array;
+    }
 
-      var arr3 = []
-      for (i = 1; i < 26; i++){
-          arr3.push(i)
-      }
-      arr3 = shuffle(arr3);
-      prob = arr3[0];
-      
-      var year    =     yr.toString();
-      var amc     =     type.toString();
-      var problem =     prob.toString();
-      
-      var link = "";
-      var answer_key_link = "";
-      if (if_ab == true) {
-          a_b = shuffle(["A", "B"]);
-          a_b = a_b[0];
-          var aorb = a_b.toString();
-          link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, aorb, "_Problems/Problem_", problem);
-          answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, aorb, "_Answer_Key");
-      } else {
-          link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, "_Problems/Problem_", problem);
-          answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, "_Answer_Key_");
-      }
-      
+    function getRandomIntInclusive(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1) + min);
+        //The maximum is inclusive and the minimum is inclusive
+    }
 
-      var solutions = link.split("https://wandering-sky-a896.cbracketdash.workers.dev/?")[1];
-      var sols = "".concat("window.open('",solutions, "','_blank');")
-      var SolutionTag = document.getElementById('SolutionLink');
-      SolutionTag.setAttribute("onclick", sols);
+    function get_new_problem() {
+        var type = document.getElementById("ddlViewBy").value;
+        document.getElementById("get_answer").style.display = "none";
+        document.getElementById("get_answer").innerHtml = "";
+        if (type == "Random") {
+            var arr1 = shuffle([8, 10, 12]);
+            type = arr1[0];
+        }
 
-      var url = link; 
+        var if_ab = true;
 
-      let xhr = new XMLHttpRequest();
-      xhr.open('GET', url, true);
-      xhr.send();
+        var arr2 = [];
+        for (i = 2000; i < 2021; i++) {
+            arr2.push(i)
+        }
+        arr2 = shuffle(arr2);
+        yr = arr2[0];
 
-      xhr.onreadystatechange = processRequest;
-      function processRequest(e) {
-          if (xhr.readyState == 4 && xhr.status == 200) {
-              var response = xhr.responseText;
-              response = response.replaceAll("'", '"');
-              response = response.replaceAll('<a href=\"', '<a href=\"https://wandering-sky-a896.cbracketdash.workers.dev/?https://www.artofproblemsolving.com');
-              response = response.replaceAll("//latex.artofproblemsolving.com", "https://wandering-sky-a896.cbracketdash.workers.dev/?https://latex.artofproblemsolving.com");
-              response = response.split("</span></h2>")[1].split("<h2>")[0];
-              response = response.replaceAll("</p><p><img src=", "<br></br></p><p><img src=");
-              response = response.replaceAll("<a href=", "<a target='_blank\' href=")
-              console.log("<-----New Problem------->")
-              console.log("<-----Problem Link------>")
-              console.log(link);
-              console.log("<-----Problem Code------>")
-              console.log(response);
-              document.getElementById("problem").innerHTML = response;
-      document.get
+        if (type == 8) {
+            if_ab = false;
+        } else if ((type == 10 || type == 12) && (yr < 2002)) {
+            if_ab = false;
+        }
 
-      let xhr2 = new XMLHttpRequest();
-      xhr2.open('GET', answer_key_link, true);
-      xhr2.send()
+        var arr3 = []
+        for (i = 1; i < 26; i++) {
+            arr3.push(i)
+        }
+        arr3 = shuffle(arr3);
+        prob = arr3[0];
 
-      xhr2.onreadystatechange = processRequest;
-      function processRequest(e) {
-          if (xhr2.readyState == 4 && xhr2.status == 200) {
-              var response2 = xhr2.responseText;
-              response2 = response2.split('<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">')[1];
-              response2 = response2.split('<!--')[0];
-              response2 = response2.split('<li>');
-              response2 = response2[problem];
-              response2 = response2.substring(0);
-              console.log("<-----Answer Key Link----->")
-              console.log(answer_key_link);
-              console.log("<-----Problem Answer------>")
-              console.log(response2);
-              document.getElementById("get_answer").innerHTML = response2;
-          }
-      }
-          }
-      }
-        
-}
-    </script>
+        var year = yr.toString();
+        var amc = type.toString();
+        var problem = prob.toString();
 
-    </body>
-</html>
+        var link = "";
+        var answer_key_link = "";
+        if (if_ab == true) {
+            a_b = shuffle(["A", "B"]);
+            a_b = a_b[0];
+            var aorb = a_b.toString();
+            link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, aorb, "_Problems/Problem_", problem);
+            answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, aorb, "_Answer_Key");
+        } else {
+            link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, "_Problems/Problem_", problem);
+            answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, "_Answer_Key_");
+        }
 
+        var solutions = link.split("https://wandering-sky-a896.cbracketdash.workers.dev/?")[1];
+        var sols = "".concat("window.open('", solutions, "','_blank');")
+        var SolutionTag = document.getElementById('SolutionLink');
+        SolutionTag.setAttribute("onclick", sols);
+
+        var url = link;
+
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.send();
+
+        xhr.onreadystatechange = processRequest;
+        function processRequest(e) {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var response = xhr.responseText;
+                response = response.replaceAll("'", '"');
+                response = response.replaceAll('<a href=\"', '<a href=\"https://wandering-sky-a896.cbracketdash.workers.dev/?https://www.artofproblemsolving.com');
+                response = response.replaceAll("//latex.artofproblemsolving.com", "https://wandering-sky-a896.cbracketdash.workers.dev/?https://latex.artofproblemsolving.com");
+                response = response.split("</span></h2>")[1].split("<h2>")[0];
+                response = response.replaceAll("</p><p><img src=", "<br></br></p><p><img src=");
+                response = response.replaceAll("<a href=", "<a target='_blank\' href=")
+                console.log("<-----New Problem------->")
+                console.log("<-----Problem Link------>")
+                console.log(link);
+                console.log("<-----Problem Code------>")
+                console.log(response);
+                document.getElementById("problem").innerHTML = response;
+                document.get
+
+                let xhr2 = new XMLHttpRequest();
+                xhr2.open('GET', answer_key_link, true);
+                xhr2.send()
+
+                xhr2.onreadystatechange = processRequest;
+                function processRequest(e) {
+                    if (xhr2.readyState == 4 && xhr2.status == 200) {
+                        var response2 = xhr2.responseText;
+                        response2 = response2.split('<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">')[1];
+                        response2 = response2.split('<!--')[0];
+                        response2 = response2.split('<li>');
+                        response2 = response2[problem];
+                        response2 = response2.substring(0);
+                        console.log("<-----Answer Key Link----->")
+                        console.log(answer_key_link);
+                        console.log("<-----Problem Answer------>")
+                        console.log(response2);
+                        document.getElementById("get_answer").innerHTML = response2;
+                    }
+                }
+            }
+        }
+
+    }
+</script>
+</body></html>
