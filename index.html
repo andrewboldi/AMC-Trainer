@@ -96,7 +96,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
             }
         </style>
     </head>
-    <body style="background-image: url('https://lh3.googleusercontent.com/-YijoK4TetK4/YAOSnzcu5qI/AAAAAAAABgc/xg0HOTZSrEklDjFcZyDYdq1Eo4EMu9tYACK8BGAsYHg/s0/2021-01-16.png'); width: 99%; height: 10000000000000000000px; background-position: center; background-repeat: no-repeat; background-size: 100% 100%;">
+    <body style="background-image: url('https://lh3.googleusercontent.com/-YijoK4TetK4/YAOSnzcu5qI/AAAAAAAABgc/xg0HOTZSrEklDjFcZyDYdq1Eo4EMu9tYACK8BGAsYHg/s0/2021-01-16.png'); width: 99%; height: 98vh; background-position: center; background-repeat: no-repeat; background-size: 100% 100%;">
         <img src="https://lh3.googleusercontent.com/-x2X5ScAU1_U/YAOd9BoDiSI/AAAAAAAAMic/IYuBqvLTwIMvXE679vJ2lqyUA47ijVAgACK8BGAsYHg/s512/2021-01-16.png" style="display:block; margin-top: 30px; margin-left: auto; margin-right: auto;">
         <p id="problem"></p>
         <p id="Problems">
@@ -111,9 +111,12 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
             <button onclick="window.open('about:blank', '_blank');" id="SolutionLink" class="new-button two-button" data-hover="Solution">Solution</button>
         </p>
         <p>
-            <span style="display: none;" id="get_answer">No problems loaded !</span>
+            <span style="display: none;" id="get_answer">No problems loaded!</span>
         </p>
-</p><script>
+</p>
+<p style="position: absolute; margin-right:30%; margin-left:30%; bottom: 0%;"> The problems on this page are copyrighted by the Mathematical Association of America's American Mathematics Competitions. </p>
+
+<script>
     document.getElementById("new_problem").onclick = function() {
         get_new_problem()
     }
@@ -256,7 +259,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                         response2 = response2.split('<!--')[0];
                         response2 = response2.split('<li>');
                         response2 = response2[problem];
-                        response2 = response2.substring(0);
+                        response2 = response2.charAt(0);
                         console.log("<-----Answer Key Link----->")
                         console.log(answer_key_link);
                         console.log("<-----Problem Answer------>")
