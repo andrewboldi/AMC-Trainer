@@ -106,6 +106,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
     </head>
     <body style="background-image: url('https://lh3.googleusercontent.com/-YijoK4TetK4/YAOSnzcu5qI/AAAAAAAABgc/xg0HOTZSrEklDjFcZyDYdq1Eo4EMu9tYACK8BGAsYHg/s0/2021-01-16.png'); background-position: center; background-repeat: no-repeat; background-size: 100% 100%; background-attachment: fixed;">
         <img src="https://lh3.googleusercontent.com/-x2X5ScAU1_U/YAOd9BoDiSI/AAAAAAAAMic/IYuBqvLTwIMvXE679vJ2lqyUA47ijVAgACK8BGAsYHg/s512/2021-01-16.png" style="display:block; margin-top: 30px; margin-left: auto; margin-right: auto;">
+        <strong><p id="problem_id" style="font-size: 24px;"></p></strong>
         <p id="problem"></p>
         <p id="Problems">
             <select id="ddlViewBy" class="ddl-button ddl-two-button ftw-lobby ftw-play cc_pointer" style="text-indent: 10%; text-align-last: center;">
@@ -251,12 +252,15 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
         if ((amc == "8") && (isAJHSME == 1)) {
             link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", yearAJ, "_AJHSME_", "Problems/Problem_", problem);
             answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", yearAJ, "_AJHSME_Answer_Key");
+            document.getElementById("problem_id").innerHTML = "".concat(yearAJ, " AJHSME #", problem);
         } else if ((amc == "10" || amc == "12") && (if_ab == true)) {
             link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, aorb, "_Problems/Problem_", problem);
             answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, aorb, "_Answer_Key");
+            document.getElementById("problem_id").innerHTML = "".concat(year, " ", amc, aorb, " #", problem);
         } else if ((amc == "AIME") && (if_ab == false)) {
             link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AIME_", "_Problems/Problem_", problem);
             answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AIME_Answer_Key");
+            document.getElementById("problem_id").innerHTML = "".concat(year, " AIME #", problem);
         } else if ((amc == "AIME") && (if_ab == true)) {
             if (aorb == "A") {
                 aorb = "I";
@@ -264,10 +268,12 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                 aorb = "II";
             }
             link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AIME_", aorb, "_Problems/Problem_", problem);
-            answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AIME_", aorb, "_Answer_Key")
+            answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AIME_", aorb, "_Answer_Key");
+            document.getElementById("problem_id").innerHTML = "".concat(year, " AIME ", aorb, " #", problem);
         } else {
             link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, "_Problems/Problem_", problem);
             answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, "_Answer_Key_");
+            document.getElementById("problem_id").innerHTML = "".concat(year, " AMC ", amc, " #", problem);
         }
 
         var url = link;
