@@ -112,13 +112,14 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                 <option style="color: gray;" value=8>AMC 8</option>
                 <option style="color: gray;" value=10>AMC 10</option>
                 <option style="color: gray;" value=12>AMC 12</option>
+                <option style="color: gray;" value=AIME>AIME</option>
                 <option style="color: gray;" value="Random" selected="selected">All</option>
             </select>
             <button type="button" id="new_problem" class="new-button two-button" data-hover="New">New</button>
             <button type="button" class="new-button two-button" data-hover="Answer" onclick="Answer()">Answer</button>
             <button type="button" class="new-button two-button" data-hover="Solution" onclick="Solution()">Solution</button>
         </p>
-        <p style="display: none; margin-left: 49.5%; margin-right: 49.5%; border: 2px solid black;" id="get_answer"></p>
+        <p style="display: none;" id="get_answer"></p>
         <!---    <span style="display;" id="get_answer">No problems loaded!</span> -->
         <p>
             <span style="display: none;" id="get_solution"></span>
@@ -178,19 +179,12 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
         return array;
     }
 
-    function getRandomIntInclusive(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min + 1) + min);
-        //The maximum is inclusive and the minimum is inclusive
-    }
-
     function get_new_problem() {
         var type = document.getElementById("ddlViewBy").value;
         document.getElementById("get_answer").style.display = "none";
         document.getElementById("get_solution").style.display = "none";
         if (type == "Random") {
-            var arr1 = shuffle([8, 10, 12]);
+            var arr1 = shuffle([8, 10, 12, "AIME"]);
             type = arr1[0];
         }
 
@@ -218,13 +212,30 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
         } else if ((type == 10 || type == 12) && (yr < 2002)) {
             if_ab = false;
         }
-
-        var arr3 = []
+        
+        var arr3 = [];
         for (i = 1; i < 26; i++) {
             arr3.push(i)
         }
         arr3 = shuffle(arr3);
         prob = arr3[0];
+        
+        if (type == "AIME") {
+            var yrAIME = [];
+            for (i=1983; i < 2021; i++) {
+                yrAIME.push(i);
+            }
+            yr = shuffle(yrAIME)[0];
+
+            if (yr < 2000) {
+                if_ab = false;
+            }
+            var probAIME = [];
+            for (i=1; i < 16; i++) {
+                probAIME.push(i);
+            }    
+            prob = shuffle(probAIME)[0];
+        }
 
         var year = yr.toString();
         var amc = type.toString();
@@ -233,15 +244,27 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
         var link = "";
         var answer_key_link = "";
 
+        a_b = shuffle(["A", "B"]);
+        a_b = a_b[0];
+        var aorb = a_b.toString();
+
         if ((amc == "8") && (isAJHSME == 1)) {
             link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", yearAJ, "_AJHSME_", "Problems/Problem_", problem);
             answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", yearAJ, "_AJHSME_Answer_Key");
-        } else if (if_ab == true) {
-            a_b = shuffle(["A", "B"]);
-            a_b = a_b[0];
-            var aorb = a_b.toString();
+        } else if ((amc == "10" || amc == "12") && (if_ab == true)) {
             link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, aorb, "_Problems/Problem_", problem);
             answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, aorb, "_Answer_Key");
+        } else if ((amc == "AIME") && (if_ab == false)) {
+            link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AIME_", "_Problems/Problem_", problem);
+            answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AIME_Answer_Key");
+        } else if ((amc == "AIME") && (if_ab == true)) {
+            if (aorb == "A") {
+                aorb = "I";
+            } else {
+                aorb = "II";
+            }
+            link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AIME_", aorb, "_Problems/Problem_", problem);
+            answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AIME_", aorb, "_Answer_Key")
         } else {
             link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, "_Problems/Problem_", problem);
             answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, "_Answer_Key_");
@@ -280,7 +303,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
 
                 let xhr2 = new XMLHttpRequest();
                 xhr2.open('GET', answer_key_link, true);
-                xhr2.send()
+                xhr2.send();
 
                 xhr2.onreadystatechange = processRequest;
                 function processRequest(e) {
@@ -290,7 +313,11 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                         response2 = response2.split('<!--')[0];
                         response2 = response2.split('<li>');
                         response2 = response2[problem];
-                        response2 = response2.charAt(0);
+                        if (type == "AIME") {
+                            response2 = response2.substring(0, 3);
+                        } else {
+                            response2 = response2.charAt(0);
+                        }
                         console.log("<-----Answer Key Link----->")
                         console.log(answer_key_link);
                         console.log("<-----Problem Answer------>")
