@@ -116,18 +116,30 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
             </select>
             <button type="button" id="new_problem" class="new-button two-button" data-hover="Next">Next</button>
             <button type="button" class="new-button two-button" data-hover="Answer" onclick="Answer()">Answer</button>
-            <button onclick="window.open('about:blank', '_blank');" id="SolutionLink" class="new-button two-button" data-hover="Solution">Solution</button>
+            <button type="button" class="new-button two-button" data-hover="Solution" onclick="Solution()">Solution</button>
         </p>
         <p>
             <span style="display: none;" id="get_answer">No problems loaded!</span>
         </p>
+        <p>
+            <span style="display: none;" id="get_solution">No problems loaded!</span>
+        </p>
+
 </p><p style="position: relative; margin-right:40%; margin-left:40%; bottom: 0%; font-size: 10px;">The problems on this page are copyrighted by the Mathematical Association of America's American Mathematics Competitions. </p>
 <script>
     document.getElementById("new_problem").onclick = function() {
-        get_new_problem()
+        get_new_problem();
     }
-    ;
 
+
+    function Solution() {
+        var x = document.getElementById("get_solution");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
     function Answer() {
         var x = document.getElementById("get_answer");
         if (x.style.display === "none") {
@@ -179,7 +191,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
     function get_new_problem() {
         var type = document.getElementById("ddlViewBy").value;
         document.getElementById("get_answer").style.display = "none";
-        document.getElementById("get_answer").innerHtml = "";
+        document.getElementById("get_solution").style.display = "none";
         if (type == "Random") {
             var arr1 = shuffle([8, 10, 12]);
             type = arr1[0];
@@ -238,11 +250,6 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
             answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, "_Answer_Key_");
         }
 
-        var solutions = link.split("https://wandering-sky-a896.cbracketdash.workers.dev/?")[1];
-        var sols = "".concat("window.open('", solutions, "','_blank');")
-        var SolutionTag = document.getElementById('SolutionLink');
-        SolutionTag.setAttribute("onclick", sols);
-
         var url = link;
 
         let xhr = new XMLHttpRequest();
@@ -256,15 +263,23 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                 response = response.replaceAll("'", '"');
                 response = response.replaceAll('<a href=\"', '<a href=\"https://wandering-sky-a896.cbracketdash.workers.dev/?https://www.artofproblemsolving.com');
                 response = response.replaceAll("//latex.artofproblemsolving.com", "https://wandering-sky-a896.cbracketdash.workers.dev/?https://latex.artofproblemsolving.com");
-                response = response.split("</span></h2>")[1].split("<h2>")[0];
                 response = response.replaceAll("</p><p><img src=", "<br></br></p><p><img src=");
-                response = response.replaceAll("<a href=", "<a target='_blank\' href=")
+                response = response.replaceAll("<a href=", "<a target='_blank\' href=");
+                var data = response.split("<h2><span class=\"mw-headline\" id=\"Problem\">Problem</span></h2>")[1];
+                console.log(data)
+
+                var probcode = data.split("<h2>")[0];
                 console.log("<-----New Problem------->")
                 console.log("<-----Problem Link------>")
                 console.log(link);
                 console.log("<-----Problem Code------>")
-                console.log(response);
-                document.getElementById("problem").innerHTML = response;
+                console.log(probcode);
+                document.getElementById("problem").innerHTML = probcode;
+                console.log("<-----Solution Code----->")
+                var solcode = data.split("<h2><span class=\"mw-headline\" id=\"See_")[0];
+                solcode = solcode.substring(solcode.indexOf("<h2><span"));
+                console.log(solcode);
+                document.getElementById("get_solution").innerHTML = solcode;
 
                 let xhr2 = new XMLHttpRequest();
                 xhr2.open('GET', answer_key_link, true);
