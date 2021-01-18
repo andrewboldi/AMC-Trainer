@@ -248,19 +248,20 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
         a_b = shuffle(["A", "B"]);
         a_b = a_b[0];
         var aorb = a_b.toString();
+        var problem_id;
 
         if ((amc == "8") && (isAJHSME == 1)) {
             link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", yearAJ, "_AJHSME_", "Problems/Problem_", problem);
             answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", yearAJ, "_AJHSME_Answer_Key");
-            document.getElementById("problem_id").innerHTML = "".concat(yearAJ, " AJHSME #", problem);
+            problem_id = "".concat(yearAJ, " AJHSME #", problem);
         } else if ((amc == "10" || amc == "12") && (if_ab == true)) {
             link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, aorb, "_Problems/Problem_", problem);
             answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, aorb, "_Answer_Key");
-            document.getElementById("problem_id").innerHTML = "".concat(year, " AMC ", amc, aorb, " #", problem);
+            problem_id = "".concat(year, " AMC ", amc, aorb, " #", problem);
         } else if ((amc == "AIME") && (if_ab == false)) {
             link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AIME_", "_Problems/Problem_", problem);
             answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AIME_Answer_Key");
-            document.getElementById("problem_id").innerHTML = "".concat(year, " AIME #", problem);
+            problem_id = "".concat(year, " AIME #", problem);
         } else if ((amc == "AIME") && (if_ab == true)) {
             if (aorb == "A") {
                 aorb = "I";
@@ -269,11 +270,11 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
             }
             link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AIME_", aorb, "_Problems/Problem_", problem);
             answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AIME_", aorb, "_Answer_Key");
-            document.getElementById("problem_id").innerHTML = "".concat(year, " AIME ", aorb, " #", problem);
+            problem_id =  "".concat(year, " AIME ", aorb, " #", problem);
         } else {
             link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, "_Problems/Problem_", problem);
             answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, "_Answer_Key_");
-            document.getElementById("problem_id").innerHTML = "".concat(year, " AMC ", amc, " #", problem);
+            problem_id = "".concat(year, " AMC ", amc, " #", problem);
         }
 
         var url = link;
@@ -300,6 +301,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                 console.log(link);
                 console.log("<-----Problem Code------>")
                 console.log(probcode);
+                document.getElementById("problem_id").innerHTML = problem_id;
                 document.getElementById("problem").innerHTML = probcode;
                 console.log("<-----Solution Code----->")
                 var solcode = data.split("<h2><span class=\"mw-headline\" id=\"See_")[0];
