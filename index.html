@@ -41,8 +41,27 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                 letter-spacing: 1px;
                 font-size: 1.2em;
                 height: 40px;
+                outline: none;
                 line-height: 40px;
             }
+            .input {
+                border: none;
+                max-width: 80%;
+                text-align: center;
+                width: 170px;
+                border-radius: 10px;
+                box-shadow: 3px 3px 6px #ccc;
+                color: rgba(0, 0, 0, 0.2);
+                background-repeat: no-repeat;
+                font-weight: 500;
+                text-shadow: none;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                font-size: 1.2em;
+                height: 40px;
+                outline: none;
+                line-height: 40px;
+             }
 
             .two-button {
                 margin: auto;
@@ -112,35 +131,27 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                 <option style="color: gray;" value=10>AMC 10</option>
                 <option style="color: gray;" value=12>AMC 12</option>
                 <option style="color: gray;" value=AIME>AIME</option>
-                <option style="color: gray;" value="Random" selected="selected">All</option>
+                <option style="color: gray;" value="All" selected="selected">All</option>
             </select>
-            <button type="button" id="new_problem" class="new-button two-button" data-hover="New">New</button>
-            <button type="button" class="new-button two-button" data-hover="Answer" onclick="Answer()">Answer</button>
+            <button type="button" onclick="get_new_problem();" id="new_problem" class="new-button two-button" data-hover="New">New</button>
             <button type="button" class="new-button two-button" data-hover="Solution" onclick="Solution()">Solution</button>
         </p>
         <strong><p id="problem_id" style="font-size: 24px;"></p></strong>
         <p id="problem"></p>
-        <p style="display: none;" id="get_answer"></p>
-        <!---    <span style="display;" id="get_answer">No problems loaded!</span> -->
+        <br></br>
+        <p id="check_ans" style="display: none;">
+            <input class="input" type="text" id="ans" name="ans" value="">
+            <button class="new-button two-button" type="button" id="get_ans" onclick="check_ans();">Check</button>
+            <span id="if_correct" style="display: none;"></span>
+        </p>
+        <br></br>
         <p>
             <span style="display: none;" id="get_solution"></span>
         </p>
 </p><p style="position: relative; margin-right:40%; margin-left:40%; bottom: 0%; font-size: 10px;">The problems on this page are copyrighted by the Mathematical Association of America's American Mathematics Competitions. </p>
 <script>
-    document.getElementById("new_problem").onclick = function() {
-        get_new_problem();
-    }
-
     function Solution() {
         var x = document.getElementById("get_solution");
-        if (x.style.display === "none") {
-            x.style.display = "block";
-        } else {
-            x.style.display = "none";
-        }
-    }
-    function Answer() {
-        var x = document.getElementById("get_answer");
         if (x.style.display === "none") {
             x.style.display = "block";
         } else {
@@ -160,7 +171,9 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
             anHttpRequest.send(null);
         }
     }
-
+var lol;
+var anss;
+var solcode;
     function shuffle(array) {
         var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -182,9 +195,10 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
 
     function get_new_problem() {
         var type = document.getElementById("ddlViewBy").value;
-        document.getElementById("get_answer").style.display = "none";
+        document.getElementById("check_ans").style.display = "none";
         document.getElementById("get_solution").style.display = "none";
-        if (type == "Random") {
+        document.getElementById("if_correct").style.display = "none";
+        if (type == "All") {
             var arr1 = shuffle([8, 10, 12, "AIME"]);
             type = arr1[0];
         }
@@ -304,7 +318,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                 document.getElementById("problem_id").innerHTML = problem_id;
                 document.getElementById("problem").innerHTML = probcode;
                 console.log("<-----Solution Code----->")
-                var solcode = data.split("<h2><span class=\"mw-headline\" id=\"See_")[0];
+                solcode = data.split("<h2><span class=\"mw-headline\" id=\"See_")[0];
                 solcode = solcode.substring(solcode.indexOf("<h2><span"));
                 console.log(solcode);
                 document.getElementById("get_solution").innerHTML = solcode;
@@ -330,12 +344,22 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                         console.log(answer_key_link);
                         console.log("<-----Problem Answer------>")
                         console.log(response2);
-                        document.getElementById("get_answer").innerHTML = response2;
+                        lol = response2;
+                        document.getElementById("check_ans").style.display = "block";
                     }
                 }
             }
         }
 
     }
+
+function check_ans() {
+    anss = ans.value.toString();
+    if (lol === anss) {
+        Solution();
+        document.getElementById("if_correct").style.display = "block";
+    }
+    document.getElementById("ans").value='';
+}
 </script>
 </body></html>
