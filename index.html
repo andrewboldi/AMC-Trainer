@@ -141,7 +141,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
         <br></br>
         <p id="check_ans" style="display: none;">
             <input class="input" type="text" id="ans" name="ans" value="">
-            <button class="new-button two-button" type="button" id="get_ans" onclick="check_ans();">Check</button>
+            <button class="new-button two-button" type="button" id="get_ans" onclick="check_ans();">Submit</button>
             <span id="if_correct" style="display: none;"></span>
         </p>
         <br></br>
@@ -150,6 +150,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
         </p>
 </p><p style="position: relative; margin-right:40%; margin-left:40%; bottom: 0%; font-size: 10px;">The problems on this page are copyrighted by the Mathematical Association of America's American Mathematics Competitions. </p>
 <script>
+    document.getElementById("ans").addEventListener('keyup', function(event) { if (event.code === 'Enter') { event.preventDefault(); check_ans(); }});
     function Solution() {
         var x = document.getElementById("get_solution");
         if (x.style.display === "none") {
