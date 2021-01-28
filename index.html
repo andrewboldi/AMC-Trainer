@@ -44,6 +44,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                 outline: none;
                 line-height: 40px;
             }
+
             .input {
                 border: none;
                 max-width: 80%;
@@ -51,7 +52,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                 width: 170px;
                 border-radius: 10px;
                 box-shadow: 3px 3px 6px #ccc;
-                color: rgba(0, 0, 0, 0.2);
+                color: rgb(0, 0, 0);
                 background-repeat: no-repeat;
                 font-weight: 500;
                 text-shadow: none;
@@ -61,7 +62,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                 height: 40px;
                 outline: none;
                 line-height: 40px;
-             }
+            }
 
             .two-button {
                 margin: auto;
@@ -121,11 +122,85 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                 margin-left: 15%;
                 margin-right: 15%;
             }
+
+            .error {
+                position: relative;
+                animation: shakeInput .1s linear;
+                animation-iteration-count: 3;
+            }
+
+            @keyframes shakeInput {
+                0% {
+                    left: -5px;
+                }
+
+                100% {
+                    right: -5px;
+                }
+            }
+
+            img:hover {
+                animation: shake 2s;
+                animation-iteration-count: 200000;
+            }
+
+            @keyframes shake {
+                0% {
+                    transform: translate(1px, 1px) rotate(0deg);
+                }
+
+                10% {
+                    transform: translate(-1px, -2px) rotate(-1deg);
+                }
+
+                20% {
+                    transform: translate(-3px, 0px) rotate(1deg);
+                }
+
+                30% {
+                    transform: translate(3px, 2px) rotate(0deg);
+                }
+
+                40% {
+                    transform: translate(1px, -1px) rotate(1deg);
+                }
+
+                50% {
+                    transform: translate(-1px, 2px) rotate(-1deg);
+                }
+
+                60% {
+                    transform: translate(-3px, 1px) rotate(0deg);
+                }
+
+                70% {
+                    transform: translate(3px, 1px) rotate(-1deg);
+                }
+
+                80% {
+                    transform: translate(-1px, -1px) rotate(1deg);
+                }
+
+                90% {
+                    transform: translate(1px, 2px) rotate(0deg);
+                }
+
+                100% {
+                    transform: translate(1px, -2px) rotate(-1deg);
+                }
+            }
         </style>
     </head>
     <body style="background-image: url('https://lh3.googleusercontent.com/-YijoK4TetK4/YAOSnzcu5qI/AAAAAAAABgc/xg0HOTZSrEklDjFcZyDYdq1Eo4EMu9tYACK8BGAsYHg/s0/2021-01-16.png'); background-position: center; background-repeat: no-repeat; background-size: 100% 100%; background-attachment: fixed;">
         <img src="https://lh3.googleusercontent.com/-x2X5ScAU1_U/YAOd9BoDiSI/AAAAAAAAMic/IYuBqvLTwIMvXE679vJ2lqyUA47ijVAgACK8BGAsYHg/s512/2021-01-16.png" style="display:block; margin-top: 30px; margin-left: auto; margin-right: auto; margin-bottom: 30px;">
         <p id="Problems">
+            <select id="ddlViewBy2" class="ddl-button ddl-two-button ftw-lobby ftw-play cc_pointer" style="text-indent: 10%; text-align-last: center;">
+                <option style="color: gray;" value=Alg>Alg</option>
+                <option style="color: gray;" value=Geo>Geo</option>
+                <option style="color: gray;" value=CP>C+P</option>
+                <option style="color: gray;" value=NT>NT</option>
+                <option style="color: gray;" value="All" selected="selected">All</option>
+            </select>
             <select id="ddlViewBy" class="ddl-button ddl-two-button ftw-lobby ftw-play cc_pointer" style="text-indent: 10%; text-align-last: center;">
                 <option style="color: gray;" value=8>AMC 8</option>
                 <option style="color: gray;" value=10>AMC 10</option>
@@ -136,7 +211,9 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
             <button type="button" onclick="get_new_problem();" id="new_problem" class="new-button two-button" data-hover="New">New</button>
             <button type="button" class="new-button two-button" data-hover="Solution" onclick="Solution()">Solution</button>
         </p>
-        <strong><p id="problem_id" style="font-size: 24px;"></p></strong>
+        <strong>
+            <p id="problem_id" style="font-size: 24px;"></p>
+        </strong>
         <p id="problem"></p>
         <br></br>
         <p id="check_ans" style="display: none;">
@@ -148,9 +225,16 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
         <p>
             <span style="display: none;" id="get_solution"></span>
         </p>
-        </p><p style="position: relative; margin-right:40%; margin-left:40%; bottom: 0%; font-size: 10px;">The problems on this page are copyrighted by the Mathematical Association of America's American Mathematics Competitions and the solutions on this page are directly taken from the Art of Problem Solving AoPS Wiki. </p>
+</p><p style="position: relative; margin-right:40%; margin-left:40%; bottom: 0%; font-size: 10px;">The problems on this page are copyrighted by the Mathematical Association of America's American Mathematics Competitions and the solutions on this page are directly taken from the Art of Problem Solving AoPS Wiki. </p>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.3/dist/confetti.browser.min.js"></script>
 <script>
-    document.getElementById("ans").addEventListener('keyup', function(event) { if (event.code === 'Enter') { event.preventDefault(); check_ans(); }});
+
+    document.getElementById("ans").addEventListener('keyup', function(event) {
+        if (event.code === 'Enter') {
+            event.preventDefault();
+            check_ans();
+        }
+    });
     function Solution() {
         var x = document.getElementById("get_solution");
         if (x.style.display === "none") {
@@ -172,9 +256,9 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
             anHttpRequest.send(null);
         }
     }
-var lol;
-var anss;
-var solcode;
+    var lol;
+    var anss;
+    var solcode;
     function shuffle(array) {
         var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -196,6 +280,7 @@ var solcode;
 
     function get_new_problem() {
         var type = document.getElementById("ddlViewBy").value;
+        var subject = document.getElementById("ddlViewBy2").value;
         document.getElementById("check_ans").style.display = "none";
         document.getElementById("get_solution").style.display = "none";
         document.getElementById("if_correct").style.display = "none";
@@ -228,17 +313,17 @@ var solcode;
         } else if ((type == 10 || type == 12) && (yr < 2002)) {
             if_ab = false;
         }
-        
+
         var arr3 = [];
-        for (i = 1; i < 26; i++) {
+        for (i = 10; i < 26; i++) {
             arr3.push(i)
         }
         arr3 = shuffle(arr3);
         prob = arr3[0];
-        
+
         if (type == "AIME") {
             var yrAIME = [];
-            for (i=1983; i < 2021; i++) {
+            for (i = 1983; i < 2021; i++) {
                 yrAIME.push(i);
             }
             yr = shuffle(yrAIME)[0];
@@ -247,9 +332,9 @@ var solcode;
                 if_ab = false;
             }
             var probAIME = [];
-            for (i=1; i < 16; i++) {
+            for (i = 1; i < 16; i++) {
                 probAIME.push(i);
-            }    
+            }
             prob = shuffle(probAIME)[0];
         }
 
@@ -285,13 +370,23 @@ var solcode;
             }
             link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AIME_", aorb, "_Problems/Problem_", problem);
             answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AIME_", aorb, "_Answer_Key");
-            problem_id =  "".concat(year, " AIME ", aorb, " #", problem);
+            problem_id = "".concat(year, " AIME ", aorb, " #", problem);
         } else {
             link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, "_Problems/Problem_", problem);
             answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, "_Answer_Key_");
             problem_id = "".concat(year, " AMC ", amc, " #", problem);
         }
-
+        /*        
+        if (subject == "Geo") {
+            link = shuffle(geolinks)[0];
+        } else if (subject == "Alg") {
+            link = shuffle(alglinks)[0];
+        } else if (subject == "C+P") {
+            link = shuffle(cplinks)[0];
+        } else if (subject == "NT") {
+            link = shuffle(ntlinks)[0];
+        }
+*/
         var url = link;
 
         let xhr = new XMLHttpRequest();
@@ -308,8 +403,6 @@ var solcode;
                 response = response.replaceAll("</p><p><img src=", "<br></br></p><p><img src=");
                 response = response.replaceAll("<a href=", "<a target='_blank\' href=");
                 var data = response.split("<h2><span class=\"mw-headline\" id=\"Problem\">Problem</span></h2>")[1];
-                console.log(data)
-
                 var probcode = data.split("<h2>")[0];
                 console.log("<-----New Problem------->")
                 console.log("<-----Problem Link------>")
@@ -354,13 +447,61 @@ var solcode;
 
     }
 
-function check_ans() {
-    anss = ans.value.toString();
-    if (lol === anss) {
-        Solution();
-        document.getElementById("if_correct").style.display = "block";
+    function conf() {
+        var duration = 1 * 1000;
+        var animationEnd = Date.now() + duration;
+        var defaults = {
+            startVelocity: 50,
+            spread: 1000,
+            ticks: 1000,
+            zIndex: 0
+        };
+
+        function randomInRange(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        var interval = setInterval(function() {
+            var timeLeft = animationEnd - Date.now();
+
+            if (timeLeft <= 0) {
+                return clearInterval(interval);
+            }
+
+            var particleCount = 200 * (timeLeft / duration);
+            // since particles fall down, start a bit higher than random
+            confetti(Object.assign({}, defaults, {
+                particleCount,
+                origin: {
+                    x: randomInRange(0.1, 0.3),
+                    y: Math.random() - 0.2
+                }
+            }));
+            confetti(Object.assign({}, defaults, {
+                particleCount,
+                origin: {
+                    x: randomInRange(0.7, 0.9),
+                    y: Math.random() - 0.2
+                }
+            }));
+        }, 250);
+
     }
-    document.getElementById("ans").value='';
-}
+
+    function check_ans() {
+        anss = ans.value.toString().toUpperCase();
+        if (lol === anss) {
+            Solution();
+            conf();
+            document.getElementById("if_correct").style.display = "block";
+        }
+        if (lol != anss) {
+            document.getElementById("ans").classList.add("error");
+            setTimeout(function() {
+                document.getElementById("ans").classList.remove('error');
+            }, 300);
+        }
+        document.getElementById("ans").value = '';
+    }
 </script>
 </body></html>
