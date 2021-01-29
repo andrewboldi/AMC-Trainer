@@ -221,162 +221,162 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
             <button class="new-button two-button" style="color: white;" type="button" id="get_ans" onclick="check_ans();">Submit</button>
             <span id="if_correct" style="display: none;"></span>
         </p>
-        <br> </br>
+        <br></br>
         <p>
             <span style="display: none;" id="get_solution"></span>
         </p>
-<p style="position: relative; margin-right:40%; margin-left:40%; bottom: 0%; font-size: 10px;">The problems on this page are copyrighted by the Mathematical Association of America's American Mathematics Competitions and the solutions on this page are directly taken from the Art of Problem Solving AoPS Wiki. </p>
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.3/dist/confetti.browser.min.js"></script>
-<script>
+        <p style="position: relative; margin-right:40%; margin-left:40%; bottom: 0%; font-size: 10px;">The problems on this page are copyrighted by the Mathematical Association of America's American Mathematics Competitions and the solutions on this page are directly taken from the Art of Problem Solving AoPS Wiki. </p>
+        <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.3/dist/confetti.browser.min.js"></script>
+        <script>
 
-    document.getElementById("ans").addEventListener('keyup', function(event) {
-        if (event.code === 'Enter') {
-            event.preventDefault();
-            check_ans();
-        }
-    });
-    function Solution() {
-        var x = document.getElementById("get_solution");
-        if (x.style.display === "none") {
-            x.style.display = "block";
-        } else {
-            x.style.display = "none";
-        }
-    }
-
-    var HttpClient = function() {
-        this.get = function(aUrl, aCallback) {
-            var anHttpRequest = new XMLHttpRequest();
-            anHttpRequest.onreadystatechange = function() {
-                if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
-                    aCallback(anHttpRequest.responseText);
+            document.getElementById("ans").addEventListener('keyup', function(event) {
+                if (event.code === 'Enter') {
+                    event.preventDefault();
+                    check_ans();
+                }
+            });
+            function Solution() {
+                var x = document.getElementById("get_solution");
+                if (x.style.display === "none") {
+                    x.style.display = "block";
+                } else {
+                    x.style.display = "none";
+                }
             }
 
-            anHttpRequest.open("GET", aUrl, true);
-            anHttpRequest.send(null);
-        }
-    }
-    var lol;
-    var anss;
-    var solcode;
-    function shuffle(array) {
-        var currentIndex = array.length, temporaryValue, randomIndex;
+            var HttpClient = function() {
+                this.get = function(aUrl, aCallback) {
+                    var anHttpRequest = new XMLHttpRequest();
+                    anHttpRequest.onreadystatechange = function() {
+                        if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
+                            aCallback(anHttpRequest.responseText);
+                    }
 
-        // While there remain elements to shuffle...
-        while (0 !== currentIndex) {
-
-            // Pick a remaining element...
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex -= 1;
-
-            // And swap it with the current element.
-            temporaryValue = array[currentIndex];
-            array[currentIndex] = array[randomIndex];
-            array[randomIndex] = temporaryValue;
-        }
-
-        return array;
-    }
-
-    function get_new_problem() {
-        var type = document.getElementById("ddlViewBy").value;
-        var subject = document.getElementById("ddlViewBy2").value;
-        // document.getElementById("check_ans").style.display = "none";
-        document.getElementById("get_solution").style.display = "none";
-        document.getElementById("if_correct").style.display = "none";
-        if (type == "All") {
-            var arr1 = shuffle([8, 10, 12, "AIME"]);
-            type = arr1[0];
-        }
-
-        var if_ab = true;
-        var isAJHSME;
-
-        var arr2 = [];
-        for (i = 2000; i < 2021; i++) {
-            arr2.push(i);
-        }
-        arr2 = shuffle(arr2);
-        yr = arr2[0];
-
-        var arrA = [];
-        for (i = 1985; i < 1999; i++) {
-            arrA.push(i);
-        }
-        arrA = shuffle(arrA)
-        yearAJ = arrA[0]
-
-        if (type == 8) {
-            if_ab = false;
-            isAJHSME = shuffle([0, 1]);
-            isAJHSME = isAJHSME[0];
-        } else if ((type == 10 || type == 12) && (yr < 2002)) {
-            if_ab = false;
-        }
-
-        var arr3 = [];
-        for (i = 10; i < 26; i++) {
-            arr3.push(i)
-        }
-        arr3 = shuffle(arr3);
-        prob = arr3[0];
-
-        if (type == "AIME") {
-            var yrAIME = [];
-            for (i = 1983; i < 2021; i++) {
-                yrAIME.push(i);
+                    anHttpRequest.open("GET", aUrl, true);
+                    anHttpRequest.send(null);
+                }
             }
-            yr = shuffle(yrAIME)[0];
+            var lol;
+            var anss;
+            var solcode;
+            function shuffle(array) {
+                var currentIndex = array.length, temporaryValue, randomIndex;
 
-            if (yr < 2000) {
-                if_ab = false;
+                // While there remain elements to shuffle...
+                while (0 !== currentIndex) {
+
+                    // Pick a remaining element...
+                    randomIndex = Math.floor(Math.random() * currentIndex);
+                    currentIndex -= 1;
+
+                    // And swap it with the current element.
+                    temporaryValue = array[currentIndex];
+                    array[currentIndex] = array[randomIndex];
+                    array[randomIndex] = temporaryValue;
+                }
+
+                return array;
             }
-            var probAIME = [];
-            for (i = 1; i < 16; i++) {
-                probAIME.push(i);
-            }
-            prob = shuffle(probAIME)[0];
-        }
 
-        var year = yr.toString();
-        var amc = type.toString();
-        var problem = prob.toString();
+            function get_new_problem() {
+                var type = document.getElementById("ddlViewBy").value;
+                var subject = document.getElementById("ddlViewBy2").value;
+                // document.getElementById("check_ans").style.display = "none";
+                document.getElementById("get_solution").style.display = "none";
+                document.getElementById("if_correct").style.display = "none";
+                if (type == "All") {
+                    var arr1 = shuffle([8, 10, 12, "AIME"]);
+                    type = arr1[0];
+                }
 
-        var link = "";
-        var answer_key_link = "";
+                var if_ab = true;
+                var isAJHSME;
 
-        a_b = shuffle(["A", "B"]);
-        a_b = a_b[0];
-        var aorb = a_b.toString();
-        var problem_id;
+                var arr2 = [];
+                for (i = 2000; i < 2021; i++) {
+                    arr2.push(i);
+                }
+                arr2 = shuffle(arr2);
+                yr = arr2[0];
 
-        if ((amc == "8") && (isAJHSME == 1)) {
-            link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", yearAJ, "_AJHSME_", "Problems/Problem_", problem);
-            answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", yearAJ, "_AJHSME_Answer_Key");
-            problem_id = "".concat(yearAJ, " AJHSME #", problem);
-        } else if ((amc == "10" || amc == "12") && (if_ab == true)) {
-            link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, aorb, "_Problems/Problem_", problem);
-            answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, aorb, "_Answer_Key");
-            problem_id = "".concat(year, " AMC ", amc, aorb, " #", problem);
-        } else if ((amc == "AIME") && (if_ab == false)) {
-            link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AIME_", "_Problems/Problem_", problem);
-            answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AIME_Answer_Key");
-            problem_id = "".concat(year, " AIME #", problem);
-        } else if ((amc == "AIME") && (if_ab == true)) {
-            if (aorb == "A") {
-                aorb = "I";
-            } else {
-                aorb = "II";
-            }
-            link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AIME_", aorb, "_Problems/Problem_", problem);
-            answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AIME_", aorb, "_Answer_Key");
-            problem_id = "".concat(year, " AIME ", aorb, " #", problem);
-        } else {
-            link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, "_Problems/Problem_", problem);
-            answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, "_Answer_Key_");
-            problem_id = "".concat(year, " AMC ", amc, " #", problem);
-        }
-        /*        
+                var arrA = [];
+                for (i = 1985; i < 1999; i++) {
+                    arrA.push(i);
+                }
+                arrA = shuffle(arrA)
+                yearAJ = arrA[0]
+
+                if (type == 8) {
+                    if_ab = false;
+                    isAJHSME = shuffle([0, 1]);
+                    isAJHSME = isAJHSME[0];
+                } else if ((type == 10 || type == 12) && (yr < 2002)) {
+                    if_ab = false;
+                }
+
+                var arr3 = [];
+                for (i = 10; i < 26; i++) {
+                    arr3.push(i)
+                }
+                arr3 = shuffle(arr3);
+                prob = arr3[0];
+
+                if (type == "AIME") {
+                    var yrAIME = [];
+                    for (i = 1983; i < 2021; i++) {
+                        yrAIME.push(i);
+                    }
+                    yr = shuffle(yrAIME)[0];
+
+                    if (yr < 2000) {
+                        if_ab = false;
+                    }
+                    var probAIME = [];
+                    for (i = 1; i < 16; i++) {
+                        probAIME.push(i);
+                    }
+                    prob = shuffle(probAIME)[0];
+                }
+
+                var year = yr.toString();
+                var amc = type.toString();
+                var problem = prob.toString();
+
+                var link = "";
+                var answer_key_link = "";
+
+                a_b = shuffle(["A", "B"]);
+                a_b = a_b[0];
+                var aorb = a_b.toString();
+                var problem_id;
+
+                if ((amc == "8") && (isAJHSME == 1)) {
+                    link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", yearAJ, "_AJHSME_", "Problems/Problem_", problem);
+                    answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", yearAJ, "_AJHSME_Answer_Key");
+                    problem_id = "".concat(yearAJ, " AJHSME #", problem);
+                } else if ((amc == "10" || amc == "12") && (if_ab == true)) {
+                    link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, aorb, "_Problems/Problem_", problem);
+                    answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, aorb, "_Answer_Key");
+                    problem_id = "".concat(year, " AMC ", amc, aorb, " #", problem);
+                } else if ((amc == "AIME") && (if_ab == false)) {
+                    link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AIME_", "_Problems/Problem_", problem);
+                    answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AIME_Answer_Key");
+                    problem_id = "".concat(year, " AIME #", problem);
+                } else if ((amc == "AIME") && (if_ab == true)) {
+                    if (aorb == "A") {
+                        aorb = "I";
+                    } else {
+                        aorb = "II";
+                    }
+                    link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AIME_", aorb, "_Problems/Problem_", problem);
+                    answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AIME_", aorb, "_Answer_Key");
+                    problem_id = "".concat(year, " AIME ", aorb, " #", problem);
+                } else {
+                    link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, "_Problems/Problem_", problem);
+                    answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, "_Answer_Key_");
+                    problem_id = "".concat(year, " AMC ", amc, " #", problem);
+                }
+                /*        
         if (subject == "Geo") {
             link = shuffle(geolinks)[0];
         } else if (subject == "Alg") {
@@ -387,124 +387,125 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
             link = shuffle(ntlinks)[0];
         }
 */
-        var url = link;
+                var url = link;
 
-        let xhr = new XMLHttpRequest();
-        xhr.open('GET', url, true);
-        xhr.send();
+                let xhr = new XMLHttpRequest();
+                xhr.open('GET', url, true);
+                xhr.send();
 
-        xhr.onreadystatechange = processRequest;
-        function processRequest(e) {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                var response = xhr.responseText;
-                response = response.replaceAll("'", '"');
-                response = response.replaceAll('<a href=\"', '<a href=\"https://wandering-sky-a896.cbracketdash.workers.dev/?https://www.artofproblemsolving.com');
-                response = response.replaceAll("//latex.artofproblemsolving.com", "https://wandering-sky-a896.cbracketdash.workers.dev/?https://latex.artofproblemsolving.com");
-                response = response.replaceAll("</p><p><img src=", "<br></br></p><p><img src=");
-                response = response.replaceAll("<a href=", "<a target='_blank\' href=");
-                var data = response.split("<h2><span class=\"mw-headline\" id=\"Problem")[1];
-                var probcode = data.split("<h2>")[0];
-                probcode = probcode.split("</span></h2>")[1];
-                console.log("<-----New Problem------->")
-                console.log("<-----Problem Link------>")
-                console.log(link.replaceAll("https://wandering-sky-a896.cbracketdash.workers.dev/?", ""));
-                console.log("<-----Problem Code------>")
-                console.log(probcode.replaceAll("https://wandering-sky-a896.cbracketdash.workers.dev/?", ""));
-                document.getElementById("problem_id").innerHTML = problem_id;
-                document.getElementById("problem").innerHTML = probcode;
-                document.getElementById("check_ans").style.display = "block";
-                console.log("<-----Solution Code----->")
-                solcode = data.split("<h2><span class=\"mw-headline\" id=\"See_")[0];
-                solcode = solcode.substring(solcode.indexOf("<h2><span"));
-                console.log(solcode.replaceAll("https://wandering-sky-a896.cbracketdash.workers.dev/?", ""));
-                document.getElementById("get_solution").innerHTML = solcode;
-
-                let xhr2 = new XMLHttpRequest();
-                xhr2.open('GET', answer_key_link, true);
-                xhr2.send();
-
-                xhr2.onreadystatechange = processRequest;
+                xhr.onreadystatechange = processRequest;
                 function processRequest(e) {
-                    if (xhr2.readyState == 4 && xhr2.status == 200) {
-                        var response2 = xhr2.responseText;
-                        response2 = response2.split('<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">')[1];
-                        response2 = response2.split('<!--')[0];
-                        response2 = response2.split('<li>');
-                        response2 = response2[problem];
-                        if (type == "AIME") {
-                            response2 = response2.substring(0, 3);
-                        } else {
-                            response2 = response2.charAt(0);
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        var response = xhr.responseText;
+                        response = response.replaceAll("'", '"');
+                        response = response.replaceAll('<a href=\"', '<a href=\"https://wandering-sky-a896.cbracketdash.workers.dev/?https://www.artofproblemsolving.com');
+                        response = response.replaceAll("//latex.artofproblemsolving.com", "https://wandering-sky-a896.cbracketdash.workers.dev/?https://latex.artofproblemsolving.com");
+                        response = response.replaceAll("</p><p><img src=", "<br></br></p><p><img src=");
+                        response = response.replaceAll("<a href=", "<a target='_blank\' href=");
+                        var data = response.split("<h2><span class=\"mw-headline\" id=\"Problem")[1];
+                        var probcode = data.split("<h2>")[0];
+                        probcode = probcode.split("</span></h2>")[1];
+                        console.log("<-----New Problem------->")
+                        console.log("<-----Problem Link------>")
+                        console.log(link.replaceAll("https://wandering-sky-a896.cbracketdash.workers.dev/?", ""));
+                        console.log("<-----Problem Code------>")
+                        console.log(probcode.replaceAll("https://wandering-sky-a896.cbracketdash.workers.dev/?", ""));
+                        document.getElementById("problem_id").innerHTML = problem_id;
+                        document.getElementById("problem").innerHTML = probcode;
+                        document.getElementById("check_ans").style.display = "block";
+                        console.log("<-----Solution Code----->")
+                        solcode = data.split("<h2><span class=\"mw-headline\" id=\"See_")[0];
+                        solcode = solcode.substring(solcode.indexOf("<h2><span"));
+                        console.log(solcode.replaceAll("https://wandering-sky-a896.cbracketdash.workers.dev/?", ""));
+                        document.getElementById("get_solution").innerHTML = solcode;
+
+                        let xhr2 = new XMLHttpRequest();
+                        xhr2.open('GET', answer_key_link, true);
+                        xhr2.send();
+
+                        xhr2.onreadystatechange = processRequest;
+                        function processRequest(e) {
+                            if (xhr2.readyState == 4 && xhr2.status == 200) {
+                                var response2 = xhr2.responseText;
+                                response2 = response2.split('<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">')[1];
+                                response2 = response2.split('<!--')[0];
+                                response2 = response2.split('<li>');
+                                response2 = response2[problem];
+                                if (type == "AIME") {
+                                    response2 = response2.substring(0, 3);
+                                } else {
+                                    response2 = response2.charAt(0);
+                                }
+                                console.log("<-----Answer Key Link----->")
+                                console.log(answer_key_link.replaceAll("https://wandering-sky-a896.cbracketdash.workers.dev/?", ""));
+                                console.log("<-----Problem Answer------>")
+                                console.log(response2.replaceAll("https://wandering-sky-a896.cbracketdash.workers.dev/?", ""));
+                                lol = response2;
+                            }
                         }
-                        console.log("<-----Answer Key Link----->")
-                        console.log(answer_key_link.replaceAll("https://wandering-sky-a896.cbracketdash.workers.dev/?", ""));
-                        console.log("<-----Problem Answer------>")
-                        console.log(response2.replaceAll("https://wandering-sky-a896.cbracketdash.workers.dev/?", ""));
-                        lol = response2;
                     }
                 }
+
             }
-        }
+            function conf() {
+                confetti();
+                confetti.reset();
+                var duration = 1 * 1000;
+                var animationEnd = Date.now() + duration;
+                var defaults = {
+                    startVelocity: 50,
+                    spread: 1000,
+                    ticks: 1000,
+                    zIndex: 0
+                };
 
-    }
-    function conf() {
-        confetti();
-        confetti.reset();
-        var duration = 1 * 1000;
-        var animationEnd = Date.now() + duration;
-        var defaults = {
-            startVelocity: 50,
-            spread: 1000,
-            ticks: 1000,
-            zIndex: 0
-        };
+                function randomInRange(min, max) {
+                    return Math.random() * (max - min) + min;
+                }
 
-        function randomInRange(min, max) {
-            return Math.random() * (max - min) + min;
-        }
+                var interval = setInterval(function() {
+                    var timeLeft = animationEnd - Date.now();
 
-        var interval = setInterval(function() {
-            var timeLeft = animationEnd - Date.now();
+                    if (timeLeft <= 0) {
+                        return clearInterval(interval);
+                    }
 
-            if (timeLeft <= 0) {
-                return clearInterval(interval);
+                    var particleCount = 200 * (timeLeft / duration);
+                    // since particles fall down, start a bit higher than random
+                    confetti(Object.assign({}, defaults, {
+                        particleCount,
+                        origin: {
+                            x: randomInRange(0.1, 0.3),
+                            y: Math.random() - 0.2
+                        }
+                    }));
+                    confetti(Object.assign({}, defaults, {
+                        particleCount,
+                        origin: {
+                            x: randomInRange(0.7, 0.9),
+                            y: Math.random() - 0.2
+                        }
+                    }));
+                }, 250);
+
             }
 
-            var particleCount = 200 * (timeLeft / duration);
-            // since particles fall down, start a bit higher than random
-            confetti(Object.assign({}, defaults, {
-                particleCount,
-                origin: {
-                    x: randomInRange(0.1, 0.3),
-                    y: Math.random() - 0.2
+            function check_ans() {
+                anss = ans.value.toString().toUpperCase();
+                if (lol === anss) {
+                    Solution();
+                    conf();
+                    document.getElementById("check_ans").style.display = "none";
+                    document.getElementById("if_correct").style.display = "block";
                 }
-            }));
-            confetti(Object.assign({}, defaults, {
-                particleCount,
-                origin: {
-                    x: randomInRange(0.7, 0.9),
-                    y: Math.random() - 0.2
+                if (lol != anss) {
+                    document.getElementById("ans").classList.add("error");
+                    setTimeout(function() {
+                        document.getElementById("ans").classList.remove('error');
+                    }, 300);
                 }
-            }));
-        }, 250);
-
-    }
-
-    function check_ans() {
-        anss = ans.value.toString().toUpperCase();
-        if (lol === anss) {
-            Solution();
-            conf();
-            document.getElementById("check_ans").style.display = "none";
-            document.getElementById("if_correct").style.display = "block";
-        }
-        if (lol != anss) {
-            document.getElementById("ans").classList.add("error");
-            setTimeout(function() {
-                document.getElementById("ans").classList.remove('error');
-            }, 300);
-        }
-        document.getElementById("ans").value = '';
-    }
-</script>
-</body></html>
+                document.getElementById("ans").value = '';
+            }
+        </script>
+    </body>
+</html>
