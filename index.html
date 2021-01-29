@@ -218,7 +218,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
         <br> </br>
         <p id="check_ans" style="display: none;">
             <input class="input" type="text" id="ans" name="ans" value="">
-            <button class="new-button two-button" type="button" id="get_ans" onclick="check_ans();">Submit</button>
+            <button class="new-button two-button" style="color: white;" type="button" id="get_ans" onclick="check_ans();">Submit</button>
             <span id="if_correct" style="display: none;"></span>
         </p>
         <br> </br>
@@ -281,7 +281,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
     function get_new_problem() {
         var type = document.getElementById("ddlViewBy").value;
         var subject = document.getElementById("ddlViewBy2").value;
-        document.getElementById("check_ans").style.display = "none";
+        // document.getElementById("check_ans").style.display = "none";
         document.getElementById("get_solution").style.display = "none";
         document.getElementById("if_correct").style.display = "none";
         if (type == "All") {
@@ -402,8 +402,9 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                 response = response.replaceAll("//latex.artofproblemsolving.com", "https://wandering-sky-a896.cbracketdash.workers.dev/?https://latex.artofproblemsolving.com");
                 response = response.replaceAll("</p><p><img src=", "<br></br></p><p><img src=");
                 response = response.replaceAll("<a href=", "<a target='_blank\' href=");
-                var data = response.split("<h2><span class=\"mw-headline\" id=\"Problem\">Problem</span></h2>")[1];
+                var data = response.split("<h2><span class=\"mw-headline\" id=\"Problem")[1];
                 var probcode = data.split("<h2>")[0];
+                probcode = probcode.split("</span></h2>")[1];
                 console.log("<-----New Problem------->")
                 console.log("<-----Problem Link------>")
                 console.log(link.replaceAll("https://wandering-sky-a896.cbracketdash.workers.dev/?", ""));
@@ -411,6 +412,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                 console.log(probcode.replaceAll("https://wandering-sky-a896.cbracketdash.workers.dev/?", ""));
                 document.getElementById("problem_id").innerHTML = problem_id;
                 document.getElementById("problem").innerHTML = probcode;
+                document.getElementById("check_ans").style.display = "block";
                 console.log("<-----Solution Code----->")
                 solcode = data.split("<h2><span class=\"mw-headline\" id=\"See_")[0];
                 solcode = solcode.substring(solcode.indexOf("<h2><span"));
@@ -439,20 +441,15 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                         console.log("<-----Problem Answer------>")
                         console.log(response2.replaceAll("https://wandering-sky-a896.cbracketdash.workers.dev/?", ""));
                         lol = response2;
-                        document.getElementById("check_ans").style.display = "block";
                     }
                 }
             }
         }
 
     }
-
     function conf() {
-        try {
-            confetti.reset();
-        } catch (error) {
-            console.log("hi");
-        }
+        confetti();
+        confetti.reset();
         var duration = 1 * 1000;
         var animationEnd = Date.now() + duration;
         var defaults = {
@@ -498,6 +495,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
         if (lol === anss) {
             Solution();
             conf();
+            document.getElementById("check_ans").style.display = "none";
             document.getElementById("if_correct").style.display = "block";
         }
         if (lol != anss) {
