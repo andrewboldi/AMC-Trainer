@@ -190,6 +190,12 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                 }
             }
 
+            .latex {
+                filter: invert(1);
+            }
+            .text {
+                color: white;
+            }
         </style>
     </head>
     <body id="body" style="background-image: linear-gradient(to right, rgb(0, 201, 255), rgb(145, 254, 158)); background-position: center; background-repeat: no-repeat; background-size: 100% 100%; background-attachment: fixed;">
@@ -391,8 +397,10 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                         response = response.replaceAll("'", '"');
                         response = response.replaceAll('<a href=\"', '<a href=\"https://wandering-sky-a896.cbracketdash.workers.dev/?https://www.artofproblemsolving.com');
                         response = response.replaceAll("//latex.artofproblemsolving.com", "https://wandering-sky-a896.cbracketdash.workers.dev/?https://latex.artofproblemsolving.com");
+                        response = response.replaceAll("<img src=\"", "<img class=\"latex\" src=\"");
                         response = response.replaceAll("</p><p><img src=", "<br></br></p><p><img src=");
                         response = response.replaceAll("<a href=", "<a target='_blank\' href=");
+                        response = response.replaceAll("<p>", "<p class=\"text\">");
                         var data = response.split("<h2><span class=\"mw-headline\" id=\"Problem")[1];
                         var probcode = data.split("<h2>")[0];
                         probcode = probcode.split("</span></h2>")[1];
