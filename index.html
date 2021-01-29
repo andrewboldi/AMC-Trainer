@@ -189,10 +189,11 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                     transform: translate(1px, -2px) rotate(-1deg);
                 }
             }
+
         </style>
     </head>
-    <body style="background-image: url('https://lh3.googleusercontent.com/-YijoK4TetK4/YAOSnzcu5qI/AAAAAAAABgc/xg0HOTZSrEklDjFcZyDYdq1Eo4EMu9tYACK8BGAsYHg/s0/2021-01-16.png'); background-position: center; background-repeat: no-repeat; background-size: 100% 100%; background-attachment: fixed;">
-        <img src="https://lh3.googleusercontent.com/-x2X5ScAU1_U/YAOd9BoDiSI/AAAAAAAAMic/IYuBqvLTwIMvXE679vJ2lqyUA47ijVAgACK8BGAsYHg/s512/2021-01-16.png" style="display:block; margin-top: 30px; margin-left: auto; margin-right: auto; margin-bottom: 30px;">
+    <body id="body" style="background-image: linear-gradient(to right, rgb(0, 201, 255), rgb(145, 254, 158)); background-position: center; background-repeat: no-repeat; background-size: 100% 100%; background-attachment: fixed;">
+       <img src="https://lh3.googleusercontent.com/-x2X5ScAU1_U/YAOd9BoDiSI/AAAAAAAAMic/IYuBqvLTwIMvXE679vJ2lqyUA47ijVAgACK8BGAsYHg/s512/2021-01-16.png" style="display:block; margin-top: 30px; margin-left: auto; margin-right: auto; margin-bottom: 30px;">
         <p id="Problems">
             <select id="ddlViewBy2" class="ddl-button ddl-two-button ftw-lobby ftw-play cc_pointer" style="text-indent: 10%; text-align-last: center;">
                 <option style="color: gray;" value=Alg>Alg</option>
@@ -209,7 +210,6 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                 <option style="color: gray;" value="All" selected="selected">All</option>
             </select>
             <button type="button" onclick="get_new_problem();" id="new_problem" class="new-button two-button" data-hover="New">New</button>
-            <button type="button" class="new-button two-button" data-hover="Solution" onclick="Solution()">Solution</button>
         </p>
         <strong>
             <p id="problem_id" style="font-size: 24px;"></p>
@@ -225,25 +225,16 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
         <p>
             <span style="display: none;" id="get_solution"></span>
         </p>
-        <p style="position: relative; margin-right:40%; margin-left:40%; bottom: 0%; font-size: 10px;">The problems on this page are copyrighted by the Mathematical Association of America's American Mathematics Competitions and the solutions on this page are directly taken from the Art of Problem Solving AoPS Wiki. </p>
+        
+</body>
         <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.3/dist/confetti.browser.min.js"></script>
         <script>
-
             document.getElementById("ans").addEventListener('keyup', function(event) {
                 if (event.code === 'Enter') {
                     event.preventDefault();
                     check_ans();
                 }
             });
-            function Solution() {
-                var x = document.getElementById("get_solution");
-                if (x.style.display === "none") {
-                    x.style.display = "block";
-                } else {
-                    x.style.display = "none";
-                }
-            }
-
             var HttpClient = function() {
                 this.get = function(aUrl, aCallback) {
                     var anHttpRequest = new XMLHttpRequest();
@@ -493,7 +484,12 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
             function check_ans() {
                 anss = ans.value.toString().toUpperCase();
                 if (lol === anss) {
-                    Solution();
+                    var x = document.getElementById("get_solution");
+                    if (x.style.display === "none") {
+                        x.style.display = "block";
+                    } else {
+                        x.style.display = "none";
+                    }
                     conf();
                     document.getElementById("check_ans").style.display = "none";
                     document.getElementById("if_correct").style.display = "block";
@@ -507,5 +503,4 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                 document.getElementById("ans").value = '';
             }
         </script>
-    </body>
 </html>
