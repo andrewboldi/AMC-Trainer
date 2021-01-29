@@ -406,15 +406,15 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                 var probcode = data.split("<h2>")[0];
                 console.log("<-----New Problem------->")
                 console.log("<-----Problem Link------>")
-                console.log(link);
+                console.log(link.replaceAll("https://wandering-sky-a896.cbracketdash.workers.dev/?", ""));
                 console.log("<-----Problem Code------>")
-                console.log(probcode);
+                console.log(probcode.replaceAll("https://wandering-sky-a896.cbracketdash.workers.dev/?", ""));
                 document.getElementById("problem_id").innerHTML = problem_id;
                 document.getElementById("problem").innerHTML = probcode;
                 console.log("<-----Solution Code----->")
                 solcode = data.split("<h2><span class=\"mw-headline\" id=\"See_")[0];
                 solcode = solcode.substring(solcode.indexOf("<h2><span"));
-                console.log(solcode);
+                console.log(solcode.replaceAll("https://wandering-sky-a896.cbracketdash.workers.dev/?", ""));
                 document.getElementById("get_solution").innerHTML = solcode;
 
                 let xhr2 = new XMLHttpRequest();
@@ -435,9 +435,9 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                             response2 = response2.charAt(0);
                         }
                         console.log("<-----Answer Key Link----->")
-                        console.log(answer_key_link);
+                        console.log(answer_key_link.replaceAll("https://wandering-sky-a896.cbracketdash.workers.dev/?", ""));
                         console.log("<-----Problem Answer------>")
-                        console.log(response2);
+                        console.log(response2.replaceAll("https://wandering-sky-a896.cbracketdash.workers.dev/?", ""));
                         lol = response2;
                         document.getElementById("check_ans").style.display = "block";
                     }
@@ -448,6 +448,11 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
     }
 
     function conf() {
+        try {
+            confetti.reset();
+        } catch (error) {
+            console.log("hi");
+        }
         var duration = 1 * 1000;
         var animationEnd = Date.now() + duration;
         var defaults = {
