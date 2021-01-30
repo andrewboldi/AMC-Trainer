@@ -64,7 +64,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
         <p>
         </select>
 
-      <input style="cursor: text;" class="button input" type="text" id="color" value="light">
+      <input style="cursor: text;" class="button input" type="text" id="textColor" value="D">
       <input style="cursor: pointer; background-image: none;" class="button input;" type="color" id="g1" name="g1" value="#e65c00">
       <input style="cursor: pointer; background-image: none;" class="button input;" type="color" id="g2" name="g2" value="#f9d423">
       <input onclick="grad(); textc();" type="submit" value="save">
@@ -79,6 +79,8 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                     left = hex2rgb(left);
                     right = hex2rgb(right);
                     document.getElementById("body").style.backgroundImage = `linear-gradient(to right, ${left} 20%, ${right} 80%)`;
+                    document.querySelectorAll('.button').forEach(element => {element.style.backgroundImage = `linear-gradient(to right, ${right}, ${left})`;}); 
+                    document.querySelectorAll('.input').forEach(element => {element.style.backgroundImage = "none";});
       //              document.getElementsByClassName("button").style.backgroundImage = `linear-gradient(to right, ${right}, ${left})`;
 
                 }
@@ -98,12 +100,12 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                 document.querySelectorAll('.text img').forEach(element => {element.style.filter = 'invert(0)';});
             }
             function textc() {
-                if (document.getElementById("color").value == "dark") {
+                if ((document.getElementById("textColor").value == "d") || (document.getElementById("textColor").value == "D")) {
                     dark();
-                } else if (document.getElementById("color").value == "light") {
+                } else if ((document.getElementById("textColor").value == "l") || (document.getElementById("textColor").value == "L")) {
                     light();
                 } else {
-                    document.getElementById("color").value = "";
+                    document.getElementById("textColor").value = "";
                 }
 
             }
