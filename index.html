@@ -27,7 +27,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
         </script>
         <link rel="stylesheet" href="style.css">
     </head>
-    <body id="body" style="background-image: linear-gradient(to right, rgb(0, 0, 0), rgb(26, 26, 26));" class="body">
+    <body id="body" style="background-image: linear-gradient(to right, rgb(145, 254, 158) 20%, rgb(0, 201, 255) 80%);" class="body">
        <img src="https://lh3.googleusercontent.com/-x2X5ScAU1_U/YAOd9BoDiSI/AAAAAAAAMic/IYuBqvLTwIMvXE679vJ2lqyUA47ijVAgACK8BGAsYHg/s512/2021-01-16.png" style="display:block; margin-top: 30px; margin-left: auto; margin-right: auto; margin-bottom: 30px;">
         <p id="Problems">
             <select id="ddlViewBy2" class="ddl button" style="text-indent: 10%; text-align-last: center;">
@@ -78,7 +78,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                     let hex2rgb= c=> `rgb(${c.substr(1).match(/../g).map(x=>+`0x${x}`)})`;
                     left = hex2rgb(left);
                     right = hex2rgb(right);
-                    document.getElementById("body").style.backgroundImage = `linear-gradient(to right, ${left}, ${right})`;
+                    document.getElementById("body").style.backgroundImage = `linear-gradient(to right, ${left} 20%, ${right} 80%)`;
       //              document.getElementsByClassName("button").style.backgroundImage = `linear-gradient(to right, ${right}, ${left})`;
 
                 }

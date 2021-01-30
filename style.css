@@ -97,7 +97,7 @@
                 filter: invert(1);
             }
             .body {
-                background-image: linear-gradient(to right, rgb(0, 0, 0), rgb(26, 26, 26));
+                background-image: linear-gradient(to right, rgb(145, 254, 158), rgb(0, 201, 255));
                 background-position: center;
                 background-repeat: no-repeat;
                 background-size: 100% 100%;
