@@ -27,7 +27,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
         </script>
         <link rel="stylesheet" href="style.css">
     </head>
-    <body id="body" class="body">
+    <body id="body" style="background-image: linear-gradient(to right, rgb(0, 0, 0), rgb(26, 26, 26));" class="body">
        <img src="https://lh3.googleusercontent.com/-x2X5ScAU1_U/YAOd9BoDiSI/AAAAAAAAMic/IYuBqvLTwIMvXE679vJ2lqyUA47ijVAgACK8BGAsYHg/s512/2021-01-16.png" style="display:block; margin-top: 30px; margin-left: auto; margin-right: auto; margin-bottom: 30px;">
         <p id="Problems">
             <select id="ddlViewBy2" class="ddl button" style="text-indent: 10%; text-align-last: center;">
@@ -57,13 +57,14 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
             <span class="text" id="if_correct" style="display: none;"></span>
         </p>
         <br></br>
-        <p>
+        <p class="text">
             <span style="display: none;" id="get_solution"></span>
         </p>
         
         <p>
-        <button onclick="light()">light</button>
-        <button onclick="dark()">dark</button>
+            <button onclick="light();">ligt</button>
+                <button onclick="dark();">dakr</button>
+        </select>
         </p>
 </body>
         <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.3/dist/confetti.browser.min.js"></script>
@@ -71,14 +72,15 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
             function dark() {
                 document.querySelectorAll('.body').forEach(element => {element.style = 'background-image: linear-gradient(to right, rgb(0, 0, 0), rgb(26, 26, 26))';}); 
                 document.querySelectorAll('.text').forEach(element => {element.style.color = 'white';}); 
-                document.querySelectorAll('.latex').forEach(element => {element.style.filter = 'invert(1)';});
+                document.querySelectorAll('.text img').forEach(element => {element.style.filter = 'invert(1)';});
             }
             function light() {
                 document.querySelectorAll('.body').forEach(element => {element.style = 'background-image: linear-gradient(to right, rgb(0, 201, 255), rgb(145, 254, 158))';}); 
                 document.querySelectorAll('.text').forEach(element => {element.style.color = 'black';}); 
-                document.querySelectorAll('.latex').forEach(element => {element.style.filter = 'invert(0)';});
+                document.querySelectorAll('.text img').forEach(element => {element.style.filter = 'invert(0)';});
             }
-            document.getElementById("ans").addEventListener('keyup', function(event) {
+ 
+           document.getElementById("ans").addEventListener('keyup', function(event) {
                 if (event.code === 'Enter') {
                     event.preventDefault();
                     check_ans();
@@ -260,7 +262,12 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                         solcode = solcode.replaceAll("><span class=\"mw-headline\" ", " class=\"text\"><span class=\"mw-headline\" ");
                         console.log(solcode.replaceAll("https://wandering-sky-a896.cbracketdash.workers.dev/?", ""));
                         document.getElementById("get_solution").innerHTML = solcode;
-
+                        console.log(document.getElementById("body").style.backgroundImage);
+                        if (document.getElementById("body").style.backgroundImage == "linear-gradient(to right, rgb(0, 0, 0), rgb(26, 26, 26))") {
+                            dark();
+                        } else {
+                            light();
+                        }
                         let xhr2 = new XMLHttpRequest();
                         xhr2.open('GET', answer_key_link, true);
                         xhr2.send();
@@ -284,6 +291,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                                 console.log(response2.replaceAll("https://wandering-sky-a896.cbracketdash.workers.dev/?", ""));
                                 lol = response2;
                             }
+
                         }
                     }
                 }
