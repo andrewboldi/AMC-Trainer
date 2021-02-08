@@ -27,9 +27,9 @@
                 document.querySelectorAll('.text img').forEach(element => {element.style.filter = 'invert(0)';});
             }
             function textc() {
-                if ((document.getElementById("textColor").value == "d") || (document.getElementById("textColor").value == "D")) {
+                if ((document.getElementById("textColor").value == "B") || (document.getElementById("textColor").value == "B")) {
                     dark();
-                } else if ((document.getElementById("textColor").value == "l") || (document.getElementById("textColor").value == "L")) {
+                } else if ((document.getElementById("textColor").value == "W") || (document.getElementById("textColor").value == "W")) {
                     light();
                 } else {
                     document.getElementById("textColor").value = "";
