@@ -31,11 +31,8 @@
                     dark();
                 } else if ((document.getElementById("textColor").value == "W") || (document.getElementById("textColor").value == "W")) {
                     light();
-                } else {
-                    document.getElementById("textColor").value = "";
                 }
-
-            }
+           }
  
            document.getElementById("ans").addEventListener('keyup', function(event) {
                 if (event.code === 'Enter') {
@@ -221,11 +218,6 @@
                         document.getElementById("get_solution").innerHTML = solcode;
                         console.log(document.getElementById("body").style.backgroundImage);
                         textc();
-                       /* if (document.getElementById("body").style.backgroundImage == "linear-gradient(to right, rgb(0, 0, 0), rgb(26, 26, 26))") {
-                            dark();
-                        } else {
-                            light();
-                        }*/
                         let xhr2 = new XMLHttpRequest();
                         xhr2.open('GET', answer_key_link, true);
                         xhr2.send();
