@@ -1,4 +1,12 @@
-
+            function logo() {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "https://wandering-sky-a896.cbracketdash.workers.dev/?https://fontmeme.com/loadmeAlt_21.php", true);
+                xhr.send("id=221367&name=TESLA.ttf&text=AMC Trainer&size=65&style_color=#4087CB&style_effect=None&style_ol=Default&style_col=#00C9FF")
+                if (xhr.readyState == 4)
+                    if (xhr.status == 200)
+                        var a = xhr.responseText;
+                        console.log(a);
+            }
             function grad() {
                     var left = document.getElementById("g1").value
                     var right = document.getElementById("g2").value
@@ -172,17 +180,34 @@
                     answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, "_Answer_Key_");
                     problem_id = "".concat(year, " AMC ", amc, " #", problem);
                 }
-                /*        
-        if (subject == "Geo") {
-            link = shuffle(geolinks)[0];
-        } else if (subject == "Alg") {
-            link = shuffle(alglinks)[0];
-        } else if (subject == "C+P") {
-            link = shuffle(cplinks)[0];
-        } else if (subject == "NT") {
-            link = shuffle(ntlinks)[0];
-        }
-*/
+                var geolinks = ["https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php/2014_AMC_10A_Problems/Problem_23"]
+
+                let xhr4 = new XMLHttpRequest();
+                xhr4.open('GET', "https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=Category:Introductory_Geometry_Problems&pagefrom=2010+AMC+12A+Problems%2FProblem+14", true);
+                xhr4.send();
+
+                xhr4.onreadystatechange = processt;
+                function processt(e) {
+                    if (xhr4.readyState == 4 && xhr4.status == 200) {
+                        var georesp = xhr4.responseText;
+                        georesp = georesp.replaceAll("'", '"');
+                        georesp = georesp.replaceAll('<a href=\"', '<a target="_blank" href=\"https://wandering-sky-a896.cbracketdash.workers.dev/?https://www.artofproblemsolving.com');
+                        georesp = georesp.split("<ul><li>")[1];
+                        georesp = georesp.split("</li></ul>")[0];
+                        georesp = "<ul><li>".concat(georesp, "</li></ul>");
+                        console.log(georesp);
+                    }
+                }
+                if (subject == "Geo") {
+                    link = geolinks[0];
+                    problem_id = geolinks[0].split("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php/")[1].replaceAll("_", " ").replaceAll("Problems/Problem", "#");
+                } else if (subject == "Alg") {
+                    link = shuffle(alglinks)[0];
+                } else if (subject == "C+P") {
+                    link = shuffle(cplinks)[0];
+                } else if (subject == "NT") {
+                    link = shuffle(ntlinks)[0];
+                }
                 var url = link;
 
                 let xhr = new XMLHttpRequest();
