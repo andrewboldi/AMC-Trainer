@@ -97,7 +97,7 @@
                 var isAJHSME;
 
                 var arr2 = [];
-                for (i = 2000; i < 2021; i++) {
+                for (i = 2000; i < 2022; i++) {
                     arr2.push(i);
                 }
                 arr2 = shuffle(arr2);
