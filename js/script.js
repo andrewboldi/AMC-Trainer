@@ -1,12 +1,3 @@
-            function logo() {
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", "https://wandering-sky-a896.cbracketdash.workers.dev/?https://fontmeme.com/loadmeAlt_21.php", true);
-                xhr.send("id=221367&name=TESLA.ttf&text=AMC Trainer&size=65&style_color=#4087CB&style_effect=None&style_ol=Default&style_col=#00C9FF")
-                if (xhr.readyState == 4)
-                    if (xhr.status == 200)
-                        var a = xhr.responseText;
-                        console.log(a);
-            }
             function grad() {
                     var left = document.getElementById("g1").value
                     var right = document.getElementById("g2").value
