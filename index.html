@@ -28,13 +28,36 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body id="body" style="background-image: linear-gradient(to right, rgb(145, 254, 158) 20%, rgb(0, 201, 255) 80%);" class="body">
-       <div style="position: absolute; right: 0px; top: 5px;" class="w3-container">
-<img src="img/settings.svg" style="width: 30px; height: 30px; right: 0px;" onclick="document.getElementById('id01').style.display='block'" class="w3-button">
 
-<div id="id01" class="w3-modal">
+
+
+       <div style="position: absolute; left: 0px; top: 5px;" class="w3-container">
+  <img src="img/info_button.png" style="width: 40px; height: 40px;" onclick="document.getElementById('infoButton').style.display='block'" class="w3-button">
+
+  <div id="infoButton" class="w3-modal">
+    <div class="w3-modal-content w3-animate-zoom w3-card-4">
+      <header class="w3-container"> 
+        <span onclick="document.getElementById('infoButton').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+        <h2>Credits</h2>
+      </header>
+      <div class="w3-container">
+        <p>The problems on this page are copyrighted by the Mathematical Association of America's American Mathematics Competitions and the solutions on this page are directly taken from the Art of Problem Solving AoPS Wiki.</p>
+      </div>
+
+    </div>
+  </div>
+ </div> 
+<script>
+</script>
+
+
+       <div style="position: absolute; right: 0px; top: 5px;" class="w3-container">
+<img src="img/settings.svg" style="width: 30px; height: 30px; right: 100px;" onclick="document.getElementById('settingsButton').style.display='block'" class="w3-button">
+
+<div id="settingsButton" class="w3-modal">
  <div class="w3-modal-content w3-card-4 w3-animate-zoom">
   <header class="w3-container"> 
-   <span onclick="document.getElementById('id01').style.display='none'" 
+   <span onclick="document.getElementById('settingsButton').style.display='none'" 
    class="w3-button w3-xlarge w3-display-topright">&times;</span>
    <h2>Settings</h2>
   </header>
@@ -93,6 +116,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
 </div>
 
 <script>
+
 document.getElementsByClassName("tablink")[0].click();
 
 function openCity(evt, cityName) {
@@ -108,16 +132,18 @@ function openCity(evt, cityName) {
   document.getElementById(cityName).style.display = "block";
   evt.currentTarget.classList.add("w3-light-grey");
 }
-var modal = document.getElementById('id01');
+var modal = document.getElementById('settingsButton');
 
-// When the user clicks anywhere outside of the modal, close it
+var info = document.getElementById('infoButton');
 window.onclick = function(event) {
-  if (event.target == modal) {
+  if (event.target === modal) {
     modal.style.display = "none";
+  } else if (event.target === info) {
+    info.style.display = "none";
   }
 }
-
 </script>
+
        <img src="img/logo_blue.png" style="display:block; margin-top: 30px; margin-left: auto; margin-right: auto; margin-bottom: 30px;">
         <p id="Problems">
             <button type="button" onclick="document.getElementById('ans').value = ''; get_new_problem();" id="new_problem" class="button" data-hover="New">New</button>
