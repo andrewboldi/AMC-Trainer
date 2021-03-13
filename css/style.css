@@ -55,10 +55,15 @@
 
             p {
                 text-align: center;
+<<<<<<< HEAD
                 padding-right: 15%;
                 padding-left: 15%;
                 margin-left: auto;
                 margin-right: auto;
+=======
+                margin-left: 15%;
+                margin-right: 15%;
+>>>>>>> 416e68f2617d9f026d5df7a4f9b81c6f2e2808c1
             }
 
             .error {
@@ -68,8 +73,13 @@
             }
 
             @keyframes shakeInput {
+<<<<<<< HEAD
                 0% { right: 50.5%; }
                 100% { right: 49.5%; }
+=======
+                0% { left: -5px; }
+                100% { right: -5px; }
+>>>>>>> 416e68f2617d9f026d5df7a4f9b81c6f2e2808c1
             }
 
             img:hover {
