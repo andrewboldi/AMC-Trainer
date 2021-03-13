@@ -1,0 +1,228 @@
+<!--
+AMC Problem Generator
+Copyright (C) 2021
+THIS PROGARM IS FREE SOFTWARE; YOU CAN REDISTRIBUTE IT AND/OR MODIFY
+IT UNDER THE TERMS OF THE GNU GENERAL PUBLIC LICENSE AS PUBLISHED BY
+THE FERE SOFTWARE FOUNDATION; EITHER VERSION 2 OF THE LICENSE, OR
+VERSION 2.1
+
+THIS PROGRAM IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL
+BUT WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF
+MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  SEE THE
+GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
+-->
+<!--DOCTYPE HTML-->
+<html>
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-187207401-1"></script>
+        <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.3/dist/confetti.browser.min.js"></script>
+        <link rel="stylesheet" href="css/style.css">
+        <script data-ad-client="ca-pub-7000644436565738" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script src="js/draw.js"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+
+            gtag('config', 'UA-187207401-1');
+        </script>
+    </head>
+    <body id="body" onload="get_new_problem()" onresize="resize_canvas()" style="background-image: linear-gradient(to right, rgb(145, 254, 158) 20%, rgb(0, 201, 255) 80%);" class="body">
+
+      
+      
+
+
+       <div style="position: absolute; left: 0px; top: 5px;" class="w3-container">
+  <img src="img/info_button.png" style="position: relative; z-index: 10; width: 40px; height: 40px;" onclick="document.getElementById('infoButton').style.display='block'" class="w3-button">
+
+  <div id="infoButton" style="position: fixed; z-index: 15" class="w3-modal">
+    <div class="w3-modal-content w3-animate-zoom w3-card-4">
+      <header class="w3-container">
+        <span onclick="document.getElementById('infoButton').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+        <h2>Credits</h2>
+      <hr>
+      </header>
+      <div class="w3-container">
+        <p><i>The problems on this page are copyrighted by the Mathematical Association of America's American Mathematics Competitions and the solutions on this page are directly taken from the Art of Problem Solving AoPS Wiki.</i></p>
+      </div>
+
+    </div>
+  </div>
+ </div>
+<script>
+document.addEventListener('contextmenu', event => event.preventDefault());
+document.onkeydown = function(e) {
+
+
+    if(event.keyCode == 123) {
+    return false;
+    }
+    if(e.ctrlKey && e.keyCode == 'E'.charCodeAt(0)){
+    return false;
+    }
+    if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)){
+    return false;
+    }
+    if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)){
+    return false;
+    }
+    if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)){
+    return false;
+    }
+    if(e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)){
+    return false;
+    }
+    if(e.ctrlKey && e.keyCode == 'H'.charCodeAt(0)){
+    return false;
+    }
+    if(e.ctrlKey && e.keyCode == 'A'.charCodeAt(0)){
+    return false;
+    }
+    if(e.ctrlKey && e.keyCode == 'F'.charCodeAt(0)){
+    return false;
+    }
+    if(e.ctrlKey && e.keyCode == 'E'.charCodeAt(0)){
+    return false;
+    }
+}
+</script>
+
+
+       <div style="position: absolute; right: 0px; top: 5px;" class="w3-container">
+<img src="img/settings.svg" style="position: relative; z-index: 10; width: 40px; height: 40px; padding-right: 0px; right: 15px;" onclick="document.getElementById('settingsButton').style.display='block'" class="w3-button">
+
+<div style="position: fixed; z-index: 15;" id="settingsButton" class="w3-modal">
+ <div class="w3-modal-content w3-card-4 w3-animate-zoom">
+  <header class="w3-container">
+   <span onclick="document.getElementById('settingsButton').style.display='none'"
+   class="w3-button w3-xlarge w3-display-topright">&times;</span>
+   <h2>Settings</h2>
+  </header>
+
+  <div class="w3-bar w3-border-bottom">
+   <button class="tablink w3-bar-item w3-button" onclick="openCity(event, 'Options')">Options</button>
+   <button class="tablink w3-bar-item w3-button" onclick="openCity(event, 'Colors')">Colors</button>
+   <button class="tablink w3-bar-item w3-button" onclick="openCity(event, 'Other')">Other</button>
+  </div>
+
+  <div id="Options" class="w3-container city">
+<br>
+<h2>Subject</h2>
+            <select id="ddlViewBy2" class="ddl button" style="text-indent: 10%; text-align-last: center;">
+                <option style="color: gray;" value=Alg>Alg</option>
+                <option style="color: gray;" value=Geo>Geo</option>
+                <option style="color: gray;" value=CP>C+P</option>
+                <option style="color: gray;" value=NT>NT</option>
+                <option style="color: gray;" value="All" selected="selected">All</option>
+            </select>
+<h2>Level</h2>
+            <select id="ddlViewBy" class="ddl button" style="text-indent: 10%; text-align-last: center;">
+                <option style="color: gray;" value=8>AMC 8</option>
+                <option style="color: gray;" value=10>AMC 10</option>
+                <option style="color: gray;" value=12>AMC 12</option>
+                <option style="color: gray;" value=AIME>AIME</option>
+                <option style="color: gray;" value="All" selected="selected">All</option>
+            </select>
+  </div>
+
+  <div id="Colors" class="w3-container city">
+<br>
+<h2>Text Color</h2>
+      <select class="ddl button" style="text-indent: 10%; text-align-last: center;" id="textColor" value="B">
+            <option style="color: gray;" value=B>Black</option>
+            <option style="color: gray;" value=W>White</option>
+      </select>
+<h2>Background/Button Color</h2>
+      <input style="cursor: pointer; background-image: none;" class="button ddl;" type="color" id="g1" name="g1" value="#91fe9e">
+      <input style="cursor: pointer; background-image: none;" class="button ddl;" type="color" id="g2" name="g2" value="#00c9ff">
+<p>
+      <input style="position: absolute; right: 5px; bottom: 5px;" onclick="grad(); textc();" type="submit" value="save">
+</p>
+  </div>
+
+  <div id="Other" class="w3-container city">
+<br>
+   <p>More settings</p><br>
+  </div>
+
+  <div class="w3-container w3-light-grey w3-padding">
+  </div>
+ </div>
+</div>
+
+</div>
+
+<script>
+
+document.getElementsByClassName("tablink")[0].click();
+
+function openCity(evt, cityName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("city");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+    tablinks[i].classList.remove("w3-light-grey");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.classList.add("w3-light-grey");
+}
+var modal = document.getElementById('settingsButton');
+
+var info = document.getElementById('infoButton');
+window.onclick = function(event) {
+  if (event.target === modal) {
+    modal.style.display = "none";
+  } else if (event.target === info) {
+    info.style.display = "none";
+  }
+}
+</script>
+
+       <img src="img/logo_blue.png" style="display:block; margin-top: 30px; margin-left: auto; margin-right: auto; margin-bottom: 30px;">
+        <p style="position: absolute; z-index: 10;" id="Problems">
+            <button type="button" onclick="document.getElementById('ans').value = ''; get_new_problem();" style="position: fixed; right: 10%; bottom: 10%; width: 12%; height: 7%; border-radius: 20px; font-size: 1.6em" id="new_problem" class="button" data-hover="New">New</button>
+        </p>
+        <strong>
+            <p class="text" id="problem_id" style="font-size: 24px;"></p>
+        </strong>
+        <p class="text" id="problem"></p>
+        <br>
+        <p class="text" id="check_ans" style="position: absolute; z-index: 10; display: none;">
+            <input class="input button" style="position: fixed; right: 50%; margin: 1%; cursor: text;" type="text" id="ans" name="ans" value="">
+            <script src="js/script_1.js"></script>
+            <button class="button" style="position: fixed; left: 50%; color: white; margin: 1%;" type="button" id="get_ans" onclick="check_ans();">Submit</button>
+            <span class="text" id="if_correct" style="display: none;"></span>
+        </p>
+<p></p>
+        <p class="text">
+            <span style="display: none;" id="get_solution"></span>
+        </p>
+
+      <!--
+        <p style="zoom: 50%;">
+        <input style="cursor: pointer; background-image: none;" class="button input;" type="color" id="g3" name="g3" value="#4087CB">
+        <input onclick="logo()" type="submit" value="save">
+        </p>
+-->
+
+<img src="img/pencil.png" style="position: absolute; z-index: 10; right:15px; top: 80px;" width="50px" height="50px" onclick="toggle()">
+<div id="draw" style="display: none;">
+    <canvas style="position: absolute; top: 0; left: 0; z-index: 5;" id="can"></canvas>
+    <div style="position:absolute; z-index: 10; top:150px; right:30px;">Choose Color</div>
+    <div style="border-radius: 50%; z-index: 10; position:absolute;top:200px;right:40px;width:15px;height:15px;background:green;" id="green" onclick="color(this)"></div>
+    <div style="border-radius: 50%; z-index: 10; position:absolute;top:200px;right:60px;width:15px;height:15px;background:blue;" id="blue" onclick="color(this)"></div>
+    <div style="border-radius: 50%; z-index: 10; position:absolute;top:200px;right:80px;width:15px;height:15px;background:red;" id="red" onclick="color(this)"></div>
+    <div style="border-radius: 50%; z-index: 10; position:absolute;top:220px;right:40px;width:15px;height:15px;background:yellow;" id="yellow" onclick="color(this)"></div>
+    <div style="border-radius: 50%; z-index: 10; position:absolute;top:220px;right:60px;width:15px;height:15px;background:orange;" id="orange" onclick="color(this)"></div>
+    <div style="border-radius: 50%; z-index: 10; position:absolute;top:220px;right:80px;width:15px;height:15px;background:black;" id="black" onclick="color(this)"></div>
+    <input type="button" value="clear" id="clr" size="23" onclick="erase()" style="z-index: 10; position:absolute;top:250px;right:50px;">
+</div>
+</body>
+</html>
