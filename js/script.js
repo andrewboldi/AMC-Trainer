@@ -1,7 +1,7 @@
             function grad() {
                     var left = document.getElementById("g1").value
                     var right = document.getElementById("g2").value
-                    let hex2rgb = c => `rgb(${c.substr(1).match(/../g).map(x=>+`0x${x}`)})`;
+                    let hex2rgb= c=> `rgb(${c.substr(1).match(/../g).map(x=>+`0x${x}`)})`;
                     left = hex2rgb(left);
                     right = hex2rgb(right);
                     document.getElementById("body").style.backgroundImage = `linear-gradient(to right, ${left} 20%, ${right} 80%)`;
@@ -17,13 +17,19 @@
               var hex = c.toString(16);
               return hex.length == 1 ? "0" + hex : hex;
             }
+            function light() {
+                document.querySelectorAll('.text').forEach(element => {element.style.color = 'white';}); 
+                document.querySelectorAll('.text img').forEach(element => {element.style.filter = 'invert(1)';});
+            }
+            function dark() {
+                document.querySelectorAll('.text').forEach(element => {element.style.color = 'black';}); 
+                document.querySelectorAll('.text img').forEach(element => {element.style.filter = 'invert(0)';});
+            }
             function textc() {
-                if (document.getElementById("textColor").value == "B") { // dark text color
-                    document.querySelectorAll('.text').forEach(element => {element.style.color = 'black';}); 
-                    document.querySelectorAll('.text img').forEach(element => {element.style.filter = 'invert(0)';});
-                } else { // light text color
-                    document.querySelectorAll('.text').forEach(element => {element.style.color = 'white';}); 
-                    document.querySelectorAll('.text img').forEach(element => {element.style.filter = 'invert(1)';});
+                if ((document.getElementById("textColor").value == "B") || (document.getElementById("textColor").value == "B")) {
+                    dark();
+                } else if ((document.getElementById("textColor").value == "W") || (document.getElementById("textColor").value == "W")) {
+                    light();
                 }
            }
  
@@ -45,8 +51,8 @@
                     anHttpRequest.send(null);
                 }
             }
-            var realAns;
-            var userAns;
+            var lol;
+            var anss;
             var solcode;
             function shuffle(array) {
                 var currentIndex = array.length, temporaryValue, randomIndex;
@@ -249,7 +255,7 @@
                                 console.log(answer_key_link.replaceAll("https://wandering-sky-a896.cbracketdash.workers.dev/?", ""));
                                 console.log("<-----Problem Answer------>")
                                 console.log(response2.replaceAll("https://wandering-sky-a896.cbracketdash.workers.dev/?", ""));
-                                realAns = response2;
+                                lol = response2;
                             }
 
                         }
@@ -301,8 +307,8 @@
             }
 
             function check_ans() {
-                userAns = ans.value.toString().toUpperCase();
-                if (realAns === userAns) {
+                anss = ans.value.toString().toUpperCase();
+                if (lol === anss) {
                     var x = document.getElementById("get_solution");
                     if (x.style.display === "none") {
                         x.style.display = "block";
@@ -313,7 +319,7 @@
                     document.getElementById("check_ans").style.display = "none";
                     document.getElementById("if_correct").style.display = "block";
                 }
-                if (realAns != userAns) {
+                if (lol != anss) {
                     document.getElementById("ans").classList.add("error");
                     setTimeout(function() {
                         document.getElementById("ans").classList.remove('error');
