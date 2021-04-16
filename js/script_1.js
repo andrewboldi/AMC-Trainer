@@ -75,7 +75,7 @@
 
             function get_new_problem() {
                 var type = document.getElementById("ddlViewBy").value;
-                var subject = document.getElementById("ddlViewBy2").value;
+                // var subject = document.getElementById("ddlViewBy2").value;
                 // document.getElementById("check_ans").style.display = "none";
                 document.getElementById("get_solution").style.display = "none";
                 document.getElementById("if_correct").style.display = "none";
@@ -189,6 +189,7 @@
                         console.log(georesp);
                     }
                 }
+                /*
                 if (subject == "Geo") {
                     link = geolinks[0];
                     problem_id = geolinks[0].split("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php/")[1].replaceAll("_", " ").replaceAll("Problems/Problem", "#");
@@ -199,6 +200,7 @@
                 } else if (subject == "NT") {
                     link = shuffle(ntlinks)[0];
                 }
+                */
                 var url = link;
 
                 let xhr = new XMLHttpRequest();
