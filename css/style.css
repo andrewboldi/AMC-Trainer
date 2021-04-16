@@ -49,21 +49,25 @@
                 color: rgb(255, 255, 255);
             }
 
+            .chooseColor {
+                border-radius: 50%; 
+                z-index: 10; 
+                position:absolute;
+                width:15px;
+                height:15px;
+                top:180px;
+                cursor: pointer;
+            }
             h1 {
                 text-align: center;
             }
 
             p {
                 text-align: center;
-<<<<<<< HEAD
                 padding-right: 15%;
                 padding-left: 15%;
                 margin-left: auto;
                 margin-right: auto;
-=======
-                margin-left: 15%;
-                margin-right: 15%;
->>>>>>> 416e68f2617d9f026d5df7a4f9b81c6f2e2808c1
             }
 
             .error {
@@ -73,13 +77,8 @@
             }
 
             @keyframes shakeInput {
-<<<<<<< HEAD
                 0% { right: 50.5%; }
                 100% { right: 49.5%; }
-=======
-                0% { left: -5px; }
-                100% { right: -5px; }
->>>>>>> 416e68f2617d9f026d5df7a4f9b81c6f2e2808c1
             }
 
             img:hover {
@@ -128,7 +127,6 @@ legend{color:inherit;display:table;max-width:100%;padding:0;white-space:normal}t
 [type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}
 [type=search]{-webkit-appearance:textfield;outline-offset:-2px}
 [type=search]::-webkit-search-decoration{-webkit-appearance:none}
-::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}
 .w3-table,.w3-table-all{border-collapse:collapse;border-spacing:0;width:100%;display:table}.w3-table-all{border:1px solid #ccc}
 .w3-bordered tr,.w3-table-all tr{border-bottom:1px solid #ddd}.w3-striped tbody tr:nth-child(even){background-color:#f1f1f1}
 .w3-hoverable tbody tr:hover,.w3-ul.w3-hoverable li:hover{background-color:#ccc}.w3-centered tr th,.w3-centered tr td{text-align:center}

@@ -9,82 +9,81 @@ var x = "black",
 y = 2;
 
 function init() {
-    canvas = document.getElementById("can");
-    ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    can.style.left = "0px";
-    can.style.top = "0px";
-    w = canvas.width;
-    h = canvas.height;
+canvas = document.getElementById('can');
+canvas.width = window.innerWidth - 20;
+canvas.height = window.innerHeight - 20;
+ctx = canvas.getContext("2d");
+w = canvas.width;
+h = canvas.height;
 
-    canvas.addEventListener("mousemove", function (e) {
-        findxy('move', e)
-    }, false);
-    canvas.addEventListener("mousedown", function (e) {
-        findxy('down', e)
-    }, false);
-    canvas.addEventListener("mouseup", function (e) {
-        findxy('up', e)
-    }, false);
-    canvas.addEventListener("mouseout", function (e) {
-        findxy('out', e)
-    }, false);
+canvas.addEventListener("mousemove", function (e) {
+    findxy('move', e)
+}, false);
+canvas.addEventListener("mousedown", function (e) {
+    findxy('down', e)
+}, false);
+canvas.addEventListener("mouseup", function (e) {
+    findxy('up', e)
+}, false);
+canvas.addEventListener("mouseout", function (e) {
+    findxy('out', e)
+}, false);
 }
 
 function toggle() {
-    if (document.getElementById("draw").style.display == "none") {
-        document.getElementById('draw').style.display='block';
-        init();
-    } else {
-        document.getElementById('draw').style.display='none';
-    }
+if (document.getElementById("draw").style.display == "none") {
+    document.getElementById('draw').style.display='block';
+    init();
+} else {
+    document.getElementById('draw').style.display='none';
+}
 }
 
 function color(obj) {
-    switch (obj.id) {
-        case "green":
-            x = "green";
-            break;
-        case "blue":
-            x = "blue";
-            break;
-        case "red":
-            x = "red";
-            break;
-        case "yellow":
-            x = "yellow";
-            break;
-        case "orange":
-            x = "orange";
-            break;
-        case "black":
-            x = "black";
-            break;
-        case "white":
-            x = "white";
-            break;
-    }
-    if (x == "white") y = 14;
-    else y = 3;
+switch (obj.id) {
+    case "green":
+        x = "green";
+        break;
+    case "blue":
+        x = "blue";
+        break;
+    case "red":
+        x = "red";
+        break;
+    case "yellow":
+        x = "yellow";
+        break;
+    case "orange":
+        x = "orange";
+        break;
+    case "black":
+        x = "black";
+        break;
+    case "white":
+        x = "white";
+        break;
+}
+if (x == "white") y = 14;
+else y = 2;
 
 }
 
 function draw() {
-    ctx.beginPath();
-    ctx.moveTo(prevX, prevY);
-    ctx.lineTo(currX, currY);
-    ctx.strokeStyle = x;
-    ctx.lineWidth = y;
-    ctx.stroke();
-    ctx.closePath();
+ctx.beginPath();
+ctx.moveTo(prevX, prevY);
+ctx.lineTo(currX, currY);
+ctx.strokeStyle = x;
+ctx.lineWidth = y;
+ctx.stroke();
+ctx.closePath();
 }
 
 function erase() {
-    var m = confirm("Are you sure you want to clear?");
-    if (m) {
-        ctx.clearRect(0, 0, w, h);
-    }
+var m = confirm("Are you sure you want to clear?");
+if (m) {
+    ctx.clearRect(0, 0, w, h);
+    document.getElementById("canvasimg").style.display = "none";
+}
 }
 
 function findxy(res, e) {
@@ -116,9 +115,4 @@ if (res == 'move') {
         draw();
     }
 }
-}
-function resize_canvas(){
-        canvas.width  = window.innerWidth;
-        canvas.height = window.innerHeight;
-            
 }
