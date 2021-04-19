@@ -45,7 +45,7 @@
               return hex.length == 1 ? "0" + hex : hex;
             }
             function textc() {
-                if (document.getElementById("textColor").value == "B") {
+                if (document.getElementById("textColor").value === "B") {
                     document.querySelectorAll('.text').forEach(element => {element.style.color = 'black';}); 
                     document.querySelectorAll('.text img').forEach(element => {element.style.filter = 'invert(0)';});
                 } else {
@@ -250,8 +250,8 @@
                         document.getElementById("problem_id").innerHTML = problem_id;
                         document.getElementById("problem").innerHTML = probcode;
                         document.getElementById("check_ans").style.display = "block";
-                        textc();
                         
+                        textc();
 
                         let xhr2 = new XMLHttpRequest();
                         xhr2.open('GET', answer_key_link, true);
@@ -281,6 +281,7 @@
                         }
                     }
                 }
+                textc();
 
             }
             function conf() {
@@ -350,4 +351,5 @@
                 }
                 document.getElementById("ans").value = '';
                 document.getElementById("streak").innerHTML = streak;
+                textc();
             }
