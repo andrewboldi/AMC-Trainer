@@ -91,9 +91,9 @@ document.onkeydown = function(e) {
 }
 </script>
 
-
-       <div style="position: absolute; right: 0px; top: 5px;" class="w3-container">
-<img src="img/settings.svg" style="position: relative; z-index: 10; width: 40px; height: 40px; padding-right: 0px; right: 5px;" onclick="document.getElementById('settingsButton').style.display='block'" class="w3-button">
+<div id="streak" style="position: absolute; right: 90px; width: 50px; height: 50px; top: 25px; padding-right:10px;">0</div>
+<img src="img/fire.png" style="position: absolute; z-index: 10; width: 30px; top: 15px; right: 90px;">
+<img src="img/settings.svg" style="position: absolute; z-index: 10; width: 40px; height: 40px; top: 5px; right: 5px;" onclick="document.getElementById('settingsButton').style.display='block'" class="w3-button">
 
 <div style="position: fixed; z-index: 15;" id="settingsButton" class="w3-modal">
  <div class="w3-modal-content w3-card-4 w3-animate-zoom">
@@ -143,12 +143,12 @@ document.onkeydown = function(e) {
       <input style="cursor: pointer; background-image: none;" class="button ddl;" type="color" id="g1" name="g1" value="#91fe9e">
       <input style="cursor: pointer; background-image: none;" class="button ddl;" type="color" id="g2" name="g2" value="#00c9ff">
 <h2>Logo Color</h2>
-    <select class="ddl button" style="text-indent: 10%; text-align-last: center;" id="logoColor" value="blue">
+    <select class="ddl button" style="text-indent: 10%; text-align-last: center;" id="logoColor" value="Blue">
         <option style="color: gray" value=Red>Red</option>
         <option style="color: gray" value=Orange>Orange</option>
         <option style="color: gray" value=Yellow>Yellow</option>
         <option style="color: gray" value=Green>Green</option>
-        <option style="color: gray" value=Blue>Blue</option>
+        <option selected="selected" style="color: gray" value=Blue>Blue</option>
         <option style="color: gray" value=Purple>Purple</option>
         <option style="color: gray" value=White>White</option>
         <option style="color: gray" value=Black>Black</option>

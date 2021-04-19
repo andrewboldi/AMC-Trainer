@@ -265,6 +265,7 @@
                                 response2 = response2.split('<!--')[0];
                                 response2 = response2.split('<li>');
                                 response2 = response2[problem];
+                                
                                 if (type == "AIME") {
                                     response2 = response2.substring(0, 3);
                                 } else {
@@ -326,8 +327,11 @@
             }
 
             function check_ans() {
+                var streak = document.getElementById("streak").innerHTML;
+                streak = parseInt(streak);
                 userAns = ans.value.toString().toUpperCase();
                 if (realAns === userAns) {
+                    streak += 1;
                     var x = document.getElementById("get_solution");
                     if (x.style.display === "none") {
                         x.style.display = "block";
@@ -337,12 +341,13 @@
                     conf();
                     document.getElementById("check_ans").style.display = "none";
                     document.getElementById("if_correct").style.display = "block";
-                }
-                if (realAns != userAns) {
+                } else {
+                    streak = 0;
                     document.getElementById("ans").classList.add("error");
                     setTimeout(function() {
                         document.getElementById("ans").classList.remove('error');
                     }, 300);
                 }
                 document.getElementById("ans").value = '';
+                document.getElementById("streak").innerHTML = streak;
             }
