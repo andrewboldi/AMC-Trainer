@@ -104,12 +104,12 @@ document.onkeydown = function(e) {
   </header>
 
   <div class="w3-bar w3-border-bottom">
-   <button class="tablink w3-bar-item w3-button" onclick="openCity(event, 'Options')">Options</button>
-   <button class="tablink w3-bar-item w3-button" onclick="openCity(event, 'Colors')">Colors</button>
-   <button class="tablink w3-bar-item w3-button" onclick="openCity(event, 'Other')">Other</button>
+   <button class="tablink w3-bar-item w3-button" onclick="changeTab(event, 'Options')">Options</button>
+   <button class="tablink w3-bar-item w3-button" onclick="changeTab(event, 'Colors')">Colors</button>
+   <button class="tablink w3-bar-item w3-button" onclick="changeTab(event, 'Other')">Other</button>
   </div>
 
-  <div id="Options" class="w3-container city">
+  <div id="Options" class="w3-container tab">
 <br>
 <h2>Subject</h2>
 <p style="left: 0px; margin-left: none; padding-left: 0px; text-align: left;">Coming soon!</p>
@@ -132,7 +132,7 @@ document.onkeydown = function(e) {
             </select>
   </div>
 
-  <div id="Colors" class="w3-container city">
+  <div id="Colors" class="w3-container tab">
 <br>
 <h2>Text Color</h2>
       <select class="ddl button" style="text-indent: 10%; text-align-last: center;" id="textColor" value="B">
@@ -142,12 +142,23 @@ document.onkeydown = function(e) {
 <h2>Background/Button Color</h2>
       <input style="cursor: pointer; background-image: none;" class="button ddl;" type="color" id="g1" name="g1" value="#91fe9e">
       <input style="cursor: pointer; background-image: none;" class="button ddl;" type="color" id="g2" name="g2" value="#00c9ff">
+<h2>Logo Color</h2>
+    <select class="ddl button" style="text-indent: 10%; text-align-last: center;" id="logoColor" value="blue">
+        <option style="color: gray" value=Red>Red</option>
+        <option style="color: gray" value=Orange>Orange</option>
+        <option style="color: gray" value=Yellow>Yellow</option>
+        <option style="color: gray" value=Green>Green</option>
+        <option style="color: gray" value=Blue>Blue</option>
+        <option style="color: gray" value=Purple>Purple</option>
+        <option style="color: gray" value=White>White</option>
+        <option style="color: gray" value=Black>Black</option>
+    </select>
 <p>
-      <input style="position: absolute; right: 5px; bottom: 5px;" onclick="grad(); textc();" type="submit" value="save">
+      <input class="button" style="width: 70px; color: white; position: absolute; right: 5px; bottom: 5px;" onclick="grad(); textc(); logo();" type="submit" value="save">
 </p>
   </div>
 
-  <div id="Other" class="w3-container city">
+  <div id="Other" class="w3-container tab">
 <br>
    <p>More settings</p><br>
   </div>
@@ -163,9 +174,9 @@ document.onkeydown = function(e) {
 
 document.getElementsByClassName("tablink")[0].click();
 
-function openCity(evt, cityName) {
+function changeTab(evt, tabName) {
   var i, x, tablinks;
-  x = document.getElementsByClassName("city");
+  x = document.getElementsByClassName("tab");
   for (i = 0; i < x.length; i++) {
     x[i].style.display = "none";
   }
@@ -173,7 +184,7 @@ function openCity(evt, cityName) {
   for (i = 0; i < x.length; i++) {
     tablinks[i].classList.remove("w3-light-grey");
   }
-  document.getElementById(cityName).style.display = "block";
+  document.getElementById(tabName).style.display = "block";
   evt.currentTarget.classList.add("w3-light-grey");
 }
 var modal = document.getElementById('settingsButton');
@@ -188,7 +199,7 @@ window.onclick = function(event) {
 }
 </script>
 
-       <img src="img/logo_blue.png" style="display:block; margin-top: 30px; margin-left: auto; margin-right: auto; margin-bottom: 30px;">
+       <img id="logo" src="img/logo_blue.png" style="display:block; height: 4%; margin-top: 30px; margin-left: auto; margin-right: auto; margin-bottom: 30px;">
         <p style="position: absolute; z-index: 10;" id="Problems">
             <button type="button" onclick="document.getElementById('ans').value = ''; get_new_problem();" style="position: fixed; right: 10%; bottom: 10%; width: 12%; height: 7%; border-radius: 20px; font-size: 1.6em" id="new_problem" class="button" data-hover="New">New</button>
         </p>
@@ -207,13 +218,6 @@ window.onclick = function(event) {
         <p class="text">
             <span style="display: none;" id="get_solution"></span>
         </p>
-
-      <!--
-        <p style="zoom: 50%;">
-        <input style="cursor: pointer; background-image: none;" class="button input;" type="color" id="g3" name="g3" value="#4087CB">
-        <input onclick="logo()" type="submit" value="save">
-        </p>
--->
 
 <img src="img/pencil.png" style="position: absolute; z-index: 10; right:15px; top: 80px;" width="50px" height="50px" onclick="toggle()">
 <div id="draw" style="display: none;">

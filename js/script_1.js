@@ -1,3 +1,33 @@
+            function logo() {
+                var color = document.getElementById("logoColor").value 
+                switch (color) {
+                    case "Red":
+                        document.getElementById("logo").src = "img/logo_red.png";
+                        break;
+                    case "Orange":
+                        document.getElementById("logo").src = "img/logo_orange.png";
+                        break;
+                    case "Yellow":
+                        document.getElementById("logo").src = "img/logo_yellow.png";
+                        break;
+                    case "Green":
+                        document.getElementById("logo").src = "img/logo_green.png";
+                        break;
+                    case "Blue":
+                        document.getElementById("logo").src = "img/logo_blue.png";
+                        break;
+                    case "Purple":
+                        document.getElementById("logo").src = "img/logo_purple.png";
+                        break;
+                    case "White":
+                        document.getElementById("logo").src = "img/logo_white.png";
+                        break;
+                    case "Black":
+                        document.getElementById("logo").src = "img/logo_black.png";
+                        break;
+                }
+            }
+
             function grad() {
                     var left = document.getElementById("g1").value
                     var right = document.getElementById("g2").value
@@ -10,9 +40,6 @@
       //              document.getElementsByClassName("button").style.backgroundImage = `linear-gradient(to right, ${right}, ${left})`;
 
                 }
-            function hi() {
-                window.alert(rgbToHex(document.getElementById("color").value));
-            }
             function rgbToHex(c) {
               var hex = c.toString(16);
               return hex.length == 1 ? "0" + hex : hex;
@@ -45,8 +72,8 @@
                     anHttpRequest.send(null);
                 }
             }
-            var lol;
-            var anss;
+            var realAns;
+            var userAns;
             var solcode;
             function shuffle(array) {
                 var currentIndex = array.length, temporaryValue, randomIndex;
@@ -247,7 +274,7 @@
                                 console.log(answer_key_link.replaceAll("https://wandering-sky-a896.cbracketdash.workers.dev/?", ""));
                                 console.log("<-----Problem Answer------>")
                                 console.log(response2.replaceAll("https://wandering-sky-a896.cbracketdash.workers.dev/?", ""));
-                                lol = response2;
+                                realAns = response2;
                             }
 
                         }
@@ -299,8 +326,8 @@
             }
 
             function check_ans() {
-                anss = ans.value.toString().toUpperCase();
-                if (lol === anss) {
+                userAns = ans.value.toString().toUpperCase();
+                if (realAns === userAns) {
                     var x = document.getElementById("get_solution");
                     if (x.style.display === "none") {
                         x.style.display = "block";
@@ -311,7 +338,7 @@
                     document.getElementById("check_ans").style.display = "none";
                     document.getElementById("if_correct").style.display = "block";
                 }
-                if (lol != anss) {
+                if (realAns != userAns) {
                     document.getElementById("ans").classList.add("error");
                     setTimeout(function() {
                         document.getElementById("ans").classList.remove('error');
