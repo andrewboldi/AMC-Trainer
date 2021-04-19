@@ -17,19 +17,13 @@
               var hex = c.toString(16);
               return hex.length == 1 ? "0" + hex : hex;
             }
-            function light() {
-                document.querySelectorAll('.text').forEach(element => {element.style.color = 'white';}); 
-                document.querySelectorAll('.text img').forEach(element => {element.style.filter = 'invert(1)';});
-            }
-            function dark() {
-                document.querySelectorAll('.text').forEach(element => {element.style.color = 'black';}); 
-                document.querySelectorAll('.text img').forEach(element => {element.style.filter = 'invert(0)';});
-            }
             function textc() {
-                if ((document.getElementById("textColor").value == "B") || (document.getElementById("textColor").value == "B")) {
-                    dark();
-                } else if ((document.getElementById("textColor").value == "W") || (document.getElementById("textColor").value == "W")) {
-                    light();
+                if (document.getElementById("textColor").value == "B") {
+                    document.querySelectorAll('.text').forEach(element => {element.style.color = 'black';}); 
+                    document.querySelectorAll('.text img').forEach(element => {element.style.filter = 'invert(0)';});
+                } else {
+                    document.querySelectorAll('.text').forEach(element => {element.style.color = 'white';}); 
+                    document.querySelectorAll('.text img').forEach(element => {element.style.filter = 'invert(1)';});
                 }
            }
  
@@ -98,8 +92,8 @@
                 for (i = 1985; i < 1999; i++) {
                     arrA.push(i);
                 }
-                arrA = shuffle(arrA)
-                yearAJ = arrA[0]
+                arrA = shuffle(arrA);
+                yearAJ = arrA[0];
 
                 if (type == 8) {
                     if_ab = false;
@@ -110,8 +104,8 @@
                 }
 
                 var arr3 = [];
-                for (i = 10; i < 26; i++) {
-                    arr3.push(i)
+                for (i = 1; i < 26; i++) {
+                    arr3.push(i);
                 }
                 arr3 = shuffle(arr3);
                 prob = arr3[0];
@@ -146,15 +140,15 @@
                 var problem_id;
 
                 if ((amc == "8") && (isAJHSME == 1)) {
-                    link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", yearAJ, "_AJHSME_", "Problems/Problem_", problem);
+                    link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?!", yearAJ, "_AJHSME_", "Problems_Problem_", problem, ".html");
                     answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", yearAJ, "_AJHSME_Answer_Key");
                     problem_id = "".concat(yearAJ, " AJHSME #", problem);
                 } else if ((amc == "10" || amc == "12") && (if_ab == true)) {
-                    link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, aorb, "_Problems/Problem_", problem);
+                    link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?!", year, "_AMC_", amc, aorb, "_Problems_Problem_", problem, ".html");
                     answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, aorb, "_Answer_Key");
                     problem_id = "".concat(year, " AMC ", amc, aorb, " #", problem);
                 } else if ((amc == "AIME") && (if_ab == false)) {
-                    link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AIME_", "_Problems/Problem_", problem);
+                    link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?!", year, "_AIME_", "Problems_Problem_", problem, ".html");
                     answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AIME_Answer_Key");
                     problem_id = "".concat(year, " AIME #", problem);
                 } else if ((amc == "AIME") && (if_ab == true)) {
@@ -163,14 +157,15 @@
                     } else {
                         aorb = "II";
                     }
-                    link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AIME_", aorb, "_Problems/Problem_", problem);
+                    link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?!", year, "_AIME_", aorb, "_Problems_Problem_", problem, ".html");
                     answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AIME_", aorb, "_Answer_Key");
                     problem_id = "".concat(year, " AIME ", aorb, " #", problem);
                 } else {
-                    link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, "_Problems/Problem_", problem);
+                    link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?!", year, "_AMC_", amc, "_Problems_Problem_", problem, ".html");
                     answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, "_Answer_Key_");
                     problem_id = "".concat(year, " AMC ", amc, " #", problem);
                 }
+                /*
                 var geolinks = ["https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php/2014_AMC_10A_Problems/Problem_23"]
 
                 let xhr4 = new XMLHttpRequest();
@@ -189,7 +184,6 @@
                         console.log(georesp);
                     }
                 }
-                /*
                 if (subject == "Geo") {
                     link = geolinks[0];
                     problem_id = geolinks[0].split("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php/")[1].replaceAll("_", " ").replaceAll("Problems/Problem", "#");
@@ -202,6 +196,20 @@
                 }
                 */
                 var url = link;
+                var solcode;
+                let xhr0 = new XMLHttpRequest();
+                xhr0.open('GET', link.replaceAll("!", "$"), true);
+                xhr0.send();
+
+                xhr0.onreadystatechange = processRequest1;
+                function processRequest1(e) {
+                    if (xhr0.readyState == 4 && xhr0.status == 200) {
+                        textc();
+                        solcode = xhr0.responseText;
+                        solcode = solcode.replaceAll("\\n'", "\n").replaceAll("\\n", "\n").replaceAll("b'", "");
+                        document.getElementById("get_solution").innerHTML = solcode;
+                    }
+                }
 
                 let xhr = new XMLHttpRequest();
                 xhr.open('GET', url, true);
@@ -210,32 +218,14 @@
                 xhr.onreadystatechange = processRequest;
                 function processRequest(e) {
                     if (xhr.readyState == 4 && xhr.status == 200) {
-                        var response = xhr.responseText;
-                        response = response.replaceAll("'", '"');
-                        response = response.replaceAll('<a href=\"', '<a href=\"https://wandering-sky-a896.cbracketdash.workers.dev/?https://www.artofproblemsolving.com');
-                        response = response.replaceAll("//latex.artofproblemsolving.com", "https://wandering-sky-a896.cbracketdash.workers.dev/?https://latex.artofproblemsolving.com");
-                        response = response.replaceAll("</p><p><img src=", "<br></br></p><p><img src=");
-                        response = response.replaceAll("<a href=", "<a target='_blank\' href=");
-                        response = response.replaceAll("<p>", "<p class=\"text\">");
-                        var data = response.split("<h2><span class=\"mw-headline\" id=\"Problem")[1];
-                        var probcode = data.split("<h2>")[0];
-                        probcode = probcode.split("</span></h2>")[1];
-                        console.log("<-----New Problem------->")
-                        console.log("<-----Problem Link------>")
-                        console.log(link.replaceAll("https://wandering-sky-a896.cbracketdash.workers.dev/?", ""));
-                        console.log("<-----Problem Code------>")
-                        console.log(probcode.replaceAll("https://wandering-sky-a896.cbracketdash.workers.dev/?", ""));
+                        var probcode = xhr.responseText;
+                        probcode = probcode.replaceAll("\\n'", "\n").replaceAll("\\n", "\n").replaceAll("b'", "");
                         document.getElementById("problem_id").innerHTML = problem_id;
                         document.getElementById("problem").innerHTML = probcode;
                         document.getElementById("check_ans").style.display = "block";
-                        console.log("<-----Solution Code----->")
-                        solcode = data.split("<h2><span class=\"mw-headline\" id=\"See_")[0];
-                        solcode = solcode.substring(solcode.indexOf("<h2><span"));
-                        solcode = solcode.replaceAll("><span class=\"mw-headline\" ", " class=\"text\"><span class=\"mw-headline\" ");
-                        console.log(solcode.replaceAll("https://wandering-sky-a896.cbracketdash.workers.dev/?", ""));
-                        document.getElementById("get_solution").innerHTML = solcode;
-                        console.log(document.getElementById("body").style.backgroundImage);
                         textc();
+                        
+
                         let xhr2 = new XMLHttpRequest();
                         xhr2.open('GET', answer_key_link, true);
                         xhr2.send();
