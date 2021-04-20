@@ -94,7 +94,14 @@
                 return array;
             }
 
+            var cookieStreak;
             function get_new_problem() {
+                cookieStreak = document.cookie;
+                if (cookieStreak.includes("=")) {
+                    cookieStreak = cookieStreak.split("=")[1];
+                } else {
+                    cookieStreak = "0";
+                }
                 var type = document.getElementById("ddlViewBy").value;
                 // var subject = document.getElementById("ddlViewBy2").value;
                 // document.getElementById("check_ans").style.display = "none";
@@ -315,11 +322,11 @@
             }
 
             function check_ans() {
-                var streak = document.getElementById("streak").innerHTML;
-                streak = parseInt(streak);
+                var streak = parseInt(cookieStreak);
                 userAns = ans.value.toString().toUpperCase();
                 if (realAns === userAns) {
                     streak += 1;
+                    document.cookie = "streak=" + streak;
                     var x = document.getElementById("get_solution");
                     if (x.style.display === "none") {
                         x.style.display = "block";
