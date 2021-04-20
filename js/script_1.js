@@ -168,15 +168,15 @@
 
                 if ((amc == "8") && (isAJHSME == 1)) {
                     link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?!", yearAJ, "_AJHSME_", "Problems_Problem_", problem, ".html");
-                    answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", yearAJ, "_AJHSME_Answer_Key");
+                    answer_key_link = link.replaceAll("!", "|");
                     problem_id = "".concat(yearAJ, " AJHSME #", problem);
                 } else if ((amc == "10" || amc == "12") && (if_ab == true)) {
                     link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?!", year, "_AMC_", amc, aorb, "_Problems_Problem_", problem, ".html");
-                    answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, aorb, "_Answer_Key");
+                    answer_key_link = link.replaceAll("!", "|");
                     problem_id = "".concat(year, " AMC ", amc, aorb, " #", problem);
                 } else if ((amc == "AIME") && (if_ab == false)) {
                     link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?!", year, "_AIME_", "Problems_Problem_", problem, ".html");
-                    answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AIME_Answer_Key");
+                    answer_key_link = link.replaceAll("!", "|");
                     problem_id = "".concat(year, " AIME #", problem);
                 } else if ((amc == "AIME") && (if_ab == true)) {
                     if (aorb == "A") {
@@ -185,11 +185,11 @@
                         aorb = "II";
                     }
                     link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?!", year, "_AIME_", aorb, "_Problems_Problem_", problem, ".html");
-                    answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AIME_", aorb, "_Answer_Key");
+                    answer_key_link = link.replaceAll("!", "|");
                     problem_id = "".concat(year, " AIME ", aorb, " #", problem);
                 } else {
                     link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?!", year, "_AMC_", amc, "_Problems_Problem_", problem, ".html");
-                    answer_key_link = answer_key_link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=", year, "_AMC_", amc, "_Answer_Key_");
+                    answer_key_link = link.replaceAll("!", "|");
                     problem_id = "".concat(year, " AMC ", amc, " #", problem);
                 }
                 /*
@@ -253,32 +253,19 @@
                         
                         textc();
 
-                        let xhr2 = new XMLHttpRequest();
-                        xhr2.open('GET', answer_key_link, true);
-                        xhr2.send();
+                let xhr2 = new XMLHttpRequest();
+                xhr2.open('GET', answer_key_link, true);
+                xhr2.send();
 
-                        xhr2.onreadystatechange = processRequest;
-                        function processRequest(e) {
-                            if (xhr2.readyState == 4 && xhr2.status == 200) {
-                                var response2 = xhr2.responseText;
-                                response2 = response2.split('<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div class="mw-parser-output">')[1];
-                                response2 = response2.split('<!--')[0];
-                                response2 = response2.split('<li>');
-                                response2 = response2[problem];
-                                
-                                if (type == "AIME") {
-                                    response2 = response2.substring(0, 3);
-                                } else {
-                                    response2 = response2.charAt(0);
-                                }
-                                console.log("<-----Answer Key Link----->")
-                                console.log(answer_key_link.replaceAll("https://wandering-sky-a896.cbracketdash.workers.dev/?", ""));
-                                console.log("<-----Problem Answer------>")
-                                console.log(response2.replaceAll("https://wandering-sky-a896.cbracketdash.workers.dev/?", ""));
-                                realAns = response2;
-                            }
+                xhr2.onreadystatechange = processRequest;
+                function processRequest(e) {
+                    if (xhr2.readyState == 4 && xhr2.status == 200) {
+                        var response2 = xhr2.responseText;
+                        response2 = response2.split("b'")[1].split("'")[0];
+                        realAns = response2;
+                    }
 
-                        }
+                }
                     }
                 }
                 textc();
