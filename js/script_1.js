@@ -94,14 +94,14 @@
                 return array;
             }
 
-            var cookieStreak;
+            var localStreak;
             function get_new_problem() {
-                cookieStreak = document.cookie;
-                if (cookieStreak.includes("=")) {
-                    cookieStreak = cookieStreak.split("=")[1];
-                } else {
-                    cookieStreak = "0";
+                try {
+                    localStreak = localStorage.getItem("streak");
+                } catch (err) {
+                    localStorage.setItem("streak", "0");
                 }
+                
                 var type = document.getElementById("ddlViewBy").value;
                 // var subject = document.getElementById("ddlViewBy2").value;
                 // document.getElementById("check_ans").style.display = "none";
@@ -322,11 +322,10 @@
             }
 
             function check_ans() {
-                var streak = parseInt(cookieStreak);
+                localStreak = parseInt(localStorage.getItem("streak"));
                 userAns = ans.value.toString().toUpperCase();
                 if (realAns === userAns) {
-                    streak += 1;
-                    document.cookie = "streak=" + streak;
+                    localStreak += 1;
                     var x = document.getElementById("get_solution");
                     if (x.style.display === "none") {
                         x.style.display = "block";
@@ -337,13 +336,14 @@
                     document.getElementById("check_ans").style.display = "none";
                     document.getElementById("if_correct").style.display = "block";
                 } else {
-                    streak = 0;
+                    localStreak = 0;
                     document.getElementById("ans").classList.add("error");
                     setTimeout(function() {
                         document.getElementById("ans").classList.remove('error');
                     }, 300);
                 }
                 document.getElementById("ans").value = '';
-                document.getElementById("streak").innerHTML = streak;
+                document.getElementById("streak").innerHTML = localStreak;
+                localStorage.setItem("streak", localStreak.toString());
                 textc();
             }
