@@ -60,39 +60,33 @@
                     check_ans();
                 }
             });
-            var HttpClient = function() {
-                this.get = function(aUrl, aCallback) {
-                    var anHttpRequest = new XMLHttpRequest();
-                    anHttpRequest.onreadystatechange = function() {
-                        if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
-                            aCallback(anHttpRequest.responseText);
-                    }
 
-                    anHttpRequest.open("GET", aUrl, true);
-                    anHttpRequest.send(null);
-                }
-            }
             var realAns;
             var userAns;
             var solcode;
             function shuffle(array) {
-                var currentIndex = array.length, temporaryValue, randomIndex;
-
-                // While there remain elements to shuffle...
-                while (0 !== currentIndex) {
-
-                    // Pick a remaining element...
-                    randomIndex = Math.floor(Math.random() * currentIndex);
-                    currentIndex -= 1;
-
-                    // And swap it with the current element.
-                    temporaryValue = array[currentIndex];
-                    array[currentIndex] = array[randomIndex];
-                    array[randomIndex] = temporaryValue;
+                var b = array.length, c, a;
+                while (0 !== b) {
+                    a = Math.floor(Math.random() * b);
+                    b -= 1;
+                    c = array[b];
+                    array[b] = array[a];
+                    array[a] = c;
                 }
 
                 return array;
             }
+
+            function request(link, callback) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", link, true);
+                xhr.addEventListener("readystatechange", function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        callback(xhr.responseText);
+                    }
+                });
+                xhr.send();
+            } 
 
             var localStreak;
             function get_new_problem() {
@@ -229,52 +223,35 @@
                     link = shuffle(ntlinks)[0];
                 }
                 */
-                var url = link;
+                
+                var probcode;
+                function handleProbcode(response) {
+                    probcode = response;
+                    probcode = probcode.replaceAll("\\n'", "\n").replaceAll("\\n", "\n").replaceAll("b'", "");
+                    document.getElementById("problem").innerHTML = probcode;
+                    textc();
+                }
+                request(link, handleProbcode);
+
                 var solcode;
-                let xhr0 = new XMLHttpRequest();
-                xhr0.open('GET', link.replaceAll("!", "$"), true);
-                xhr0.send();
-
-                xhr0.onreadystatechange = processRequest1;
-                function processRequest1(e) {
-                    if (xhr0.readyState == 4 && xhr0.status == 200) {
-                        textc();
-                        solcode = xhr0.responseText;
-                        solcode = solcode.replaceAll("\\n'", "\n").replaceAll("\\n", "\n").replaceAll("b'", "");
-                        document.getElementById("get_solution").innerHTML = solcode;
-                    }
+                function handleSolcode(response) {
+                    solcode = response;
+                    solcode = solcode.replaceAll("\\n'", "\n").replaceAll("\\n", "\n").replaceAll("b'", "");
+                    document.getElementById("get_solution").innerHTML = solcode;
+                    textc();
                 }
+                request(link.replaceAll("!", "$"), handleSolcode);
 
-                let xhr = new XMLHttpRequest();
-                xhr.open('GET', url, true);
-                xhr.send();
 
-                xhr.onreadystatechange = processRequest;
-                function processRequest(e) {
-                    if (xhr.readyState == 4 && xhr.status == 200) {
-                        var probcode = xhr.responseText;
-                        probcode = probcode.replaceAll("\\n'", "\n").replaceAll("\\n", "\n").replaceAll("b'", "");
-                        document.getElementById("problem_id").innerHTML = problem_id;
-                        document.getElementById("problem").innerHTML = probcode;
-                        document.getElementById("check_ans").style.display = "block";
-                        
-                        textc();
-
-                let xhr2 = new XMLHttpRequest();
-                xhr2.open('GET', answer_key_link, true);
-                xhr2.send();
-
-                xhr2.onreadystatechange = processRequest;
-                function processRequest(e) {
-                    if (xhr2.readyState == 4 && xhr2.status == 200) {
-                        var response2 = xhr2.responseText;
-                        response2 = response2.split("b'")[1].split("'")[0];
-                        realAns = response2;
-                    }
-
+                function handleAns(response) {
+                    realAns = response;
+                    realAns = realAns.split("b'")[1].split("'")[0];
+                    textc();
                 }
-                    }
-                }
+                request(answer_key_link, handleAns);
+
+                document.getElementById("problem_id").innerHTML = problem_id;
+                document.getElementById("check_ans").style.display = "block";
                 textc();
 
             }
