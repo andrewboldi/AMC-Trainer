@@ -39,9 +39,9 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
   <img src="img/info_button.png" style="position: relative; z-index: 10; width: 40px; height: 40px;" onclick="document.getElementById('infoButton').style.display='block'" class="w3-button">
 
   <div id="infoButton" style="position: fixed; z-index: 15" class="w3-modal">
-    <div class="w3-modal-content w3-animate-zoom w3-card-4">
+    <div class="w3-modal-content animateZoom">
       <header class="w3-container">
-        <span onclick="document.getElementById('infoButton').style.display='none'" style="position: absolute; right: 0; top: 0;"class="w3-button w3-display-topright">&times;</span>
+        <span onclick="document.getElementById('infoButton').style.display='none'" style="position: absolute; right: 0; top: 0;"class="w3-button">&times;</span>
         <h2>Credits</h2>
       <hr>
       </header>
@@ -52,60 +52,23 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
     </div>
   </div>
  </div>
-<script>
-document.addEventListener('contextmenu', event => event.preventDefault());
-document.onkeydown = function(e) {
-
-
-    if(event.keyCode == 123) {
-    return false;
-    }
-    if(e.ctrlKey && e.keyCode == 'E'.charCodeAt(0)){
-    return false;
-    }
-    if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)){
-    return false;
-    }
-    if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)){
-    return false;
-    }
-    if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)){
-    return false;
-    }
-    if(e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)){
-    return false;
-    }
-    if(e.ctrlKey && e.keyCode == 'H'.charCodeAt(0)){
-    return false;
-    }
-    if(e.ctrlKey && e.keyCode == 'A'.charCodeAt(0)){
-    return false;
-    }
-    if(e.ctrlKey && e.keyCode == 'F'.charCodeAt(0)){
-    return false;
-    }
-    if(e.ctrlKey && e.keyCode == 'E'.charCodeAt(0)){
-    return false;
-    }
-}
-</script>
 
 <div id="streak" style="position: absolute; right: 90px; width: 50px; height: 50px; top: 25px; padding-right:10px;"></div>
 <img src="img/fire.png" style="position: absolute; z-index: 10; width: 30px; top: 15px; right: 90px;">
 <img src="img/settings.svg" style="position: absolute; z-index: 10; width: 40px; height: 40px; top: 5px; right: 5px;" onclick="document.getElementById('settingsButton').style.display='block'" class="w3-button">
 
 <div style="position: fixed; z-index: 15;" id="settingsButton" class="w3-modal">
- <div class="w3-modal-content w3-card-4 w3-animate-zoom">
+ <div class="w3-modal-content animateZoom">
   <header class="w3-container">
    <span onclick="document.getElementById('settingsButton').style.display='none'"
    style="position: absolute; right: 0; top: 0;" class="w3-button">&times;</span>
    <h2>Settings</h2>
   </header>
 
-  <div class="w3-bar w3-border-bottom">
-   <button class="tablink w3-bar-item w3-button" onclick="changeTab(event, 'Options')">Options</button>
-   <button class="tablink w3-bar-item w3-button" onclick="changeTab(event, 'Colors')">Colors</button>
-   <button class="tablink w3-bar-item w3-button" onclick="changeTab(event, 'Other')">Other</button>
+  <div style="border-bottom: 1px solid #ccc">
+   <button class="tabButton w3-button" style="padding:8px 16px" onclick="changeTab(event, 'Options')">Options</button>
+   <button class="tabButton w3-button" style="padding:8px 16px" onclick="changeTab(event, 'Colors')">Colors</button>
+   <button class="tabButton w3-button" style="padding:8px 16px" onclick="changeTab(event, 'Other')">Other</button>
   </div>
 
   <div id="Options" class="w3-container tab">
@@ -162,7 +125,7 @@ document.onkeydown = function(e) {
    <p>More settings</p><br>
   </div>
 
-  <div class="w3-container w3-light-grey w3-padding">
+  <div style="padding: 8px 16px" class="w3-container w3-light-grey">
   </div>
  </div>
 </div>
@@ -171,17 +134,13 @@ document.onkeydown = function(e) {
 
 <script>
 
-document.getElementsByClassName("tablink")[0].click();
+document.getElementsByClassName("tabButton")[0].click();
 
 function changeTab(evt, tabName) {
-  var i, x, tablinks;
+  var i, x;
   x = document.getElementsByClassName("tab");
   for (i = 0; i < x.length; i++) {
     x[i].style.display = "none";
-  }
-  tablinks = document.getElementsByClassName("tablink");
-  for (i = 0; i < x.length; i++) {
-    tablinks[i].classList.remove("w3-light-grey");
   }
   document.getElementById(tabName).style.display = "block";
   evt.currentTarget.classList.add("w3-light-grey");
@@ -207,10 +166,11 @@ window.onclick = function(event) {
         </strong>
         <p class="text" id="problem"></p>
         <br>
-        <p class="text" id="check_ans" style="position: absolute; z-index: 10; display: none;">
-            <input class="input button" style="position: fixed; right: 50%; margin: 1%; cursor: text;" type="text" id="ans" name="ans" value="">
+        <p class="text" id="check_ans" style="position: relative; justify-content: center; left: 50%; right: 50%; transform: translateX(-50%); z-index: 10; display: none;">
+            <input class="input button" style="position: absolute; margin-left: 0px; margin-right: 200px; cursor: text;" type="text" id="ans" name="ans" value="">
             <script src="js/script.js"></script>
-            <button class="button" style="position: fixed; left: 50%; color: white; margin: 1%;" type="button" id="get_ans" onclick="check_ans();">Submit</button>
+            <button class="button" style="position: absolute; margin-left: 200px; margin-right: 0px; text-align: center; color: white;" type="button" id="get_ans" onclick="check_ans();">Submit</button>
+
             <span class="text" id="if_correct" style="display: none;"></span>
         </p>
 <p></p>
@@ -219,7 +179,7 @@ window.onclick = function(event) {
         </p>
 
 <img src="img/pencil.png" style="position: absolute; z-index: 10; right:15px; top: 80px;" width="50px" height="50px" onclick="toggle()">
-<div id="draw" style="display: none;">
+<div id="draw" style="width: 100%; height: 100%; display: none;">
     <canvas style="position: absolute; top: 0; left: 0; z-index: 5;" id="can"></canvas>
     <div class="chooseColor" style="top:170px;right:30px;background:green;" id="green" onclick="color(this)"></div>
     <div class="chooseColor" style="top:170px;right:50px;background:blue;" id="blue" onclick="color(this)"></div>
