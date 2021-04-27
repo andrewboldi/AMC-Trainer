@@ -10,7 +10,7 @@ y = 2;
 
 
 function init() {
-    canvas = document.getElementById('can');
+    canvas = document.getElementById("can");
     ctx = canvas.getContext("2d");
     canvas.width = window.innerWidth- 20;
     canvas.height = window.innerHeight - 20;
@@ -19,16 +19,16 @@ function init() {
 
 
     canvas.addEventListener("mousemove", function (e) {
-        findxy('move', e)
+        findxy("move", e)
     }, false);
     canvas.addEventListener("mousedown", function (e) {
-        findxy('down', e)
+        findxy("down", e)
     }, false);
     canvas.addEventListener("mouseup", function (e) {
-        findxy('up', e)
+        findxy("up", e)
     }, false);
     canvas.addEventListener("mouseout", function (e) {
-        findxy('out', e)
+        findxy("out", e)
     }, false);
 }
 
@@ -37,10 +37,12 @@ function init() {
 
 function toggle() {
     if (document.getElementById("draw").style.display == "none") {
-        document.getElementById('draw').style.display='block';
+        document.getElementById("html").style.overflow = "hidden";
+        document.getElementById("draw").style.display = "block";
         init();
     } else {
-        document.getElementById('draw').style.display='none';
+        document.getElementById("draw").style.display = "none";
+        document.getElementById("html").style.overflow = "visible";
     }
 }
 
@@ -92,7 +94,7 @@ function erase() {
 }
 
 function findxy(res, e) {
-if (res == 'down') {
+if (res == "down") {
     prevX = currX;
     prevY = currY;
     currX = e.clientX - canvas.offsetLeft;
@@ -108,10 +110,10 @@ if (res == 'down') {
         dot_flag = false;
     }
 }
-if (res == 'up' || res == "out") {
+if (res == "up" || res == "out") {
     flag = false;
 }
-if (res == 'move') {
+if (res == "move") {
     if (flag) {
         prevX = currX;
         prevY = currY;
