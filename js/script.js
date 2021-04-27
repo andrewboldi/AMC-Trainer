@@ -133,6 +133,9 @@ document.onkeydown = function(e) {
 
             var localStreak;
             function get_new_problem() {
+                if (localStorage.getItem("type") == null) {
+                    localStorage.setItem("type", "All");
+                }
                 var type = localStorage.getItem("type");
 
                 try {
