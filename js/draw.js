@@ -40,7 +40,7 @@ function toggle() {
         document.getElementById("html").style.overflow = "hidden";
         document.addEventListener("touchmove", function(e) {
             e.preventDefault();
-        });
+        }, {passive: false});
         document.getElementById("draw").style.display = "block";
         init();
     } else {
@@ -48,7 +48,7 @@ function toggle() {
         document.getElementById("html").style.overflow = "visible";
         document.removeEventListener("touchmove", function(e) {
             e.preventDefault();
-        });
+        }, {passive: false});
     }
 }
 
