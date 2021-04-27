@@ -38,11 +38,17 @@ function init() {
 function toggle() {
     if (document.getElementById("draw").style.display == "none") {
         document.getElementById("html").style.overflow = "hidden";
+        document.addEventListener("touchmove", function(e) {
+            e.preventDefault();
+        });
         document.getElementById("draw").style.display = "block";
         init();
     } else {
         document.getElementById("draw").style.display = "none";
         document.getElementById("html").style.overflow = "visible";
+        document.removeEventListener("touchmove", function(e) {
+            e.preventDefault();
+        });
     }
 }
 

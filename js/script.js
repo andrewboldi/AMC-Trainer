@@ -91,6 +91,7 @@ document.onkeydown = function(e) {
                     document.querySelectorAll('.text img').forEach(element => {element.style.filter = 'invert(1)';});
                 }
            }
+             
  
            document.getElementById("ans").addEventListener('keyup', function(event) {
                 if (event.code === 'Enter') {
