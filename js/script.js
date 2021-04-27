@@ -126,16 +126,21 @@ document.onkeydown = function(e) {
                 });
                 xhr.send();
             } 
+            function saveLevel() {
+                var t = document.getElementById("ddlViewBy").value;
+                localStorage.setItem("type", t);
+            } 
 
             var localStreak;
             function get_new_problem() {
+                var type = localStorage.getItem("type");
+
                 try {
                     localStreak = localStorage.getItem("streak");
                 } catch (err) {
                     localStorage.setItem("streak", "0");
                 }
                 
-                var type = document.getElementById("ddlViewBy").value;
                 // var subject = document.getElementById("ddlViewBy2").value;
                 // document.getElementById("check_ans").style.display = "none";
                 document.getElementById("get_solution").style.display = "none";
