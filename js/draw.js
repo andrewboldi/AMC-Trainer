@@ -8,18 +8,12 @@ dot_flag = false;
 var x = "black",
 y = 2;
 
-function resize_canvas() {
-    canvas = document.getElementById("can");
-    canvas.width = window.innerWidth - 20;
-    canvas.height = window.innerHeight - 20;
-}
-
 
 function init() {
     canvas = document.getElementById('can');
     ctx = canvas.getContext("2d");
-    ctx.canvas.width = window.innerWidth - 20;
-    ctx.canvas.height = window.innerHeight - 20;
+    canvas.width = window.innerWidth- 20;
+    canvas.height = window.innerHeight - 20;
     w = canvas.width;
     h = canvas.height;
 
