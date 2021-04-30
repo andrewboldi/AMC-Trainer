@@ -3,6 +3,10 @@
                 height: 100%;
                 margin: 0;
             }
+
+            * {
+                font-family: Didot !important;
+            }
             
             .button {
                 border: none;
