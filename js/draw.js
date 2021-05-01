@@ -79,6 +79,7 @@ function init() {
     }, false);
     canvas.addEventListener('touchstart', handleTouchStart, false);
     canvas.addEventListener('touchmove', handleTouchMove, false);
+    window.addEventListener("orientationchange", getHeight);
 }
 
 
