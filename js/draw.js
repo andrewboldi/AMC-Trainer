@@ -1,4 +1,6 @@
-var canvas, ctx, flag = false,
+var canvas, ctx, flag = false;
+var temp;
+var height;
 prevX = 0,
 currX = 0,
 prevY = 0,
@@ -7,6 +9,18 @@ dot_flag = false;
 
 var x = "black",
 y = 2;
+
+function getHeight() {
+    if (document.getElementById("draw").style.display == "block") {
+        var body = document.body, html = document.documentElement;
+        canvas = document.getElementById("can");
+        temp = canvas.getContext("2d").getImageData(0, 0, canvas.width, canvas.height);
+        height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+        canvas.height = height;
+        h = canvas.height;
+        canvas.getContext("2d").putImageData(temp, 0, 0);
+    }
+}
 
 function handleTouchStart(e) { 
         getCurrPos(e);
@@ -41,11 +55,15 @@ function getCurrPos(e) {
 function init() {
     canvas = document.getElementById("can");
     ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth- 20;
-    canvas.height = window.innerHeight - 20;
+    canvas.width = window.innerWidth - 20;
+    try {
+        canvas.getContext("2d").putImageData(temp, 0, 0);
+    } catch (err) {
+        ;
+    }
+    getHeight();
     w = canvas.width;
-    h = canvas.height;
-
+    console.log(temp);
 
     canvas.addEventListener("mousemove", function (e) {
         findxy("move", e)
@@ -64,16 +82,15 @@ function init() {
 }
 
 
-
-
 function toggle() {
     if (document.getElementById("draw").style.display == "none") {
-        document.getElementById("html").style.overflow = "hidden";
+ //       document.getElementById("html").style.overflow = "hidden";
         document.getElementById("draw").style.display = "block";
         init();
     } else {
+        temp = canvas.getContext("2d").getImageData(0, 0, canvas.width, canvas.height);
         document.getElementById("draw").style.display = "none";
-        document.getElementById("html").style.overflow = "visible";
+//        document.getElementById("html").style.overflow = "visible";
     }
 }
 
@@ -132,7 +149,7 @@ function findxy(res, e) {
         prevX = currX;
         prevY = currY;
         currX = e.clientX - canvas.offsetLeft;
-        currY = e.clientY - canvas.offsetTop;
+        currY = e.clientY - canvas.offsetTop + document.getElementById("body").scrollTop;
 
         flag = true;
         dot_flag = true;
@@ -152,7 +169,7 @@ function findxy(res, e) {
             prevX = currX;
             prevY = currY;
             currX = e.clientX - canvas.offsetLeft;
-            currY = e.clientY - canvas.offsetTop;
+            currY = e.clientY - canvas.offsetTop + document.getElementById("body").scrollTop;
             draw();
         }
     }

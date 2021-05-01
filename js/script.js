@@ -100,6 +100,7 @@ document.onkeydown = function(e) {
 
             var localStreak;
             function get_new_problem() {
+                getHeight();
                 if (localStorage.getItem("type") == null) {
                     localStorage.setItem("type", "All");
                 }
@@ -326,6 +327,7 @@ document.onkeydown = function(e) {
                     conf();
                     document.getElementById("check_ans").style.display = "none";
                     document.getElementById("if_correct").style.display = "block";
+                    getHeight();
                 } else {
                     localStreak = 0;
                     document.getElementById("ans").classList.add("error");
