@@ -8,6 +8,11 @@ dot_flag = false;
 var x = "black",
 y = 2;
 
+function handleTouchStart(e) { 
+        getCurrPos(e);
+        event.preventDefault();
+}
+
 function handleTouchMove(e) { 
         getCurrPos(e);
         draw(); 
@@ -54,7 +59,7 @@ function init() {
     canvas.addEventListener("mouseout", function (e) {
         findxy("out", e)
     }, false);
-    canvas.addEventListener('touchstart', handleTouchMove, false);
+    canvas.addEventListener('touchstart', handleTouchStart, false);
     canvas.addEventListener('touchmove', handleTouchMove, false);
 }
 
