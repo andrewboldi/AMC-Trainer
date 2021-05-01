@@ -8,6 +8,30 @@ dot_flag = false;
 var x = "black",
 y = 2;
 
+function handleTouchMove(e) { 
+        getCurrPos(e);
+        draw(); 
+        event.preventDefault();
+}
+
+function getCurrPos(e) {
+    if (!e)
+        var e = event;
+
+    if(e.touches) {
+        if (e.touches.length == 1) {
+            var touch = e.touches[0];
+            prevX = currX;
+            prevY = currY;
+            currX=touch.pageX-touch.target.offsetLeft;
+            currY=touch.pageY-touch.target.offsetTop;
+            if (prevX == 0 || prevY == 0) {
+                prevX = currX;
+                prevY = currY;
+            }
+        }
+    }
+}
 
 function init() {
     canvas = document.getElementById("can");
@@ -30,6 +54,8 @@ function init() {
     canvas.addEventListener("mouseout", function (e) {
         findxy("out", e)
     }, false);
+    canvas.addEventListener('touchstart', handleTouchMove, false);
+    canvas.addEventListener('touchmove', handleTouchMove, false);
 }
 
 
@@ -38,17 +64,11 @@ function init() {
 function toggle() {
     if (document.getElementById("draw").style.display == "none") {
         document.getElementById("html").style.overflow = "hidden";
-        document.addEventListener("touchmove", function(e) {
-            e.preventDefault();
-        }, {passive: false});
         document.getElementById("draw").style.display = "block";
         init();
     } else {
         document.getElementById("draw").style.display = "none";
         document.getElementById("html").style.overflow = "visible";
-        document.removeEventListener("touchmove", function(e) {
-            e.preventDefault();
-        }, {passive: false});
     }
 }
 
@@ -76,8 +96,11 @@ function color(obj) {
             x = "white";
             break;
     }
-    if (x == "white") y = 14;
-    else y = 2;
+    if (x == "white") {
+        y = 14;
+    } else {
+        y = 2;
+    }
 
 }
 
@@ -95,37 +118,37 @@ function erase() {
     var m = confirm("Are you sure you want to clear?");
     if (m) {
         ctx.clearRect(0, 0, w, h);
-        document.getElementById("canvasimg").style.display = "none";
+        document.getElementById("draw").style.display = "none";
     }
 }
 
 function findxy(res, e) {
-if (res == "down") {
-    prevX = currX;
-    prevY = currY;
-    currX = e.clientX - canvas.offsetLeft;
-    currY = e.clientY - canvas.offsetTop;
-
-    flag = true;
-    dot_flag = true;
-    if (dot_flag) {
-        ctx.beginPath();
-        ctx.fillStyle = x;
-        ctx.fillRect(currX, currY, 2, 2);
-        ctx.closePath();
-        dot_flag = false;
-    }
-}
-if (res == "up" || res == "out") {
-    flag = false;
-}
-if (res == "move") {
-    if (flag) {
+    if (res == "down") {
         prevX = currX;
         prevY = currY;
         currX = e.clientX - canvas.offsetLeft;
         currY = e.clientY - canvas.offsetTop;
-        draw();
+
+        flag = true;
+        dot_flag = true;
+        if (dot_flag) {
+            ctx.beginPath();
+            ctx.fillStyle = x;
+            ctx.fillRect(currX, currY, 2, 2);
+            ctx.closePath();
+            dot_flag = false;
+        }
     }
-}
+    if (res == "up" || res == "out") {
+        flag = false;
+    }
+    if (res == "move") {
+        if (flag) {
+            prevX = currX;
+            prevY = currY;
+            currX = e.clientX - canvas.offsetLeft;
+            currY = e.clientY - canvas.offsetTop;
+            draw();
+        }
+    }
 }
