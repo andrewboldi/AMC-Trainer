@@ -53,7 +53,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
   </div>
  </div>
 
-<div id="streak" class="text" style="position: absolute; right: 90px; width: 50px; height: 50px; top: 25px; padding-right:10px;"></div>
+<div id="streak" style="position: absolute; right: 90px; width: 50px; height: 50px; top: 25px; padding-right:10px;"></div>
 <img src="img/fire.png" style="position: absolute; z-index: 10; width: 30px; top: 15px; right: 90px;">
 <img src="img/settings.svg" style="position: absolute; z-index: 10; width: 40px; height: 40px; top: 5px; right: 5px;" onclick="document.getElementById('settingsButton').style.display='block'" class="w3-button">
 
@@ -125,7 +125,15 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
 
   <div id="Other" class="w3-container tab">
 <br>
-   <p>More settings</p><br>
+    <h2>Image Wiggle</h2>
+    <select class="ddl button" style="text-indent: 10%; text-align-last: center;" id="imgWiggle" value="On">
+        <option style="color: gray" value=On>On</option>
+        <option style="color: gray" value=Off>Off</option>
+    </select>
+<p>
+      <input class="button" style="width: 70px; color: white; position: absolute; right: 5px; bottom: 5px;" onclick="toggleWiggle()" type="submit" value="save">
+</p>
+    
   </div>
 
   <div style="padding: 8px 16px" class="w3-container w3-light-grey">

@@ -45,6 +45,19 @@ document.onkeydown = function(e) {
       //              document.getElementsByClassName("button").style.backgroundImage = `linear-gradient(to right, ${right}, ${left})`;
 
                 }
+            function toggleWiggle() {
+                var val = document.getElementById("imgWiggle").value;
+                var a = document.getElementsByTagName("img");
+                if (val == "Off") {
+                    for (var i=0; i<a.length; i++) {
+                        a[i].classList.add("imgNoHover");
+                    }
+                } else {
+                    for (var j=0; j<a.length; j++) {
+                        a[j].classList.remove("imgNoHover");
+                    }
+                }
+            }
             function rgbToHex(c) {
               var hex = c.toString(16);
               return hex.length == 1 ? "0" + hex : hex;
@@ -100,6 +113,7 @@ document.onkeydown = function(e) {
 
             var localStreak;
             function get_new_problem() {
+                toggleWiggle();
                 getHeight();
                 if (localStorage.getItem("type") == null) {
                     localStorage.setItem("type", "All");
