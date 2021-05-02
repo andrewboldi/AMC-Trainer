@@ -106,6 +106,11 @@ document.onkeydown = function(e) {
                 });
                 xhr.send();
             } 
+            
+            function closeModal() {
+                document.getElementById("settingsButton").style.display = "none";
+            }
+
             function saveLevel() {
                 var t = document.getElementById("ddlViewBy").value;
                 localStorage.setItem("type", t);

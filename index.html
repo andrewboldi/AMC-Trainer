@@ -60,8 +60,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
 <div style="position: fixed; z-index: 15;" id="settingsButton" class="w3-modal">
  <div class="w3-modal-content animateZoom">
   <header class="w3-container">
-   <span onclick="document.getElementById('settingsButton').style.display='none'"
-   style="position: absolute; right: 0; top: 0;" class="w3-button">&times;</span>
+   <span onclick="closeModal()" style="position: absolute; right: 0; top: 0;" class="w3-button">&times;</span>
    <h2>Settings</h2>
   </header>
 
@@ -93,7 +92,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                 <option style="color: gray;" value="All" selected="selected">All</option>
             </select>
 <p>
-      <input class="button" style="width: 70px; color: white; position: absolute; right: 5px; bottom: 5px;" onclick="saveLevel();" type="submit" value="save">
+      <input class="button" style="width: 70px; color: white; position: absolute; right: 5px; bottom: 5px;" onclick="saveLevel(); closeModal();" type="submit" value="save">
 </p>
   </div>
 
@@ -119,7 +118,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
         <option style="color: gray" value=Black>Black</option>
     </select>
 <p>
-      <input class="button" style="width: 70px; color: white; position: absolute; right: 5px; bottom: 5px;" onclick="grad(); textc(); logo();" type="submit" value="save">
+      <input class="button" style="width: 70px; color: white; position: absolute; right: 5px; bottom: 5px;" onclick="grad(); textc(); logo(); closeModal();" type="submit" value="save">
 </p>
   </div>
 
@@ -131,7 +130,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
         <option style="color: gray" value=Off>Off</option>
     </select>
 <p>
-      <input class="button" style="width: 70px; color: white; position: absolute; right: 5px; bottom: 5px;" onclick="toggleWiggle()" type="submit" value="save">
+      <input class="button" style="width: 70px; color: white; position: absolute; right: 5px; bottom: 5px;" onclick="toggleWiggle(); closeModal();" type="submit" value="save">
 </p>
     
   </div>
