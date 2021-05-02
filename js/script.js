@@ -347,3 +347,10 @@ document.onkeydown = function(e) {
                 textc();
             }
 
+        function giveUp() {
+            var t = confirm("Are you sure you want to give up?");
+            if (t) {
+                check_ans(1);
+            } 
+
+        }
