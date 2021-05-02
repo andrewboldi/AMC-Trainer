@@ -63,13 +63,18 @@ document.onkeydown = function(e) {
               return hex.length == 1 ? "0" + hex : hex;
             }
             function textc() {
-                if (document.getElementById("textColor").value === "B") {
+                if (document.getElementById("textColor").value == "B") {
                     document.querySelectorAll('.text').forEach(element => {element.style.color = 'black';}); 
                     document.querySelectorAll('.text img').forEach(element => {element.style.filter = 'invert(0)';});
+                    document.getElementById("infoButtonImg").style.filter = "invert(0)";
+                    document.getElementById("settingsButtonImg").style.filter = "invert(0)";
                 } else {
                     document.querySelectorAll('.text').forEach(element => {element.style.color = 'white';}); 
                     document.querySelectorAll('.text img').forEach(element => {element.style.filter = 'invert(1)';});
+                    document.getElementById("infoButtonImg").style.filter = "invert(1)";
+                    document.getElementById("settingsButtonImg").style.filter = "invert(1)";
                 }
+                
            }
              
  

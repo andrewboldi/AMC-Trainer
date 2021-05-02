@@ -36,7 +36,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
 
 
        <div style="position: absolute; left: 0px; top: 5px;" class="w3-container">
-  <img src="img/info_button.png" style="position: relative; z-index: 10; width: 40px; height: 40px;" onclick="document.getElementById('infoButton').style.display='block'" class="w3-button">
+  <img id="infoButtonImg" src="img/info_button.png" style="position: relative; z-index: 10; width: 40px; height: 40px;" onclick="document.getElementById('infoButton').style.display='block'" class="w3-button">
 
   <div id="infoButton" style="position: fixed; z-index: 15" class="w3-modal">
     <div class="w3-modal-content animateZoom">
@@ -55,7 +55,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
 
 <div id="streak" style="position: absolute; right: 90px; width: 50px; height: 50px; top: 25px; padding-right:10px;"></div>
 <img src="img/fire.png" style="position: absolute; z-index: 10; width: 30px; top: 15px; right: 90px;">
-<img src="img/settings.svg" style="position: absolute; z-index: 10; width: 40px; height: 40px; top: 5px; right: 5px;" onclick="document.getElementById('settingsButton').style.display='block'" class="w3-button">
+<img id="settingsButtonImg" src="img/settings.svg" style="position: absolute; z-index: 10; width: 40px; height: 40px; top: 5px; right: 5px;" onclick="document.getElementById('settingsButton').style.display='block'" class="w3-button">
 
 <div style="position: fixed; z-index: 15;" id="settingsButton" class="w3-modal">
  <div class="w3-modal-content animateZoom">
