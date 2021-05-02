@@ -113,7 +113,6 @@ document.onkeydown = function(e) {
 
             var localStreak;
             function get_new_problem() {
-                toggleWiggle();
                 getHeight();
                 if (localStorage.getItem("type") == null) {
                     localStorage.setItem("type", "All");
@@ -259,6 +258,7 @@ document.onkeydown = function(e) {
                     probcode = probcode.replaceAll("\\n'", "\n").replaceAll("\\n", "\n").replaceAll("b'", "");
                     document.getElementById("problem").innerHTML = probcode;
                     textc();
+                    toggleWiggle();
                 }
                 request(link, handleProbcode);
 
@@ -268,6 +268,7 @@ document.onkeydown = function(e) {
                     solcode = solcode.replaceAll("\\n'", "\n").replaceAll("\\n", "\n").replaceAll("b'", "");
                     document.getElementById("get_solution").innerHTML = solcode;
                     textc();
+                    toggleWiggle();
                 }
                 request(link.replaceAll("!", "$"), handleSolcode);
 
@@ -359,6 +360,7 @@ document.onkeydown = function(e) {
                 document.getElementById("streak").innerHTML = localStreak;
                 localStorage.setItem("streak", localStreak.toString());
                 textc();
+                toggleWiggle();
             }
 
         function giveUp() {
