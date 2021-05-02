@@ -115,9 +115,6 @@ function color(obj) {
         case "black":
             x = "black";
             break;
-        case "white":
-            x = "white";
-            break;
     }
     if (x == "white") {
         y = 14;
@@ -138,6 +135,10 @@ function draw() {
 }
 
 function erase() {
+    ;    
+}
+
+function clearScreen() {
     var m = confirm("Are you sure you want to clear?");
     if (m) {
         ctx.clearRect(0, 0, w, h);

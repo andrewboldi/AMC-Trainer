@@ -63,7 +63,7 @@ document.onkeydown = function(e) {
            document.getElementById("ans").addEventListener('keyup', function(event) {
                 if (event.code === 'Enter') {
                     event.preventDefault();
-                    check_ans();
+                    check_ans(0);
                 }
             });
 
@@ -313,10 +313,10 @@ document.onkeydown = function(e) {
 
             }
 
-            function check_ans() {
+            function check_ans(num) {
                 localStreak = parseInt(localStorage.getItem("streak"));
                 userAns = ans.value.toString().toUpperCase();
-                if (realAns === userAns) {
+                if (num == 0 && realAns === userAns) {
                     localStreak += 1;
                     var x = document.getElementById("get_solution");
                     if (x.style.display === "none") {
@@ -330,13 +330,20 @@ document.onkeydown = function(e) {
                     getHeight();
                 } else {
                     localStreak = 0;
-                    document.getElementById("ans").classList.add("error");
-                    setTimeout(function() {
-                        document.getElementById("ans").classList.remove('error');
-                    }, 300);
+                    if (num == 0) {
+                        document.getElementById("ans").classList.add("error");
+                        setTimeout(function() {
+                            document.getElementById("ans").classList.remove('error');
+                        }, 300);
+                    } else {
+                        document.getElementById("check_ans").style.display = "none";
+                        document.getElementById("if_correct").style.display = "block";
+                        document.getElementById("get_solution").style.display = "block";
+                    }
                 }
                 document.getElementById("ans").value = '';
                 document.getElementById("streak").innerHTML = localStreak;
                 localStorage.setItem("streak", localStreak.toString());
                 textc();
             }
+

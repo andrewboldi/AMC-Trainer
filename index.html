@@ -172,9 +172,10 @@ window.onclick = function(event) {
         <p class="text" id="check_ans" style="position: relative; justify-content: center; left: 50%; right: 50%; transform: translateX(-50%); z-index: 10; display: none;">
             <input class="input button" style="position: absolute; margin-left: 0px; margin-right: 200px; cursor: text;" type="text" id="ans" name="ans" value="">
             <script src="js/script.js"></script>
-            <button class="button" style="position: absolute; margin-left: 200px; margin-right: 0px; text-align: center; color: white;" type="button" id="get_ans" onclick="check_ans();">Submit</button>
+            <button class="button" style="position: absolute; margin-left: 200px; margin-right: 0px; text-align: center; color: white;" type="button" id="get_ans" onclick="check_ans(0);">Submit</button>
 
             <span class="text" id="if_correct" style="display: none;"></span>
+            <span onclick="check_ans(1)" style="cursor: pointer; position: absolute; margin-top: 10px; margin-left: 400px; text-align: center;">&#128681</span>
         </p>
 <p></p>
         <p class="text">
@@ -190,7 +191,8 @@ window.onclick = function(event) {
     <div class="chooseColor" style="top:190px;right:30px;background:yellow;" id="yellow" onclick="color(this)"></div>
     <div class="chooseColor" style="top:190px;right:50px;background:orange;" id="orange" onclick="color(this)"></div>
     <div class="chooseColor" style="top:190px;right:70px;background:black;" id="black" onclick="color(this)"></div>
-    <input class="button" type="button" value="clear" id="clr" size="23" onclick="erase()" style="z-index: 10; position:absolute;top:220px;right:30px; color: white; font-weight: 100; font-size: 0.9em; width: 60px;">
+<!--    <div style="position: absolute; top:200px;right:30px;background:white; cursor: pointer; border-radius: 20px;height: 15px; width: 50px; z-index: 10;" id="eraser"></div>-->
+    <input class="button" type="button" value="clear" id="clr" size="23" onclick="clearScreen()" style="z-index: 10; position:absolute;top:240px;right:30px; color: white; font-weight: 100; font-size: 0.9em; width: 60px;">
 </div>
 </body>
 </html>
