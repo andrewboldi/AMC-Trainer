@@ -353,6 +353,8 @@ document.onkeydown = function(e) {
                     document.getElementById("check_ans").style.display = "none";
                     document.getElementById("if_correct").style.display = "block";
                     getHeight();
+                } else if (userAns == "" || userAns == " ") {
+                    alert("Enter an answer!");
                 } else {
                     localStreak = 0;
                     if (num == 0) {
