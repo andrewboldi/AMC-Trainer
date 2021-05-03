@@ -35,17 +35,17 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
       
 
 
-       <div style="position: absolute; left: 0px; top: 5px;" class="w3-container">
-  <img id="infoButtonImg" src="img/info_button.png" style="position: relative; z-index: 10; width: 40px; height: 40px;" onclick="document.getElementById('infoButton').style.display='block'" class="w3-button">
+       <div style="position: absolute; left: 0px; top: 5px;" class="container">
+  <img id="infoButtonImg" src="img/info_button.png" style="position: relative; z-index: 10; width: 40px; height: 40px;" onclick="document.getElementById('infoButton').style.display='block'" class="modalButton">
 
-  <div id="infoButton" style="position: fixed; z-index: 15" class="w3-modal">
-    <div class="w3-modal-content animateZoom">
-      <header class="w3-container">
-        <span onclick="document.getElementById('infoButton').style.display='none'" style="position: absolute; right: 0; top: 0;"class="w3-button">&times;</span>
+  <div id="infoButton" style="position: fixed; z-index: 15" class="modal">
+    <div class="modalContent animateZoom">
+      <header class="container">
+        <span onclick="document.getElementById('infoButton').style.display='none'" style="position: absolute; right: 0; top: 0;"class="modalButton">&times;</span>
         <h2>Credits</h2>
       <hr>
       </header>
-      <div class="w3-container">
+      <div class="container">
         <p><i>The problems on this page are copyrighted by the Mathematical Association of America's American Mathematics Competitions and the solutions on this page are directly taken from the Art of Problem Solving AoPS Wiki.</i></p>
       </div>
 
@@ -55,22 +55,22 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
 
 <div id="streak" class="text" style="position: absolute; right: 90px; width: 50px; height: 50px; top: 25px; padding-right:10px;"></div>
 <img src="img/fire.png" style="position: absolute; z-index: 10; width: 30px; top: 15px; right: 90px;">
-<img id="settingsButtonImg" src="img/settings.svg" style="position: absolute; z-index: 10; width: 40px; height: 40px; top: 5px; right: 5px;" onclick="document.getElementById('settingsButton').style.display='block'" class="w3-button">
+<img id="settingsButtonImg" src="img/settings.svg" style="position: absolute; z-index: 10; width: 40px; height: 40px; top: 5px; right: 5px;" onclick="document.getElementById('settingsButton').style.display='block'" class="modalButton">
 
-<div style="position: fixed; z-index: 15;" id="settingsButton" class="w3-modal">
- <div class="w3-modal-content animateZoom">
-  <header class="w3-container">
-   <span onclick="closeModal()" style="position: absolute; right: 0; top: 0;" class="w3-button">&times;</span>
+<div style="position: fixed; z-index: 15;" id="settingsButton" class="modal">
+ <div class="modalContent animateZoom">
+  <header class="container">
+   <span onclick="closeModal()" style="position: absolute; right: 0; top: 0;" class="modalButton">&times;</span>
    <h2>Settings</h2>
   </header>
 
   <div style="border-bottom: 1px solid #ccc">
-   <button class="tabButton w3-button" style="padding:8px 16px" onclick="changeTab(event, 'Options')">Options</button>
-   <button class="tabButton w3-button" style="padding:8px 16px" onclick="changeTab(event, 'Colors')">Colors</button>
-   <button class="tabButton w3-button" style="padding:8px 16px" onclick="changeTab(event, 'Other')">Other</button>
+   <button class="tabButton modalButton" style="padding:8px 16px" onclick="changeTab(event, 'Options')">Options</button>
+   <button class="tabButton modalButton" style="padding:8px 16px" onclick="changeTab(event, 'Colors')">Colors</button>
+   <button class="tabButton modalButton" style="padding:8px 16px" onclick="changeTab(event, 'Other')">Other</button>
   </div>
 
-  <div id="Options" class="w3-container tab">
+  <div id="Options" class="container tab">
 <br>
 <h2>Subject</h2>
 <p style="left: 0px; margin-left: none; padding-left: 0px; text-align: left;">Coming soon!</p>
@@ -96,7 +96,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
 </p>
   </div>
 
-  <div id="Colors" class="w3-container tab">
+  <div id="Colors" class="container tab">
 <br>
 <h2>Text Color</h2>
       <select class="ddl button" style="text-indent: 10%; text-align-last: center;" id="textColor" value="B">
@@ -122,7 +122,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
 </p>
   </div>
 
-  <div id="Other" class="w3-container tab">
+  <div id="Other" class="container tab">
 <br>
     <h2>Image Wiggle</h2>
     <select class="ddl button" style="text-indent: 10%; text-align-last: center;" id="imgWiggle" value="On">
@@ -135,7 +135,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
     
   </div>
 
-  <div style="padding: 8px 16px" class="w3-container w3-light-grey">
+  <div style="padding: 8px 16px" class="container w3-light-grey">
   </div>
  </div>
 </div>
