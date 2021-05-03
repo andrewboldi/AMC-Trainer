@@ -7,8 +7,7 @@ prevY = 0,
 currY = 0,
 dot_flag = false;
 
-var x = "black",
-y = 2;
+var x = "black";
 
 function getHeight() {
     if (document.getElementById("draw").style.display == "block") {
@@ -63,7 +62,6 @@ function init() {
     }
     getHeight();
     w = canvas.width;
-    console.log(temp);
 
     canvas.addEventListener("mousemove", function (e) {
         findxy("move", e)
@@ -80,6 +78,7 @@ function init() {
     canvas.addEventListener('touchstart', handleTouchStart, false);
     canvas.addEventListener('touchmove', handleTouchMove, false);
     window.addEventListener("orientationchange", getHeight);
+    ctx.lineWidth = 2;
 }
 
 
@@ -96,6 +95,8 @@ function toggle() {
 }
 
 function color(obj) {
+    ctx.globalCompositeOperation = "source-over";
+    ctx.lineWidth = 2;
     switch (obj.id) {
         case "green":
             x = "green";
@@ -116,26 +117,27 @@ function color(obj) {
             x = "black";
             break;
     }
-    if (x == "white") {
-        y = 14;
-    } else {
-        y = 2;
-    }
 
 }
 
 function draw() {
     ctx.beginPath();
     ctx.moveTo(prevX, prevY);
-    ctx.lineTo(currX, currY);
+    if (ctx.globalCompositeOperation == "destination-out") {
+        ctx.fillRect(currX-20, currY-20, 40, 40);
+    } else {
+        ctx.lineTo(currX, currY);
+    }
+
     ctx.strokeStyle = x;
-    ctx.lineWidth = y;
     ctx.stroke();
     ctx.closePath();
 }
 
 function erase() {
-    ;    
+    ctx.globalCompositeOperation = "destination-out";
+    ctx.strokeStyle = "rgba(100,100,255,1)";
+//    ctx.lineWidth = 100;
 }
 
 function clearScreen() {
