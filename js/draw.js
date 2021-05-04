@@ -144,6 +144,7 @@ function clearScreen() {
     var m = confirm("Are you sure you want to clear?");
     if (m) {
         ctx.clearRect(0, 0, w, h);
+        temp = null;
         document.getElementById("draw").style.display = "none";
     }
 }
