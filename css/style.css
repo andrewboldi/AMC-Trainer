@@ -1,13 +1,15 @@
+            * {
+                font-family: inherit;
+            }
+
             html, body {
                 width: 100%;
                 height: 100%;
                 margin: 0;
+                font-family: sans-serif;
             }
 
-            * {
-                font-family: Geneva !important;
-            }
-            
+
             .button {
                 border: none;
                 max-width: 80%;
@@ -128,14 +130,12 @@
 
             .text {
                 color: white;
-                font-family: Geneva !important;
             }
 
             .text img {
                 filter: invert(1);
             }
             .body {
-                font-family: Geneva !important;
                 background-image: linear-gradient(to right, rgb(145, 254, 158), rgb(0, 201, 255));
                 background-position: center;
                 background-repeat: no-repeat;

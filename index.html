@@ -129,13 +129,35 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
         <option style="color: gray" value=On>On</option>
         <option style="color: gray" value=Off>Off</option>
     </select>
+    <h2>Font Family</h2>
+    <select class="ddl button" style="text-indent: 10%; text-align-last: center;" id="fontFamily" value="sans-serif">
+        <option style="color: gray; font-family: sans-serif !important;" value="sans-serif">Sans Serif</option>
+        <option style="color: gray; font-family: Arial !important;" value="Arial">Arial</option>
+        <option style="color: gray; font-family: Arial Black !important;" value="Arial Black">Arial Black</option>
+        <option style="color: gray; font-family: Verdana !important;" value="Verdana">Verdana</option>
+        <option style="color: gray; font-family: Tahoma !important;" value="Tahoma">Tahoma</option>
+        <option style="color: gray; font-family: Trebuchet MS !important;" value="Trebuchet MS">Trebuchet MS</option>
+        <option style="color: gray; font-family: Impact !important;" value="Impact">Impact</option>
+        <option style="color: gray; font-family: Times New Roman !important;" value="Times New Roman">Times New Roman</option>
+        <option style="color: gray; font-family: Didot !important;" value="Didot">Didot</option>
+        <option style="color: gray; font-family: Georgia !important;" value="Georgia">Georgia</option>
+        <option style="color: gray; font-family: American Typewriter !important;" value="American Typewriter">American Typewriter</option>
+        <option style="color: gray; font-family: Andalé Mono !important;" value="Andalé Mono">Andalé Mono</option>
+        <option style="color: gray; font-family: Courier !important;" value="Courier">Courier</option>
+        <option style="color: gray; font-family: Lucida Console !important;" value="Lucida Console">Lucida Console</option>
+        <option style="color: gray; font-family: Monaco !important;" value="Monaco">Monaco</option>
+        <option style="color: gray; font-family: Bradley Hand !important;" value="Bradley Hand">Bradley Hand</option>
+        <option style="color: gray; font-family: Brush Script MT !important;" value="Brush Script MT">Brush Script MT</option>
+        <option style="color: gray; font-family: Luminari !important;" value="Luminari">Luminari</option>
+        <option style="color: gray; font-family: Comic Sans MS !important;" value="Comic Sans MS">Comic Sans MS</option>
+    </select>
 <p>
-      <input class="button" style="width: 70px; color: white; position: absolute; right: 5px; bottom: 5px;" onclick="toggleWiggle(); closeModal();" type="submit" value="save">
+      <input class="button" style="width: 70px; color: white; position: absolute; right: 5px; bottom: 5px;" onclick="toggleWiggle(); textFont(); closeModal();" type="submit" value="save">
 </p>
     
   </div>
 
-  <div style="padding: 8px 16px" class="container w3-light-grey">
+  <div style="padding: 8px 16px" class="container">
   </div>
  </div>
 </div>
@@ -153,11 +175,10 @@ function changeTab(evt, tabName) {
     x[i].style.display = "none";
   }
   document.getElementById(tabName).style.display = "block";
-  evt.currentTarget.classList.add("w3-light-grey");
 }
-var modal = document.getElementById('settingsButton');
+var modal = document.getElementById("settingsButton");
 
-var info = document.getElementById('infoButton');
+var info = document.getElementById("infoButton");
 window.onclick = function(event) {
   if (event.target === modal) {
     modal.style.display = "none";
@@ -169,7 +190,7 @@ window.onclick = function(event) {
 
        <img id="logo" src="img/logo_blue.png" style="display:block; height: 4%; margin-top: 30px; margin-left: auto; margin-right: auto; margin-bottom: 30px;">
         <p style="position: absolute; z-index: 10;" id="Problems">
-            <button type="button" onclick="document.getElementById('ans').value = ''; get_new_problem();" style="position: fixed; right: 10%; bottom: 10%; width: 12%; height: 7%; border-radius: 20px; font-size: 1.6em" id="new_problem" class="button" data-hover="New">New</button>
+            <button type="button" onclick="document.getElementById('ans').value = ''; get_new_problem();" style="position: fixed; right: 10%; bottom: 10%; width: 12%; height: 7%; border-radius: 20px; font-size: 1.6em;" id="new_problem" class="button" data-hover="New">New</button>
         </p>
         <strong>
             <p class="text" id="problem_id" style="font-size: 24px;"></p>

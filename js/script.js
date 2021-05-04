@@ -33,6 +33,12 @@ document.onkeydown = function(e) {
                 }
             }
 
+            function textFont() {
+                var fontFamilyName = document.getElementById("fontFamily").value;
+                console.log(fontFamilyName);
+                document.getElementById("body").style.fontFamily = fontFamilyName;
+            }
+
             function grad() {
                     var left = document.getElementById("g1").value
                     var right = document.getElementById("g2").value
