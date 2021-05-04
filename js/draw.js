@@ -11,7 +11,8 @@ var x = "black";
 
 function getHeight() {
     if (document.getElementById("draw").style.display == "block") {
-        var body = document.body, html = document.documentElement;
+        var body = document.body
+          , html = document.documentElement;
         canvas = document.getElementById("can");
         temp = canvas.getContext("2d").getImageData(0, 0, canvas.width, canvas.height);
         height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
@@ -21,28 +22,28 @@ function getHeight() {
     }
 }
 
-function handleTouchStart(e) { 
-        getCurrPos(e);
-        event.preventDefault();
+function handleTouchStart(e) {
+    getCurrPos(e);
+    event.preventDefault();
 }
 
-function handleTouchMove(e) { 
-        getCurrPos(e);
-        draw(); 
-        event.preventDefault();
+function handleTouchMove(e) {
+    getCurrPos(e);
+    draw();
+    event.preventDefault();
 }
 
 function getCurrPos(e) {
     if (!e)
         var e = event;
 
-    if(e.touches) {
+    if (e.touches) {
         if (e.touches.length == 1) {
             var touch = e.touches[0];
             prevX = currX;
             prevY = currY;
-            currX=touch.pageX-touch.target.offsetLeft;
-            currY=touch.pageY-touch.target.offsetTop;
+            currX = touch.pageX - touch.target.offsetLeft;
+            currY = touch.pageY - touch.target.offsetTop;
             if (prevX == 0 || prevY == 0) {
                 prevX = currX;
                 prevY = currY;
@@ -63,16 +64,16 @@ function init() {
     getHeight();
     w = canvas.width;
 
-    canvas.addEventListener("mousemove", function (e) {
+    canvas.addEventListener("mousemove", function(e) {
         findxy("move", e)
     }, false);
-    canvas.addEventListener("mousedown", function (e) {
+    canvas.addEventListener("mousedown", function(e) {
         findxy("down", e)
     }, false);
-    canvas.addEventListener("mouseup", function (e) {
+    canvas.addEventListener("mouseup", function(e) {
         findxy("up", e)
     }, false);
-    canvas.addEventListener("mouseout", function (e) {
+    canvas.addEventListener("mouseout", function(e) {
         findxy("out", e)
     }, false);
     canvas.addEventListener('touchstart', handleTouchStart, false);
@@ -80,40 +81,39 @@ function init() {
     window.addEventListener("orientationchange", getHeight);
 }
 
-
 function toggle() {
     if (document.getElementById("draw").style.display == "none") {
- //       document.getElementById("html").style.overflow = "hidden";
+        //       document.getElementById("html").style.overflow = "hidden";
         document.getElementById("draw").style.display = "block";
         init();
     } else {
         temp = canvas.getContext("2d").getImageData(0, 0, canvas.width, canvas.height);
         document.getElementById("draw").style.display = "none";
-//        document.getElementById("html").style.overflow = "visible";
+        //        document.getElementById("html").style.overflow = "visible";
     }
 }
 
 function color(obj) {
     ctx.globalCompositeOperation = "source-over";
     switch (obj.id) {
-        case "green":
-            x = "green";
-            break;
-        case "blue":
-            x = "blue";
-            break;
-        case "red":
-            x = "red";
-            break;
-        case "yellow":
-            x = "yellow";
-            break;
-        case "orange":
-            x = "orange";
-            break;
-        case "black":
-            x = "black";
-            break;
+    case "green":
+        x = "green";
+        break;
+    case "blue":
+        x = "blue";
+        break;
+    case "red":
+        x = "red";
+        break;
+    case "yellow":
+        x = "yellow";
+        break;
+    case "orange":
+        x = "orange";
+        break;
+    case "black":
+        x = "black";
+        break;
     }
 
 }
@@ -122,7 +122,7 @@ function draw() {
     ctx.beginPath();
     ctx.moveTo(prevX, prevY);
     if (ctx.globalCompositeOperation == "destination-out") {
-        ctx.fillRect(currX-20, currY-20, 40, 40);
+        ctx.fillRect(currX - 20, currY - 20, 40, 40);
     } else {
         ctx.lineWidth = 2;
         ctx.lineTo(currX, currY);

@@ -33,50 +33,42 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
         </script>
     </head>
     <body id="body" onload="get_new_problem()" style="background-image: linear-gradient(to right, rgb(145, 254, 158) 20%, rgb(0, 201, 255) 80%);" class="body">
-
-      
-
-
-       <div style="position: absolute; left: 0px; top: 5px;" class="container">
-  <img id="infoButtonImg" src="img/info_button.png" style="position: relative; z-index: 10; padding-left: 0px; width: 40px; height: 40px;" onclick="document.getElementById('infoButton').style.display='block'" class="modalButton">
-
-  <div id="infoButton" style="position: fixed; z-index: 15" class="modal">
-    <div class="modalContent animateZoom">
-      <header class="container">
-        <span onclick="document.getElementById('infoButton').style.display='none'" style="position: absolute; right: 0; top: 0;"class="modalButton">&times;</span>
-        <h2>Credits</h2>
-      <hr>
-      </header>
-      <div class="container">
-        <p><i>The problems on this page are copyrighted by the Mathematical Association of America's American Mathematics Competitions and the solutions on this page are directly taken from the Art of Problem Solving AoPS Wiki.</i></p>
-      </div>
-
-    </div>
-  </div>
- </div>
-
-<div id="streak" class="text" style="position: absolute; right: 90px; width: 50px; height: 50px; top: 25px; padding-right:10px;"></div>
-<img src="img/fire.png" style="position: absolute; z-index: 10; width: 30px; top: 15px; right: 90px;">
-<img id="settingsButtonImg" src="img/settings.svg" style="position: absolute; z-index: 10; width: 40px; height: 40px; top: 5px; right: 5px;" onclick="document.getElementById('settingsButton').style.display='block'" class="modalButton">
-
-<div style="position: fixed; z-index: 15;" id="settingsButton" class="modal">
- <div class="modalContent animateZoom">
-  <header class="container">
-   <span onclick="closeModal()" style="position: absolute; right: 0; top: 0;" class="modalButton">&times;</span>
-   <h2>Settings</h2>
-  </header>
-
-  <div style="border-bottom: 1px solid #ccc">
-   <button class="tabButton modalButton" style="padding:8px 16px" onclick="changeTab(event, 'Options')">Options</button>
-   <button class="tabButton modalButton" style="padding:8px 16px" onclick="changeTab(event, 'Colors')">Colors</button>
-   <button class="tabButton modalButton" style="padding:8px 16px" onclick="changeTab(event, 'Other')">Other</button>
-  </div>
-
-  <div id="Options" class="container tab">
-<br>
-<h2>Subject</h2>
-<p style="left: 0px; margin-left: none; padding-left: 0px; text-align: left;">Coming soon!</p>
-<!--
+        <div style="position: absolute; left: 0px; top: 5px;" class="container">
+            <img id="infoButtonImg" src="img/info_button.png" class="headerButton" style="padding-left: 0px;" onclick="document.getElementById('infoButton').style.display='block'" class="modalButton">
+            <div id="infoButton" style="position: fixed; z-index: 15" class="modal">
+                <div class="modalContent animateZoom">
+                    <header class="container">
+                        <span onclick="document.getElementById('infoButton').style.display='none'" style="position: absolute; right: 0; top: 0;" class="modalButton">&times;</span>
+                        <h2>Credits</h2>
+                        <hr>
+                    </header>
+                    <div class="container">
+                        <p>
+                            <i>The problems on this page are copyrighted by the Mathematical Association of America's American Mathematics Competitions and the solutions on this page are directly taken from the Art of Problem Solving AoPS Wiki.</i>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="streak" class="text" style="position: absolute; right: 90px; width: 50px; height: 50px; top: 25px; padding-right:10px;"></div>
+        <img src="img/fire.png" style="position: absolute; z-index: 10; width: 30px; top: 15px; right: 90px;">
+        <img id="settingsButtonImg" src="img/settings.svg" class="headerButton" style="top: 5px; right: 5px;" onclick="document.getElementById('settingsButton').style.display='block'" class="modalButton">
+        <div style="position: fixed; z-index: 15;" id="settingsButton" class="modal">
+            <div class="modalContent animateZoom">
+                <header class="container">
+                    <span onclick="closeModal()" style="position: absolute; right: 0; top: 0;" class="modalButton">&times;</span>
+                    <h2>Settings</h2>
+                </header>
+                <div style="border-bottom: 1px solid #ccc">
+                    <button class="tabButton modalButton" style="padding:8px 16px" onclick="changeTab(event, 'Options')">Options</button>
+                    <button class="tabButton modalButton" style="padding:8px 16px" onclick="changeTab(event, 'Colors')">Colors</button>
+                    <button class="tabButton modalButton" style="padding:8px 16px" onclick="changeTab(event, 'Other')">Other</button>
+                </div>
+                <div id="Options" class="container tab">
+                    <br>
+                    <h2>Subject</h2>
+                    <p style="left: 0px; margin-left: none; padding-left: 0px; text-align: left;">Coming soon!</p>
+                    <!--
             <select id="ddlViewBy2" class="ddl button" style="text-indent: 10%; text-align-last: center;">
                 <option style="color: gray;" value=Alg>Alg</option>
                 <option style="color: gray;" value=Geo>Geo</option>
@@ -85,135 +77,101 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                 <option style="color: gray;" value="All" selected="selected">All</option>
             </select>
 -->
-<h2>Level</h2>
-            <select id="ddlViewBy" class="ddl button" style="text-indent: 10%; text-align-last: center;">
-                <option style="color: gray;" value=8>AMC 8</option>
-                <option style="color: gray;" value=10>AMC 10</option>
-                <option style="color: gray;" value=12>AMC 12</option>
-                <option style="color: gray;" value=AIME>AIME</option>
-                <option style="color: gray;" value="All" selected="selected">All</option>
-            </select>
-<p>
-      <input class="button" style="width: 70px; color: white; position: absolute; right: 5px; bottom: 5px;" onclick="saveLevel(); closeModal();" type="submit" value="save">
+                    <h2>Level</h2>
+                    <select id="ddlViewBy" class="ddl button">
+                        <option class="ddlOption" value=8>AMC 8</option>
+                        <option class="ddlOption" value=10>AMC 10</option>
+                        <option class="ddlOption" value=12>AMC 12</option>
+                        <option class="ddlOption" value=AIME>AIME</option>
+                        <option class="ddlOption" value="All" selected="selected">All</option>
+                    </select>
+                    <p>
+                        <input class="button saveButton" onclick="saveSettings()" type="submit" value="save">
+                    </p>
+                </div>
+                <div id="Colors" class="container tab">
+                    <br>
+                    <h2>Text Color</h2>
+                    <select class="ddl button" id="textColor" value="B">
+                        <option class="ddlOption" selected="selected" value=B>Black</option>
+                        <option class="ddlOption" value=W>White</option>
+                    </select>
+                    <h2>Background/Button Color</h2>
+                    <input class="button ddl;" type="color" id="g1" name="g1" value="#91fe9e">
+                    <input class="button ddl;" type="color" id="g2" name="g2" value="#00c9ff">
+                    <h2>Logo Color</h2>
+                    <select class="ddl button" id="logoColor" value="Blue">
+                        <option class="ddlOption" value=Red>Red</option>
+                        <option class="ddlOption" value=Orange>Orange</option>
+                        <option class="ddlOption" value=Yellow>Yellow</option>
+                        <option class="ddlOption" value=Green>Green</option>
+                        <option class="ddlOption" selected="selected" value=Blue>Blue</option>
+                        <option class="ddlOption" value=Purple>Purple</option>
+                        <option class="ddlOption" value=White>White</option>
+                        <option class="ddlOption" value=Black>Black</option>
+                    </select>
+                    <p>
+                        <input class="button saveButton" onclick="saveSettings()" type="submit" value="save">
+                    </p>
+                </div>
+                <div id="Other" class="container tab">
+                    <br>
+                    <h2>Image Wiggle</h2>
+                    <select class="ddl button" id="imgWiggle" value="On">
+                        <option class="ddlOption" value=On>On</option>
+                        <option class="ddlOption" value=Off>Off</option>
+                    </select>
+                    <h2>Font Family</h2>
+                    <select class="ddl button" id="fontFamily" value="sans-serif">
+                        <option class="ddlOption" style="font-family: sans-serif !important;" value="sans-serif">Sans Serif</option>
+                        <option class="ddlOption" style="font-family: Arial !important;" value="Arial">Arial</option>
+                        <option class="ddlOption" style="font-family: Arial Black !important;" value="Arial Black">Arial Black</option>
+                        <option class="ddlOption" style="font-family: Verdana !important;" value="Verdana">Verdana</option>
+                        <option class="ddlOption" style="font-family: Tahoma !important;" value="Tahoma">Tahoma</option>
+                        <option class="ddlOption" style="font-family: Trebuchet MS !important;" value="Trebuchet MS">Trebuchet MS</option>
+                        <option class="ddlOption" style="font-family: Impact !important;" value="Impact">Impact</option>
+                        <option class="ddlOption" style="font-family: Times New Roman !important;" value="Times New Roman">Times New Roman</option>
+                        <option class="ddlOption" style="font-family: Didot !important;" value="Didot">Didot</option>
+                        <option class="ddlOption" style="font-family: Georgia !important;" value="Georgia">Georgia</option>
+                        <option class="ddlOption" style="font-family: American Typewriter !important;" value="American Typewriter">American Typewriter</option>
+                        <option class="ddlOption" style="font-family: Andalé Mono !important;" value="Andalé Mono">Andale Mono</option>
+                        <option class="ddlOption" style="font-family: Courier !important;" value="Courier">Courier</option>
+                        <option class="ddlOption" style="font-family: Lucida Console !important;" value="Lucida Console">Lucida Console</option>
+                        <option class="ddlOption" style="font-family: Monaco !important;" value="Monaco">Monaco</option>
+                        <option class="ddlOption" style="font-family: Bradley Hand !important;" value="Bradley Hand">Bradley Hand</option>
+                        <option class="ddlOption" style="font-family: Brush Script MT !important;" value="Brush Script MT">Brush Script MT</option>
+                        <option class="ddlOption" style="font-family: Luminari !important;" value="Luminari">Luminari</option>
+                        <option class="ddlOption" style="font-family: Comic Sans MS !important;" value="Comic Sans MS">Comic Sans MS</option>
+                        <option class="ddlOption" style="font-family: Roboto !important;" value="Roboto">Roboto</option>
+                    </select>
+                    <p>
+                        <input class="button saveButton" onclick="saveSettings()" type="submit" value="save">
+                    </p>
+                </div>
+            </div>
+        </div>
+</div><script src="js/tab.js"></script>
+<img id="logo" src="img/logo_blue.png" style="display:block; height: 4%; margin-top: 30px; margin-left: auto; margin-right: auto; margin-bottom: 30px;">
+<p style="position: absolute; z-index: 10;" id="Problems">
+    <button type="button" onclick="document.getElementById('ans').value = ''; get_new_problem();" style="position: fixed; right: 10%; bottom: 10%; width: 12%; height: 7%; border-radius: 20px; font-size: 1.6em;" id="new_problem" class="button" data-hover="New">New</button>
 </p>
-  </div>
-
-  <div id="Colors" class="container tab">
+<strong>
+    <p class="text" id="problem_id" style="font-size: 24px;"></p>
+</strong>
+<p class="text" id="problem"></p>
 <br>
-<h2>Text Color</h2>
-      <select class="ddl button" style="text-indent: 10%; text-align-last: center;" id="textColor" value="B">
-            <option selected="selected" style="color: gray;" value=B>Black</option>
-            <option style="color: gray;" value=W>White</option>
-      </select>
-<h2>Background/Button Color</h2>
-      <input style="cursor: pointer; background-image: none;" class="button ddl;" type="color" id="g1" name="g1" value="#91fe9e">
-      <input style="cursor: pointer; background-image: none;" class="button ddl;" type="color" id="g2" name="g2" value="#00c9ff">
-<h2>Logo Color</h2>
-    <select class="ddl button" style="text-indent: 10%; text-align-last: center;" id="logoColor" value="Blue">
-        <option style="color: gray" value=Red>Red</option>
-        <option style="color: gray" value=Orange>Orange</option>
-        <option style="color: gray" value=Yellow>Yellow</option>
-        <option style="color: gray" value=Green>Green</option>
-        <option selected="selected" style="color: gray" value=Blue>Blue</option>
-        <option style="color: gray" value=Purple>Purple</option>
-        <option style="color: gray" value=White>White</option>
-        <option style="color: gray" value=Black>Black</option>
-    </select>
-<p>
-      <input class="button" style="width: 70px; color: white; position: absolute; right: 5px; bottom: 5px;" onclick="grad(); textc(); logo(); closeModal();" type="submit" value="save">
+<p class="text" id="check_ans" style="position: relative; justify-content: center; left: 50%; right: 50%; transform: translateX(-50%); z-index: 10; display: none;">
+    <input class="input button" style="position: absolute; margin-left: 0px; margin-right: 200px; cursor: text;" autocomplete="off" type="text" id="ans" name="ans" value="">
+    <script src="js/script.js"></script>
+    <button class="button" style="position: absolute; margin-left: 200px; margin-right: 0px; text-align: center; color: white;" type="button" id="get_ans" onclick="check_ans(0);">Submit</button>
+    <span class="text" id="if_correct" style="display: none;"></span>
+    <span onclick="giveUp()" style="cursor: pointer; position: absolute; margin-top: 5px; margin-left: 420px; text-align: center; font-size: 1.4em; ">&#127937</span>
 </p>
-  </div>
-
-  <div id="Other" class="container tab">
-<br>
-    <h2>Image Wiggle</h2>
-    <select class="ddl button" style="text-indent: 10%; text-align-last: center;" id="imgWiggle" value="On">
-        <option style="color: gray" value=On>On</option>
-        <option style="color: gray" value=Off>Off</option>
-    </select>
-    <h2>Font Family</h2>
-    <select class="ddl button" style="text-indent: 10%; text-align-last: center;" id="fontFamily" value="sans-serif">
-        <option style="color: gray; font-family: sans-serif !important;" value="sans-serif">Sans Serif</option>
-        <option style="color: gray; font-family: Arial !important;" value="Arial">Arial</option>
-        <option style="color: gray; font-family: Arial Black !important;" value="Arial Black">Arial Black</option>
-        <option style="color: gray; font-family: Verdana !important;" value="Verdana">Verdana</option>
-        <option style="color: gray; font-family: Tahoma !important;" value="Tahoma">Tahoma</option>
-        <option style="color: gray; font-family: Trebuchet MS !important;" value="Trebuchet MS">Trebuchet MS</option>
-        <option style="color: gray; font-family: Impact !important;" value="Impact">Impact</option>
-        <option style="color: gray; font-family: Times New Roman !important;" value="Times New Roman">Times New Roman</option>
-        <option style="color: gray; font-family: Didot !important;" value="Didot">Didot</option>
-        <option style="color: gray; font-family: Georgia !important;" value="Georgia">Georgia</option>
-        <option style="color: gray; font-family: American Typewriter !important;" value="American Typewriter">American Typewriter</option>
-        <option style="color: gray; font-family: Andalé Mono !important;" value="Andalé Mono">Andale Mono</option>
-        <option style="color: gray; font-family: Courier !important;" value="Courier">Courier</option>
-        <option style="color: gray; font-family: Lucida Console !important;" value="Lucida Console">Lucida Console</option>
-        <option style="color: gray; font-family: Monaco !important;" value="Monaco">Monaco</option>
-        <option style="color: gray; font-family: Bradley Hand !important;" value="Bradley Hand">Bradley Hand</option>
-        <option style="color: gray; font-family: Brush Script MT !important;" value="Brush Script MT">Brush Script MT</option>
-        <option style="color: gray; font-family: Luminari !important;" value="Luminari">Luminari</option>
-        <option style="color: gray; font-family: Comic Sans MS !important;" value="Comic Sans MS">Comic Sans MS</option>
-        <option style="color: gray; font-family: Roboto !important;" value="Roboto">Roboto</option>
-    </select>
-<p>
-      <input class="button" style="width: 70px; color: white; position: absolute; right: 5px; bottom: 5px;" onclick="toggleWiggle(); saveFont(); closeModal();" type="submit" value="save">
-</p>
-    
-  </div>
-
-  <div style="padding: 8px 16px" class="container">
-  </div>
- </div>
-</div>
-
-</div>
-
-<script>
-
-document.getElementsByClassName("tabButton")[0].click();
-
-function changeTab(evt, tabName) {
-  var i, x;
-  x = document.getElementsByClassName("tab");
-  for (i = 0; i < x.length; i++) {
-    x[i].style.display = "none";
-  }
-  document.getElementById(tabName).style.display = "block";
-}
-var modal = document.getElementById("settingsButton");
-
-var info = document.getElementById("infoButton");
-window.onclick = function(event) {
-  if (event.target === modal) {
-    modal.style.display = "none";
-  } else if (event.target === info) {
-    info.style.display = "none";
-  }
-}
-</script>
-
-       <img id="logo" src="img/logo_blue.png" style="display:block; height: 4%; margin-top: 30px; margin-left: auto; margin-right: auto; margin-bottom: 30px;">
-        <p style="position: absolute; z-index: 10;" id="Problems">
-            <button type="button" onclick="document.getElementById('ans').value = ''; get_new_problem();" style="position: fixed; right: 10%; bottom: 10%; width: 12%; height: 7%; border-radius: 20px; font-size: 1.6em;" id="new_problem" class="button" data-hover="New">New</button>
-        </p>
-        <strong>
-            <p class="text" id="problem_id" style="font-size: 24px;"></p>
-        </strong>
-        <p class="text" id="problem"></p>
-        <br>
-        <p class="text" id="check_ans" style="position: relative; justify-content: center; left: 50%; right: 50%; transform: translateX(-50%); z-index: 10; display: none;">
-            <input class="input button" style="position: absolute; margin-left: 0px; margin-right: 200px; cursor: text;" autocomplete="off" type="text" id="ans" name="ans" value="">
-            <script src="js/script.js"></script>
-            <button class="button" style="position: absolute; margin-left: 200px; margin-right: 0px; text-align: center; color: white;" type="button" id="get_ans" onclick="check_ans(0);">Submit</button>
-
-            <span class="text" id="if_correct" style="display: none;"></span>
-            <span onclick="giveUp()" style="cursor: pointer; position: absolute; margin-top: 5px; margin-left: 420px; text-align: center; font-size: 1.4em; ">&#127937</span>
-        </p>
 <p></p>
-        <p class="text">
-            <span style="display: none;" id="get_solution"></span>
-        </p>
-
-<img src="img/pencil.png" style="cursor: pointer; position: absolute; z-index: 10; right:15px; top: 80px;" width="50px" height="50px" onclick="toggle()">
+<p class="text">
+    <span style="display: none;" id="get_solution"></span>
+</p>
+<img src="img/pencil.png" class="headerButton" style="right:15px; top: 80px;" onclick="toggle()">
 <div id="draw" style="width: 100%; height: 100%; display: none;">
     <canvas style="position: absolute; top: 0; left: 0; z-index: 5;" id="can"></canvas>
     <div class="chooseColor" style="top:170px;right:30px;background:green;" id="green" onclick="color(this)"></div>
@@ -225,5 +183,4 @@ window.onclick = function(event) {
     <div style="position: absolute; top:210px;right:30px;background:white; cursor: pointer; border-radius: 20px;height: 15px; width: 50px; z-index: 10;" onclick="erase()" id="eraser"></div>
     <input class="button" type="button" value="clear" id="clr" size="23" onclick="clearScreen()" style="z-index: 10; position:absolute;top:240px;right:30px; color: white; font-weight: 100; font-size: 0.9em; width: 60px;">
 </div>
-</body>
-</html>
+</body></html>
