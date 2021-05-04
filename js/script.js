@@ -91,10 +91,11 @@ document.onkeydown = function(e) {
              
  
            document.getElementById("ans").addEventListener('keyup', function(event) {
-                if (event.code === 'Enter') {
+                console.log(event.code);
+                /*if (event.code == 13) {
                     event.preventDefault();
                     check_ans(0);
-                }
+                }*/
             });
 
             var realAns;
