@@ -78,7 +78,6 @@ function init() {
     canvas.addEventListener('touchstart', handleTouchStart, false);
     canvas.addEventListener('touchmove', handleTouchMove, false);
     window.addEventListener("orientationchange", getHeight);
-    ctx.lineWidth = 2;
 }
 
 
@@ -96,7 +95,6 @@ function toggle() {
 
 function color(obj) {
     ctx.globalCompositeOperation = "source-over";
-    ctx.lineWidth = 2;
     switch (obj.id) {
         case "green":
             x = "green";
@@ -126,6 +124,7 @@ function draw() {
     if (ctx.globalCompositeOperation == "destination-out") {
         ctx.fillRect(currX-20, currY-20, 40, 40);
     } else {
+        ctx.lineWidth = 2;
         ctx.lineTo(currX, currY);
     }
 
@@ -137,7 +136,6 @@ function draw() {
 function erase() {
     ctx.globalCompositeOperation = "destination-out";
     ctx.strokeStyle = "rgba(100,100,255,1)";
-//    ctx.lineWidth = 100;
 }
 
 function clearScreen() {
