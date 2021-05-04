@@ -42,6 +42,7 @@ document.onkeydown = function(e) {
                 if (localStorage.getItem("fontFamily") == null) {
                     localStorage.setItem("fontFamily", document.getElementById("fontFamily").value);
                 }
+                document.getElementById("fontFamily").value = localStorage.getItem("fontFamily");
                 document.getElementById("body").style.fontFamily = localStorage.getItem("fontFamily");
             }
 
@@ -142,6 +143,7 @@ document.onkeydown = function(e) {
                     localStorage.setItem("type", "All");
                 }
                 type = localStorage.getItem("type");
+                document.getElementById("ddlViewBy").value = localStorage.getItem("type");
 
                 try {
                     localStreak = localStorage.getItem("streak");
