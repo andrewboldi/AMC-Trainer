@@ -9,6 +9,20 @@
                 font-family: sans-serif;
             }
 
+            ::-webkit-scrollbar {
+                width: 10px;
+                background-color: #444444;
+            }
+
+            ::-webkit-scrollbar-track {
+                background-color: #444444;
+            }
+
+            ::-webkit-scrollbar-thumb {
+                background-color: #888888;
+                border: 1px solid #444444;
+                border-radius: 10px;
+            }
 
             .button {
                 border: none;
