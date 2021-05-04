@@ -128,12 +128,13 @@ document.onkeydown = function(e) {
             } 
 
             var localStreak;
+            var type;
             function get_new_problem() {
                 getHeight();
                 if (localStorage.getItem("type") == null) {
                     localStorage.setItem("type", "All");
                 }
-                var type = localStorage.getItem("type");
+                type = localStorage.getItem("type");
 
                 try {
                     localStreak = localStorage.getItem("streak");
@@ -347,38 +348,43 @@ document.onkeydown = function(e) {
             function check_ans(num) {
                 localStreak = parseInt(localStorage.getItem("streak"));
                 userAns = ans.value.toString().toUpperCase();
-                if (num == 0 && realAns === userAns) {
-                    localStreak += 1;
-                    var x = document.getElementById("get_solution");
-                    if (x.style.display === "none") {
-                        x.style.display = "block";
-                    } else {
-                        x.style.display = "none";
-                    }
-                    conf();
-                    document.getElementById("check_ans").style.display = "none";
-                    document.getElementById("if_correct").style.display = "block";
-                    getHeight();
-                } else if (num == 0 && userAns == "" || userAns == " ") {
-                    alert("Enter an answer!");
-                } else {
-                    localStreak = 0;
-                    if (num == 0) {
-                        document.getElementById("ans").classList.add("error");
-                        setTimeout(function() {
-                            document.getElementById("ans").classList.remove('error');
-                        }, 300);
-                    } else {
+                aimeSearch = /[0-9]{3}/;
+                amcSearch = /[ABCDE]/;
+                if (aimeSearch.test(userAns) && type == "AIME" || amcSearch.test(userAns) && type != "AIME") {
+                    if (num == 0 && realAns === userAns) {
+                        localStreak += 1;
+                        var x = document.getElementById("get_solution");
+                        if (x.style.display === "none") {
+                            x.style.display = "block";
+                        } else {
+                            x.style.display = "none";
+                        }
+                        conf();
                         document.getElementById("check_ans").style.display = "none";
                         document.getElementById("if_correct").style.display = "block";
-                        document.getElementById("get_solution").style.display = "block";
+                        getHeight();
+                    } else {
+                        localStreak = 0;
+                        if (num == 0) {
+                            document.getElementById("ans").classList.add("error");
+                            setTimeout(function() {
+                                document.getElementById("ans").classList.remove('error');
+                            }, 300);
+                        } else {
+                            document.getElementById("check_ans").style.display = "none";
+                            document.getElementById("if_correct").style.display = "block";
+                            document.getElementById("get_solution").style.display = "block";
+                        }
                     }
+                    document.getElementById("streak").innerHTML = localStreak;
+                    document.getElementById("ans").value = '';
+                    localStorage.setItem("streak", localStreak.toString());
+                    textc();
+                    toggleWiggle();
+                } else {
+                    alert("Enter a valid response!");
+                    document.getElementById("ans").value = '';
                 }
-                document.getElementById("ans").value = '';
-                document.getElementById("streak").innerHTML = localStreak;
-                localStorage.setItem("streak", localStreak.toString());
-                textc();
-                toggleWiggle();
             }
 
         function giveUp() {
