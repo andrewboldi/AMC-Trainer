@@ -33,10 +33,16 @@ document.onkeydown = function(e) {
                 }
             }
 
+            function saveFont() {
+                localStorage.setItem("fontFamily", document.getElementById("fontFamily").value);
+                textFont();
+            }
+            
             function textFont() {
-                var fontFamilyName = document.getElementById("fontFamily").value;
-                console.log(fontFamilyName);
-                document.getElementById("body").style.fontFamily = fontFamilyName;
+                if (localStorage.getItem("fontFamily") == null) {
+                    localStorage.setItem("fontFamily", document.getElementById("fontFamily").value);
+                }
+                document.getElementById("body").style.fontFamily = localStorage.getItem("fontFamily");
             }
 
             function grad() {
@@ -131,6 +137,7 @@ document.onkeydown = function(e) {
             var type;
             function get_new_problem() {
                 getHeight();
+                textFont();
                 if (localStorage.getItem("type") == null) {
                     localStorage.setItem("type", "All");
                 }
