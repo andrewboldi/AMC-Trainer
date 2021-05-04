@@ -51,7 +51,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
             </div>
         </div>
         <div id="streak" class="text" style="position: absolute; right: 90px; width: 50px; height: 50px; top: 25px; padding-right:10px;"></div>
-        <img src="img/fire.png" style="position: absolute; z-index: 10; width: 30px; top: 15px; right: 90px;">
+        <img src="img/fire.png" class="headerButton" style="cursor: default; width: 30px; top: 15px; right: 90px;">
         <img id="settingsButtonImg" src="img/settings.svg" class="headerButton" style="top: 5px; right: 5px;" onclick="document.getElementById('settingsButton').style.display='block'" class="modalButton">
         <div style="position: fixed; z-index: 15;" id="settingsButton" class="modal">
             <div class="modalContent animateZoom">
@@ -60,9 +60,9 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                     <h2>Settings</h2>
                 </header>
                 <div style="border-bottom: 1px solid #ccc">
-                    <button class="tabButton modalButton" style="padding:8px 16px" onclick="changeTab(event, 'Options')">Options</button>
-                    <button class="tabButton modalButton" style="padding:8px 16px" onclick="changeTab(event, 'Colors')">Colors</button>
-                    <button class="tabButton modalButton" style="padding:8px 16px" onclick="changeTab(event, 'Other')">Other</button>
+                    <button class="tabButton modalButton" onclick="changeTab(event, 'Options')">Options</button>
+                    <button class="tabButton modalButton" onclick="changeTab(event, 'Colors')">Colors</button>
+                    <button class="tabButton modalButton" onclick="changeTab(event, 'Other')">Other</button>
                 </div>
                 <div id="Options" class="container tab">
                     <br>
@@ -79,11 +79,11 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
 -->
                     <h2>Level</h2>
                     <select id="ddlViewBy" class="ddl button">
-                        <option class="ddlOption" value=8>AMC 8</option>
-                        <option class="ddlOption" value=10>AMC 10</option>
-                        <option class="ddlOption" value=12>AMC 12</option>
-                        <option class="ddlOption" value=AIME>AIME</option>
-                        <option class="ddlOption" value="All" selected="selected">All</option>
+                        <option value=8>AMC 8</option>
+                        <option value=10>AMC 10</option>
+                        <option value=12>AMC 12</option>
+                        <option value=AIME>AIME</option>
+                        <option value="All" selected="selected">All</option>
                     </select>
                     <p>
                         <input class="button saveButton" onclick="saveSettings()" type="submit" value="save">
@@ -93,22 +93,22 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                     <br>
                     <h2>Text Color</h2>
                     <select class="ddl button" id="textColor" value="B">
-                        <option class="ddlOption" selected="selected" value=B>Black</option>
-                        <option class="ddlOption" value=W>White</option>
+                        <option selected="selected" value=B>Black</option>
+                        <option value=W>White</option>
                     </select>
                     <h2>Background/Button Color</h2>
                     <input class="button ddl;" type="color" id="g1" name="g1" value="#91fe9e">
                     <input class="button ddl;" type="color" id="g2" name="g2" value="#00c9ff">
                     <h2>Logo Color</h2>
                     <select class="ddl button" id="logoColor" value="Blue">
-                        <option class="ddlOption" value=Red>Red</option>
-                        <option class="ddlOption" value=Orange>Orange</option>
-                        <option class="ddlOption" value=Yellow>Yellow</option>
-                        <option class="ddlOption" value=Green>Green</option>
-                        <option class="ddlOption" selected="selected" value=Blue>Blue</option>
-                        <option class="ddlOption" value=Purple>Purple</option>
-                        <option class="ddlOption" value=White>White</option>
-                        <option class="ddlOption" value=Black>Black</option>
+                        <option value=Red>Red</option>
+                        <option value=Orange>Orange</option>
+                        <option value=Yellow>Yellow</option>
+                        <option value=Green>Green</option>
+                        <option selected="selected" value=Blue>Blue</option>
+                        <option value=Purple>Purple</option>
+                        <option value=White>White</option>
+                        <option value=Black>Black</option>
                     </select>
                     <p>
                         <input class="button saveButton" onclick="saveSettings()" type="submit" value="save">
@@ -123,26 +123,26 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                     </select>
                     <h2>Font Family</h2>
                     <select class="ddl button" id="fontFamily" value="sans-serif">
-                        <option class="ddlOption" style="font-family: sans-serif !important;" value="sans-serif">Sans Serif</option>
-                        <option class="ddlOption" style="font-family: Arial !important;" value="Arial">Arial</option>
-                        <option class="ddlOption" style="font-family: Arial Black !important;" value="Arial Black">Arial Black</option>
-                        <option class="ddlOption" style="font-family: Verdana !important;" value="Verdana">Verdana</option>
-                        <option class="ddlOption" style="font-family: Tahoma !important;" value="Tahoma">Tahoma</option>
-                        <option class="ddlOption" style="font-family: Trebuchet MS !important;" value="Trebuchet MS">Trebuchet MS</option>
-                        <option class="ddlOption" style="font-family: Impact !important;" value="Impact">Impact</option>
-                        <option class="ddlOption" style="font-family: Times New Roman !important;" value="Times New Roman">Times New Roman</option>
-                        <option class="ddlOption" style="font-family: Didot !important;" value="Didot">Didot</option>
-                        <option class="ddlOption" style="font-family: Georgia !important;" value="Georgia">Georgia</option>
-                        <option class="ddlOption" style="font-family: American Typewriter !important;" value="American Typewriter">American Typewriter</option>
-                        <option class="ddlOption" style="font-family: Andalé Mono !important;" value="Andalé Mono">Andale Mono</option>
-                        <option class="ddlOption" style="font-family: Courier !important;" value="Courier">Courier</option>
-                        <option class="ddlOption" style="font-family: Lucida Console !important;" value="Lucida Console">Lucida Console</option>
-                        <option class="ddlOption" style="font-family: Monaco !important;" value="Monaco">Monaco</option>
-                        <option class="ddlOption" style="font-family: Bradley Hand !important;" value="Bradley Hand">Bradley Hand</option>
-                        <option class="ddlOption" style="font-family: Brush Script MT !important;" value="Brush Script MT">Brush Script MT</option>
-                        <option class="ddlOption" style="font-family: Luminari !important;" value="Luminari">Luminari</option>
-                        <option class="ddlOption" style="font-family: Comic Sans MS !important;" value="Comic Sans MS">Comic Sans MS</option>
-                        <option class="ddlOption" style="font-family: Roboto !important;" value="Roboto">Roboto</option>
+                        <option style="font-family: sans-serif !important;" value="sans-serif">Sans Serif</option>
+                        <option style="font-family: Arial !important;" value="Arial">Arial</option>
+                        <option style="font-family: Arial Black !important;" value="Arial Black">Arial Black</option>
+                        <option style="font-family: Verdana !important;" value="Verdana">Verdana</option>
+                        <option style="font-family: Tahoma !important;" value="Tahoma">Tahoma</option>
+                        <option style="font-family: Trebuchet MS !important;" value="Trebuchet MS">Trebuchet MS</option>
+                        <option style="font-family: Impact !important;" value="Impact">Impact</option>
+                        <option style="font-family: Times New Roman !important;" value="Times New Roman">Times New Roman</option>
+                        <option style="font-family: Didot !important;" value="Didot">Didot</option>
+                        <option style="font-family: Georgia !important;" value="Georgia">Georgia</option>
+                        <option style="font-family: American Typewriter !important;" value="American Typewriter">American Typewriter</option>
+                        <option style="font-family: Andalé Mono !important;" value="Andalé Mono">Andale Mono</option>
+                        <option style="font-family: Courier !important;" value="Courier">Courier</option>
+                        <option style="font-family: Lucida Console !important;" value="Lucida Console">Lucida Console</option>
+                        <option style="font-family: Monaco !important;" value="Monaco">Monaco</option>
+                        <option style="font-family: Bradley Hand !important;" value="Bradley Hand">Bradley Hand</option>
+                        <option style="font-family: Brush Script MT !important;" value="Brush Script MT">Brush Script MT</option>
+                        <option style="font-family: Luminari !important;" value="Luminari">Luminari</option>
+                        <option style="font-family: Comic Sans MS !important;" value="Comic Sans MS">Comic Sans MS</option>
+                        <option style="font-family: Roboto !important;" value="Roboto">Roboto</option>
                     </select>
                     <p>
                         <input class="button saveButton" onclick="saveSettings()" type="submit" value="save">

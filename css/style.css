@@ -99,7 +99,7 @@ html, body {
     text-align-last: center;
 }
 
-.ddlOption {
+.ddl option {
     color: gray;
 }
 
@@ -242,7 +242,8 @@ img:hover {
 }
 
 .tabButton {
-    background-color: white;
+  padding:8px 16px;
+  background-color: white;
 }
 
 .modal {
