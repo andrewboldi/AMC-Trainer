@@ -357,7 +357,7 @@ document.onkeydown = function(e) {
                 userAns = ans.value.toString().toUpperCase();
                 aimeSearch = /[0-9]{3}/;
                 amcSearch = /[ABCDE]/;
-                if (aimeSearch.test(userAns) && type == "AIME" || amcSearch.test(userAns) && type != "AIME") {
+                if ((num == 1) || (aimeSearch.test(userAns) && type == "AIME" || amcSearch.test(userAns) && type != "AIME")) {
                     if (num == 0 && realAns === userAns) {
                         localStreak += 1;
                         var x = document.getElementById("get_solution");
