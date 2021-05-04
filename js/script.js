@@ -91,7 +91,6 @@ document.onkeydown = function(e) {
              
  
            document.getElementById("ans").addEventListener('keyup', function(event) {
-                console.log(event.code);
                 if (event.code == "Enter" || event.code == "NumpadEnter") {
                     event.preventDefault();
                     check_ans(0);
