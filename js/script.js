@@ -251,7 +251,11 @@ function get_new_problem(flag=false) {
         link = localStorage.getItem("problem");
         answer_key_link = localStorage.getItem("answer");
         problem_id = localStorage.getItem("problemID");
+        type = localStorage.getItem("problemType");
     } else {
+        link = "";
+        answer_key_link = "";
+        problem_id = "";
         if ((amc == "8") && (isAJHSME == 1)) {
             link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?!", yearAJ, "_AJHSME_", "Problems_Problem_", problem, ".html");
             answer_key_link = link.replaceAll("!", "|");
@@ -280,6 +284,8 @@ function get_new_problem(flag=false) {
         }
         localStorage.setItem("problem", link);
         localStorage.setItem("problemID", problem_id);
+        localStorage.setItem("answer", answer_key_link);
+        localStorage.setItem("problemType", amc);
     }
     /*
                 var geolinks = ["https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php/2014_AMC_10A_Problems/Problem_23"]
@@ -334,7 +340,6 @@ function get_new_problem(flag=false) {
     function handleAns(response) {
         realAns = response;
         realAns = realAns.split("b'")[1].split("'")[0];
-        localStorage.setItem("ans", realAns);
         textc();
     }
     request(answer_key_link, handleAns);
@@ -350,6 +355,7 @@ function initialFunction() {
         localStorage.setItem("problem", "");
         localStorage.setItem("answer", "");
         localStorage.setItem("problemID", "");
+        get_new_problem();
     } else {
         link = localStorage.getItem("problem");
         answer_key_link = localStorage.getItem("answer");
@@ -408,6 +414,7 @@ function check_ans(num) {
     amcSearch = /^[ABCDE]{1}$/;
     if ((num == 1) || (aimeSearch.test(userAns) && type == "AIME" || amcSearch.test(userAns) && type != "AIME")) {
         if (num == 0 && realAns === userAns) {
+            localStorage.removeItem("problem");
             localStreak += 1;
             var x = document.getElementById("get_solution");
             if (x.style.display === "none") {
