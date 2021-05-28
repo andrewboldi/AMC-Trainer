@@ -12,9 +12,10 @@ MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  SEE THE
 GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
 -->
 <!--DOCTYPE HTML-->
+
 <html id="html">
     <title>AMC Trainer!</title>
-    <link rel="icon" href="img/logo.png" type="image/x-icon">
+    <link rel="icon" href="img/icon.png" type="image/x-icon">
     <head>
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-187207401-1"></script>
@@ -32,7 +33,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
             gtag('config', 'UA-187207401-1');
         </script>
     </head>
-    <body id="body" onload="get_new_problem()" style="background-image: linear-gradient(to right, rgb(145, 254, 158) 20%, rgb(0, 201, 255) 80%);" class="body">
+    <body id="body" onload="initialFunction()" style="background-image: linear-gradient(to right, rgb(145, 254, 158) 20%, rgb(0, 201, 255) 80%);" class="body">
         <div style="position: absolute; left: 0px; top: 5px;" class="container">
             <img id="infoButtonImg" src="img/info_button.png" class="headerButton" style="padding-left: 0px;" onclick="document.getElementById('infoButton').style.display='block'" class="modalButton">
             <div id="infoButton" style="position: fixed; z-index: 15" class="modal">
@@ -151,7 +152,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
             </div>
         </div>
 </div><script src="js/tab.js"></script>
-<img id="logo" src="img/logo_blue.png" style="display:block; height: 4%; margin-top: 30px; margin-left: auto; margin-right: auto; margin-bottom: 30px;">
+<img id="logo" src="img/logo_blue.png" style="width: 26%; height: 20%; display:block; height: 4%; margin-top: 30px; margin-left: auto; margin-right: auto; margin-bottom: 30px;">
 <p style="position: absolute; z-index: 10;" id="Problems">
     <button type="button" onclick="document.getElementById('ans').value = ''; get_new_problem();" style="position: fixed; right: 10%; bottom: 10%; width: 12%; height: 7%; border-radius: 20px; font-size: 1.6em;" id="new_problem" class="button" data-hover="New">New</button>
 </p>
