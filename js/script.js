@@ -161,12 +161,15 @@ function saveLevel() {
 
 var localStreak;
 var type;
-function get_new_problem() {
+var link = "";
+
+function get_new_problem(flag=false) {
     getHeight();
     textFont();
     if (localStorage.getItem("type") == null) {
         localStorage.setItem("type", "All");
     }
+
     type = localStorage.getItem("type");
     document.getElementById("ddlViewBy").value = localStorage.getItem("type");
 
@@ -238,39 +241,45 @@ function get_new_problem() {
     var amc = type.toString();
     var problem = prob.toString();
 
-    var link = "";
-    var answer_key_link = "";
 
     a_b = shuffle(["A", "B"]);
     a_b = a_b[0];
     var aorb = a_b.toString();
     var problem_id;
 
-    if ((amc == "8") && (isAJHSME == 1)) {
-        link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?!", yearAJ, "_AJHSME_", "Problems_Problem_", problem, ".html");
-        answer_key_link = link.replaceAll("!", "|");
-        problem_id = "".concat(yearAJ, " AJHSME #", problem);
-    } else if ((amc == "10" || amc == "12") && (if_ab == true)) {
-        link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?!", year, "_AMC_", amc, aorb, "_Problems_Problem_", problem, ".html");
-        answer_key_link = link.replaceAll("!", "|");
-        problem_id = "".concat(year, " AMC ", amc, aorb, " #", problem);
-    } else if ((amc == "AIME") && (if_ab == false)) {
-        link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?!", year, "_AIME_", "Problems_Problem_", problem, ".html");
-        answer_key_link = link.replaceAll("!", "|");
-        problem_id = "".concat(year, " AIME #", problem);
-    } else if ((amc == "AIME") && (if_ab == true)) {
-        if (aorb == "A") {
-            aorb = "I";
-        } else {
-            aorb = "II";
-        }
-        link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?!", year, "_AIME_", aorb, "_Problems_Problem_", problem, ".html");
-        answer_key_link = link.replaceAll("!", "|");
-        problem_id = "".concat(year, " AIME ", aorb, " #", problem);
+    if (flag == true) {
+        link = localStorage.getItem("problem");
+        answer_key_link = localStorage.getItem("answer");
+        problem_id = localStorage.getItem("problemID");
     } else {
-        link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?!", year, "_AMC_", amc, "_Problems_Problem_", problem, ".html");
-        answer_key_link = link.replaceAll("!", "|");
-        problem_id = "".concat(year, " AMC ", amc, " #", problem);
+        if ((amc == "8") && (isAJHSME == 1)) {
+            link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?!", yearAJ, "_AJHSME_", "Problems_Problem_", problem, ".html");
+            answer_key_link = link.replaceAll("!", "|");
+            problem_id = "".concat(yearAJ, " AJHSME #", problem);
+        } else if ((amc == "10" || amc == "12") && (if_ab == true)) {
+            link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?!", year, "_AMC_", amc, aorb, "_Problems_Problem_", problem, ".html");
+            answer_key_link = link.replaceAll("!", "|");
+            problem_id = "".concat(year, " AMC ", amc, aorb, " #", problem);
+        } else if ((amc == "AIME") && (if_ab == false)) {
+            link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?!", year, "_AIME_", "Problems_Problem_", problem, ".html");
+            answer_key_link = link.replaceAll("!", "|");
+            problem_id = "".concat(year, " AIME #", problem);
+        } else if ((amc == "AIME") && (if_ab == true)) {
+            if (aorb == "A") {
+                aorb = "I";
+            } else {
+                aorb = "II";
+            }
+            link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?!", year, "_AIME_", aorb, "_Problems_Problem_", problem, ".html");
+            answer_key_link = link.replaceAll("!", "|");
+            problem_id = "".concat(year, " AIME ", aorb, " #", problem);
+        } else {
+            link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?!", year, "_AMC_", amc, "_Problems_Problem_", problem, ".html");
+            answer_key_link = link.replaceAll("!", "|");
+            problem_id = "".concat(year, " AMC ", amc, " #", problem);
+        }
+        localStorage.setItem("problem", link);
+        localStorage.setItem("problemID", problem_id);
     }
     /*
                 var geolinks = ["https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php/2014_AMC_10A_Problems/Problem_23"]
@@ -302,7 +311,6 @@ function get_new_problem() {
                     link = shuffle(ntlinks)[0];
                 }
                 */
-
     var probcode;
     function handleProbcode(response) {
         probcode = response;
@@ -326,6 +334,7 @@ function get_new_problem() {
     function handleAns(response) {
         realAns = response;
         realAns = realAns.split("b'")[1].split("'")[0];
+        localStorage.setItem("ans", realAns);
         textc();
     }
     request(answer_key_link, handleAns);
@@ -335,6 +344,20 @@ function get_new_problem() {
     textc();
 
 }
+
+function initialFunction() {
+    if (localStorage.getItem("problem") == null) {
+        localStorage.setItem("problem", "");
+        localStorage.setItem("answer", "");
+        localStorage.setItem("problemID", "");
+    } else {
+        link = localStorage.getItem("problem");
+        answer_key_link = localStorage.getItem("answer");
+        problem_id = localStorage.getItem("problemID");
+        get_new_problem(true);
+    }
+}
+
 function conf() {
     confetti();
     confetti.reset();
