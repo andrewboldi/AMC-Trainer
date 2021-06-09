@@ -74,6 +74,7 @@ html, body {
     cursor: pointer;
     box-shadow: 3px 3px 12px #aaa;
     transition: all 0.5s;
+    transform: scale(1.05);
 }
 
 .headerButton {
