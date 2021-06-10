@@ -96,14 +96,14 @@ html, body {
 }
 
 .ddl {
-    color: rgb(145, 254, 158);
+    color: white;
     text-indent: 10%;
     text-align-last: center;
     
 }
 
 .ddl option {
-    color: rgb(145, 254, 158);
+    color: grey;
 }
 
 h1 {
