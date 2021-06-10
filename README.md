@@ -1,6 +1,6 @@
-# AMC Problem Generator
+# AMC Trainer 
 
-[Website](https://cutt.ly/amcapp)
+[Website](https://amctrainer.com)
 
 Generate AMC 8/10/12/AIME Problems by topic.
 
