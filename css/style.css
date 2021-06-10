@@ -43,6 +43,7 @@ html, body {
     line-height: 40px;
     margin: auto;
     background-image: linear-gradient(to right, rgb(145, 254, 158), rgb(0, 201, 255));
+    transition: 0.5s;
 }
 
 .button .ddl {
