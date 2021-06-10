@@ -58,12 +58,11 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
             <div class="modalContent animateZoom">
                 <header class="container">
                     <span onclick="closeModal()" style="position: absolute; right: 0; top: 0;" class="modalButton">&times;</span>
-                    <h2>Settings</h2>
                 </header>
                 <div style="border-bottom: 1px solid #ccc">
                     <button class="tabButton modalButton" onclick="changeTab(event, 'Options')">Options</button>
                     <button class="tabButton modalButton" onclick="changeTab(event, 'Colors')">Colors</button>
-                    <button class="tabButton modalButton" onclick="changeTab(event, 'Other')">Other</button>
+                    <button class="tabButton modalButton" onclick="changeTab(event, 'Customization')">Customization</button>
                 </div>
                 <div id="Options" class="container tab">
                     <br>
@@ -115,7 +114,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                         <input class="button saveButton" onclick="saveSettings()" type="submit" value="save">
                     </p>
                 </div>
-                <div id="Other" class="container tab">
+                <div id="Customization" class="container tab">
                     <br>
                     <h2>Image Wiggle</h2>
                     <select class="ddl button" id="imgWiggle" value="On">
