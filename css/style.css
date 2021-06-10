@@ -43,6 +43,7 @@ html, body {
     line-height: 40px;
     margin: auto;
     background-image: linear-gradient(to right, rgb(145, 254, 158), rgb(0, 201, 255));
+    transition: 0.5s;
 }
 
 .button .ddl {
@@ -74,6 +75,7 @@ html, body {
     cursor: pointer;
     box-shadow: 3px 3px 12px #aaa;
     transition: all 0.5s;
+    transform: scale(1.05);
 }
 
 .headerButton {
@@ -94,13 +96,14 @@ html, body {
 }
 
 .ddl {
-    color: rgb(255, 255, 255);
+    color: rgb(145, 254, 158);
     text-indent: 10%;
     text-align-last: center;
+    
 }
 
 .ddl option {
-    color: gray;
+    color: rgb(145, 254, 158);
 }
 
 h1 {
@@ -196,7 +199,7 @@ img:hover {
 }
 
 .animateZoom {
-    animation: animatezoom 0.6s
+    animation: animatezoom 0.3s
 }
 
 @keyframes animatezoom {
@@ -235,6 +238,7 @@ img:hover {
     text-decoration: none;
     cursor: pointer;
     text-align: center;
+    background-color: rgb(145, 254, 158);
 }
 
 .modalButton:hover {
@@ -266,7 +270,7 @@ img:hover {
     position: relative;
     padding: 0;
     margin: auto;
-    background-color: #fff;
+    background-color: rgb(0, 201, 255);
 }
 
 .container {
