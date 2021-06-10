@@ -95,6 +95,18 @@ html, body {
     bottom: 5px;
 }
 
+.newFeature {
+    background: #FE4E4E;
+    border: none;
+    border-radius: 14px;
+    font-size: 14px;
+    width: 50px;
+    height:30px;
+    color: white;
+    font-family: Punch;
+    border-color: 0 0 10px #FE4E4E;
+}
+
 .ddl {
     color: white;
     text-indent: 10%;
@@ -238,7 +250,7 @@ img:hover {
     text-decoration: none;
     cursor: pointer;
     text-align: center;
-    background-color: rgb(145, 254, 158);
+    background-color: rgb(192, 250, 199);
 }
 
 .modalButton:hover {
