@@ -298,3 +298,40 @@ img:hover {
     padding: 0.01em 16px
 }
 
+.aboutPage {
+    display: grid;
+    grid-template-areas:
+        "header1"
+        "paragraph1"
+        "header2"
+        "paragraph2"
+        "header3"
+        "paragraph3"
+        "header4"
+        "paragraph4";
+    align-items: left;
+    margin: 1em 20em;
+/*
+    padding: 20% 20%;
+    opacity: 0.9;
+*/
+    border-radius: 1rem;
+    border: 0.3rem solid #a0a0a0;
+}
+
+.paragraph1, .paragraph2, .paragraph3, .paragraph4 {
+    text-align: left !important;
+    padding-right: 0% !important;
+    padding-left: 0% !important;
+    margin-left: none !important;
+    margin-right: none !important;
+}
+
+.header1 {grid-area: header1;}
+.paragraph1 {text-align: left !important; grid-area: paragraph1;}
+.header2 {grid-area: header2;}
+.paragraph2 {text-align: left !important; grid-area: paragraph2;}
+.header3 {grid-area: header3;}
+.paragraph3 {text-align: left !important; grid-area: paragraph3;}
+.header4 {grid-area: header4;}
+.paragraph4 {text-align: left !important; grid-area: paragraph4;}
