@@ -254,12 +254,21 @@ img:hover {
 }
 
 .modalButton:hover {
-    opacity: 0.6;
+    background-color: white;
+    opacity: 0.8;
 }
 
 .tabButton {
   padding:8px 16px;
-  background-color: white;
+  background-color: rgb(145, 254, 158);
+  float: left;
+  width: 150px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.tabButton:hover {
+    border-color:rgb(0, 201, 255);
 }
 
 .modal {
@@ -288,3 +297,4 @@ img:hover {
 .container {
     padding: 0.01em 16px
 }
+
