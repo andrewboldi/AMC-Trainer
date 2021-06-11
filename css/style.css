@@ -238,7 +238,6 @@ img:hover {
     background-size: fit;
     background-attachment: scroll;
     background-repeat: repeat-y;
-    position: fixed;
 }
 
 .modalButton {
