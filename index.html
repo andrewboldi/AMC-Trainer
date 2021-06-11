@@ -173,14 +173,14 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
 </p>
 <img src="img/pencil.png" class="headerButton" style="right:15px; top: 80px;" onclick="toggle()">
 <div id="draw" style="width: 100%; height: 100%; display: none;">
-    <canvas style="position: absolute; top: 0; left: 0; z-index: 5;" id="can"></canvas>
+    <canvas style="position: absolute; top: 0; left: 0; z-index: 5;" cursor: crosshair; id="can"></canvas>
     <div class="chooseColor" style="top:170px;right:30px;background:green;" id="green" onclick="color(this)"></div>
     <div class="chooseColor" style="top:170px;right:50px;background:blue;" id="blue" onclick="color(this)"></div>
     <div class="chooseColor" style="top:170px;right:70px;background:red;" id="red" onclick="color(this)"></div>
     <div class="chooseColor" style="top:190px;right:30px;background:yellow;" id="yellow" onclick="color(this)"></div>
     <div class="chooseColor" style="top:190px;right:50px;background:orange;" id="orange" onclick="color(this)"></div>
     <div class="chooseColor" style="top:190px;right:70px;background:black;" id="black" onclick="color(this)"></div>
-    <div style="position: absolute; top:210px;right:30px;background:white; cursor: crosshair; border-radius: 20px;height: 15px; width: 50px; z-index: 10;" onclick="erase()" id="eraser"></div>
+    <div style="position: absolute; top:210px;right:30px;background:white; cursor: pointer; border-radius: 20px;height: 15px; width: 50px; z-index: 10;" onclick="erase()" id="eraser"></div>
     <input class="button" type="button" value="clear" id="clr" size="23" onclick="clearScreen()" style="z-index: 10; position:absolute;top:240px;right:30px; color: white; font-weight: 100; font-size: 0.9em; width: 60px;">
 </div>
 </body></html>
