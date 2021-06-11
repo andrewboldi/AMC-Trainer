@@ -87,6 +87,10 @@ html, body {
     
 }
 
+.headerButton:hover {
+    transform: scale(1.08);
+}
+
 .saveButton {
     position: absolute;
     width: 70px;
