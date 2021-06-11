@@ -298,11 +298,6 @@ img:hover {
     padding: 0.01em 16px
 }
 
-#green #blue #yellow #black #orange #red {
-    background-color: white;
-    display: table-column;
-}
-
 .aboutPage {
     display: grid;
     grid-template-areas:
