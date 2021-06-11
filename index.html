@@ -58,15 +58,14 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
             <div class="modalContent animateZoom">
                 <header class="container">
                     <span onclick="closeModal()" style="position: absolute; right: 0; top: 0;" class="modalButton">&times;</span>
-                    <h2>Settings</h2>
                 </header>
                 <div style="border-bottom: 1px solid #ccc">
                     <button class="tabButton modalButton" onclick="changeTab(event, 'Options')">Options</button>
                     <button class="tabButton modalButton" onclick="changeTab(event, 'Colors')">Colors</button>
-                    <button class="tabButton modalButton" onclick="changeTab(event, 'Other')">Other</button>
+                    <button class="tabButton modalButton" onclick="changeTab(event, 'Customization')">Customization</button>
                 </div>
                 <div id="Options" class="container tab">
-                    <br>
+                    <br><br>
                     <h2>Subject</h2>
                     <p style="left: 0px; margin-left: none; padding-left: 0px; text-align: left;">Coming soon!</p>
                     <!--
@@ -91,7 +90,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                     </p>
                 </div>
                 <div id="Colors" class="container tab">
-                    <br>
+                    <br><br>
                     <h2>Text Color</h2>
                     <select class="ddl button" id="textColor" value="W">
                         <option value=B>Black</option>
@@ -115,14 +114,14 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                         <input class="button saveButton" onclick="saveSettings()" type="submit" value="save">
                     </p>
                 </div>
-                <div id="Other" class="container tab">
-                    <br>
+                <div id="Customization" class="container tab">
+                    <br><br>
                     <h2>Image Wiggle</h2>
                     <select class="ddl button" id="imgWiggle" value="On">
                         <option class="ddlOption" value=On>On</option>
                         <option class="ddlOption" value=Off>Off</option>
                     </select>
-                    <h2>Font Family</h2>
+                    <h2><button class= "newFeature">NEW</button> Font Family</h2>
                     <select class="ddl button" id="fontFamily" value="sans-serif">
                         <option style="font-family: sans-serif !important;" value="sans-serif">Sans Serif</option>
                         <option style="font-family: Arial !important;" value="Arial">Arial</option>

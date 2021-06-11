@@ -95,15 +95,27 @@ html, body {
     bottom: 5px;
 }
 
+.newFeature {
+    background: #FE4E4E;
+    border: none;
+    border-radius: 14px;
+    font-size: 14px;
+    width: 50px;
+    height:30px;
+    color: white;
+    font-family: Punch;
+    border-color: 0 0 10px #FE4E4E;
+}
+
 .ddl {
-    color: rgb(145, 254, 158);
+    color: white;
     text-indent: 10%;
     text-align-last: center;
     
 }
 
 .ddl option {
-    color: rgb(145, 254, 158);
+    color: grey;
 }
 
 h1 {
@@ -238,16 +250,25 @@ img:hover {
     text-decoration: none;
     cursor: pointer;
     text-align: center;
-    background-color: rgb(145, 254, 158);
+    background-color: rgb(192, 250, 199);
 }
 
 .modalButton:hover {
-    opacity: 0.6;
+    background-color: white;
+    opacity: 0.8;
 }
 
 .tabButton {
   padding:8px 16px;
-  background-color: white;
+  background-color: rgb(145, 254, 158);
+  float: left;
+  width: 150px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.tabButton:hover {
+    border-color:rgb(0, 201, 255);
 }
 
 .modal {
@@ -305,6 +326,7 @@ img:hover {
     margin-left: none !important;
     margin-right: none !important;
 }
+
 .header1 {grid-area: header1;}
 .paragraph1 {text-align: left !important; grid-area: paragraph1;}
 .header2 {grid-area: header2;}
