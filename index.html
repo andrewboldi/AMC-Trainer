@@ -1,3 +1,4 @@
+<!DOCTYPE HTML>
 <!--
 AMC Problem Generator
 Copyright (C) 2021
@@ -11,7 +12,6 @@ BUT WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF
 MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  SEE THE
 GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
 -->
-<!--DOCTYPE HTML-->
 
 <html id="html">
     <title>AMC Trainer!</title>
@@ -33,7 +33,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
             gtag('config', 'UA-187207401-1');
         </script>
     </head>
-    <body id="body" onload="initialFunction()" style="background-image: linear-gradient(to right, rgb(145, 254, 158) 20%, rgb(0, 201, 255) 80%);" class="body">
+    <body id="body" onload="initialFunction()" class="body">
         <div style="position: absolute; left: 0px; top: 5px;" class="container">
             <img id="infoButtonImg" src="img/info_button.png" class="headerButton" style="padding-left: 0px;" onclick="document.getElementById('infoButton').style.display='block'" class="modalButton">
             <div id="infoButton" style="position: fixed; z-index: 15" class="modal">
@@ -58,15 +58,14 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
             <div class="modalContent animateZoom">
                 <header class="container">
                     <span onclick="closeModal()" style="position: absolute; right: 0; top: 0;" class="modalButton">&times;</span>
-                    <h2>Settings</h2>
                 </header>
                 <div style="border-bottom: 1px solid #ccc">
                     <button class="tabButton modalButton" onclick="changeTab(event, 'Options')">Options</button>
                     <button class="tabButton modalButton" onclick="changeTab(event, 'Colors')">Colors</button>
-                    <button class="tabButton modalButton" onclick="changeTab(event, 'Other')">Other</button>
+                    <button class="tabButton modalButton" onclick="changeTab(event, 'Customization')">Customization</button>
                 </div>
                 <div id="Options" class="container tab">
-                    <br>
+                    <br><br>
                     <h2>Subject</h2>
                     <p style="left: 0px; margin-left: none; padding-left: 0px; text-align: left;">Coming soon!</p>
                     <!--
@@ -91,11 +90,11 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                     </p>
                 </div>
                 <div id="Colors" class="container tab">
-                    <br>
+                    <br><br>
                     <h2>Text Color</h2>
-                    <select class="ddl button" id="textColor" value="B">
-                        <option selected="selected" value=B>Black</option>
-                        <option value=W>White</option>
+                    <select class="ddl button" id="textColor" value="W">
+                        <option value=B>Black</option>
+                        <option selected="selected" value=W>White</option>
                     </select>
                     <h2>Background/Button Color</h2>
                     <input class="button ddl;" type="color" id="g1" name="g1" value="#91fe9e">
@@ -115,14 +114,14 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                         <input class="button saveButton" onclick="saveSettings()" type="submit" value="save">
                     </p>
                 </div>
-                <div id="Other" class="container tab">
-                    <br>
+                <div id="Customization" class="container tab">
+                    <br><br>
                     <h2>Image Wiggle</h2>
                     <select class="ddl button" id="imgWiggle" value="On">
                         <option class="ddlOption" value=On>On</option>
                         <option class="ddlOption" value=Off>Off</option>
                     </select>
-                    <h2>Font Family</h2>
+                    <h2><button class= "newFeature">NEW</button> Font Family</h2>
                     <select class="ddl button" id="fontFamily" value="sans-serif">
                         <option style="font-family: sans-serif !important;" value="sans-serif">Sans Serif</option>
                         <option style="font-family: Arial !important;" value="Arial">Arial</option>
@@ -172,16 +171,17 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
 <p class="text">
     <span style="display: none;" id="get_solution"></span>
 </p>
-<img src="img/pencil.png" class="headerButton" style="right:15px; top: 80px;" onclick="toggle()">
+<img src="img/pencil.png" class="headerButton" style="right:5px; top: 80px;" onclick="toggle()">
 <div id="draw" style="width: 100%; height: 100%; display: none;">
-    <canvas style="position: absolute; top: 0; left: 0; z-index: 5;" id="can"></canvas>
-    <div class="chooseColor" style="top:170px;right:30px;background:green;" id="green" onclick="color(this)"></div>
-    <div class="chooseColor" style="top:170px;right:50px;background:blue;" id="blue" onclick="color(this)"></div>
-    <div class="chooseColor" style="top:170px;right:70px;background:red;" id="red" onclick="color(this)"></div>
-    <div class="chooseColor" style="top:190px;right:30px;background:yellow;" id="yellow" onclick="color(this)"></div>
-    <div class="chooseColor" style="top:190px;right:50px;background:orange;" id="orange" onclick="color(this)"></div>
-    <div class="chooseColor" style="top:190px;right:70px;background:black;" id="black" onclick="color(this)"></div>
-    <div style="position: absolute; top:210px;right:30px;background:white; cursor: pointer; border-radius: 20px;height: 15px; width: 50px; z-index: 10;" onclick="erase()" id="eraser"></div>
-    <input class="button" type="button" value="clear" id="clr" size="23" onclick="clearScreen()" style="z-index: 10; position:absolute;top:240px;right:30px; color: white; font-weight: 100; font-size: 0.9em; width: 60px;">
+    <canvas style="position: absolute; top: 0; left: 0; z-index: 5;" cursor: pointer; id="can"></canvas>
+    <div class="chooseColor" style="border: 2px solid white; top:170px;right:18px;background:green; width: 30px; height: 30px; border-color: white;" id="green" onclick="color(this)"></div>
+    <div class="chooseColor" style="border: 2px solid white; top:230px;right:18px;background:blue; width: 30px; height: 30px;" id="blue" onclick="color(this)"></div>
+    <div class="chooseColor" style="border: 2px solid white; top:290px;right:18px;background:red; width: 30px; height: 30px;" id="red" onclick="color(this)"></div>
+    <div class="chooseColor" style="border: 2px solid white; top:350px;right:18px;background:yellow; width: 30px; height: 30px;" id="yellow" onclick="color(this)"></div>
+    <div class="chooseColor" style="border: 2px solid white; top:410px;right:18px;background:orange; width: 30px; height: 30px;" id="orange" onclick="color(this)"></div>
+    <div class="chooseColor" style="border: 2px solid white; top:470px;right:18px;background:black;  width: 30px; height: 30px;" id="black" onclick="color(this)"></div>
+    <img src = "img/eraser.png" style="position: absolute; width: 50px; height: 50px; top:530px;right:12px; cursor: pointer; z-index: 10;" onclick="erase()" id="eraser" </img> 
+    <input class="button" type="button" value="clear" id="clr" size="23" onclick="clearScreen()" style="z-index: 10; position:absolute;top:590px;right:10px; color: white; font-weight: 100; font-size: 0.9em; width: 60px;">
+
 </div>
 </body></html>
