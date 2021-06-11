@@ -53,7 +53,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
         </div>
         <div id="streak" class="text" style="position: absolute; right: 90px; width: 50px; height: 50px; top: 25px; padding-right:10px;"></div>
         <img src="img/fire.png" class="headerButton" style="cursor: default; width: 30px; top: 15px; right: 90px;">
-        <img id="settingsButtonImg" src="img/settings.svg" class="headerButton" style="top: 5px; right: 5px;" onclick="document.getElementById('settingsButton').style.display='block'" class="modalButton">
+        <img id="settingsButtonImg" src="img/settings.svg" class="settings headerButton" style="top: 5px; right: 5px;" onclick="document.getElementById('settingsButton').style.display='block'" class="modalButton">
         <div style="position: fixed; z-index: 15;" id="settingsButton" class="modal">
             <div class="modalContent animateZoom">
                 <header class="container">
@@ -151,7 +151,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
             </div>
         </div>
 </div><script src="js/tab.js"></script>
-<img id="logo" src="img/logo_blue.png" style="width: 26%; height: 20%; display:block; height: 4%; margin-top: 30px; margin-left: auto; margin-right: auto; margin-bottom: 30px;">
+<img class="img" id="logo" src="img/logo_blue.png" style="width: 26%; height: 20%; display:block; height: 4%; margin-top: 30px; margin-left: auto; margin-right: auto; margin-bottom: 30px;">
 <p style="position: absolute; z-index: 10;" id="Problems">
     <button type="button" onclick="document.getElementById('ans').value = ''; get_new_problem();" style="position: fixed; right: 10%; bottom: 10%; width: 12%; height: 7%; border-radius: 20px; font-size: 1.6em;" id="new_problem" class="button" data-hover="New">New</button>
 </p>
