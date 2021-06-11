@@ -351,6 +351,7 @@ function get_new_problem(flag=false) {
 }
 
 function initialFunction() {
+    getHeight();
     if (localStorage.getItem("problem") == null) {
         localStorage.setItem("problem", "");
         localStorage.setItem("answer", "");
