@@ -84,6 +84,7 @@ html, body {
     height: 40px;
     cursor: pointer;
     z-index: 10;
+    transition: 0.3s;
     
 }
 
