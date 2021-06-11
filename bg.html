@@ -7,7 +7,7 @@
     </head>
     <body> 
 <div style="color: white; z-index: 5;">
-   <input id="ieq" type="text">
+   <input id="ieq" type="text"><br>
     <button onclick="ieq()" type="button">Save</button>
 </div>
     <canvas style="width: 80%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" id="bg">Start streaming on a modern browser!</canvas>
@@ -273,7 +273,6 @@
             var k = 1
 
             var f = function(x, y) {
-                
                 return k * eval(equation)
 
             };
@@ -358,10 +357,10 @@
                 c.fillRect(0, 0, w, h)
 
                 graph(f, 50, c1, c1d)
-                if (k >= 1) {
+                if (k >= 1.5) {
                     v = false
                 }
-                if (k <= -1) {
+                if (k <= -1.5) {
                     v = true
                 }
                 if (v) {
