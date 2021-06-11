@@ -137,7 +137,7 @@ p {
     width: 15px;
     height: 15px;
     cursor: pointer;
-    transition: 0.4s
+    transition: 0.25s
 }
 
 .chooseColor:hover {
