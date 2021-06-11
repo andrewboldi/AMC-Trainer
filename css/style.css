@@ -236,7 +236,7 @@ img:hover {
     background-image: url("https://images.squarespace-cdn.com/content/54f63048e4b0a47e92eb5234/1556647880647-RO3Z3OIQP70F7JV8ETTF/plane.png");
     background-position: top center;
     background-size: fit;
-    background-attachment: scroll;
+    background-attachment: fixed;
     background-repeat: repeat-y;
 }
 
