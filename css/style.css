@@ -142,6 +142,7 @@ p {
 
 .chooseColor:hover {
     transform: scale(1.08);
+}
 
 .error {
     position: relative;
