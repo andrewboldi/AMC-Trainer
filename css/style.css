@@ -252,7 +252,7 @@ p {
 }
 
 .body {
-    background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Lightblue_empty_grid.svg/1600px-Lightblue_empty_grid.svg.png");
+    background-image:  linear-gradient(to right, rgb(145, 254, 158), rgb(0, 201, 255));
     background-position: top center;
     background-size: fit;
     background-attachment: fixed;
