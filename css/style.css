@@ -244,7 +244,7 @@ p {
 }
 
 .text {
-    color: white;
+    color: black;
 }
 
 .text img {
@@ -252,11 +252,12 @@ p {
 }
 
 .body {
-    background-image: url("https://images.squarespace-cdn.com/content/54f63048e4b0a47e92eb5234/1556647880647-RO3Z3OIQP70F7JV8ETTF/plane.png");
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Lightblue_empty_grid.svg/1600px-Lightblue_empty_grid.svg.png");
     background-position: top center;
     background-size: fit;
     background-attachment: fixed;
     background-repeat: repeat-y;
+    background-size: 100%;
 }
 
 .modalButton {
