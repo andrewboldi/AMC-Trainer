@@ -259,15 +259,15 @@ function get_new_problem(flag=false) {
         if ((amc == "8") && (isAJHSME == 1)) {
             link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?!", yearAJ, "_AJHSME_", "Problems_Problem_", problem, ".html");
             answer_key_link = link.replaceAll("!", "|");
-            problem_id = "".concat(yearAJ, " AJHSME #", problem);
+            problem_id = "".concat(yearAJ, " AJHSME \#", problem);
         } else if ((amc == "10" || amc == "12") && (if_ab == true)) {
             link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?!", year, "_AMC_", amc, aorb, "_Problems_Problem_", problem, ".html");
             answer_key_link = link.replaceAll("!", "|");
-            problem_id = "".concat(year, " AMC ", amc, aorb, " #", problem);
+            problem_id = "".concat(year, " AMC ", amc, aorb, " \#", problem);
         } else if ((amc == "AIME") && (if_ab == false)) {
             link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?!", year, "_AIME_", "Problems_Problem_", problem, ".html");
             answer_key_link = link.replaceAll("!", "|");
-            problem_id = "".concat(year, " AIME #", problem);
+            problem_id = "".concat(year, " AIME \#", problem);
         } else if ((amc == "AIME") && (if_ab == true)) {
             if (aorb == "A") {
                 aorb = "I";
@@ -276,11 +276,11 @@ function get_new_problem(flag=false) {
             }
             link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?!", year, "_AIME_", aorb, "_Problems_Problem_", problem, ".html");
             answer_key_link = link.replaceAll("!", "|");
-            problem_id = "".concat(year, " AIME ", aorb, " #", problem);
+            problem_id = "".concat(year, " AIME ", aorb, " \#", problem);
         } else {
             link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?!", year, "_AMC_", amc, "_Problems_Problem_", problem, ".html");
             answer_key_link = link.replaceAll("!", "|");
-            problem_id = "".concat(year, " AMC ", amc, " #", problem);
+            problem_id = "".concat(year, " AMC ", amc, " \#", problem);
         }
         localStorage.setItem("problem", link);
         localStorage.setItem("problemID", problem_id);
