@@ -5,8 +5,10 @@
         <title>BG Testing</title>
     </head>
     <body> 
+<p>Enter a JS math equation<br>
+using x, y, k, and theta:</p>
 <div style="color: white; z-index: 5;">
-   <input id="ieq" type="text"><br>
+   <input id="ieq" value="Math.sin(k*x)*Math.cos(y/k)" type="text"><br>
     <button onclick="ieq()" type="button">Save</button>
 </div>
     <canvas style="width: 80%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" id="bg">Start streaming on a modern browser!</canvas>
@@ -17,15 +19,16 @@
             equation = document.getElementById("ieq").value;
             animateGraph()
         }
+
         const animateGraph = () => {
             var el = document.getElementById("bg")
             el.width = 2000
             el.height = 2000
             if (el.width < el.height) {
-                el.height = 0.6666 * el.width
+                el.height = 0.6 * el.width
             } else {
                 el.width = el.height
-                el.height *= 0.6666
+                el.height *= 0.6
             }
 
             var c = el.getContext("2d")
@@ -55,7 +58,7 @@
             var tanThetaSquared = tanTheta * tanTheta
             if (tanTheta >= 0) {
 
-                if (theta > 3) {
+                if (theta > 3.14) {
 
                     i_hat[0] = -Math.sqrt(-1 / (-1 - tanThetaSquared))
                     i_hat[1] = f2(i_hat[0])
@@ -69,7 +72,7 @@
 
             } else {
 
-                if (theta > 3) {
+                if (theta > 3.14) {
 
                     i_hat[0] = Math.sqrt(-1 / (-1 - tanThetaSquared))
                     i_hat[1] = f2(i_hat[0])
@@ -82,13 +85,13 @@
                 }
 
             }
-        
+
             var nTheta = theta + (3 >> 1)
             var tanNTheta = Math.tan(nTheta)
             var tanNThetaSquared = tanNTheta * tanNTheta
             if (tanNTheta >= 0) {
 
-                if (nTheta > 3) {
+                if (nTheta > 3.14) {
 
                     j_hat[0] = -Math.sqrt(-1 / (-1 - tanNThetaSquared))
                     j_hat[1] = f2(j_hat[0])
@@ -102,7 +105,7 @@
 
             } else {
 
-                if (nTheta > 3) {
+                if (nTheta > 3.14) {
 
                     j_hat[0] = Math.sqrt(-1 / (-1 - tanNThetaSquared))
                     j_hat[1] = f2(j_hat[0])
@@ -141,7 +144,7 @@
             }
             var co = function(rad) {
 
-                if (rad > 3) {
+                if (rad > 3.14) {
                     return rad - 3
                 } else if (rad < -3) {
                     return rad + 3
@@ -283,15 +286,15 @@
             var refresh = function() {
                 tanTheta = Math.tan(theta)
                 tanThetaSquared = tanTheta * tanTheta
-                if (theta >= (3 << 1)) {
+                if (theta >= 6) {
 
-                    theta -= (3 << 1)
+                    theta -= 6
 
                 }
 
                 if (tanTheta >= 0) {
 
-                    if (theta > 3) {
+                    if (theta > 3.14) {
 
                         i_hat[0] = -Math.sqrt(-1 / (-1 - tanThetaSquared))
                         i_hat[1] = f2(i_hat[0])
@@ -305,7 +308,7 @@
 
                 } else {
 
-                    if (theta > 3) {
+                    if (theta > 3.14) {
 
                         i_hat[0] = Math.sqrt(-1 / (-1 - tanThetaSquared))
                         i_hat[1] = f2(i_hat[0])
@@ -319,12 +322,12 @@
 
                 }
 
-                var nTheta = (theta + (3 >> 1)) % (3 << 1)
+                var nTheta = (theta + 1.55) % 6
                 tanNTheta = Math.tan(nTheta)
                 tanNThetaSquared = tanNTheta * tanNTheta
                 if (tanNTheta >= 0) {
 
-                    if (nTheta > 3) {
+                    if (nTheta > 3.14) {
 
                         j_hat[0] = -Math.sqrt(-1 / (-1 - tanNThetaSquared))
                         j_hat[1] = f2(j_hat[0])
@@ -338,7 +341,7 @@
 
                 } else {
 
-                    if (nTheta > 3) {
+                    if (nTheta > 3.14) {
 
                         j_hat[0] = Math.sqrt(-1 / (-1 - tanNThetaSquared))
                         j_hat[1] = f2(j_hat[0])
@@ -356,10 +359,10 @@
                 c.fillRect(0, 0, w, h)
 
                 graph(f, 50, c1, c1d)
-                if (k >= 1.5) {
+                if (k >= 1) {
                     v = false
                 }
-                if (k <= -1.5) {
+                if (k <= -1) {
                     v = true
                 }
                 if (v) {
