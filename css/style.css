@@ -285,10 +285,11 @@ p {
   width: 150px;
   font-size: 16px;
   font-weight: bold;
+  transition: 0.2s;
 }
 
 .tabButton:hover {
-    border-color:rgb(0, 201, 255);
+   transform: translateY(3px);
 }
 
 .modal {
