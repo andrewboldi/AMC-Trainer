@@ -22,7 +22,6 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
         <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.3/dist/confetti.browser.min.js"></script>
         <link rel="stylesheet" href="css/style.css">
         <script data-ad-client="ca-pub-7000644436565738" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <script src="js/draw.js"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
             function gtag() {
@@ -33,155 +32,98 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
             gtag('config', 'UA-187207401-1');
         </script>
     </head>
-    <body id="body" onload="initialFunction()" class="body">
-        <div style="position: absolute; left: 0px; top: 5px;" class="container">
-            <img id="infoButtonImg" src="img/info_button.png" class="headerButton" style="padding-left: 0px;" onclick="document.getElementById('infoButton').style.display='block'" class="modalButton">
-            <div id="infoButton" style="position: fixed; z-index: 15" class="modal">
-                <div class="modalContent animateZoom">
-                    <header class="container">
-                        <span onclick="document.getElementById('infoButton').style.display='none'" style="position: absolute; right: 0; top: 0;" class="modalButton">&times;</span>
-                        <h2>Credits</h2>
-                        <hr>
-                    </header>
-                    <div class="container">
-                        <p>
-                            <i>The problems on this page are copyrighted by the Mathematical Association of America's American Mathematics Competitions and the solutions on this page are directly taken from the Art of Problem Solving AoPS Wiki.</i>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="streak" class="text" style="position: absolute; right: 90px; width: 50px; height: 50px; top: 25px; padding-right:10px;"></div>
-        <img src="img/fire.png" class="headerButton" style="cursor: default; width: 30px; top: 15px; right: 90px;">
-        <img id="settingsButtonImg" src="img/settings.svg" class="settings headerButton" style="top: 5px; right: 5px;" onclick="document.getElementById('settingsButton').style.display='block'" class="modalButton">
-        <div style="position: fixed; z-index: 15;" id="settingsButton" class="modal">
-            <div class="modalContent animateZoom">
-                <header class="container">
-                    <span onclick="closeModal()" style="position: absolute; right: 0; top: 0;" class="modalButton">&times;</span>
-                </header>
-                <div style="border-bottom: 1px solid #ccc">
-                    <button class="tabButton modalButton" onclick="changeTab(event, 'Options')">Options</button>
-                    <button class="tabButton modalButton" onclick="changeTab(event, 'Colors')">Colors</button>
-                    <button class="tabButton modalButton" onclick="changeTab(event, 'Customization')">Customization</button>
-                </div>
-                <div id="Options" class="container tab">
-                    <br><br>
-                    <h2>Subject</h2>
-                    <p style="left: 0px; margin-left: none; padding-left: 0px; text-align: left;">Coming soon!</p>
-                    <!--
-            <select id="ddlViewBy2" class="ddl button" style="text-indent: 10%; text-align-last: center;">
-                <option style="color: gray;" value=Alg>Alg</option>
-                <option style="color: gray;" value=Geo>Geo</option>
-                <option style="color: gray;" value=CP>C+P</option>
-                <option style="color: gray;" value=NT>NT</option>
-                <option style="color: gray;" value="All" selected="selected">All</option>
-            </select>
--->
-                    <h2>Level</h2>
-                    <select id="ddlViewBy" class="ddl button">
-                        <option value=8>AMC 8</option>
-                        <option value=10>AMC 10</option>
-                        <option value=12>AMC 12</option>
-                        <option value=AIME>AIME</option>
-                        <option value="All" selected="selected">All</option>
-                    </select>
-                    <p>
-                        <input class="button saveButton" onclick="saveSettings()" type="submit" value="save">
-                    </p>
-                </div>
-                <div id="Colors" class="container tab">
-                    <br><br>
-                    <h2>Text Color</h2>
-                    <select class="ddl button" id="textColor" value="B">
-                        <option selected="selected" value=B>Black</option>
-                        <option value=W>White</option>
-                    </select>
-                    <h2>Background/Button Color</h2>
-                    <input class="button ddl;" type="color" id="g1" name="g1" value="#91fe9e">
-                    <input class="button ddl;" type="color" id="g2" name="g2" value="#00c9ff">
-                    <h2>Logo Color</h2>
-                    <select class="ddl button" id="logoColor" value="Blue">
-                        <option value=Red>Red</option>
-                        <option value=Orange>Orange</option>
-                        <option value=Yellow>Yellow</option>
-                        <option value=Green>Green</option>
-                        <option selected="selected" value=Blue>Blue</option>
-                        <option value=Purple>Purple</option>
-                        <option value=White>White</option>
-                        <option value=Black>Black</option>
-                    </select>
-                    <p>
-                        <input class="button saveButton" onclick="saveSettings()" type="submit" value="save">
-                    </p>
-                </div>
-                <div id="Customization" class="container tab">
-                    <br><br>
-                    <h2>Image Wiggle</h2>
-                    <select class="ddl button" id="imgWiggle" value="On">
-                        <option class="ddlOption" value=On>On</option>
-                        <option class="ddlOption" value=Off>Off</option>
-                    </select>
-                    <h2><button class= "newFeature">NEW</button> Font Family</h2>
-                    <select class="ddl button" id="fontFamily" value="sans-serif">
-                        <option style="font-family: sans-serif !important;" value="sans-serif">Sans Serif</option>
-                        <option style="font-family: Arial !important;" value="Arial">Arial</option>
-                        <option style="font-family: Arial Black !important;" value="Arial Black">Arial Black</option>
-                        <option style="font-family: Verdana !important;" value="Verdana">Verdana</option>
-                        <option style="font-family: Tahoma !important;" value="Tahoma">Tahoma</option>
-                        <option style="font-family: Trebuchet MS !important;" value="Trebuchet MS">Trebuchet MS</option>
-                        <option style="font-family: Impact !important;" value="Impact">Impact</option>
-                        <option style="font-family: Times New Roman !important;" value="Times New Roman">Times New Roman</option>
-                        <option style="font-family: Didot !important;" value="Didot">Didot</option>
-                        <option style="font-family: Georgia !important;" value="Georgia">Georgia</option>
-                        <option style="font-family: American Typewriter !important;" value="American Typewriter">American Typewriter</option>
-                        <option style="font-family: Andalé Mono !important;" value="Andalé Mono">Andale Mono</option>
-                        <option style="font-family: Courier !important;" value="Courier">Courier</option>
-                        <option style="font-family: Lucida Console !important;" value="Lucida Console">Lucida Console</option>
-                        <option style="font-family: Monaco !important;" value="Monaco">Monaco</option>
-                        <option style="font-family: Bradley Hand !important;" value="Bradley Hand">Bradley Hand</option>
-                        <option style="font-family: Brush Script MT !important;" value="Brush Script MT">Brush Script MT</option>
-                        <option style="font-family: Luminari !important;" value="Luminari">Luminari</option>
-                        <option style="font-family: Comic Sans MS !important;" value="Comic Sans MS">Comic Sans MS</option>
-                        <option style="font-family: Roboto !important;" value="Roboto">Roboto</option>
-                    </select>
-                    <p>
-                        <input class="button saveButton" onclick="saveSettings()" type="submit" value="save">
-                    </p>
-                </div>
-            </div>
-        </div>
-</div><script src="js/tab.js"></script>
-<img class="img" id="logo" src="img/logo_blue.png" style="width: 26%; height: 20%; display:block; height: 4%; margin-top: 30px; margin-left: auto; margin-right: auto; margin-bottom: 30px;">
-<p style="position: absolute; z-index: 10;" id="Problems">
-    <button type="button" onclick="document.getElementById('ans').value = ''; get_new_problem();" style="position: fixed; right: 10%; bottom: 10%; width: 12%; height: 7%; border-radius: 20px; font-size: 1.6em;" id="new_problem" class="button" data-hover="New">New</button>
-</p>
-<strong>
-    <p class="text" id="problem_id" style="font-size: 24px;"></p>
-</strong>
-<p class="text" id="problem"></p>
-<br>
-<p class="text" id="check_ans" style="position: relative; justify-content: center; left: 50%; right: 50%; transform: translateX(-50%); z-index: 10; display: none;">
-    <input class="input button" style="position: absolute; margin-left: 0px; margin-right: 200px; cursor: text;" autocomplete="off" type="text" id="ans" name="ans" value="">
-    <script src="js/script.js"></script>
-    <button class="button" style="position: absolute; margin-left: 200px; margin-right: 0px; text-align: center; color: white;" type="button" id="get_ans" onclick="check_ans(0);">Submit</button>
-    <span class="text" id="if_correct" style="display: none;"></span>
-    <span onclick="giveUp()" class = "headerButton" style="cursor: pointer; position: absolute; margin-top: 5px; margin-left: 420px; text-align: center; font-size: 1.4em; ">&#127937</span>
-</p>
-<p></p>
-<p class="text">
-    <span style="display: none;" id="get_solution"></span>
-</p>
-<img src="img/pencil.png" class="headerButton" style="right:5px; top: 80px;" onclick="toggle()">
-<div id="draw" style="width: 100%; height: 100%; display: none;">
-    <canvas style="position: absolute; top: 0; left: 0; z-index: 5;" cursor: pointer; id="can"></canvas>
-    <div class="chooseColor" style="border: 2px solid white; top:170px;right:18px;background:green; width: 30px; height: 30px;" id="green" onclick="color(this)"></div>
-    <div class="chooseColor" style="border: 2px solid white; top:230px;right:18px;background:blue; width: 30px; height: 30px;" id="blue" onclick="color(this)"></div>
-    <div class="chooseColor" style="border: 2px solid white; top:290px;right:18px;background:red; width: 30px; height: 30px;" id="red" onclick="color(this)"></div>
-    <div class="chooseColor" style="border: 2px solid white; top:350px;right:18px;background:yellow; width: 30px; height: 30px;" id="yellow" onclick="color(this)"></div>
-    <div class="chooseColor" style="border: 2px solid white; top:410px;right:18px;background:orange; width: 30px; height: 30px;" id="orange" onclick="color(this)"></div>
-    <div class="chooseColor" style="border: 2px solid white; top:470px;right:18px;background:white;  width: 30px; height: 30px;" id="white" onclick="color(this)"></div>
-    <img src = "img/eraser.png" class="headerButton" style="position: absolute; width: 50px; height: 50px; top:530px;right:12px; cursor: pointer; z-index: 10;" onclick="erase()" id="eraser"/>
-    <img src = "img/reset.png" class="headerButton" id="clr" size="23" onclick="clearScreen()" style="z-index: 10; position:absolute;top:650px;right:12px; width: 50px; cursor: pointer;">
+    <img id="logo" src="img/logo_blue.png" style="width: 32rem; display:block; height: 4%; margin-top: 30px; margin-left: auto; margin-right: auto; margin-bottom: 30px;">
+    <body id="body" style="background-image: linear-gradient(to right, rgb(145, 254, 158) 20%, rgb(0, 201, 255) 80%);" class="body">
+    <button type="button" onclick="window.location.href='play'" style="position: relative; width: 15rem; height: 5rem; left: 50%; transform: translateX(-50%); border-radius: 1rem; font-size: 1.6em;" class="button" data-hover="Play">Play</button><br><br>
+    <p>
+        <h1>Fun Intro 😎</h1>
+        <h2 class="h2">Who?</h2>
+        <p><b>THE</b> math-enthusiast-tech savvy, 4.8-GPA-overachiever-future doctor and entrepreneur 💥 ℼ ∫ 🥇</p>
 
-</div>
+        <h2 class="h2">Why? 💹</h2>
+        <p>
+            We created this <b>AMAZING</b> math website to make <b>YOU</b> become the star 🌟 of your family and maybe your whole state! 🏆 
+         <br><br>   
+            If you just simply want to do <b>BETTER</b> on the next AMC test, then this is the website for you! 🥇 
+        </p>
+
+       <h2 class="h2"> What? 📈</h2>
+        <p>A <b>FREE</b> interactive 👆 trainer which generates math problems for your specific AMC level (such as AMC 8/10/12/AIME).</p>
+
+       <h2 class="h2"> How? 👨‍💻</h2>
+        <p>Generates problems from past AMC 8/10/12/AIME exams and caters to your specific level.</p>
+
+        <h2 class="h2">What else? 💡</h2>
+        <p>
+            If you have any suggestions/comments please let us know here. 
+    <br>
+            Happy 😎😃 MATHING 🧮 ➖👨‍🔬 ℼ ➗ ab➕
+    <br><br>
+            ~ Emojis courtesy of my mom 😜
+        </p>
+
+    </p>
+<br>
+    <h1>Navigation</h1>
+        <h2 class="h2">Answer Format</h2>
+<p>
+            The answer format for AMC 8/10/12 is a single letter from the multiple choice options (A, B, C, D, or E). You may enter the letter as uppercase or lowercase. 
+
+</p>    
+<p>
+            For AIME problems, your answer must be a single 3-digit number. For example, if you find the answer to the problem is 123, please enter 123 as your answer. Also, make sure to include leading zeros for numbers less than 100. For example, if your answer is 67, please enter 067. If your answer is 9, enter 009.
+
+</p>    
+        <h2 class="h2">Settings</h2>
+<p>
+            The AMC trainer also provides several customization options. They are broken down by category below.
+
+</p>    
+        <h3 class="h3">Options</h3>
+<p>
+            In this tab, you are able to customize which math competition to train with. You can choose a single exam version (AMC 8, AMC 10, AMC 12, or AIME) or a combination of all of them with the “All” option. You may also find that some problems in the AMC 10 show up in the AMC 12, or vice versa; this is because the MAA (Mathematical Association of America) specifically overlaps problems between the two tests. Although they may be the same problems, they are not always in the same section of the test. In other words, an AMC 12 5 might be placed as an AMC 10 11 since AMC 12 problems tend to be more difficult than AMC 10 problems.
+
+</p>    
+        <h3 class="h3">Colors</h3>
+<p>
+            In this tab, you can change the color of a variety of components on the webpage. At the top, you may change the text color of the problem and invert the images. This feature is implemented mostly to allow for a seamless experience with a dark color scheme (see below).
+
+</p>    
+<p>
+            In the colors settings, you can also customize the background and button colors. The first box will set the left color for the background gradient and the second box will set the right color for the background gradient. Also, the buttons are bound to the background gradient colors such that the first box will set the right color for the button gradient and the second box will set the left color for the button gradient. In other words, the background and button gradients are horizontally inversely bound to each other.
+
+</p>    
+        <h3 class="h3">Customization</h3>
+<p>
+            In the final tab, you have the ability to toggle the wiggle of images when you hover over them. This is more for aesthetic purposes than for actually helping in training. 
+
+</p>    
+<p>
+            You can also change the font family of all the text on the screen to your liking. It is important to note that some of the fonts will not render as it depends on the fonts installed on your browser (i.e. Chrome, Firefox, Safari, etc.) and operating system (i.e. Windows, Mac, Linux, etc.). 
+
+</p>    
+        <h2 class="h2">More Features</h2>
+<p>
+            You may have also noticed two other icons on the screen: the fire icon and the pencil image.
+
+</p>    
+        <h3 class="h3">Streak</h3>
+<p>
+            The fire icon represents your correct problem streak. If you get a problem correct, your streak will increase by 1. Be careful! If you get a problem incorrect, your streak will reset to 0.
+
+</p>    
+        <h3 class="h3">Drawing Tool</h3>
+<p>
+            When you click on the pencil image, it triggers the on-screen drawing tool. With this drawing tool, you can change the color of your drawing tool, you can clear the screen with the garbage can icon, and you can also erase with the eraser icon.
+
+</p>
+
+<br><br>
+
+<p>
+    <button class="button" onclick="window.location.href='play'" data-hover="Go Train!">Go train!</button>
+
+</p>
+
+<br><br>
 </body></html>
