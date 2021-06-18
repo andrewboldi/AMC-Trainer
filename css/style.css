@@ -1,325 +1,325 @@
 #settingsButtonImg {
- transition: 0.3s;
+  transition: 0.3s;
 }
 
 #settingsButtonImg:hover {
- transform: rotate(-45deg);
+  transform: rotate(-45deg);
 }
 
 * {
- font-family: inherit;
+  font-family: inherit;
 }
 
 */
 .animateZoom {
- animation: animatezoom 0.3s;
+  animation: animatezoom 0.3s;
 }
 
 .body {
- background-attachment: fixed;
- background-image: linear-gradient(to right, rgb(145, 254, 158), rgb(0, 201, 255));
- background-position: top center;
- background-repeat: repeat-y;
- background-size: 100%;
- background-size: fit;
+  background-attachment: fixed;
+  background-image: linear-gradient(to right, rgb(145, 254, 158), rgb(0, 201, 255));
+  background-position: top center;
+  background-repeat: repeat-y;
+  background-size: 100%;
+  background-size: fit;
 }
 
 .button {
- background-image: linear-gradient(to right, rgb(145, 254, 158), rgb(0, 201, 255));
- background-repeat: no-repeat;
- border: none;
- border-radius: 10px;
- box-shadow: 3px 3px 6px #ccc;
- color: rgba(0, 0, 0, 0.2);
- font-size: 1.2em;
- font-weight: 500;
- height: 40px;
- letter-spacing: 1px;
- line-height: 40px;
- margin: auto;
- max-width: 80%;
- outline: none;
- text-align: center;
- text-shadow: none;
- text-transform: uppercase;
- transition: 0.5s;
- width: 170px;
+  background-image: linear-gradient(to right, rgb(145, 254, 158), rgb(0, 201, 255));
+  background-repeat: no-repeat;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 3px 3px 6px #ccc;
+  color: rgba(0, 0, 0, 0.2);
+  font-size: 1.2em;
+  font-weight: 500;
+  height: 40px;
+  letter-spacing: 1px;
+  line-height: 40px;
+  margin: auto;
+  max-width: 80%;
+  outline: none;
+  text-align: center;
+  text-shadow: none;
+  text-transform: uppercase;
+  transition: 0.5s;
+  width: 170px;
 }
 
 .button .ddl {
- background: white;
- background-image: none !important;
+  background: white;
+  background-image: none !important;
 }
 
 .button::before {
- color: white;
- content: attr(data-hover);
- height: 20px;
- opacity: 0.3s;
- position: absolute;
- transition: all 0.3s;
+  color: white;
+  content: attr(data-hover);
+  height: 20px;
+  opacity: 0.3s;
+  position: absolute;
+  transition: all 0.3s;
 }
 
 .button:hover {
- box-shadow: 3px 3px 12px #aaa;
- cursor: pointer;
- transform: scale(1.05);
- transition: all 0.5s;
+  box-shadow: 3px 3px 12px #aaa;
+  cursor: pointer;
+  transform: scale(1.05);
+  transition: all 0.5s;
 }
 
 .button:hover::before {
- opacity: 0;
- transform: scale(0.9);
+  opacity: 0;
+  transform: scale(0.9);
 }
 
 .chooseColor {
- border-radius: 50%;
- cursor: pointer;
- height: 15px;
- position: absolute;
- transition: 0.25s;
- width: 15px;
- z-index: 10;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 15px;
+  position: absolute;
+  transition: 0.25s;
+  width: 15px;
+  z-index: 10;
 }
 
 .chooseColor:hover {
- transform: scale(1.08);
+  transform: scale(1.08);
 }
 
 .container {
- padding: 0.01em 16px;
+  padding: 0.01em 16px;
 }
 
 .ddl {
- color: white;
- text-align-last: center;
- text-indent: 10%;
+  color: white;
+  text-align-last: center;
+  text-indent: 10%;
 }
 
 .ddl option {
- color: grey;
+  color: grey;
 }
 
 .error {
- animation: shakeInput .1s linear;
- animation-iteration-count: 3;
- position: relative;
+  animation: shakeInput .1s linear;
+  animation-iteration-count: 3;
+  position: relative;
 }
 
 .h2, .h3 {
- text-align: center;
+  text-align: center;
 }
 
 .headerButton {
- cursor: pointer;
- height: 40px;
- position: absolute;
- transition: 0.3s;
- width: 40px;
- z-index: 10;
+  cursor: pointer;
+  height: 40px;
+  position: absolute;
+  transition: 0.3s;
+  width: 40px;
+  z-index: 10;
 }
 
 .headerButton:hover {
- transform: scale(1.08);
+  transform: scale(1.08);
 }
 
 .img:hover {
- animation: shake 2s;
- animation-iteration-count: 200000;
+  animation: shake 2s;
+  animation-iteration-count: 200000;
 }
 
 .imgNoHover:hover {
- animation: none;
+  animation: none;
 }
 
 .input {
- background-image: none;
- color: rgb(0, 0, 0);
- cursor: text;
+  background-image: none;
+  color: rgb(0, 0, 0);
+  cursor: text;
 }
 
 .modal {
- background-color: rgb(0,0,0);
- background-color: rgba(0,0,0,0.4);
- display: none;
- height: 100%;
- left: 0;
- overflow: auto;
- padding-top: 5%;
- position: fixed;
- top: 0;
- width: 100%;
- z-index: 20;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+  display: none;
+  height: 100%;
+  left: 0;
+  overflow: auto;
+  padding-top: 5%;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 20;
 }
 
 .modalButton {
- background-color: rgb(192, 250, 199);
- border: none;
- cursor: pointer;
- display: inline-block;
- overflow: hidden;
- padding: 8px 16px;
- text-align: center;
- text-decoration: none;
- vertical-align: middle;
- white-space: nowrap;
+  background-color: rgb(192, 250, 199);
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  overflow: hidden;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  white-space: nowrap;
 }
 
 .modalButton:hover {
- background-color: white;
- opacity: 0.8;
+  background-color: white;
+  opacity: 0.8;
 }
 
 .modalContent {
- background-color: rgb(0, 201, 255);
- margin: auto;
- outline: 0;
- padding: 0;
- position: relative;
- width: 600px;
+  background-color: rgb(0, 201, 255);
+  margin: auto;
+  outline: 0;
+  padding: 0;
+  position: relative;
+  width: 600px;
 }
 
 .newFeature {
- background: #FE4E4E;
- border: none;
- border-radius: 14px;
- color: white;
- font-family: Punch;
- font-size: 14px;
- height: 30px;
- width: 50px;
+  background: #FE4E4E;
+  border: none;
+  border-radius: 14px;
+  color: white;
+  font-family: Punch;
+  font-size: 14px;
+  height: 30px;
+  width: 50px;
 }
 
 .saveButton {
- bottom: 5px;
- color: white;
- position: absolute;
- right: 5px;
- width: 70px;
+  bottom: 5px;
+  color: white;
+  position: absolute;
+  right: 5px;
+  width: 70px;
 }
 
 .tabButton {
- background-color: rgb(145, 254, 158);
- float: left;
- font-size: 16px;
- font-weight: bold;
- padding: 8px 16px;
- transition: 0.2s;
- width: 150px;
+  background-color: rgb(145, 254, 158);
+  float: left;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 8px 16px;
+  transition: 0.2s;
+  width: 150px;
 }
 
 .tabButton:hover {
- transform: translateY(3px);
+  transform: translateY(3px);
 }
 
 .text {
- color: black;
+  color: black;
 }
 
 .text img {
- filter: invert(1);
+  filter: invert(1);
 }
 
 ::-webkit-scrollbar {
- background-color: #444444;
- width: 10px;
+  background-color: #444444;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
- background-color: #888888;
- border: 1px solid #444444;
- border-radius: 10px;
+  background-color: #888888;
+  border: 1px solid #444444;
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-track {
- background-color: #444444;
+  background-color: #444444;
 }
 
 @keyframes animatezoom {
- 0% {
- transform: scale(0);
- }
+  0% {
+  transform: scale(0);
+  }
 
- 100% {
- transform: scale(1);
- }
+  100% {
+  transform: scale(1);
+  }
 
 }
 
 @keyframes shake {
- 0% {
- transform: translate(1px, 1px) rotate(0deg);
- }
+  0% {
+  transform: translate(1px, 1px) rotate(0deg);
+  }
 
- 10% {
- transform: translate(-1px, -2px) rotate(-1deg);
- }
+  10% {
+  transform: translate(-1px, -2px) rotate(-1deg);
+  }
 
- 100% {
- transform: translate(1px, -2px) rotate(-1deg);
- }
+  100% {
+  transform: translate(1px, -2px) rotate(-1deg);
+  }
 
- 20% {
- transform: translate(-3px, 0px) rotate(1deg);
- }
+  20% {
+  transform: translate(-3px, 0px) rotate(1deg);
+  }
 
- 30% {
- transform: translate(3px, 2px) rotate(0deg);
- }
+  30% {
+  transform: translate(3px, 2px) rotate(0deg);
+  }
 
- 40% {
- transform: translate(1px, -1px) rotate(1deg);
- }
+  40% {
+  transform: translate(1px, -1px) rotate(1deg);
+  }
 
- 50% {
- transform: translate(-1px, 2px) rotate(-1deg);
- }
+  50% {
+  transform: translate(-1px, 2px) rotate(-1deg);
+  }
 
- 60% {
- transform: translate(-3px, 1px) rotate(0deg);
- }
+  60% {
+  transform: translate(-3px, 1px) rotate(0deg);
+  }
 
- 70% {
- transform: translate(3px, 1px) rotate(-1deg);
- }
+  70% {
+  transform: translate(3px, 1px) rotate(-1deg);
+  }
 
- 80% {
- transform: translate(-1px, -1px) rotate(1deg);
- }
+  80% {
+  transform: translate(-1px, -1px) rotate(1deg);
+  }
 
- 90% {
- transform: translate(1px, 2px) rotate(0deg);
- }
+  90% {
+  transform: translate(1px, 2px) rotate(0deg);
+  }
 
 }
 
 @keyframes shakeInput {
- 0% {
- transform: translateX(-5px);
- }
+  0% {
+  transform: translateX(-5px);
+  }
 
- 100% {
- transform: translateX(5px);
- }
+  100% {
+  transform: translateX(5px);
+  }
 
 }
 
 h1 {
- text-align: center;
+  text-align: center;
 }
 
 html, body {
- font-family: sans-serif;
- height: 100%;
- margin: 0;
- width: 100%;
+  font-family: sans-serif;
+  height: 100%;
+  margin: 0;
+  width: 100%;
 }
 
 p {
- margin-left: auto;
- margin-right: auto;
- padding-left: 25%;
- padding-right: 25%;
- text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 25%;
+  padding-right: 25%;
+  text-align: center;
 }
 
