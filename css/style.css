@@ -148,16 +148,22 @@
 }
 
 .modalButton {
-  background-color: rgb(192, 250, 199);
-  border: none;
-  cursor: pointer;
-  display: inline-block;
-  overflow: hidden;
-  padding: 8px 16px;
-  text-align: center;
-  text-decoration: none;
-  vertical-align: middle;
-  white-space: nowrap;
+  width: 100%;
+  display: none;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+  z-index: 20;
+  padding-top: 5%;
+  top: 0;
+  overflow: auto;
+  position: fixed;
+  left: 0;
+  height: 100%;
+}
+
+.modalButton:focus {
+  background-color: white;
+  opacity: 0.9;
 }
 
 .modalButton:hover {
@@ -204,7 +210,7 @@
 }
 
 .tabButton:hover {
-  transform: translateY(3px);
+  transform: translateY(2px);
 }
 
 .text {
