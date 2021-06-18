@@ -277,9 +277,9 @@ p {
     background-color: rgb(192, 250, 199);
 }
 
-.modalButton:hover {
+.modalButton:focus {
     background-color: white;
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 .tabButton {
@@ -293,8 +293,9 @@ p {
 }
 
 .tabButton:hover {
-   transform: translateY(3px);
+   transform: translateY(2px);
 }
+
 
 .modal {
     width: 100%;
