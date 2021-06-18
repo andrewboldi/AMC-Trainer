@@ -46,11 +46,6 @@
   width: 170px;
 }
 
-.button .ddl {
-  background: white;
-  background-image: none !important;
-}
-
 .button::before {
   color: white;
   content: attr(data-hover);
@@ -221,18 +216,18 @@
 }
 
 ::-webkit-scrollbar {
-  background-color: #444444;
+  background-color: #444;
   width: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #888888;
-  border: 1px solid #444444;
+  background-color: #888;
+  border: 1px solid #444;
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #444444;
+  background-color: #444;
 }
 
 @keyframes animatezoom {
