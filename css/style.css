@@ -104,9 +104,6 @@ html, body {
     transform: rotate(-45deg)
 
 }
-.ion-icon:hover {
-    background-color: red;
-}
 
 .saveButton {
     position: absolute;
@@ -280,7 +277,7 @@ p {
     background-color: rgb(192, 250, 199);
 }
 
-.modalButton:target {
+.modalButton:focus {
     background-color: white;
     opacity: 0.9;
 }
