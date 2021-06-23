@@ -171,7 +171,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
 <p class="text">
     <span style="display: none;" id="get_solution"></span>
 </p>
-<img src="img/pencil.png" class="headerButton" style="right:5px; top: 80px;" onclick="toggle()">
+<img src="img/pencil.svg" class="headerButton" style="right:9px; top: 80px;" name = "brush" onclick="toggle()"></ion-icon>
 <div id="draw" style="width: 100%; height: 100%; display: none;">
     <canvas style="position: absolute; top: 0; left: 0; z-index: 5;" cursor: pointer; id="can"></canvas>
     <div class="chooseColor" style="border: 2px solid white; top:170px;right:18px;background:green; width: 30px; height: 30px;" id="green" onclick="color(this)"></div>
@@ -182,6 +182,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
     <div class="chooseColor" style="border: 2px solid white; top:470px;right:18px;background:white;  width: 30px; height: 30px;" id="white" onclick="color(this)"></div>
     <img src = "img/eraser.png" class="headerButton" style="position: absolute; width: 50px; height: 50px; top:530px;right:12px; cursor: pointer; z-index: 10;" onclick="erase()" id="eraser"/>
     <img src = "img/reset.png" class="headerButton" id="clr" size="23" onclick="clearScreen()" style="z-index: 10; position:absolute;top:650px;right:12px; width: 50px; cursor: pointer;">
-
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </div>
 </body></html>
