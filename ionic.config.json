@@ -1,7 +1,0 @@
-{
-  "name": "amc-vue-ionic",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "vue"
-}
