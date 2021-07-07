@@ -55,6 +55,11 @@
   transition: all 0.3s;
 }
 
+.button .ddl {
+  background: white;
+  background-image: none !important;
+}
+
 .button:hover {
   box-shadow: 3px 3px 12px #aaa;
   cursor: pointer;
