@@ -134,6 +134,7 @@
 }
 
 .modal {
+  display: none;
   background-color: rgb(0,0,0);
   background-color: rgba(0,0,0,0.4);
   height: 100%;
@@ -147,6 +148,7 @@
 }
 
 .modalButton {
+  display: none;
   width: 100%;
   background-color: rgb(0,0,0);
   background-color: rgba(0,0,0,0.4);
