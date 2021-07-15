@@ -181,6 +181,7 @@
   padding: 0;
   position: relative;
   width: 33%;
+  transition: 0.3s;
 }
 
 .newFeature {
