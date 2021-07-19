@@ -44,6 +44,7 @@
   text-transform: uppercase;
   transition: 0.5s;
   width: 170px;
+  font-weight: bold;
 }
 
 .button::before {
