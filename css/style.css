@@ -167,6 +167,7 @@ background: url(https://cdn.artofproblemsolving.com/attachments/5/8/0e3aad833ef3
     text-decoration:none;
     cursor:pointer;
     text-align:center;
+  margin: 0px !important;
 }
 
 .modalButton:focus {
