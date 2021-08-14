@@ -153,8 +153,8 @@
   z-index: 20;
 }
 
-#close::before {
-content: url(https://cdn.artofproblemsolving.com/attachments/5/8/0e3aad833ef384eeb9855b43650f3418d6d81e.png) !important;
+#close {
+background: url(https://cdn.artofproblemsolving.com/attachments/5/8/0e3aad833ef384eeb9855b43650f3418d6d81e.png) !important;
 }
 
 .modalButton {
