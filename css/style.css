@@ -196,9 +196,9 @@ background: url(https://cdn.artofproblemsolving.com/attachments/5/8/0e3aad833ef3
 }
 
 .modalContent h2 {
-   background-color: rgb(255, 22, 12);
+  background-color: #343140;
   border-radius: 22px;
-  box-shadow: 0px 16px 32px 0px rgba(0,0,0,0.5);
+  box-shadow: 0px 10px 24px 0px rgba(0,0,0,0.5);
   max-width: 1000px;
   text-indent: 2ch;
   color: white;
