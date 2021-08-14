@@ -151,7 +151,6 @@
   top: 0;
   width: 100%;
   z-index: 20;
-  border-radius: 10px !important;
 }
 
 .modalButton {
@@ -184,6 +183,7 @@
   position: relative;
   width: 33%;
   transition: 0.3s;
+  border-radius: 10px !important;
 }
 
 .newFeature {
@@ -335,7 +335,7 @@ p {
 }
 
 #fire-icon:hover {
-  color: red;
+  color: red !important;
     
 }
 
