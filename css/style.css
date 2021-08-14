@@ -184,7 +184,7 @@ background: url(https://cdn.artofproblemsolving.com/attachments/5/8/0e3aad833ef3
 }
 
 .modalContent {
-  background-color: rgb(0, 201, 255);
+  background-color: rgba(0, 201, 255, 0.5);
   margin: auto;
   outline: 0;
   padding: 0;
@@ -192,6 +192,7 @@ background: url(https://cdn.artofproblemsolving.com/attachments/5/8/0e3aad833ef3
   width: 33%;
   transition: 0.3s;
   border-radius: 15px !important;
+ 
 }
 
 .modalContent h2 {
