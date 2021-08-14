@@ -116,6 +116,8 @@ h2 {
   border-radius: 22px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   width: auto;
+  text-indent: 2ch;
+  color: hsl(0, 0%, 50.82%);
 }
 
 .headerButton {
