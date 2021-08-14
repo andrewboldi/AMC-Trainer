@@ -95,8 +95,6 @@
   color: white;
   text-align-last: center;
   text-indent: 10%;
-  border: none;
-  border-radius: 5px;
 }
 
 .ddl option {
@@ -347,3 +345,7 @@ p {
     
 }
 
+.level-option-container {
+  border: none;
+  border-radius: 5px;
+}
