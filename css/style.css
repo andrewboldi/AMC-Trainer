@@ -188,8 +188,7 @@ background: url(https://cdn.artofproblemsolving.com/attachments/5/8/0e3aad833ef3
   position: relative;
   width: 33%;
   transition: 0.3s;
-  border-radius: 10px !important;
-  border-top-left-radius: 10px !important;
+  border-radius: 15px !important;
 }
 
 .newFeature {
