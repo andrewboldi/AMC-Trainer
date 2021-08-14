@@ -1,3 +1,7 @@
+* {
+  user-select: none;
+}
+
 #settingsButtonImg {
   transition: 0.3s;
 }
