@@ -331,11 +331,11 @@ p {
   text-align: center;
 }
 
-.fas-fire{
+.fa-fire{
   transition: color 0.3s;
 }
 
-.fas-fire:hover {
+.fa-fire:hover {
   color: red !important;
     
 }
