@@ -202,10 +202,11 @@ background: url(https://cdn.artofproblemsolving.com/attachments/5/8/0e3aad833ef3
   border: none;
   border-radius: 14px;
   color: white;
-  font-family: Punch;
+  font-family: sans-serif;
   font-size: 14px;
   height: 30px;
   width: 50px;
+  transform: translateY(-2px);
 }
 
 .saveButton {
