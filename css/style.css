@@ -329,8 +329,12 @@ p {
   text-align: center;
 }
 
+.fas fa-fire {
+  transition: color 0.3s;
+}
+
 .fas fa-fire:hover {
-  color: linear-gradient(red, orange)
+  color: red;
     
 }
 
