@@ -58,7 +58,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
         <div style="position: fixed; z-index: 15;" id="settingsButton" class="modal">
             <div class="modalContent animateZoom">
                 <header class="container tab">
-                    <span onclick="closeModal()" style="position: absolute; right: 0; top: 0;" class="modalButton">&times;</span>
+                    <span onclick="closeModal()" style="position: absolute; right: 0; top: 0;" class="modalButton" id = "close"></span>
                 </header>
                 <div style="border-bottom: 1px solid #ccc">
                     <button class="tabButton modalButton" onclick="changeTab(event, 'Options')">Options</button>
@@ -80,11 +80,13 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
 -->
                     <h2>Level</h2>
                     <select id="ddlViewBy" class="ddl button">
-                        <option value=8>AMC 8</option>
-                        <option value=10>AMC 10</option>
-                        <option value=12>AMC 12</option>
-                        <option value=AIME>AIME</option>
-                        <option value="All" selected="selected">All</option>
+                        <div class = "level-option-container">
+                            <option value=8>AMC 8</option>
+                            <option value=10>AMC 10</option>
+                            <option value=12>AMC 12</option>
+                            <option value=AIME>AIME</option>
+                            <option value="All" selected="selected">All</option>
+                        </div>
                     </select>
                     <p>
                         <input class="button saveButton" onclick="saveSettings()" type="submit" value="save">
