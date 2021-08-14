@@ -153,6 +153,10 @@
   z-index: 20;
 }
 
+.modalButton::before {
+content: url(https://cdn.artofproblemsolving.com/attachments/5/8/0e3aad833ef384eeb9855b43650f3418d6d81e.png) !important;
+}
+
 .modalButton {
     white-space:nowrap;
     display:inline-block;
