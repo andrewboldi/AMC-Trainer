@@ -184,6 +184,7 @@
   width: 33%;
   transition: 0.3s;
   border-radius: 10px !important;
+  border-top-left-radius: 10px !important;
 }
 
 .newFeature {
