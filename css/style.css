@@ -366,7 +366,7 @@ p {
 }
 
 .fa-trash-alt {
-  transitiion: ease 0.4s;
+  transition: ease 0.4s;
 }
 
 .fa-trash-alt:hover {
