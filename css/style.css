@@ -79,11 +79,14 @@
 .chooseColor {
   border-radius: 50%;
   cursor: pointer;
-  height: 15px;
   position: absolute;
   transition: 0.25s;
   width: 15px;
   z-index: 10;
+  right: 18px;
+  width: 30px;
+  height: 30px;
+  border: 2px solid white; 
 }
 
 .chooseColor:hover {

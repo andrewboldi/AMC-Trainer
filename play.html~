@@ -180,13 +180,15 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
 <img src="img/pencil.svg" class="headerButton" style="right:9px; top: 80px;" name = "brush" onclick="toggle()"></ion-icon>
 <div id="draw" style="width: 100%; height: 100%; display: none;">
     <canvas style="position: absolute; top: 0; left: 0; z-index: 5;" cursor: pointer; id="can"></canvas>
-    <div class="chooseColor" style="border: 2px solid white; top:170px;right:18px;background:green; width: 30px; height: 30px;" id="green" onclick="color(this)"></div>
-    <div class="chooseColor" style="border: 2px solid white; top:230px;right:18px;background:blue; width: 30px; height: 30px;" id="blue" onclick="color(this)"></div>
-    <div class="chooseColor" style="border: 2px solid white; top:290px;right:18px;background:red; width: 30px; height: 30px;" id="red" onclick="color(this)"></div>
-    <div class="chooseColor" style="border: 2px solid white; top:350px;right:18px;background:yellow; width: 30px; height: 30px;" id="yellow" onclick="color(this)"></div>
-    <div class="chooseColor" style="border: 2px solid white; top:410px;right:18px;background:orange; width: 30px; height: 30px;" id="orange" onclick="color(this)"></div>
-    <div class="chooseColor" style="border: 2px solid white; top:470px;right:18px;background:white;  width: 30px; height: 30px;" id="white" onclick="color(this)"></div>
-    <img src = "img/eraser.png" class="headerButton" style="position: absolute; width: 50px; height: 50px; top:530px;right:12px; cursor: pointer; z-index: 10;" onclick="erase()" id="eraser"/>
-    <img src = "img/reset.png" class="headerButton" id="clr" size="23" onclick="clearScreen()" style="z-index: 10; position:absolute;top:650px;right:12px; width: 50px; cursor: pointer;">
-</div>
+    <div class="chooseColor" style="top:170px;right:18px;background:#FF4136;" id="red"    onclick="color(this)"></div>
+    <div class="chooseColor" style="top:230px;right:18px;background:#FF851B;" id="orange" onclick="color(this)"></div>
+    <div class="chooseColor" style="top:290px;right:18px;background:#FFDC00;" id="yellow" onclick="color(this)"></div>
+    <div class="chooseColor" style="top:350px;right:18px;background:#2ECC40;" id="green"  onclick="color(this)"></div>
+    <div class="chooseColor" style="top:410px;right:18px;background:#0074D9;" id="blue"   onclick="color(this)"></div>
+    <div class="chooseColor" style="top:470px;right:18px;background:#800080;" id="purple" onclick="color(this)"></div>
+    <div class="chooseColor" style="top:530px;right:18px;background:#000000;" id="black"  onclick="color(this)"></div>
+    <div class="chooseColor" style="top:600px;right:18px;background:#FFFFFF;" id="white"  onclick="color(this)"></div>
+    <img class="chooseColor" style="top:660px;border-radius: 0%; border: none; width: 50px; height: 50px;" src="img/eraser.png" id="eraser"    onclick="erase()"/>
+    <i class="fas fa-trash-alt" id="clr" size="23" onclick="clearScreen()" style="z-index: 10; position:absolute;top:740px;right:10px; font-size: 40px; width: 50px; cursor: pointer;">
+	</i>
 </body></html>
