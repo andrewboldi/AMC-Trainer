@@ -97,22 +97,26 @@ function color(obj) {
     ctx.globalCompositeOperation = "source-over";
     switch (obj.id) {
     case "green":
-        x = "green";
+        x = "#2ECC40";
         break;
     case "blue":
-        x = "blue";
+        x = "#0074D9";
         break;
     case "red":
-        x = "red";
+        x = "#FF4136";
         break;
     case "yellow":
-        x = "yellow";
+        x = "#FFDC00";
         break;
     case "orange":
-        x = "orange";
+        x = "#FF851B";
         break;
     case "black":
         x = "black";
+        break;
+
+    case "white":
+        x = "#FFFFFF";
         break;
     }
 
