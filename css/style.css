@@ -1,5 +1,6 @@
 * {
   user-select: none;
+  font-family: inherit;
 }
 
 #settingsButtonImg {
@@ -10,8 +11,8 @@
   transform: rotate(-45deg);
 }
 
-* {
-  font-family: inherit;
+#settingsButtonImg:hover body {
+  overflow: hidden;
 }
 
 .animateZoom {
