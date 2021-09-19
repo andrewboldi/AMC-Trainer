@@ -12,7 +12,7 @@
 }
 
 #settingsButtonImg:hover body {
-  overflow: hidden;
+  overflow: hidden !important;
 }
 
 .animateZoom {
