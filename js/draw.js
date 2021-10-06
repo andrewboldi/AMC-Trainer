@@ -128,7 +128,7 @@ function draw() {
     ctx.beginPath();
     ctx.moveTo(prevX, prevY);
     if (ctx.globalCompositeOperation == "destination-out") {
-        ctx.fillRect(currX - 20, currY - 20, 40, 40);
+        ctx.arc(currX - 20, currY - 20, 40, 40, 6.283);
     } else {
         ctx.lineWidth = 2;
         ctx.lineTo(currX, currY);
@@ -136,12 +136,14 @@ function draw() {
 
     ctx.strokeStyle = x;
     ctx.stroke();
+    ctx.fill();
     ctx.closePath();
 }
 
 function erase() {
     ctx.globalCompositeOperation = "destination-out";
     ctx.strokeStyle = "rgba(100,100,255,1)";
+    ctx.fillStyle = "rgba(100, 100, 255, 1)";
 }
 
 function clearScreen() {
