@@ -177,13 +177,13 @@ background: url(https://cdn.artofproblemsolving.com/attachments/5/8/0e3aad833ef3
   margin: 0px !important;
 }
 
-.modalButton:focus {
+.modalButton:focus-within {
   background-color: white;
   opacity: 0.9;
 }
 
 .modalButton:hover {
-  background-color: white;
+  background-color: rgb(132, 243, 88);
   opacity: 0.8;
 }
 
@@ -201,9 +201,10 @@ background: url(https://cdn.artofproblemsolving.com/attachments/5/8/0e3aad833ef3
 
 .modalContent h2 {
   background-color: #91fe9e;
-  border-radius: 12px;
-  box-shadow: 0px 10px 24px 0px rgba(0,0,0,0.7);
-  max-width: 100%;
+  border-radius: 5px;
+  box-shadow: 0px 10px 24px 0px rgb(0 0 0 / 0.25);
+  width: max-content;
+  padding: 0.1em 0.9em 0 0.1em;
   text-indent: 2ch;
   color: black;
 }
@@ -236,10 +237,11 @@ background: url(https://cdn.artofproblemsolving.com/attachments/5/8/0e3aad833ef3
   padding: 8px 16px;
   transition: 0.2s;
   width: 150px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .tabButton:hover {
-  transform: translateY(2px);
 }
 
 .text {
@@ -392,4 +394,11 @@ p {
   fill: red;
   stroke: rgb(255, 252, 84);
   transform: scale(0.96, 0.96);
+}
+
+.tab-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
 }
