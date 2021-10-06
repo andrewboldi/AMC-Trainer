@@ -2,6 +2,12 @@ document.onkeydown = function(e) {
     if (e.ctrlKey && e.keyCode == 13) {
         get_new_problem();
     }
+    if (e.ctrlKey && e.keyCode == 90) {
+        undo();
+    }
+    if (e.ctrlKey && e.keyCode == 89) {
+        redo();
+    }
 }
 function logo() {
     var color = document.getElementById("logoColor").value
