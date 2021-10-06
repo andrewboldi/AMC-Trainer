@@ -111,7 +111,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                         </div>
                     </select>
                     <p>
-                        <input class="button saveButton" onclick="saveSettings()" type="submit" value="save">
+			<input class="button saveButton" onclick="saveSettings()" type="submit" value="save" aria-label="Save your settings.">
                     </p>
                 </div>
                 <div id="Colors" class="container tab">
@@ -123,8 +123,8 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                     </select>
 		    <br><br>
                     <h2>Background/Button Color</h2>
-                    <input class="button ddl;" type="color" id="g1" name="g1" value="#91fe9e">
-                    <input class="button ddl;" type="color" id="g2" name="g2" value="#00c9ff">
+		    <input class="button ddl;" type="color" id="g1" name="g1" value="#91fe9e" aria-label="Set the first color of the background and button color gradient."> 
+		    <input class="button ddl;" type="color" id="g2" name="g2" value="#00c9ff" aria-label="Set the second color of the background and button color gradient.">
 		    <br><br>
                     <h2 style="background-color: #91fe9e">Logo Color</h2>
                     <select class="ddl button" id="logoColor" value="Blue">
@@ -139,7 +139,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                     </select>
 		    <br><br>
                     <p>
-                        <input class="button saveButton" onclick="saveSettings()" type="submit" value="save">
+			<input class="button saveButton" onclick="saveSettings()" type="submit" value="save" aria-label="Save your settings.">
                     </p>
                 </div>
                 <div id="Customization" class="container tab">
@@ -173,7 +173,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                         <option style="font-family: Roboto !important;" value="Roboto">Roboto</option>
                     </select>
                     <p>
-                        <input class="button saveButton" onclick="saveSettings()" type="submit" value="save">
+			<input class="button saveButton" onclick="saveSettings()" type="submit" value="save" aria-label="Save your settings.">
                     </p>
                 </div>
             </div>
@@ -189,7 +189,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
 <p class="text" id="problem"></p>
 <br>
 <p class="text" id="check_ans" style="position: relative; justify-content: center; left: 50%; right: 50%; transform: translateX(-50%); z-index: 10; display: none;">
-    <input class="input button" style="position: absolute; margin-left: 0px; margin-right: 200px; cursor: text;" autocomplete="off" type="text" id="ans" name="ans" value="">
+    <input class="input button" style="position: absolute; margin-left: 0px; margin-right: 200px; cursor: text;" autocomplete="off" type="text" id="ans" name="ans" value="" aria-label="Enter your answer for the given problem. Acceptable answers include the letter for AMC 8, AMC 10, and AMC 12. For AIME, please enter the 3 digit representation of your answer.">
     <script src="js/script.js"></script>
     <button class="button" style="position: absolute; margin-left: 200px; margin-right: 0px; text-align: center;" type="button" id="get_ans" onclick="check_ans(0);">Submit</button>
     <span class="text" id="if_correct" style="display: none;"></span>
