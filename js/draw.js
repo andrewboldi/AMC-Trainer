@@ -90,7 +90,6 @@ function init() {
     if (undoList.length == 0) {
 	temp = canvas.getContext("2d").getImageData(0, 0, canvas.width, canvas.height);
         undoList.unshift(temp);
-	console.log("Undo list is empty");
     }
 }
 
@@ -220,7 +219,6 @@ function findxy(res, e) {
 	}
 	undoLevel = 0;
         undoList.unshift(temp);
-        console.log(undoList);
     }
     if (res == "move") {
         if (flag) {
