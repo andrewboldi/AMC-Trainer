@@ -158,7 +158,7 @@ function findxy(res, e) {
         prevX = currX;
         prevY = currY;
         currX = e.clientX - canvas.offsetLeft;
-        currY = e.clientY - canvas.offsetTop + document.getElementById("body").scrollTop;
+        currY = e.clientY - canvas.offsetTop + (window.pageYOffset || (document.documentElement || document.body.parentNode || document.body).scrollTop);
 
         flag = true;
         dot_flag = true;
@@ -178,7 +178,7 @@ function findxy(res, e) {
             prevX = currX;
             prevY = currY;
             currX = e.clientX - canvas.offsetLeft;
-            currY = e.clientY - canvas.offsetTop + document.getElementById("body").scrollTop;
+            currY = e.clientY - canvas.offsetTop + (window.pageYOffset || (document.documentElement || document.body.parentNode || document.body).scrollTop);
             draw();
         }
     }
