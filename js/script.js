@@ -359,6 +359,7 @@ function get_new_problem(flag=false) {
 }
 
 function initialFunction() {
+    feather.replace();
     getHeight();
     if (localStorage.getItem("problem") == null) {
         localStorage.setItem("problem", "");
