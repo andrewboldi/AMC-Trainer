@@ -1,8 +1,12 @@
-feather.replace()
-
 document.onkeydown = function(e) {
     if (e.ctrlKey && e.keyCode == 13) {
         get_new_problem();
+    }
+    if (e.ctrlKey && e.keyCode == 90) {
+        undo();
+    }
+    if (e.ctrlKey && e.keyCode == 89) {
+        redo();
     }
 }
 function logo() {
@@ -361,6 +365,7 @@ function get_new_problem(flag=false) {
 }
 
 function initialFunction() {
+    feather.replace();
     getHeight();
     if (localStorage.getItem("problem") == null) {
         localStorage.setItem("problem", "");

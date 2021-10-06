@@ -1,6 +1,8 @@
 var canvas, ctx, flag = false;
 var temp;
 var height;
+var undoList = [];
+var undoLevel = 0;
 prevX = 0,
 currX = 0,
 prevY = 0,
@@ -52,6 +54,20 @@ function getCurrPos(e) {
     }
 }
 
+function undo() {
+    if (undoLevel + 1 != undoList.length) {
+	undoLevel += 1;
+    }
+    canvas.getContext("2d").putImageData(undoList[undoLevel], 0, 0);
+}
+
+function redo() {
+    if (undoLevel != 0) {
+	undoLevel -= 1;
+    }
+    canvas.getContext("2d").putImageData(undoList[undoLevel], 0, 0);
+}
+
 function init() {
     canvas = document.getElementById("can");
     ctx = canvas.getContext("2d");
@@ -64,21 +80,40 @@ function init() {
     getHeight();
     w = canvas.width;
 
-    canvas.addEventListener("mousemove", function(e) {
-        findxy("move", e)
-    }, false);
-    canvas.addEventListener("mousedown", function(e) {
-        findxy("down", e)
-    }, false);
-    canvas.addEventListener("mouseup", function(e) {
-        findxy("up", e)
-    }, false);
-    canvas.addEventListener("mouseout", function(e) {
-        findxy("out", e)
-    }, false);
+    canvas.addEventListener("mousemove", handleMouseMove, false);
+    canvas.addEventListener("mousedown", handleMouseDown, false);
+    canvas.addEventListener("mouseup", handleMouseUp, false);
+    canvas.addEventListener("mouseout", handleMouseOut, false);
     canvas.addEventListener('touchstart', handleTouchStart, false);
     canvas.addEventListener('touchmove', handleTouchMove, false);
     window.addEventListener("orientationchange", getHeight);
+    if (undoList.length == 0) {
+	temp = canvas.getContext("2d").getImageData(0, 0, canvas.width, canvas.height);
+        undoList.unshift(temp);
+    }
+}
+
+function uninit() {
+    canvas.removeEventListener("mousemove", handleMouseMove);
+    canvas.removeEventListener("mousedown", handleMouseDown);
+    canvas.removeEventListener("mouseup", handleMouseUp);
+    canvas.removeEventListener("mouseout", handleMouseOut);
+    canvas.removeEventListener('touchstart', handleTouchStart);
+    canvas.removeEventListener('touchmove', handleTouchMove);
+    window.removeEventListener("orientationchange", getHeight);
+}
+
+function handleMouseMove(e) {
+	findxy("move", e);
+}
+function handleMouseDown(e) {
+	findxy("down", e);
+}
+function handleMouseUp(e) {
+	findxy("up", e);
+}
+function handleMouseOut(e) {
+	findxy("out", e);
 }
 
 function toggle() {
@@ -90,6 +125,7 @@ function toggle() {
         temp = canvas.getContext("2d").getImageData(0, 0, canvas.width, canvas.height);
         document.getElementById("draw").style.display = "none";
         //        document.getElementById("html").style.overflow = "visible";
+	uninit();
     }
 }
 
@@ -128,7 +164,7 @@ function draw() {
     ctx.beginPath();
     ctx.moveTo(prevX, prevY);
     if (ctx.globalCompositeOperation == "destination-out") {
-        ctx.fillRect(currX - 20, currY - 20, 40, 40);
+        ctx.arc(currX - 20, currY - 20, 40, 40, 6.283);
     } else {
         ctx.lineWidth = 2;
         ctx.lineTo(currX, currY);
@@ -136,12 +172,15 @@ function draw() {
 
     ctx.strokeStyle = x;
     ctx.stroke();
+    ctx.fill();
     ctx.closePath();
+
 }
 
 function erase() {
     ctx.globalCompositeOperation = "destination-out";
     ctx.strokeStyle = "rgba(100,100,255,1)";
+    ctx.fillStyle = "rgba(100, 100, 255, 1)";
 }
 
 function clearScreen() {
@@ -158,7 +197,7 @@ function findxy(res, e) {
         prevX = currX;
         prevY = currY;
         currX = e.clientX - canvas.offsetLeft;
-        currY = e.clientY - canvas.offsetTop + document.getElementById("body").scrollTop;
+        currY = e.clientY - canvas.offsetTop + (window.pageYOffset || (document.documentElement || document.body.parentNode || document.body).scrollTop);
 
         flag = true;
         dot_flag = true;
@@ -173,12 +212,20 @@ function findxy(res, e) {
     if (res == "up" || res == "out") {
         flag = false;
     }
+    if (res == "up" && res != "out") {
+        temp = canvas.getContext("2d").getImageData(0, 0, canvas.width, canvas.height);
+	if (undoLevel > 0) {
+	    undoList.splice(0, undoLevel);
+	}
+	undoLevel = 0;
+        undoList.unshift(temp);
+    }
     if (res == "move") {
         if (flag) {
             prevX = currX;
             prevY = currY;
             currX = e.clientX - canvas.offsetLeft;
-            currY = e.clientY - canvas.offsetTop + document.getElementById("body").scrollTop;
+            currY = e.clientY - canvas.offsetTop + (window.pageYOffset || (document.documentElement || document.body.parentNode || document.body).scrollTop);
             draw();
         }
     }

@@ -13,10 +13,30 @@ MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  SEE THE
 GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
 -->
 
-<html id="html">
-    <title>AMC Trainer!</title>
+<html lang="en" dir="ltr" id="html">
     <link rel="icon" href="img/icon.png" type="image/x-icon">
     <head>
+        <!-- Primary Meta Tags -->
+        <title>AMC Trainer!</title>
+        <meta name="title" content="AMC Trainer!">
+        <meta name="description" content="A FREE interactive 👆 trainer which generates math problems for your specific AMC level 📈 (such as AMC 8/10/12/AIME).">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+	
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://www.amctrainer.com/">
+        <meta property="og:title" content="AMC Trainer!">
+        <meta property="og:description" content="A FREE interactive 👆 trainer which generates math problems for your specific AMC level 📈 (such as AMC 8/10/12/AIME).">
+        <meta property="og:image" content="https://www.amctrainer.com/img/amctrainercard.png">
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image">
+        <meta property="twitter:url" content="https://www.amctrainer.com/">
+        <meta property="twitter:title" content="AMC Trainer!">
+        <meta property="twitter:description" content="A FREE interactive 👆 trainer which generates math problems for your specific AMC level 📈 (such as AMC 8/10/12/AIME).">
+        <meta property="twitter:image" content="https://www.amctrainer.com/img/amctrainercard.png">
+
+        
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
         <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -38,7 +58,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
     <body id="body" onload="initialFunction()" class="body">
         <div style="position: absolute; left: 0px; top: 5px;" class="container">
             <i data-feather="alert-triangle" id="reportButtonImg" class="headerButton" style="padding-left: 3.5rem; color: rgb(250, 53, 53);" onclick="parent.open('https://artofproblemsolving.com/community/c1967976h2362114p19241124')" class="modalButton"></i>
-            <img id="infoButtonImg" src="img/info_button.png" class="headerButton" style="padding-left: 0px;" onclick="document.getElementById('infoButton').style.display='block'" class="modalButton">
+            <img alt="Information regarding this website, AMC Trainer. This also includes sources and credits attributed." id="infoButtonImg" src="img/info_button.png" class="headerButton" style="padding-left: 0px;" onclick="document.getElementById('infoButton').style.display='block'" class="modalButton">
             <div id="infoButton" style="position: fixed; z-index: 15" class="modal">
                 <div class="modalContent animateZoom">
                     <header class="container">
@@ -56,13 +76,13 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
         </div>
         <div id="streak" class="text" style="position: absolute; right: 90px; width: 50px; height: 50px; top: 20px; padding-right:10px; font-weight: bold; font-size: 1.1rem;"></div>
         <i class="fas fa-fire" id = "fire-icon" style="cursor: default; position: absolute; width: 30px; top: 5px; right: 90px; color:  orange; font-size: 40px;"></i>
-        <img id="settingsButtonImg" src="img/settings.svg" class="settings headerButton" style="top: 5px; right: 5px;" onclick="document.getElementById('settingsButton').style.display='block'" class="modalButton">
+        <img alt="Personalize AMC Trainer to suit your preferences." id="settingsButtonImg" src="img/settings.svg" class="settings headerButton" style="top: 5px; right: 5px;" onclick="document.getElementById('settingsButton').style.display='block'" class="modalButton">
         <div style="position: fixed; z-index: 15;" id="settingsButton" class="modal">
             <div class="modalContent animateZoom">
                 <header class="container tab">
                     <span onclick="closeModal()" style="position: absolute; right: 0; top: 0;" class="modalButton" id = "close"></span>
                 </header>
-                <div style="border-bottom: 1px solid #ccc" class = "tab-container">
+                <div style="border-bottom: 1px solid #ccc" class="tab-container">
                     <button class="tabButton modalButton" onclick="changeTab(event, 'Options')">Options</button>
                     <button class="tabButton modalButton" onclick="changeTab(event, 'Colors')">Colors</button>
                     <button class="tabButton modalButton" onclick="changeTab(event, 'Customization')">Customization</button>
@@ -91,7 +111,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                         </div>
                     </select>
                     <p>
-                        <input class="button saveButton" onclick="saveSettings()" type="submit" value="save">
+			<input class="button saveButton" onclick="saveSettings()" type="submit" value="save" aria-label="Save your settings.">
                     </p>
                 </div>
                 <div id="Colors" class="container tab">
@@ -103,8 +123,8 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                     </select>
 		    <br><br>
                     <h2>Background/Button Color</h2>
-                    <input class="button ddl;" type="color" id="g1" name="g1" value="#91fe9e">
-                    <input class="button ddl;" type="color" id="g2" name="g2" value="#00c9ff">
+		    <input class="button ddl;" type="color" id="g1" name="g1" value="#91fe9e" aria-label="Set the first color of the background and button color gradient."> 
+		    <input class="button ddl;" type="color" id="g2" name="g2" value="#00c9ff" aria-label="Set the second color of the background and button color gradient.">
 		    <br><br>
                     <h2 style="background-color: #91fe9e">Logo Color</h2>
                     <select class="ddl button" id="logoColor" value="Blue">
@@ -119,7 +139,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                     </select>
 		    <br><br>
                     <p>
-                        <input class="button saveButton" onclick="saveSettings()" type="submit" value="save">
+			<input class="button saveButton" onclick="saveSettings()" type="submit" value="save" aria-label="Save your settings.">
                     </p>
                 </div>
                 <div id="Customization" class="container tab">
@@ -153,13 +173,13 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                         <option style="font-family: Roboto !important;" value="Roboto">Roboto</option>
                     </select>
                     <p>
-                        <input class="button saveButton" onclick="saveSettings()" type="submit" value="save">
+			<input class="button saveButton" onclick="saveSettings()" type="submit" value="save" aria-label="Save your settings.">
                     </p>
                 </div>
             </div>
         </div>
 </div><script src="js/tab.js"></script>
-<img class="img" id="logo" src="img/logo_blue.png" style="width: 26%; height: 20%; display:block; height: 4%; margin-top: 30px; margin-left: auto; margin-right: auto; margin-bottom: 30px;">
+<img alt="The logo for the AMC Trainer website." class="img" id="logo" src="img/logo_blue.png" style="width: 26%; height: 20%; display:block; height: 4%; margin-top: 30px; margin-left: auto; margin-right: auto; margin-bottom: 30px;">
 <p style="position: absolute; z-index: 10;" id="Problems">
     <button type="button" onclick="document.getElementById('ans').value = ''; get_new_problem();" style="position: fixed; right: 10%; bottom: 10%; width: 12%; height: 7%; border-radius: 1rem; font-size: 1.6em;" id="new_problem" class="button">New</button>
 </p>
@@ -169,7 +189,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
 <p class="text" id="problem"></p>
 <br>
 <p class="text" id="check_ans" style="position: relative; justify-content: center; left: 50%; right: 50%; transform: translateX(-50%); z-index: 10; display: none;">
-    <input class="input button" style="position: absolute; margin-left: 0px; margin-right: 200px; cursor: text;" autocomplete="off" type="text" id="ans" name="ans" value="">
+    <input class="input button" style="position: absolute; margin-left: 0px; margin-right: 200px; cursor: text;" autocomplete="off" type="text" id="ans" name="ans" value="" aria-label="Enter your answer for the given problem. Acceptable answers include the letter for AMC 8, AMC 10, and AMC 12. For AIME, please enter the 3 digit representation of your answer.">
     <script src="js/script.js"></script>
     <button class="button" style="position: absolute; margin-left: 200px; margin-right: 0px; text-align: center;" type="button" id="get_ans" onclick="check_ans(0);">Submit</button>
     <span class="text" id="if_correct" style="display: none;"></span>
@@ -179,7 +199,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
 <p class="text">
     <span style="display: none;" id="get_solution"></span>
 </p>
-<img src="img/pencil.svg" class="headerButton" style="right:9px; top: 80px;" name = "brush" onclick="toggle()"></ion-icon>
+<img alt="A drawing tool to allow for an on-screen whiteboard with various colors." src="img/pencil.svg" class="headerButton" style="right:9px; top: 80px;" name = "brush" onclick="toggle()"></ion-icon>
 <div id="draw" style="width: 100%; height: 100%; display: none;">
     <canvas style="position: absolute; top: 0; left: 0; z-index: 5;" cursor: pointer; id="can"></canvas>
     <div class="chooseColor" style="top:170px;right:18px;background:#FF4136;" id="red"    onclick="color(this)"></div>
@@ -190,7 +210,8 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
     <div class="chooseColor" style="top:470px;right:18px;background:#800080;" id="purple" onclick="color(this)"></div>
     <div class="chooseColor" style="top:530px;right:18px;background:#000000;" id="black"  onclick="color(this)"></div>
     <div class="chooseColor" style="top:600px;right:18px;background:#FFFFFF;" id="white"  onclick="color(this)"></div>
-    <img class="chooseColor" style="top:660px;border-radius: 0%; border: none; width: 50px; height: 50px;" src="img/eraser.png" id="eraser" onclick="erase()"/>
-    <i class="fas fa-trash-alt" id="clr" size="23" onclick="clearScreen()" style="z-index: 10; position:absolute;top:740px;right:10px; font-size: 40px; width: 50px; cursor: pointer;">
-	</i>
+    <img class="chooseColor" style="top:660px;border-radius: 0%; border: none; width: 50px; height: 50px;" alt="Erase all drawings on the screen." src="img/eraser.png" id="eraser" onclick="erase()"/>
+    <i class="fas fa-trash-alt" id="clr" size="23" onclick="clearScreen()" style="z-index: 10; position:absolute;top:740px;right:10px; font-size: 40px; width: 50px; cursor: pointer;"></i>
+    <i data-feather="corner-down-left" size="23" onclick="undo()" aria-label="Undo" style="z-index: 10; position:absolute;top:800px;right:15px; font-size: 40px; width: 50px; cursor: pointer;"></i>
+    <i data-feather="corner-down-right" size="23" onclick="redo()" aria-label="Redo" style="z-index: 10; position:absolute;top:850px;right:15px; font-size: 40px; width: 50px; cursor: pointer;"></i>
 </body></html>
