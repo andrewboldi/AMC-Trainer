@@ -1,3 +1,5 @@
+feather.replace()
+
 document.onkeydown = function(e) {
     if (e.ctrlKey && e.keyCode == 13) {
         get_new_problem();

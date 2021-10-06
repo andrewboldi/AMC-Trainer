@@ -376,3 +376,20 @@ p {
 .fa-trash-alt:hover {
   color: red;
 }
+
+#reportButtonImg {
+  stroke-width: 2;
+  stroke: grey;
+  transition: all 0.3s;
+}
+
+#reportButtonImg:hover {
+  stroke: red;
+  transform: translateX(0)
+}
+
+#reportButtonImg:active {
+  fill: red;
+  stroke: rgb(255, 252, 84);
+  transform: scale(0.96, 0.96);
+}
