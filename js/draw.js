@@ -55,12 +55,17 @@ function getCurrPos(e) {
 }
 
 function undo() {
-    try {
-        canvas.getContext("2d").putImageData(undoList[undoLevel + 1], 0, 0);
-        undoLevel += 1;
-    } catch (e) {
-	;
+    if (undoLevel + 1 != undoList.length) {
+	undoLevel += 1;
     }
+    canvas.getContext("2d").putImageData(undoList[undoLevel], 0, 0);
+}
+
+function redo() {
+    if (undoLevel != 0) {
+	undoLevel -= 1;
+    }
+    canvas.getContext("2d").putImageData(undoList[undoLevel], 0, 0);
 }
 
 function init() {
@@ -75,25 +80,41 @@ function init() {
     getHeight();
     w = canvas.width;
 
-    canvas.addEventListener("mousemove", function(e) {
-        findxy("move", e)
-    }, false);
-    canvas.addEventListener("mousedown", function(e) {
-        findxy("down", e)
-    }, false);
-    canvas.addEventListener("mouseup", function(e) {
-        findxy("up", e)
-    }, false);
-    canvas.addEventListener("mouseout", function(e) {
-        findxy("out", e)
-    }, false);
+    canvas.addEventListener("mousemove", handleMouseMove, false);
+    canvas.addEventListener("mousedown", handleMouseDown, false);
+    canvas.addEventListener("mouseup", handleMouseUp, false);
+    canvas.addEventListener("mouseout", handleMouseOut, false);
     canvas.addEventListener('touchstart', handleTouchStart, false);
     canvas.addEventListener('touchmove', handleTouchMove, false);
     window.addEventListener("orientationchange", getHeight);
-    temp = canvas.getContext("2d").getImageData(0, 0, canvas.width, canvas.height);
     if (undoList.length == 0) {
+	temp = canvas.getContext("2d").getImageData(0, 0, canvas.width, canvas.height);
         undoList.unshift(temp);
+	console.log("Undo list is empty");
     }
+}
+
+function uninit() {
+    canvas.removeEventListener("mousemove", handleMouseMove);
+    canvas.removeEventListener("mousedown", handleMouseDown);
+    canvas.removeEventListener("mouseup", handleMouseUp);
+    canvas.removeEventListener("mouseout", handleMouseOut);
+    canvas.removeEventListener('touchstart', handleTouchStart);
+    canvas.removeEventListener('touchmove', handleTouchMove);
+    window.removeEventListener("orientationchange", getHeight);
+}
+
+function handleMouseMove(e) {
+	findxy("move", e);
+}
+function handleMouseDown(e) {
+	findxy("down", e);
+}
+function handleMouseUp(e) {
+	findxy("up", e);
+}
+function handleMouseOut(e) {
+	findxy("out", e);
 }
 
 function toggle() {
@@ -105,6 +126,7 @@ function toggle() {
         temp = canvas.getContext("2d").getImageData(0, 0, canvas.width, canvas.height);
         document.getElementById("draw").style.display = "none";
         //        document.getElementById("html").style.overflow = "visible";
+	uninit();
     }
 }
 
@@ -193,6 +215,10 @@ function findxy(res, e) {
     }
     if (res == "up" && res != "out") {
         temp = canvas.getContext("2d").getImageData(0, 0, canvas.width, canvas.height);
+	if (undoLevel > 0) {
+	    undoList.splice(0, undoLevel);
+	}
+	undoLevel = 0;
         undoList.unshift(temp);
         console.log(undoList);
     }
