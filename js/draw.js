@@ -1,6 +1,8 @@
 var canvas, ctx, flag = false;
 var temp;
 var height;
+var undoList = [];
+var undoLevel = 0;
 prevX = 0,
 currX = 0,
 prevY = 0,
@@ -52,6 +54,15 @@ function getCurrPos(e) {
     }
 }
 
+function undo() {
+    try {
+        canvas.getContext("2d").putImageData(undoList[undoLevel + 1], 0, 0);
+        undoLevel += 1;
+    } catch (e) {
+	;
+    }
+}
+
 function init() {
     canvas = document.getElementById("can");
     ctx = canvas.getContext("2d");
@@ -79,6 +90,10 @@ function init() {
     canvas.addEventListener('touchstart', handleTouchStart, false);
     canvas.addEventListener('touchmove', handleTouchMove, false);
     window.addEventListener("orientationchange", getHeight);
+    temp = canvas.getContext("2d").getImageData(0, 0, canvas.width, canvas.height);
+    if (undoList.length == 0) {
+        undoList.unshift(temp);
+    }
 }
 
 function toggle() {
@@ -138,6 +153,7 @@ function draw() {
     ctx.stroke();
     ctx.fill();
     ctx.closePath();
+
 }
 
 function erase() {
@@ -174,6 +190,11 @@ function findxy(res, e) {
     }
     if (res == "up" || res == "out") {
         flag = false;
+    }
+    if (res == "up" && res != "out") {
+        temp = canvas.getContext("2d").getImageData(0, 0, canvas.width, canvas.height);
+        undoList.unshift(temp);
+        console.log(undoList);
     }
     if (res == "move") {
         if (flag) {

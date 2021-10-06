@@ -3,6 +3,11 @@ document.onkeydown = function(e) {
         get_new_problem();
     }
 }
+document.onkeydown = function(e) {
+    if (e.ctrlKey && e.keyCode == 90) {
+        undo();
+    }
+}
 function logo() {
     var color = document.getElementById("logoColor").value
     switch (color) {
