@@ -159,7 +159,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
 </div><script src="js/tab.js"></script>
 <img class="img" id="logo" src="img/logo_blue.png" style="width: 26%; height: 20%; display:block; height: 4%; margin-top: 30px; margin-left: auto; margin-right: auto; margin-bottom: 30px;">
 <p style="position: absolute; z-index: 10;" id="Problems">
-    <button type="button" onclick="document.getElementById('ans').value = ''; get_new_problem();" style="position: fixed; right: 10%; bottom: 10%; width: 12%; height: 7%; border-radius: 1rem; font-size: 1.6em;" id="new_problem" class="button" data-hover="New">New</button>
+    <button type="button" onclick="document.getElementById('ans').value = ''; get_new_problem();" style="position: fixed; right: 10%; bottom: 10%; width: 12%; height: 7%; border-radius: 1rem; font-size: 1.6em;" id="new_problem" class="button">New</button>
 </p>
 <strong>
     <p class="text" id="problem_id" style="font-size: 24px;"></p>
@@ -169,7 +169,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
 <p class="text" id="check_ans" style="position: relative; justify-content: center; left: 50%; right: 50%; transform: translateX(-50%); z-index: 10; display: none;">
     <input class="input button" style="position: absolute; margin-left: 0px; margin-right: 200px; cursor: text;" autocomplete="off" type="text" id="ans" name="ans" value="">
     <script src="js/script.js"></script>
-    <button class="button" style="position: absolute; margin-left: 200px; margin-right: 0px; text-align: center; color: white;" type="button" id="get_ans" onclick="check_ans(0);">Submit</button>
+    <button class="button" style="position: absolute; margin-left: 200px; margin-right: 0px; text-align: center;" type="button" id="get_ans" onclick="check_ans(0);">Submit</button>
     <span class="text" id="if_correct" style="display: none;"></span>
     <span onclick="giveUp()" class = "headerButton" style="cursor: pointer; position: absolute; margin-top: 5px; margin-left: 420px; text-align: center; font-size: 1.4em; ">&#127937</span>
 </p>
@@ -188,7 +188,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
     <div class="chooseColor" style="top:470px;right:18px;background:#800080;" id="purple" onclick="color(this)"></div>
     <div class="chooseColor" style="top:530px;right:18px;background:#000000;" id="black"  onclick="color(this)"></div>
     <div class="chooseColor" style="top:600px;right:18px;background:#FFFFFF;" id="white"  onclick="color(this)"></div>
-    <img class="chooseColor" style="top:660px;border-radius: 0%; border: none; width: 50px; height: 50px;" src="img/eraser.png" id="eraser"    onclick="erase()"/>
+    <img class="chooseColor" style="top:660px;border-radius: 0%; border: none; width: 50px; height: 50px;" src="img/eraser.png" id="eraser" onclick="erase()"/>
     <i class="fas fa-trash-alt" id="clr" size="23" onclick="clearScreen()" style="z-index: 10; position:absolute;top:740px;right:10px; font-size: 40px; width: 50px; cursor: pointer;">
 	</i>
 </body></html>

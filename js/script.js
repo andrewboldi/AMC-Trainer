@@ -85,6 +85,10 @@ function textc() {
     if (document.getElementById("textColor").value == "B") {
         document.querySelectorAll('.text').forEach(element=>{
             element.style.color = 'black';
+	}
+	);
+        document.querySelectorAll('.button').forEach(element=>{
+            element.style.color = 'black';
         }
         );
         document.querySelectorAll('.text img').forEach(element=>{
@@ -95,6 +99,10 @@ function textc() {
         document.getElementById("settingsButtonImg").style.filter = "invert(0)";
     } else {
         document.querySelectorAll('.text').forEach(element=>{
+            element.style.color = 'white';
+        }
+	);
+        document.querySelectorAll('.button').forEach(element=>{
             element.style.color = 'white';
         }
         );
