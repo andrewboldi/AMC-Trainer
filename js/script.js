@@ -6,44 +6,19 @@ let type;
 let link = "";
 
 document.onkeydown = function(e) {
-    if (e.ctrlKey && e.keyCode == 13) {
+    if (e.ctrlKey && e.keyCode === 13) {
         get_new_problem();
     }
-    if (e.ctrlKey && e.keyCode == 90) {
+    if (e.ctrlKey && e.keyCode === 90) {
         undo();
     }
-    if (e.ctrlKey && e.keyCode == 89) {
+    if (e.ctrlKey && e.keyCode === 89) {
         redo();
     }
 }
 function logo() {
     const color = document.getElementById("logoColor").value
-    switch (color) {
-    case "Red":
-        document.getElementById("logo").src = "img/logo_red.png";
-        break;
-    case "Orange":
-        document.getElementById("logo").src = "img/logo_orange.png";
-        break;
-    case "Yellow":
-        document.getElementById("logo").src = "img/logo_yellow.png";
-        break;
-    case "Green":
-        document.getElementById("logo").src = "img/logo_green.png";
-        break;
-    case "Blue":
-        document.getElementById("logo").src = "img/logo_blue.png";
-        break;
-    case "Purple":
-        document.getElementById("logo").src = "img/logo_purple.png";
-        break;
-    case "White":
-        document.getElementById("logo").src = "img/logo_white.png";
-        break;
-    case "Black":
-        document.getElementById("logo").src = "img/logo_black.png";
-        break;
-    }
+    document.getElementById("logo").src = `img/logo_${color}.png`
 }
 
 function saveFont() {
@@ -52,21 +27,19 @@ function saveFont() {
 }
 
 function zenMode() {
-    if (document.getElementById("zenModeOption").value == "On") {
+    if (document.getElementById("zenModeOption").value === "On") {
 	document.getElementById("problem_id").style.opacity = 0.0;
     } else {
 	document.getElementById("problem_id").style.opacity = 1.0;
     }
 }
-
 function textFont() {
-    if (localStorage.getItem("fontFamily") == null) {
+    if (localStorage.getItem("fontFamily") === null) {
         localStorage.setItem("fontFamily", document.getElementById("fontFamily").value);
     }
     document.getElementById("fontFamily").value = localStorage.getItem("fontFamily");
     document.getElementById("body").style.fontFamily = localStorage.getItem("fontFamily");
 }
-
 function grad() {
     let left = document.getElementById("g1").value;
     let right = document.getElementById("g2").value;
@@ -88,7 +61,7 @@ function grad() {
 function toggleWiggle() {
     const val = document.getElementById("imgWiggle").value;
     const a = document.getElementsByTagName("img");
-    if (val == "Off") {
+    if (val === "Off") {
         for (let i = 0; i < a.length; i++) {
             a[i].classList.add("imgNoHover");
         }
@@ -100,40 +73,25 @@ function toggleWiggle() {
 }
 function rgbToHex(c) {
     const hex = c.toString(16);
-    return hex.length == 1 ? "0" + hex : hex;
+    return hex.length === 1 ? "0" + hex : hex;
 }
 function textc() {
-    if (document.getElementById("textColor").value == "B") {
-        document.querySelectorAll('.text').forEach(element=>{
-            element.style.color = 'black';
-	}
-	);
-        document.querySelectorAll('.button').forEach(element=>{
-            element.style.color = 'black';
-        }
-        );
-        document.querySelectorAll('.text img').forEach(element=>{
-            element.style.filter = 'invert(0)';
-        }
-        );
-        document.getElementById("infoButtonImg").style.filter = "invert(0)";
-        document.getElementById("settingsButtonImg").style.filter = "invert(0)";
-    } else {
-        document.querySelectorAll('.text').forEach(element=>{
-            element.style.color = 'white';
-        }
-	);
-        document.querySelectorAll('.button').forEach(element=>{
-            element.style.color = 'white';
-        }
-        );
-        document.querySelectorAll('.text img').forEach(element=>{
-            element.style.filter = 'invert(1)';
-        }
-        );
-        document.getElementById("infoButtonImg").style.filter = "invert(1)";
-        document.getElementById("settingsButtonImg").style.filter = "invert(1)";
+    let desiredColor = document.getElementById("textColor").value
+    document.querySelectorAll('.text').forEach(element=>{
+        element.style.color = desiredColor;
     }
+    );
+    document.querySelectorAll('.button').forEach(element=>{
+        element.style.color = desiredColor;
+    }
+    );
+    desiredColor = ((desiredColor === "black") ? "invert(0)" : "invert(1)");
+    document.querySelectorAll('.text img').forEach(element=>{
+        element.style.filter = desiredColor;
+    }
+    );
+    document.getElementById("infoButtonImg").style.filter = desiredColor;
+    document.getElementById("settingsButtonImg").style.filter = desiredColor;
 
 }
 function saveSettings() {
@@ -147,7 +105,7 @@ function saveSettings() {
     closeModal();
 }
 document.getElementById("ans").addEventListener('keyup', function(event) {
-    if (event.code == "Enter" || event.code == "NumpadEnter") {
+    if (event.code === "Enter" || event.code === "NumpadEnter") {
         event.preventDefault();
         check_ans(0);
     }
@@ -192,7 +150,7 @@ function saveLevel() {
 function get_new_problem(flag=false) {
     getHeight();
     textFont();
-    if (localStorage.getItem("type") == null) {
+    if (localStorage.getItem("type") === null) {
         localStorage.setItem("type", "All");
     }
 
@@ -209,7 +167,7 @@ function get_new_problem(flag=false) {
     // document.getElementById("check_ans").style.display = "none";
     document.getElementById("get_solution").style.display = "none";
     document.getElementById("if_correct").style.display = "none";
-    if (type == "All") {
+    if (type === "All") {
         const arr1 = shuffle([8, 10, 12, "AIME"]);
         type = arr1[0];
     }
@@ -231,11 +189,11 @@ function get_new_problem(flag=false) {
     arrA = shuffle(arrA);
     const yearAJ = arrA[0];
 
-    if (type == 8) {
+    if (type === 8) {
         if_ab = false;
         isAJHSME = shuffle([0, 1]);
         isAJHSME = isAJHSME[0];
-    } else if ((type == 10 || type == 12) && (yr < 2002)) {
+    } else if ((type === 10 || type === 12) && (yr < 2002)) {
         if_ab = false;
     }
 
@@ -246,7 +204,7 @@ function get_new_problem(flag=false) {
     arr3 = shuffle(arr3);
     let prob = arr3[0];
 
-    if (type == "AIME") {
+    if (type === "AIME") {
         const yrAIME = [];
         for (let i = 1983; i < 2021; i++) {
             yrAIME.push(i);
@@ -266,13 +224,9 @@ function get_new_problem(flag=false) {
     const year = yr.toString();
     const amc = type.toString();
     const problem = prob.toString();
+    let aorb = shuffle(["A", "B"])[0].toString();
 
-
-    let a_b = shuffle(["A", "B"]);
-    a_b = a_b[0];
-    let aorb = a_b.toString();
-
-    if (flag == true) {
+    if (flag === true) {
         link = localStorage.getItem("problem");
         answer_key_link = localStorage.getItem("answer");
         problem_id = localStorage.getItem("problemID");
@@ -281,24 +235,20 @@ function get_new_problem(flag=false) {
         link = "";
         answer_key_link = "";
         problem_id = "";
-        if ((amc == "8") && (isAJHSME == 1)) {
+        if ((amc === "8") && (isAJHSME === 1)) {
             link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?!", yearAJ, "_AJHSME_", "Problems_Problem_", problem, ".html");
             answer_key_link = link.replaceAll("!", "|");
             problem_id = "".concat(yearAJ, " AJHSME \#", problem);
-        } else if ((amc == "10" || amc == "12") && (if_ab == true)) {
+        } else if ((amc === "10" || amc === "12") && (if_ab === true)) {
             link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?!", year, "_AMC_", amc, aorb, "_Problems_Problem_", problem, ".html");
             answer_key_link = link.replaceAll("!", "|");
             problem_id = "".concat(year, " AMC ", amc, aorb, " \#", problem);
-        } else if ((amc == "AIME") && (if_ab == false)) {
+        } else if ((amc === "AIME") && (if_ab === false)) {
             link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?!", year, "_AIME_", "Problems_Problem_", problem, ".html");
             answer_key_link = link.replaceAll("!", "|");
             problem_id = "".concat(year, " AIME \#", problem);
-        } else if ((amc == "AIME") && (if_ab == true)) {
-            if (aorb == "A") {
-                aorb = "I";
-            } else {
-                aorb = "II";
-            }
+        } else if ((amc === "AIME") && (if_ab === true)) {
+            aorb = ((aorb === "A") ? "I" : "II");
             link = link.concat("https://wandering-sky-a896.cbracketdash.workers.dev/?!", year, "_AIME_", aorb, "_Problems_Problem_", problem, ".html");
             answer_key_link = link.replaceAll("!", "|");
             problem_id = "".concat(year, " AIME ", aorb, " \#", problem);
@@ -321,7 +271,7 @@ function get_new_problem(flag=false) {
 
                 xhr4.onreadystatechange = processt;
                 function processt(e) {
-                    if (xhr4.readyState == 4 && xhr4.status == 200) {
+                    if (xhr4.readyState === 4 && xhr4.status === 200) {
                         let georesp = xhr4.responseText;
                         georesp = georesp.replaceAll("'", '"');
                         georesp = georesp.replaceAll('<a href=\"', '<a target="_blank" href=\"https://wandering-sky-a896.cbracketdash.workers.dev/?https://www.artofproblemsolving.com');
@@ -331,14 +281,14 @@ function get_new_problem(flag=false) {
                         console.log(georesp);
                     }
                 }
-                if (subject == "Geo") {
+                if (subject === "Geo") {
                     link = geolinks[0];
                     problem_id = geolinks[0].split("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php/")[1].replaceAll("_", " ").replaceAll("Problems/Problem", "#");
-                } else if (subject == "Alg") {
+                } else if (subject === "Alg") {
                     link = shuffle(alglinks)[0];
-                } else if (subject == "C+P") {
+                } else if (subject === "C+P") {
                     link = shuffle(cplinks)[0];
-                } else if (subject == "NT") {
+                } else if (subject === "NT") {
                     link = shuffle(ntlinks)[0];
                 }
                 */
@@ -377,7 +327,7 @@ function get_new_problem(flag=false) {
 function initialFunction() {
     feather.replace();
     getHeight();
-    if (localStorage.getItem("problem") == null) {
+    if (localStorage.getItem("problem") === null) {
         localStorage.setItem("problem", "");
         localStorage.setItem("answer", "");
         localStorage.setItem("problemID", "");
@@ -436,10 +386,10 @@ function conf() {
 function check_ans(num) {
     localStreak = parseInt(localStorage.getItem("streak"));
     userAns = ans.value.toString().toUpperCase();
-    aimeSearch = /^[0-9]{3}$/;
-    amcSearch = /^[ABCDE]{1}$/;
-    if ((num == 1) || (aimeSearch.test(userAns) && type == "AIME" || amcSearch.test(userAns) && type != "AIME")) {
-        if (num == 0 && realAns === userAns) {
+    const aimeSearch = /^[0-9]{3}$/;
+    const amcSearch = /^[ABCDE]{1}$/;
+    if ((num === 1) || (aimeSearch.test(userAns) && type === "AIME" || amcSearch.test(userAns) && type !== "AIME")) {
+        if (num === 0 && realAns === userAns) {
             localStorage.removeItem("problem");
             localStreak += 1;
             let x = document.getElementById("get_solution");
@@ -454,7 +404,7 @@ function check_ans(num) {
             getHeight();
         } else {
             localStreak = 0;
-            if (num == 0) {
+            if (num === 0) {
                 document.getElementById("ans").classList.add("error");
                 setTimeout(function() {
                     document.getElementById("ans").classList.remove('error');

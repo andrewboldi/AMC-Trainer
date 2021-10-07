@@ -14,7 +14,7 @@ let dot_flag = false;
 let x = "black";
 
 function getHeight() {
-    if (document.getElementById("draw").style.display == "block") {
+    if (document.getElementById("draw").style.display === "block") {
         const body = document.body;
         const html = document.documentElement;
         canvas = document.getElementById("can");
@@ -25,7 +25,7 @@ function getHeight() {
         canvas.height = height;
 	canvas.width = width;
 
-	if (undoList.length == 0) {
+	if (undoList.length === 0) {
 	    temp = canvas.getContext("2d").getImageData(0, 0, width, height);
 	    ctx.putImageData(temp, 0, 0);
 	} else {
@@ -50,13 +50,13 @@ function getCurrPos(e) {
         var e = event;
 
     if (e.touches) {
-        if (e.touches.length == 1) {
+        if (e.touches.length === 1) {
             const touch = e.touches[0];
             prevX = currX;
             prevY = currY;
             currX = touch.pageX - touch.target.offsetLeft;
             currY = touch.pageY - touch.target.offsetTop;
-            if (prevX == 0 || prevY == 0) {
+            if (prevX === 0 || prevY === 0) {
                 prevX = currX;
                 prevY = currY;
             }
@@ -93,7 +93,7 @@ function init() {
     canvas.addEventListener('touchstart', handleTouchStart, false);
     canvas.addEventListener('touchmove', handleTouchMove, false);
     window.addEventListener("orientationchange", getHeight);
-    if (undoList.length == 0) {
+    if (undoList.length === 0) {
 	temp = ctx.getImageData(0, 0, width, height);
         undoList.unshift(temp);
     }
@@ -123,7 +123,7 @@ function handleMouseOut(e) {
 }
 
 function toggle() {
-    if (document.getElementById("draw").style.display == "none") {
+    if (document.getElementById("draw").style.display === "none") {
         //       document.getElementById("html").style.overflow = "hidden";
         document.getElementById("draw").style.display = "block";
         init();
@@ -168,7 +168,7 @@ function color(obj) {
 function draw() {
     ctx.beginPath();
     ctx.moveTo(prevX, prevY);
-    if (ctx.globalCompositeOperation == "destination-out") {
+    if (ctx.globalCompositeOperation === "destination-out") {
         ctx.arc(currX - 20, currY - 20, 40, 40, 6.283);
     } else {
         ctx.lineWidth = 2;
@@ -200,7 +200,7 @@ function clearScreen() {
 }
 
 function findxy(res, e) {
-    if (res == "down") {
+    if (res === "down") {
         prevX = currX;
         prevY = currY;
         currX = e.clientX - canvas.offsetLeft;
@@ -216,10 +216,10 @@ function findxy(res, e) {
             dot_flag = false;
         }
     }
-    if (res == "up" || res == "out") {
+    if (res === "up" || res === "out") {
         flag = false;
     }
-    if (res == "up" && res != "out") {
+    if (res === "up" && res != "out") {
         temp = canvas.getContext("2d").getImageData(0, 0, width, height);
 	if (undoLevel > 0) {
 	    undoList.splice(0, undoLevel);
@@ -227,7 +227,7 @@ function findxy(res, e) {
 	undoLevel = 0;
         undoList.unshift(temp);
     }
-    if (res == "move") {
+    if (res === "move") {
         if (flag) {
             prevX = currX;
             prevY = currY;
