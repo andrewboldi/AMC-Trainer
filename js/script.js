@@ -5,17 +5,6 @@ let localStreak;
 let type;
 let link = "";
 
-document.onkeydown = function(e) {
-    if (e.ctrlKey && e.keyCode === 13) {
-        get_new_problem();
-    }
-    if (e.ctrlKey && e.keyCode === 90) {
-        undo(); // skipcq: JS-0125
-    }
-    if (e.ctrlKey && e.keyCode === 89) {
-        redo(); // skipcq: JS-0125
-    }
-}
 function logo() {
     const color = document.getElementById("logoColor").value
     document.getElementById("logo").src = `img/logo_${color}.png`
@@ -104,12 +93,6 @@ function saveSettings() {
     zenMode();
     closeModal();
 }
-document.getElementById("ans").addEventListener('keyup', function(event) {
-    if (event.code === "Enter" || event.code === "NumpadEnter") {
-        event.preventDefault();
-        check_ans(0);
-    }
-});
 
 let realAns;
 let userAns;
@@ -432,4 +415,21 @@ function giveUp() {
         check_ans(1);
     }
 
+}
+document.getElementById("ans").addEventListener('keyup', function(event) {
+    if (event.code === "Enter" || event.code === "NumpadEnter") {
+        event.preventDefault();
+        check_ans(0);
+    }
+});
+document.onkeydown = function(e) {
+    if (e.ctrlKey && e.keyCode === 13) {
+        get_new_problem();
+    }
+    if (e.ctrlKey && e.keyCode === 90) {
+        undo(); // skipcq: JS-0125
+    }
+    if (e.ctrlKey && e.keyCode === 89) {
+        redo(); // skipcq: JS-0125
+    }
 }
