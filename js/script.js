@@ -385,7 +385,7 @@ function conf() {
 
 function check_ans(num) {
     localStreak = parseInt(localStorage.getItem("streak"));
-    userAns = ans.value.toString().toUpperCase();
+    userAns = document.getElementById("ans").value.toString().toUpperCase();
     const aimeSearch = /^[0-9]{3}$/;
     const amcSearch = /^[ABCDE]{1}$/;
     if ((num === 1) || (aimeSearch.test(userAns) && type === "AIME" || amcSearch.test(userAns) && type !== "AIME")) {
