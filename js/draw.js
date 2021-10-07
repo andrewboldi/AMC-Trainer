@@ -1,9 +1,9 @@
 "use strict";
 
 let canvas, ctx, flag = false;
-let temp;
-let height;
-let width;
+let temp = {};
+let height = 0;
+let width = 0;
 let undoList = [];
 let undoLevel = 0;
 let prevX = 0;
@@ -12,6 +12,7 @@ let prevY = 0;
 let currY = 0;
 let dot_flag = false;
 let x = "black";
+let rest = "";
 
 function getHeight() {
     if (document.getElementById("draw").style.display === "block") {
@@ -40,7 +41,9 @@ function getCurrPos(e) {
 
     if (e.touches) {
         if (e.touches.length === 1) {
-            const touch = e.touches[0];
+            let touch = {};
+            [touch, ...rest] = e.touches; // touch = e.touches[0];
+            
             prevX = currX;
             prevY = currY;
             currX = touch.pageX - touch.target.offsetLeft;

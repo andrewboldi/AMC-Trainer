@@ -121,6 +121,7 @@ function saveLevel() {
 }
 
 function get_new_problem(flag=false) {
+    let rest;
     getHeight(); // skipcq: JS-0125
     textFont();
     if (localStorage.getItem("type") === null) {
@@ -141,31 +142,29 @@ function get_new_problem(flag=false) {
     document.getElementById("get_solution").style.display = "none";
     document.getElementById("if_correct").style.display = "none";
     if (type === "All") {
-        const arr1 = shuffle([8, 10, 12, "AIME"]);
-        type = arr1[0];
+        [type, ...rest] = shuffle([8, 10, 12, "AIME"]); // type = shuffle([8, 10, 12, "AIME"])[0];
     }
 
     let if_ab = true;
-    let isAJHSME;
 
     let arr2 = [];
+    let yr = 0;
     for (let i = 2000; i < 2022; i++) {
         arr2.push(i);
     }
-    arr2 = shuffle(arr2);
-    let yr = arr2[0];
+    [yr, ...rest] = shuffle(arr2); // yr = shuffle(arr2)[0];
 
     let arrA = [];
     for (let i = 1985; i < 1999; i++) {
         arrA.push(i);
     }
-    arrA = shuffle(arrA);
-    const yearAJ = arrA[0];
-
+    let yearAJ = 0;
+    [yearAJ, ...rest] = shuffle(arrA); // yearAJ = shuffle(arrA)[0];
+    
+    let isAJHSME = 0;
     if (type === 8) {
         if_ab = false;
-        isAJHSME = shuffle([0, 1]);
-        isAJHSME = isAJHSME[0];
+        [isAJHSME, ...rest] = shuffle([0, 1]); // isAJHSME = shuffle([0, 1])[0];
     } else if ((type === 10 || type === 12) && (yr < 2002)) {
         if_ab = false;
     }
@@ -182,7 +181,7 @@ function get_new_problem(flag=false) {
         for (let i = 1983; i < 2021; i++) {
             yrAIME.push(i);
         }
-        yr = shuffle(yrAIME)[0];
+        [yr, ...rest] = shuffle(yrAIME); // yr = shuffle(yrAIME)[0];
 
         if (yr < 2000) {
             if_ab = false;
@@ -191,7 +190,8 @@ function get_new_problem(flag=false) {
         for (let i = 1; i < 16; i++) {
             probAIME.push(i);
         }
-        prob = shuffle(probAIME)[0];
+        [prob, ...rest] = shuffle(probAIME); // prob = shuffle(probAIME)[0];
+        
     }
 
     const year = yr.toString();
