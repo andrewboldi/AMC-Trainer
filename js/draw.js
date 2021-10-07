@@ -1,3 +1,5 @@
+"use strict";
+
 var canvas, ctx, flag = false;
 var temp;
 var height;
@@ -8,8 +10,6 @@ currX = 0,
 prevY = 0,
 currY = 0,
 dot_flag = false;
-
-"use strict";
 
 var x = "black";
 
