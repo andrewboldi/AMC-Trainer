@@ -34,17 +34,6 @@ function getHeight() {
     }
 }
 
-function handleTouchStart(e) {
-    getCurrPos(e);
-    event.preventDefault();
-}
-
-function handleTouchMove(e) {
-    getCurrPos(e);
-    draw();
-    event.preventDefault();
-}
-
 function getCurrPos(e) {
     if (!e)
         var e = event; // skipcq: JS-0239
@@ -99,106 +88,6 @@ function init() {
     }
 }
 
-function uninit() {
-    canvas.removeEventListener("mousemove", handleMouseMove);
-    canvas.removeEventListener("mousedown", handleMouseDown);
-    canvas.removeEventListener("mouseup", handleMouseUp);
-    canvas.removeEventListener("mouseout", handleMouseOut);
-    canvas.removeEventListener('touchstart', handleTouchStart);
-    canvas.removeEventListener('touchmove', handleTouchMove);
-    window.removeEventListener("orientationchange", getHeight);
-}
-
-function handleMouseMove(e) {
-	findxy("move", e);
-}
-function handleMouseDown(e) {
-	findxy("down", e);
-}
-function handleMouseUp(e) {
-	findxy("up", e);
-}
-function handleMouseOut(e) {
-	findxy("out", e);
-}
-
-function toggle() {
-    if (document.getElementById("draw").style.display === "none") {
-        //       document.getElementById("html").style.overflow = "hidden";
-        document.getElementById("draw").style.display = "block";
-        init();
-    } else {
-        document.getElementById("draw").style.display = "none";
-        //        document.getElementById("html").style.overflow = "visible";
-	uninit();
-    }
-}
-
-function color(obj) {
-    ctx.globalCompositeOperation = "source-over";
-    switch (obj.id) {
-    case "red":
-        x = "#FF4136";
-        break;
-    case "orange":
-        x = "#FF851B";
-        break;
-    case "yellow":
-        x = "#FFDC00";
-        break;
-    case "green":
-        x = "#2ECC40";
-        break;
-    case "blue":
-        x = "#0074D9";
-        break;
-    case "purple":
-        x = "#800080";
-        break;
-    case "black":
-        x = "black";
-        break;
-    case "white":
-        x = "#FFFFFF";
-        break;
-    }
-
-}
-
-function draw() {
-    ctx.beginPath();
-    ctx.moveTo(prevX, prevY);
-    if (ctx.globalCompositeOperation === "destination-out") {
-        ctx.arc(currX - 20, currY - 20, 40, 40, 6.283);
-    } else {
-        ctx.lineWidth = 2;
-        ctx.lineTo(currX, currY);
-    }
-
-    ctx.strokeStyle = x;
-    ctx.stroke();
-    ctx.fill();
-    ctx.closePath();
-
-}
-
-function erase() {
-    ctx.globalCompositeOperation = "destination-out";
-    ctx.strokeStyle = "rgba(100,100,255,1)";
-    ctx.fillStyle = "rgba(100, 100, 255, 1)";
-}
-
-function clearScreen() {
-    const m = confirm("Are you sure you want to clear?");
-    if (m) {
-	undoList = [];
-        ctx.clearRect(0, 0, width, height);
-        undoList[0] = canvas.getContext("2d").getImageData(0, 0, width, height);
-        temp = null;
-        document.getElementById("draw").style.display = "none";
-    }
-}
-
 function findxy(res, e) {
     if (res === "down") {
         prevX = currX;
@@ -237,3 +126,88 @@ function findxy(res, e) {
         }
     }
 }
+function handleMouseMove(e) {
+	findxy("move", e);
+}
+function handleMouseDown(e) {
+	findxy("down", e);
+}
+function handleMouseUp(e) {
+	findxy("up", e);
+}
+function handleMouseOut(e) {
+	findxy("out", e);
+}
+
+function uninit() {
+    canvas.removeEventListener("mousemove", handleMouseMove);
+    canvas.removeEventListener("mousedown", handleMouseDown);
+    canvas.removeEventListener("mouseup", handleMouseUp);
+    canvas.removeEventListener("mouseout", handleMouseOut);
+    canvas.removeEventListener('touchstart', handleTouchStart);
+    canvas.removeEventListener('touchmove', handleTouchMove);
+    window.removeEventListener("orientationchange", getHeight);
+}
+
+function toggle() {
+    if (document.getElementById("draw").style.display === "none") {
+        //       document.getElementById("html").style.overflow = "hidden";
+        document.getElementById("draw").style.display = "block";
+        init();
+    } else {
+        document.getElementById("draw").style.display = "none";
+        //        document.getElementById("html").style.overflow = "visible";
+	uninit();
+    }
+}
+
+function color(obj) {
+    ctx.globalCompositeOperation = "source-over";
+    x = obj.id;
+}
+
+function draw() {
+    ctx.beginPath();
+    ctx.moveTo(prevX, prevY);
+    if (ctx.globalCompositeOperation === "destination-out") {
+        ctx.arc(currX - 20, currY - 20, 40, 40, 6.283);
+    } else {
+        ctx.lineWidth = 2;
+        ctx.lineTo(currX, currY);
+    }
+
+    ctx.strokeStyle = x;
+    ctx.stroke();
+    ctx.fill();
+    ctx.closePath();
+
+}
+
+function handleTouchStart(e) {
+    getCurrPos(e);
+    event.preventDefault();
+}
+
+function handleTouchMove(e) {
+    getCurrPos(e);
+    draw();
+    event.preventDefault();
+}
+
+function erase() {
+    ctx.globalCompositeOperation = "destination-out";
+    ctx.strokeStyle = "rgba(100,100,255,1)";
+    ctx.fillStyle = "rgba(100, 100, 255, 1)";
+}
+
+function clearScreen() {
+    const m = confirm("Are you sure you want to clear?");
+    if (m) {
+	undoList = [];
+        ctx.clearRect(0, 0, width, height);
+        undoList[0] = canvas.getContext("2d").getImageData(0, 0, width, height);
+        temp = null;
+        document.getElementById("draw").style.display = "none";
+    }
+}
+

@@ -10,6 +10,13 @@ function logo() {
     document.getElementById("logo").src = `img/logo_${color}.png`
 }
 
+function textFont() {
+    if (localStorage.getItem("fontFamily") === null) {
+        localStorage.setItem("fontFamily", document.getElementById("fontFamily").value);
+    }
+    document.getElementById("fontFamily").value = localStorage.getItem("fontFamily");
+    document.getElementById("body").style.fontFamily = localStorage.getItem("fontFamily");
+}
 function saveFont() {
     localStorage.setItem("fontFamily", document.getElementById("fontFamily").value);
     textFont();
@@ -21,13 +28,6 @@ function zenMode() {
     } else {
 	document.getElementById("problem_id").style.opacity = 1.0;
     }
-}
-function textFont() {
-    if (localStorage.getItem("fontFamily") === null) {
-        localStorage.setItem("fontFamily", document.getElementById("fontFamily").value);
-    }
-    document.getElementById("fontFamily").value = localStorage.getItem("fontFamily");
-    document.getElementById("body").style.fontFamily = localStorage.getItem("fontFamily");
 }
 function grad() {
     let left = document.getElementById("g1").value;
@@ -82,16 +82,6 @@ function textc() {
     document.getElementById("infoButtonImg").style.filter = desiredColor;
     document.getElementById("settingsButtonImg").style.filter = desiredColor;
 
-}
-function saveSettings() {
-    saveLevel();
-    grad();
-    textc();
-    logo(); 
-    toggleWiggle();
-    saveFont();
-    zenMode();
-    closeModal();
 }
 
 let realAns;
@@ -432,4 +422,14 @@ document.onkeydown = function(e) {
     if (e.ctrlKey && e.keyCode === 89) {
         redo(); // skipcq: JS-0125
     }
+}
+function saveSettings() {
+    saveLevel();
+    grad();
+    textc();
+    logo(); 
+    toggleWiggle();
+    saveFont();
+    zenMode();
+    closeModal();
 }
