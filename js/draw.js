@@ -5,12 +5,11 @@ var temp;
 var height;
 var undoList = [];
 var undoLevel = 0;
-prevX = 0,
-currX = 0,
-prevY = 0,
-currY = 0,
-dot_flag = false;
-
+var prevX = 0;
+var currX = 0;
+var prevY = 0;
+var currY = 0;
+var dot_flag = false;
 var x = "black";
 
 function getHeight() {
