@@ -82,6 +82,9 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                 <header class="container tab">
                     <span onclick="closeModal()" style="position: absolute; right: 0; top: 0;" class="modalButton" id = "close"></span>
                 </header>
+	        <p>
+		    <input class="button saveButton" onclick="saveSettings()" type="submit" value="save" aria-label="Save your settings.">
+	        </p>
                 <div style="border-bottom: 1px solid #ccc" class="tab-container">
                     <button class="tabButton modalButton" onclick="changeTab(event, 'Options')">Options</button>
                     <button class="tabButton modalButton" onclick="changeTab(event, 'Colors')">Colors</button>
@@ -110,9 +113,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                             <option value="All" selected="selected">All</option>
                         </div>
                     </select>
-                    <p>
-			<input class="button saveButton" onclick="saveSettings()" type="submit" value="save" aria-label="Save your settings.">
-                    </p>
+		    <br><br>
                 </div>
                 <div id="Colors" class="container tab">
                     <br><br>
@@ -138,9 +139,6 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                         <option value=Black>Black</option>
                     </select>
 		    <br><br>
-                    <p>
-			<input class="button saveButton" onclick="saveSettings()" type="submit" value="save" aria-label="Save your settings.">
-                    </p>
                 </div>
                 <div id="Customization" class="container tab">
                     <br><br>
@@ -177,9 +175,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                         <option style="font-family: Comic Sans MS !important;" value="Comic Sans MS">Comic Sans MS</option>
                         <option style="font-family: Roboto !important;" value="Roboto">Roboto</option>
                     </select>
-                    <p>
-			<input class="button saveButton" onclick="saveSettings()" type="submit" value="save" aria-label="Save your settings.">
-                    </p>
+		    <br><br>
                 </div>
             </div>
         </div>

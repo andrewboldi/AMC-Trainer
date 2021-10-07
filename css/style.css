@@ -227,6 +227,7 @@ background: url(https://cdn.artofproblemsolving.com/attachments/5/8/0e3aad833ef3
   position: absolute;
   right: 5px;
   width: 70px;
+  margin: 0.4rem;
 }
 
 .tabButton {

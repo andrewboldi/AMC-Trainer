@@ -189,6 +189,7 @@ function clearScreen() {
         ctx.clearRect(0, 0, w, h);
         temp = null;
         document.getElementById("draw").style.display = "none";
+	undoList = [];
     }
 }
 
