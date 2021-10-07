@@ -1,9 +1,9 @@
 "use strict";
-var problem_id;
-var answer_key_link;
-var localStreak;
-var type;
-var link = "";
+let problem_id;
+let answer_key_link;
+let localStreak;
+let type;
+let link = "";
 
 document.onkeydown = function(e) {
     if (e.ctrlKey && e.keyCode == 13) {
@@ -17,7 +17,7 @@ document.onkeydown = function(e) {
     }
 }
 function logo() {
-    var color = document.getElementById("logoColor").value
+    let color = document.getElementById("logoColor").value
     switch (color) {
     case "Red":
         document.getElementById("logo").src = "img/logo_red.png";
@@ -68,9 +68,9 @@ function textFont() {
 }
 
 function grad() {
-    var left = document.getElementById("g1").value;
-    var right = document.getElementById("g2").value;
-    var hex2rgb = c => `rgb(${c.substr(1).match(/../g).map(x=>+`0x${x}`)})`;
+    let left = document.getElementById("g1").value;
+    let right = document.getElementById("g2").value;
+    let hex2rgb = c => `rgb(${c.substr(1).match(/../g).map(x=>+`0x${x}`)})`;
     left = hex2rgb(left);
     right = hex2rgb(right);
     document.getElementById("body").style.backgroundImage = `linear-gradient(to right, ${left} 20%, ${right} 80%)`;
@@ -86,20 +86,20 @@ function grad() {
 
 }
 function toggleWiggle() {
-    var val = document.getElementById("imgWiggle").value;
-    var a = document.getElementsByTagName("img");
+    let val = document.getElementById("imgWiggle").value;
+    let a = document.getElementsByTagName("img");
     if (val == "Off") {
         for (let i = 0; i < a.length; i++) {
             a[i].classList.add("imgNoHover");
         }
     } else {
-        for (var j = 0; j < a.length; j++) {
+        for (let j = 0; j < a.length; j++) {
             a[j].classList.remove("imgNoHover");
         }
     }
 }
 function rgbToHex(c) {
-    var hex = c.toString(16);
+    let hex = c.toString(16);
     return hex.length == 1 ? "0" + hex : hex;
 }
 function textc() {
@@ -153,11 +153,11 @@ document.getElementById("ans").addEventListener('keyup', function(event) {
     }
 });
 
-var realAns;
-var userAns;
-var solcode;
+let realAns;
+let userAns;
+let solcode;
 function shuffle(array) {
-    var b = array.length, c, a;
+    let b = array.length, c, a;
     while (0 !== b) {
         a = Math.floor(Math.random() * b);
         b -= 1;
@@ -170,7 +170,7 @@ function shuffle(array) {
 }
 
 function request(link, callback) {
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     xhr.open("GET", link, true);
     xhr.addEventListener("readystatechange", function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
@@ -185,7 +185,7 @@ function closeModal() {
 }
 
 function saveLevel() {
-    var t = document.getElementById("ddlViewBy").value;
+    let t = document.getElementById("ddlViewBy").value;
     localStorage.setItem("type", t);
 }
 
@@ -205,31 +205,31 @@ function get_new_problem(flag=false) {
         localStorage.setItem("streak", "0");
     }
 
-    // var subject = document.getElementById("ddlViewBy2").value;
+    // let subject = document.getElementById("ddlViewBy2").value;
     // document.getElementById("check_ans").style.display = "none";
     document.getElementById("get_solution").style.display = "none";
     document.getElementById("if_correct").style.display = "none";
     if (type == "All") {
-        var arr1 = shuffle([8, 10, 12, "AIME"]);
+        let arr1 = shuffle([8, 10, 12, "AIME"]);
         type = arr1[0];
     }
 
-    var if_ab = true;
-    var isAJHSME;
+    let if_ab = true;
+    let isAJHSME;
 
-    var arr2 = [];
+    let arr2 = [];
     for (let i = 2000; i < 2022; i++) {
         arr2.push(i);
     }
     arr2 = shuffle(arr2);
-    var yr = arr2[0];
+    let yr = arr2[0];
 
-    var arrA = [];
+    let arrA = [];
     for (let i = 1985; i < 1999; i++) {
         arrA.push(i);
     }
     arrA = shuffle(arrA);
-    var yearAJ = arrA[0];
+    let yearAJ = arrA[0];
 
     if (type == 8) {
         if_ab = false;
@@ -239,15 +239,15 @@ function get_new_problem(flag=false) {
         if_ab = false;
     }
 
-    var arr3 = [];
+    let arr3 = [];
     for (let i = 1; i < 26; i++) {
         arr3.push(i);
     }
     arr3 = shuffle(arr3);
-    var prob = arr3[0];
+    let prob = arr3[0];
 
     if (type == "AIME") {
-        var yrAIME = [];
+        let yrAIME = [];
         for (let i = 1983; i < 2021; i++) {
             yrAIME.push(i);
         }
@@ -256,21 +256,21 @@ function get_new_problem(flag=false) {
         if (yr < 2000) {
             if_ab = false;
         }
-        var probAIME = [];
+        let probAIME = [];
         for (let i = 1; i < 16; i++) {
             probAIME.push(i);
         }
         prob = shuffle(probAIME)[0];
     }
 
-    var year = yr.toString();
-    var amc = type.toString();
-    var problem = prob.toString();
+    let year = yr.toString();
+    let amc = type.toString();
+    let problem = prob.toString();
 
 
-    var a_b = shuffle(["A", "B"]);
+    let a_b = shuffle(["A", "B"]);
     a_b = a_b[0];
-    var aorb = a_b.toString();
+    let aorb = a_b.toString();
 
     if (flag == true) {
         link = localStorage.getItem("problem");
@@ -313,7 +313,7 @@ function get_new_problem(flag=false) {
         localStorage.setItem("problemType", amc);
     }
     /*
-                var geolinks = ["https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php/2014_AMC_10A_Problems/Problem_23"]
+                let geolinks = ["https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php/2014_AMC_10A_Problems/Problem_23"]
 
                 let xhr4 = new XMLHttpRequest();
                 xhr4.open('GET', "https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=Category:Introductory_Geometry_Problems&pagefrom=2010+AMC+12A+Problems%2FProblem+14", true);
@@ -322,7 +322,7 @@ function get_new_problem(flag=false) {
                 xhr4.onreadystatechange = processt;
                 function processt(e) {
                     if (xhr4.readyState == 4 && xhr4.status == 200) {
-                        var georesp = xhr4.responseText;
+                        let georesp = xhr4.responseText;
                         georesp = georesp.replaceAll("'", '"');
                         georesp = georesp.replaceAll('<a href=\"', '<a target="_blank" href=\"https://wandering-sky-a896.cbracketdash.workers.dev/?https://www.artofproblemsolving.com');
                         georesp = georesp.split("<ul><li>")[1];
@@ -342,7 +342,7 @@ function get_new_problem(flag=false) {
                     link = shuffle(ntlinks)[0];
                 }
                 */
-    var probcode;
+    let probcode;
     function handleProbcode(response) {
         probcode = response;
         probcode = probcode.replaceAll("\\n'", "\n").replaceAll("\\n", "\n").replaceAll("b'", "");
@@ -393,9 +393,9 @@ function initialFunction() {
 function conf() {
     confetti();
     confetti.reset();
-    var duration = 1000;
-    var animationEnd = Date.now() + duration;
-    var defaults = {
+    let duration = 1000;
+    let animationEnd = Date.now() + duration;
+    let defaults = {
         startVelocity: 50,
         spread: 1000,
         ticks: 1000,
@@ -406,14 +406,14 @@ function conf() {
         return Math.random() * (max - min) + min;
     }
 
-    var interval = setInterval(function() {
-        var timeLeft = animationEnd - Date.now();
+    let interval = setInterval(function() {
+        let timeLeft = animationEnd - Date.now();
 
         if (timeLeft <= 0) {
             return clearInterval(interval);
         }
 
-        var particleCount = 200 * (timeLeft / duration);
+        let particleCount = 200 * (timeLeft / duration);
         // since particles fall down, start a bit higher than random
         confetti(Object.assign({}, defaults, {
             particleCount,
@@ -442,7 +442,7 @@ function check_ans(num) {
         if (num == 0 && realAns === userAns) {
             localStorage.removeItem("problem");
             localStreak += 1;
-            var x = document.getElementById("get_solution");
+            let x = document.getElementById("get_solution");
             if (x.style.display === "none") {
                 x.style.display = "block";
             } else {
@@ -477,7 +477,7 @@ function check_ans(num) {
 }
 
 function giveUp() {
-    var t = confirm("Are you sure you want to give up?");
+    let t = confirm("Are you sure you want to give up?");
     if (t) {
         check_ans(1);
     }

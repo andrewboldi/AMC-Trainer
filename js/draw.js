@@ -1,22 +1,22 @@
 "use strict";
 
-var canvas, ctx, flag = false;
-var temp;
-var height;
-var width;
-var undoList = [];
-var undoLevel = 0;
-var prevX = 0;
-var currX = 0;
-var prevY = 0;
-var currY = 0;
-var dot_flag = false;
-var x = "black";
+let canvas, ctx, flag = false;
+let temp;
+let height;
+let width;
+let undoList = [];
+let undoLevel = 0;
+let prevX = 0;
+let currX = 0;
+let prevY = 0;
+let currY = 0;
+let dot_flag = false;
+let x = "black";
 
 function getHeight() {
     if (document.getElementById("draw").style.display == "block") {
-        var body = document.body;
-        var html = document.documentElement;
+        let body = document.body;
+        let html = document.documentElement;
         canvas = document.getElementById("can");
 	ctx = canvas.getContext("2d");
 
@@ -47,11 +47,11 @@ function handleTouchMove(e) {
 
 function getCurrPos(e) {
     if (!e)
-        var e = event;
+        let e = event;
 
     if (e.touches) {
         if (e.touches.length == 1) {
-            var touch = e.touches[0];
+            let touch = e.touches[0];
             prevX = currX;
             prevY = currY;
             currX = touch.pageX - touch.target.offsetLeft;
@@ -189,7 +189,7 @@ function erase() {
 }
 
 function clearScreen() {
-    var m = confirm("Are you sure you want to clear?");
+    let m = confirm("Are you sure you want to clear?");
     if (m) {
 	undoList = [];
         ctx.clearRect(0, 0, width, height);
