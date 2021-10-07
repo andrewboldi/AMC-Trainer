@@ -9,6 +9,8 @@ prevY = 0,
 currY = 0,
 dot_flag = false;
 
+"use strict";
+
 var x = "black";
 
 function getHeight() {
