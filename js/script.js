@@ -44,6 +44,14 @@ function saveFont() {
     textFont();
 }
 
+function zenMode() {
+    if (document.getElementById("zenModeOption").value == "On") {
+	document.getElementById("problem_id").style.opacity = 0.0;
+    } else {
+	document.getElementById("problem_id").style.opacity = 1.0;
+    }
+}
+
 function textFont() {
     if (localStorage.getItem("fontFamily") == null) {
         localStorage.setItem("fontFamily", document.getElementById("fontFamily").value);
@@ -128,6 +136,7 @@ function saveSettings() {
     logo(); 
     toggleWiggle();
     saveFont();
+    zenMode();
     closeModal();
 }
 document.getElementById("ans").addEventListener('keyup', function(event) {
