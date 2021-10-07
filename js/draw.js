@@ -47,7 +47,7 @@ function handleTouchMove(e) {
 
 function getCurrPos(e) {
     if (!e)
-        var e = event;
+        var e = event; // skipcq: JS-0239
 
     if (e.touches) {
         if (e.touches.length === 1) {
