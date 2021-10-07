@@ -1,3 +1,10 @@
+"use strict";
+var problem_id;
+var answer_key_link;
+var localStreak;
+var type;
+var link = "";
+
 document.onkeydown = function(e) {
     if (e.ctrlKey && e.keyCode == 13) {
         get_new_problem();
@@ -61,17 +68,17 @@ function textFont() {
 }
 
 function grad() {
-    var left = document.getElementById("g1").value
-    var right = document.getElementById("g2").value
-    let hex2rgb = c=>`rgb(${c.substr(1).match(/../g).map(x=>+`0x${x}`)})`;
+    var left = document.getElementById("g1").value;
+    var right = document.getElementById("g2").value;
+    var hex2rgb = c => `rgb(${c.substr(1).match(/../g).map(x=>+`0x${x}`)})`;
     left = hex2rgb(left);
     right = hex2rgb(right);
     document.getElementById("body").style.backgroundImage = `linear-gradient(to right, ${left} 20%, ${right} 80%)`;
-    document.querySelectorAll('.button').forEach(element=>{
+    document.querySelectorAll('.button').forEach(element => {
         element.style.backgroundImage = `linear-gradient(to right, ${left}, ${right})`;
     }
     );
-    document.querySelectorAll('.input').forEach(element=>{
+    document.querySelectorAll('.input').forEach(element => {
         element.style.backgroundImage = "none";
     }
     );
@@ -182,10 +189,6 @@ function saveLevel() {
     localStorage.setItem("type", t);
 }
 
-var localStreak;
-var type;
-var link = "";
-
 function get_new_problem(flag=false) {
     getHeight();
     textFont();
@@ -215,18 +218,18 @@ function get_new_problem(flag=false) {
     var isAJHSME;
 
     var arr2 = [];
-    for (i = 2000; i < 2022; i++) {
+    for (var i = 2000; i < 2022; i++) {
         arr2.push(i);
     }
     arr2 = shuffle(arr2);
-    yr = arr2[0];
+    var yr = arr2[0];
 
     var arrA = [];
-    for (i = 1985; i < 1999; i++) {
+    for (var i = 1985; i < 1999; i++) {
         arrA.push(i);
     }
     arrA = shuffle(arrA);
-    yearAJ = arrA[0];
+    var yearAJ = arrA[0];
 
     if (type == 8) {
         if_ab = false;
@@ -237,15 +240,15 @@ function get_new_problem(flag=false) {
     }
 
     var arr3 = [];
-    for (i = 1; i < 26; i++) {
+    for (var i = 1; i < 26; i++) {
         arr3.push(i);
     }
     arr3 = shuffle(arr3);
-    prob = arr3[0];
+    var prob = arr3[0];
 
     if (type == "AIME") {
         var yrAIME = [];
-        for (i = 1983; i < 2021; i++) {
+        for (var i = 1983; i < 2021; i++) {
             yrAIME.push(i);
         }
         yr = shuffle(yrAIME)[0];
@@ -254,7 +257,7 @@ function get_new_problem(flag=false) {
             if_ab = false;
         }
         var probAIME = [];
-        for (i = 1; i < 16; i++) {
+        for (var i = 1; i < 16; i++) {
             probAIME.push(i);
         }
         prob = shuffle(probAIME)[0];
@@ -265,10 +268,9 @@ function get_new_problem(flag=false) {
     var problem = prob.toString();
 
 
-    a_b = shuffle(["A", "B"]);
+    var a_b = shuffle(["A", "B"]);
     a_b = a_b[0];
     var aorb = a_b.toString();
-    var problem_id;
 
     if (flag == true) {
         link = localStorage.getItem("problem");
@@ -350,7 +352,6 @@ function get_new_problem(flag=false) {
     }
     request(link, handleProbcode);
 
-    var solcode;
     function handleSolcode(response) {
         solcode = response;
         solcode = solcode.replaceAll("\\n'", "\n").replaceAll("\\n", "\n").replaceAll("b'", "");

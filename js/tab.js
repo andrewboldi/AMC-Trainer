@@ -1,3 +1,5 @@
+"use strict";
+
 document.getElementsByClassName("tabButton")[0].click();
 
 function changeTab(evt, tabName) {

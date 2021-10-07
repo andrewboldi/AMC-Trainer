@@ -1,26 +1,36 @@
+"use strict";
+
 var canvas, ctx, flag = false;
 var temp;
 var height;
+var width;
 var undoList = [];
 var undoLevel = 0;
-prevX = 0,
-currX = 0,
-prevY = 0,
-currY = 0,
-dot_flag = false;
-
+var prevX = 0;
+var currX = 0;
+var prevY = 0;
+var currY = 0;
+var dot_flag = false;
 var x = "black";
 
 function getHeight() {
     if (document.getElementById("draw").style.display == "block") {
-        var body = document.body
-          , html = document.documentElement;
+        var body = document.body;
+        var html = document.documentElement;
         canvas = document.getElementById("can");
-        temp = canvas.getContext("2d").getImageData(0, 0, canvas.width, canvas.height);
+	ctx = canvas.getContext("2d");
+
         height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+	width = window.innerWidth - 20;
         canvas.height = height;
-        h = canvas.height;
-        canvas.getContext("2d").putImageData(temp, 0, 0);
+	canvas.width = width;
+
+	if (undoList.length == 0) {
+	    temp = canvas.getContext("2d").getImageData(0, 0, width, height);
+	    ctx.putImageData(temp, 0, 0);
+	} else {
+	    ctx.putImageData(undoList[undoLevel], 0, 0);
+	}
     }
 }
 
@@ -71,14 +81,11 @@ function redo() {
 function init() {
     canvas = document.getElementById("can");
     ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth - 20;
-    try {
-        canvas.getContext("2d").putImageData(temp, 0, 0);
-    } catch (err) {
-        ;
+    if (undoList.length != 0) {
+        ctx.putImageData(undoList[0], 0, 0);
+	console.log("Loaded drawings");
     }
     getHeight();
-    w = canvas.width;
 
     canvas.addEventListener("mousemove", handleMouseMove, false);
     canvas.addEventListener("mousedown", handleMouseDown, false);
@@ -88,7 +95,7 @@ function init() {
     canvas.addEventListener('touchmove', handleTouchMove, false);
     window.addEventListener("orientationchange", getHeight);
     if (undoList.length == 0) {
-	temp = canvas.getContext("2d").getImageData(0, 0, canvas.width, canvas.height);
+	temp = ctx.getImageData(0, 0, width, height);
         undoList.unshift(temp);
     }
 }
@@ -122,7 +129,6 @@ function toggle() {
         document.getElementById("draw").style.display = "block";
         init();
     } else {
-        temp = canvas.getContext("2d").getImageData(0, 0, canvas.width, canvas.height);
         document.getElementById("draw").style.display = "none";
         //        document.getElementById("html").style.overflow = "visible";
 	uninit();
@@ -186,7 +192,9 @@ function erase() {
 function clearScreen() {
     var m = confirm("Are you sure you want to clear?");
     if (m) {
-        ctx.clearRect(0, 0, w, h);
+	undoList = [];
+        ctx.clearRect(0, 0, width, height);
+        undoList[0] = canvas.getContext("2d").getImageData(0, 0, width, height);
         temp = null;
         document.getElementById("draw").style.display = "none";
     }
@@ -213,7 +221,7 @@ function findxy(res, e) {
         flag = false;
     }
     if (res == "up" && res != "out") {
-        temp = canvas.getContext("2d").getImageData(0, 0, canvas.width, canvas.height);
+        temp = canvas.getContext("2d").getImageData(0, 0, width, height);
 	if (undoLevel > 0) {
 	    undoList.splice(0, undoLevel);
 	}
