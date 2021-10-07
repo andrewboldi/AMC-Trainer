@@ -83,7 +83,6 @@ function init() {
     ctx = canvas.getContext("2d");
     if (undoList.length != 0) {
         ctx.putImageData(undoList[0], 0, 0);
-	console.log("Loaded drawings");
     }
     getHeight();
 

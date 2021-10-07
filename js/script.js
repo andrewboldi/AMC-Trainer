@@ -89,7 +89,7 @@ function toggleWiggle() {
     var val = document.getElementById("imgWiggle").value;
     var a = document.getElementsByTagName("img");
     if (val == "Off") {
-        for (var i = 0; i < a.length; i++) {
+        for (let i = 0; i < a.length; i++) {
             a[i].classList.add("imgNoHover");
         }
     } else {
@@ -218,14 +218,14 @@ function get_new_problem(flag=false) {
     var isAJHSME;
 
     var arr2 = [];
-    for (var i = 2000; i < 2022; i++) {
+    for (let i = 2000; i < 2022; i++) {
         arr2.push(i);
     }
     arr2 = shuffle(arr2);
     var yr = arr2[0];
 
     var arrA = [];
-    for (var i = 1985; i < 1999; i++) {
+    for (let i = 1985; i < 1999; i++) {
         arrA.push(i);
     }
     arrA = shuffle(arrA);
@@ -240,7 +240,7 @@ function get_new_problem(flag=false) {
     }
 
     var arr3 = [];
-    for (var i = 1; i < 26; i++) {
+    for (let i = 1; i < 26; i++) {
         arr3.push(i);
     }
     arr3 = shuffle(arr3);
@@ -248,7 +248,7 @@ function get_new_problem(flag=false) {
 
     if (type == "AIME") {
         var yrAIME = [];
-        for (var i = 1983; i < 2021; i++) {
+        for (let i = 1983; i < 2021; i++) {
             yrAIME.push(i);
         }
         yr = shuffle(yrAIME)[0];
@@ -257,7 +257,7 @@ function get_new_problem(flag=false) {
             if_ab = false;
         }
         var probAIME = [];
-        for (var i = 1; i < 16; i++) {
+        for (let i = 1; i < 16; i++) {
             probAIME.push(i);
         }
         prob = shuffle(probAIME)[0];
