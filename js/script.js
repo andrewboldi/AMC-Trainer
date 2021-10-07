@@ -17,7 +17,7 @@ document.onkeydown = function(e) {
     }
 }
 function logo() {
-    let color = document.getElementById("logoColor").value
+    const color = document.getElementById("logoColor").value
     switch (color) {
     case "Red":
         document.getElementById("logo").src = "img/logo_red.png";
@@ -70,7 +70,7 @@ function textFont() {
 function grad() {
     let left = document.getElementById("g1").value;
     let right = document.getElementById("g2").value;
-    let hex2rgb = c => `rgb(${c.substr(1).match(/../g).map(x=>+`0x${x}`)})`;
+    const hex2rgb = c => `rgb(${c.substr(1).match(/../g).map(x=>+`0x${x}`)})`;
     left = hex2rgb(left);
     right = hex2rgb(right);
     document.getElementById("body").style.backgroundImage = `linear-gradient(to right, ${left} 20%, ${right} 80%)`;
@@ -86,8 +86,8 @@ function grad() {
 
 }
 function toggleWiggle() {
-    let val = document.getElementById("imgWiggle").value;
-    let a = document.getElementsByTagName("img");
+    const val = document.getElementById("imgWiggle").value;
+    const a = document.getElementsByTagName("img");
     if (val == "Off") {
         for (let i = 0; i < a.length; i++) {
             a[i].classList.add("imgNoHover");
@@ -99,7 +99,7 @@ function toggleWiggle() {
     }
 }
 function rgbToHex(c) {
-    let hex = c.toString(16);
+    const hex = c.toString(16);
     return hex.length == 1 ? "0" + hex : hex;
 }
 function textc() {
@@ -170,7 +170,7 @@ function shuffle(array) {
 }
 
 function request(link, callback) {
-    let xhr = new XMLHttpRequest();
+    const xhr = new XMLHttpRequest();
     xhr.open("GET", link, true);
     xhr.addEventListener("readystatechange", function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
@@ -185,7 +185,7 @@ function closeModal() {
 }
 
 function saveLevel() {
-    let t = document.getElementById("ddlViewBy").value;
+    const t = document.getElementById("ddlViewBy").value;
     localStorage.setItem("type", t);
 }
 
@@ -210,7 +210,7 @@ function get_new_problem(flag=false) {
     document.getElementById("get_solution").style.display = "none";
     document.getElementById("if_correct").style.display = "none";
     if (type == "All") {
-        let arr1 = shuffle([8, 10, 12, "AIME"]);
+        const arr1 = shuffle([8, 10, 12, "AIME"]);
         type = arr1[0];
     }
 
@@ -229,7 +229,7 @@ function get_new_problem(flag=false) {
         arrA.push(i);
     }
     arrA = shuffle(arrA);
-    let yearAJ = arrA[0];
+    const yearAJ = arrA[0];
 
     if (type == 8) {
         if_ab = false;
@@ -247,7 +247,7 @@ function get_new_problem(flag=false) {
     let prob = arr3[0];
 
     if (type == "AIME") {
-        let yrAIME = [];
+        const yrAIME = [];
         for (let i = 1983; i < 2021; i++) {
             yrAIME.push(i);
         }
@@ -256,16 +256,16 @@ function get_new_problem(flag=false) {
         if (yr < 2000) {
             if_ab = false;
         }
-        let probAIME = [];
+        const probAIME = [];
         for (let i = 1; i < 16; i++) {
             probAIME.push(i);
         }
         prob = shuffle(probAIME)[0];
     }
 
-    let year = yr.toString();
-    let amc = type.toString();
-    let problem = prob.toString();
+    const year = yr.toString();
+    const amc = type.toString();
+    const problem = prob.toString();
 
 
     let a_b = shuffle(["A", "B"]);
@@ -393,9 +393,9 @@ function initialFunction() {
 function conf() {
     confetti();
     confetti.reset();
-    let duration = 1000;
-    let animationEnd = Date.now() + duration;
-    let defaults = {
+    const duration = 1000;
+    const animationEnd = Date.now() + duration;
+    const defaults = {
         startVelocity: 50,
         spread: 1000,
         ticks: 1000,
@@ -406,14 +406,14 @@ function conf() {
         return Math.random() * (max - min) + min;
     }
 
-    let interval = setInterval(function() {
+    const interval = setInterval(function() {
         let timeLeft = animationEnd - Date.now();
 
         if (timeLeft <= 0) {
             return clearInterval(interval);
         }
 
-        let particleCount = 200 * (timeLeft / duration);
+        const particleCount = 200 * (timeLeft / duration);
         // since particles fall down, start a bit higher than random
         confetti(Object.assign({}, defaults, {
             particleCount,

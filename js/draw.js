@@ -15,8 +15,8 @@ let x = "black";
 
 function getHeight() {
     if (document.getElementById("draw").style.display == "block") {
-        let body = document.body;
-        let html = document.documentElement;
+        const body = document.body;
+        const html = document.documentElement;
         canvas = document.getElementById("can");
 	ctx = canvas.getContext("2d");
 
@@ -47,11 +47,11 @@ function handleTouchMove(e) {
 
 function getCurrPos(e) {
     if (!e)
-        let e = event;
+        var e = event;
 
     if (e.touches) {
         if (e.touches.length == 1) {
-            let touch = e.touches[0];
+            const touch = e.touches[0];
             prevX = currX;
             prevY = currY;
             currX = touch.pageX - touch.target.offsetLeft;
@@ -189,7 +189,7 @@ function erase() {
 }
 
 function clearScreen() {
-    let m = confirm("Are you sure you want to clear?");
+    const m = confirm("Are you sure you want to clear?");
     if (m) {
 	undoList = [];
         ctx.clearRect(0, 0, width, height);
