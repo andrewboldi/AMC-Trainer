@@ -10,10 +10,10 @@ document.onkeydown = function(e) {
         get_new_problem();
     }
     if (e.ctrlKey && e.keyCode === 90) {
-        undo();
+        undo(); // skipcq: JS-0125
     }
     if (e.ctrlKey && e.keyCode === 89) {
-        redo();
+        redo(); // skipcq: JS-0125
     }
 }
 function logo() {
@@ -148,7 +148,7 @@ function saveLevel() {
 }
 
 function get_new_problem(flag=false) {
-    getHeight();
+    getHeight(); // skipcq: JS-0125
     textFont();
     if (localStorage.getItem("type") === null) {
         localStorage.setItem("type", "All");
@@ -325,8 +325,8 @@ function get_new_problem(flag=false) {
 }
 
 function initialFunction() {
-    feather.replace();
-    getHeight();
+    feather.replace(); // skipcq: JS-0125
+    getHeight(); // skipcq: JS-0125
     if (localStorage.getItem("problem") === null) {
         localStorage.setItem("problem", "");
         localStorage.setItem("answer", "");
@@ -341,8 +341,8 @@ function initialFunction() {
 }
 
 function conf() {
-    confetti();
-    confetti.reset();
+    confetti(); // skipcq: JS-0125
+    confetti.reset(); // skipcq: JS-0125
     const duration = 1000;
     const animationEnd = Date.now() + duration;
     const defaults = {
@@ -365,14 +365,14 @@ function conf() {
 
         const particleCount = 200 * (timeLeft / duration);
         // since particles fall down, start a bit higher than random
-        confetti(Object.assign({}, defaults, {
+        confetti(Object.assign({}, defaults, { // skipcq: JS-0125
             particleCount,
             origin: {
                 x: randomInRange(0.1, 0.3),
                 y: Math.random() - 0.2
             }
         }));
-        confetti(Object.assign({}, defaults, {
+        confetti(Object.assign({}, defaults, { // skipcq: JS-0125
             particleCount,
             origin: {
                 x: randomInRange(0.7, 0.9),
@@ -401,7 +401,7 @@ function check_ans(num) {
             conf();
             document.getElementById("check_ans").style.display = "none";
             document.getElementById("if_correct").style.display = "block";
-            getHeight();
+            getHeight(); // skipcq: JS-0125
         } else {
             localStreak = 0;
             if (num === 0) {
