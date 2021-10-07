@@ -1,6 +1,6 @@
 "use strict";
 
-let canvas, ctx, flag = false;
+let canvas = false, ctx = false, flag = false;
 let temp = {};
 let height = 0;
 let width = 0;
@@ -57,14 +57,14 @@ function getCurrPos(e) {
 }
 
 function undo() {
-    if (undoLevel + 1 != undoList.length) {
+    if (undoLevel + 1 !== undoList.length) {
 	undoLevel += 1;
     }
     canvas.getContext("2d").putImageData(undoList[undoLevel], 0, 0);
 }
 
 function redo() {
-    if (undoLevel != 0) {
+    if (undoLevel !== 0) {
 	undoLevel -= 1;
     }
     canvas.getContext("2d").putImageData(undoList[undoLevel], 0, 0);
@@ -73,7 +73,7 @@ function redo() {
 function init() {
     canvas = document.getElementById("can");
     ctx = canvas.getContext("2d");
-    if (undoList.length != 0) {
+    if (undoList.length !== 0) {
         ctx.putImageData(undoList[0], 0, 0);
     }
     getHeight();
@@ -111,7 +111,7 @@ function findxy(res, e) {
     if (res === "up" || res === "out") {
         flag = false;
     }
-    if (res === "up" && res != "out") {
+    if (res === "up" && res !== "out") {
         temp = canvas.getContext("2d").getImageData(0, 0, width, height);
 	if (undoLevel > 0) {
 	    undoList.splice(0, undoLevel);
