@@ -293,7 +293,8 @@ function get_new_problem(flag=false) {
 
 }
 
-function initialFunction() { // skipcq: JS-0239
+function initialFunction()  // skipcq: JS-0239 
+{
     feather.replace(); // skipcq: JS-0125
     getHeight(); // skipcq: JS-0125
     if (localStorage.getItem("problem") === null) {
@@ -395,7 +396,8 @@ function check_ans(num) {
     }
 }
 
-function giveUp() { // skipcq: JS-0239
+function giveUp()  // skipcq: JS-0239 
+{
     let t = confirm("Are you sure you want to give up?");
     if (t) {
         check_ans(1);
@@ -419,7 +421,8 @@ document.onkeydown = function(e) {
         redo(); // skipcq: JS-0125
     }
 }
-function saveSettings() { // skipcq: JS-0239
+function saveSettings()  // skipcq: JS-0239 
+{
     saveLevel();
     grad();
     textc();
