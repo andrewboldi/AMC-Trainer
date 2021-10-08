@@ -436,8 +436,8 @@ function conf() {
 function check_ans(num) {
     localStreak = parseInt(localStorage.getItem("streak"));
     userAns = ans.value.toString().toUpperCase();
-    aimeSearch = /^[0-9]{3}$/;
-    amcSearch = /^[ABCDE]{1}$/;
+    const aimeSearch = /^[0-9]{3}$/;
+    const amcSearch = /^[ABCDE]{1}$/;
     if ((num == 1) || (aimeSearch.test(userAns) && type == "AIME" || amcSearch.test(userAns) && type != "AIME")) {
         if (num == 0 && realAns === userAns) {
             localStorage.removeItem("problem");
