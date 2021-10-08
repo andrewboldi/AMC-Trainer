@@ -56,14 +56,14 @@ function getCurrPos(e) {
     }
 }
 
-function undo() {
+function undo() { // skipcq: JS-0239
     if (undoLevel + 1 !== undoList.length) {
 	undoLevel += 1;
     }
     canvas.getContext("2d").putImageData(undoList[undoLevel], 0, 0);
 }
 
-function redo() {
+function redo() { // skipcq: JS-0239
     if (undoLevel !== 0) {
 	undoLevel -= 1;
     }
@@ -152,7 +152,7 @@ function uninit() {
     window.removeEventListener("orientationchange", getHeight);
 }
 
-function toggle() {
+function toggle() { // skipcq: JS-0239
     if (document.getElementById("draw").style.display === "none") {
         //       document.getElementById("html").style.overflow = "hidden";
         document.getElementById("draw").style.display = "block";
@@ -164,7 +164,7 @@ function toggle() {
     }
 }
 
-function color(obj) {
+function color(obj) { // skipcq: JS-0239
     ctx.globalCompositeOperation = "source-over";
     x = obj.id;
 }
@@ -197,13 +197,13 @@ function handleTouchMove(e) {
     event.preventDefault();
 }
 
-function erase() {
+function erase() { // skipcq: JS-0239
     ctx.globalCompositeOperation = "destination-out";
     ctx.strokeStyle = "rgba(100,100,255,1)";
     ctx.fillStyle = "rgba(100, 100, 255, 1)";
 }
 
-function clearScreen() {
+function clearScreen() { // skipcq: JS-0239
     const m = confirm("Are you sure you want to clear?");
     if (m) {
 	undoList = [];
