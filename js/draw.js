@@ -56,6 +56,22 @@ function getCurrPos(e) {
     }
 }
 
+function draw() {
+    ctx.beginPath();
+    ctx.moveTo(prevX, prevY);
+    if (ctx.globalCompositeOperation === "destination-out") {
+        ctx.arc(currX, currY, 40, 0, 2*Math.PI, false);
+    } else {
+        ctx.lineWidth = 2;
+        ctx.lineTo(currX, currY);
+    }
+
+    ctx.fill();
+    ctx.strokeStyle = x;
+    ctx.stroke();
+    ctx.closePath();
+
+}
 function undo() { // skipcq: JS-0239
     if (undoLevel + 1 !== undoList.length) {
 	undoLevel += 1;
@@ -69,6 +85,29 @@ function redo() { // skipcq: JS-0239
     }
     canvas.getContext("2d").putImageData(undoList[undoLevel], 0, 0);
 }
+
+function handleMouseMove(e) {
+    findxy("move", e);
+}
+function handleMouseDown(e) {
+    findxy("down", e);
+}
+function handleMouseUp(e) {
+    findxy("up", e);
+}
+function handleMouseOut(e) {
+    findxy("out", e);
+}
+function handleTouchStart(e) {
+    getCurrPos(e);
+    event.preventDefault();
+}
+function handleTouchMove(e) {
+    getCurrPos(e);
+    draw();
+    event.preventDefault();
+}
+
 
 function init() {
     canvas = document.getElementById("can");
@@ -129,19 +168,6 @@ function findxy(res, e) {
         }
     }
 }
-function handleMouseMove(e) {
-	findxy("move", e);
-}
-function handleMouseDown(e) {
-	findxy("down", e);
-}
-function handleMouseUp(e) {
-	findxy("up", e);
-}
-function handleMouseOut(e) {
-	findxy("out", e);
-}
-
 function uninit() {
     canvas.removeEventListener("mousemove", handleMouseMove);
     canvas.removeEventListener("mousedown", handleMouseDown);
@@ -156,10 +182,12 @@ function toggle() { // skipcq: JS-0239
     if (document.getElementById("draw").style.display === "none") {
         //       document.getElementById("html").style.overflow = "hidden";
         document.getElementById("draw").style.display = "block";
+        document.getElementById("body").style.cursor = "crosshair";
         init();
     } else {
         document.getElementById("draw").style.display = "none";
         //        document.getElementById("html").style.overflow = "visible";
+        document.getElementById("body").style.cursor = "default";
 	uninit();
     }
 }
@@ -167,34 +195,10 @@ function toggle() { // skipcq: JS-0239
 function color(obj) { // skipcq: JS-0239
     ctx.globalCompositeOperation = "source-over";
     x = obj.id;
-}
-
-function draw() {
-    ctx.beginPath();
-    ctx.moveTo(prevX, prevY);
-    if (ctx.globalCompositeOperation === "destination-out") {
-        ctx.arc(currX - 20, currY - 20, 40, 40, 6.283);
-    } else {
-        ctx.lineWidth = 2;
-        ctx.lineTo(currX, currY);
+    document.querySelectorAll(".chooseColor").forEach(element => {
+        element.innerHTML = "";
     }
-
-    ctx.strokeStyle = x;
-    ctx.stroke();
-    ctx.fill();
-    ctx.closePath();
-
-}
-
-function handleTouchStart(e) {
-    getCurrPos(e);
-    event.preventDefault();
-}
-
-function handleTouchMove(e) {
-    getCurrPos(e);
-    draw();
-    event.preventDefault();
+    );
 }
 
 function erase() { // skipcq: JS-0239

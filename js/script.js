@@ -61,7 +61,7 @@ function toggleWiggle() {
     }
 }
 function textc() {
-    let desiredColor = document.getElementById("textColor").value
+    let desiredColor = document.getElementById("textColor").value;
     document.querySelectorAll('.text').forEach(element=>{
         element.style.color = desiredColor;
     }
