@@ -175,17 +175,25 @@ background: url(https://cdn.artofproblemsolving.com/attachments/5/8/0e3aad833ef3
     cursor:pointer;
     text-align:center;
   margin: 0px !important;
+  transition: background-color 0.3s;
 }
 
-.modalButton:focus-within {
+#closeModal:focus-within {
   background-color: white;
   opacity: 0.9;
 }
 
-.modalButton:hover {
-  background-color: rgb(132, 243, 88);
+#closeModal:hover {
+  background-color: rgb(252, 94, 66);
+  color: white;
+}
+
+#closeModal:active {
   opacity: 0.8;
 }
+
+
+
 
 .modalContent {
   background-color: rgba(0, 201, 255, 0.9);
@@ -193,7 +201,7 @@ background: url(https://cdn.artofproblemsolving.com/attachments/5/8/0e3aad833ef3
   outline: 0;
   padding: 0;
   position: relative;
-  width: 33%;
+  width: 40%;
   transition: 0.3s;
   border-radius: 15px !important;
  
@@ -243,6 +251,11 @@ background: url(https://cdn.artofproblemsolving.com/attachments/5/8/0e3aad833ef3
 }
 
 .tabButton:hover {
+  background-color: rgb(57, 221, 57)
+}
+
+.tabButton:focus-within{
+  background-color: white;
 }
 
 .text {
@@ -356,11 +369,11 @@ p {
   text-align: center;
 }
 
-.fa-fire{
+#fire-icon{
   transition: color 0.3s;
 }
 
-.fa-fire:hover {
+#fire-icon:hover {
   color: red !important;
     
 }
@@ -402,4 +415,38 @@ p {
   align-items: center;
   justify-content: center;
   gap: 2rem;
+}
+
+.streak-modal {
+  position: fixed;
+  z-index: 16;
+  display: none;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+  height: 100%;
+  left: 0;
+  overflow: auto;
+  padding-top: 5%;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 20;
+}
+
+.streak-modal-content {
+  background-color: rgba(0, 201, 255, 0.9);
+  margin: auto;
+  outline: 0;
+  padding: 0;
+  position: relative;
+  width: 40%;
+  transition: 0.3s;
+  border-radius: 15px !important;
+  height: 40%;
+}
+
+#streak-count {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  color: white;
+  padding: 0.4em 0.4em;
 }

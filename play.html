@@ -62,7 +62,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
             <div id="infoButton" style="position: fixed; z-index: 15" class="modal">
                 <div class="modalContent animateZoom">
                     <header class="container">
-                        <span onclick="document.getElementById('infoButton').style.display='none'" style="position: absolute; right: 0; top: 0;" class="modalButton"></span>
+                        <span onclick="document.getElementById('infoButton').style.display='none'" style="position: absolute; right: 0; top: 0; border-top-right-radius: 12px; border-bottom-left-radius: 12px; font-size: 36px;" class="modalButton" id = "closeModal">&times</span>
                         <h2>Credits</h2>
                         <hr>
                     </header>
@@ -75,12 +75,21 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
             </div>
         </div>
         <div id="streak" class="text" style="position: absolute; right: 90px; width: 50px; height: 50px; top: 20px; padding-right:10px; font-weight: bold; font-size: 1.1rem;"></div>
-        <i class="fas fa-fire" id = "fire-icon" style="cursor: default; position: absolute; width: 30px; top: 5px; right: 90px; color:  orange; font-size: 40px;"></i>
-        <img alt="Personalize AMC Trainer to suit your preferences." id="settingsButtonImg" src="img/settings.svg" class="settings headerButton" style="top: 5px; right: 5px;" onclick="document.getElementById('settingsButton').style.display='block'" class="modalButton">
+        <div class="fas fa-fire" id="fire-icon" style="cursor: default; position: absolute; width: 30px; top: 5px; right: 90px; color:  orange; font-size: 40px;" onclick="document.querySelector('.streak-modal').style.display='block'">
+            <div class="streak-modal animateZoom">
+                <div class="streak-modal-content" style="display: flex; align-items: center; justify-content: center;">
+                    <p class="fas fa-fire" style="font-weight: bold; font-size: 10vh; position: absolute; text-align: center; top: -15%"></p>
+                    <p class="streak-count" id="streak-count" style="font-size: 10vh; text-align: center; margin-top: 18rem;"></p>
+                </div>
+
+            </div>
+        </div>
+
+        <img alt="Personalize AMC Trainer to suit your preferences." id="settingsButtonImg" src="img/settings.svg" class="settings headerButton" style="top: 5px; right: 5px;" onclick="document.getElementById('settingsButton').style.display='block'" class="modalButton" id = "closeModal">
         <div style="position: fixed; z-index: 15;" id="settingsButton" class="modal">
             <div class="modalContent animateZoom">
                 <header class="container tab">
-                    <span onclick="closeModal()" style="position: absolute; right: 0; top: 0;" class="modalButton" id = "close"></span>
+                    <span onclick="document.getElementById('infoButton').style.display='none'" style="position: absolute; right: 0; top: 0; border-top-right-radius: 12px; border-bottom-left-radius: 12px; font-size: 36px;" class="modalButton">&times</span>
                 </header>
 	        <p>
 		    <input class="button saveButton" onclick="saveSettings()" type="submit" value="save" aria-label="Save your settings.">
