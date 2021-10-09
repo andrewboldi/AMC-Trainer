@@ -88,6 +88,7 @@
   width: 30px;
   height: 30px;
   border: 2px solid white; 
+  text-align: center;
 }
 
 .chooseColor:hover {
@@ -250,7 +251,7 @@ background: url(https://cdn.artofproblemsolving.com/attachments/5/8/0e3aad833ef3
 }
 
 .text img {
-  filter: invert(1);
+  filter: invert(0);
 }
 
 ::-webkit-scrollbar {
