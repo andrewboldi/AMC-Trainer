@@ -199,6 +199,7 @@ function color(obj) { // skipcq: JS-0239
         element.innerHTML = "";
     }
     );
+    obj.innerHTML = "&#10004";
 }
 
 function erase() { // skipcq: JS-0239
