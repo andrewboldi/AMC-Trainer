@@ -1,6 +1,7 @@
 * {
   user-select: none;
   font-family: inherit;
+  box-sizing: border-box;
 }
 
 #settingsButtonImg {
@@ -19,9 +20,9 @@
   animation: animatezoom 0.4s;
 }
 
-.body {
+body {
   background-attachment: fixed;
-  background-image: linear-gradient(to right, rgb(145, 254, 158), rgb(0, 201, 255));
+  background-image: linear-gradient(to right top, #65dfc9, #6cdbeb);
   background-position: top center;
   background-repeat: repeat-y;
   background-size: 100%;
@@ -29,7 +30,7 @@
 }
 
 .button {
-  background-image: linear-gradient(to right, rgb(145, 254, 158), rgb(0, 201, 255));
+  background-image: linear-gradient(to right, rgb(145, 254, 158) 20%, rgb(0, 201, 255) 80%);
   background-repeat: no-repeat;
   border: none;
   border-radius: 10px;
@@ -88,6 +89,7 @@
   width: 30px;
   height: 30px;
   border: 2px solid white; 
+  text-align: center;
 }
 
 .chooseColor:hover {
@@ -96,6 +98,8 @@
 
 .container {
   padding: 0.01em 16px;
+  display: flex;
+  flex: 1;
 }
 
 .ddl {
@@ -148,9 +152,8 @@
 
 .modal {
   display: none;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
-  height: 100%;
+  background-color: rgba(0,0,0,0.1);
+  height: 150%;
   left: 0;
   overflow: auto;
   padding-top: 5%;
@@ -196,15 +199,28 @@ background: url(https://cdn.artofproblemsolving.com/attachments/5/8/0e3aad833ef3
 
 
 .modalContent {
-  background-color: rgba(0, 201, 255, 0.9);
+  background: white;
+  background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.6));
   margin: auto;
   outline: 0;
   padding: 0;
   position: relative;
   width: 40%;
+  height: 50vh;
   transition: 0.3s;
   border-radius: 15px !important;
+  backdrop-filter: blur(2rem);
+  font-family: 'Poppins';
+  font-weight: 600;
+  color: #426696;
+
  
+ 
+}
+
+.modalContent h5 {
+  margin-left: 0.6rem;
+  margin-top: 0;
 }
 
 .modalContent h2 {
@@ -212,10 +228,11 @@ background: url(https://cdn.artofproblemsolving.com/attachments/5/8/0e3aad833ef3
   border-radius: 5px;
   box-shadow: 0px 10px 24px 0px rgb(0 0 0 / 0.25);
   width: max-content;
-  padding: 0.1em 0.9em 0 0.1em;
+  padding: 0.1em 1.5em 0 0.6em;
   text-indent: 2ch;
   color: black;
 }
+
 
 .newFeature {
   background: #FE4E4E;
@@ -238,32 +255,13 @@ background: url(https://cdn.artofproblemsolving.com/attachments/5/8/0e3aad833ef3
   margin: 0.4rem;
 }
 
-.tabButton {
-  display: inline;
-  background-color: rgb(145, 254, 158);
-  font-size: 16px;
-  font-weight: bold;
-  padding: 8px 16px;
-  transition: 0.2s;
-  width: 150px;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-}
-
-.tabButton:hover {
-  background-color: rgb(57, 221, 57)
-}
-
-.tabButton:focus-within{
-  background-color: white;
-}
 
 .text {
   color: black;
 }
 
 .text img {
-  filter: invert(1);
+  filter: invert(0);
 }
 
 ::-webkit-scrollbar {
@@ -412,17 +410,25 @@ p {
 
 .tab-container {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: left;
   justify-content: center;
   gap: 2rem;
 }
+
+.tabButton {
+  font-size: 16px;
+  transition: 0.2s;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background-color: transparent;
+}
+
 
 .streak-modal {
   position: fixed;
   z-index: 16;
   display: none;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
   height: 100%;
   left: 0;
   overflow: auto;
@@ -449,4 +455,48 @@ p {
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   color: white;
   padding: 0.4em 0.4em;
+}
+
+.links {
+
+}
+
+.link {
+  transition: 0.3s ease;
+  width: 10rem;
+  text-align: center;
+  border-radius: 6px;
+}
+
+
+.link:hover {
+  background-color: #1b365d14;
+
+}
+
+.settings-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 40%;
+  overflow: hidden;
+}
+
+.settings-navigation {
+  background-color: rgba(255, 255, 255, 0.897);
+  width: 10rem;  
+  height: 100%;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+}
+
+@media (width: 100px) {
+  .logo{
+  display: none;
+  }
 }
