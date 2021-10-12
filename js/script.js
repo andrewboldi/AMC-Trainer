@@ -110,6 +110,7 @@ function request(link, callback) {
 function closeModal() {
     document.getElementById("settingsButton").style.display = "none";
     document.getElementById("infoButton").style.display = "none";
+    document.getElementById("streakModal").style.display = "none";
 }
 
 function saveLevel() {
@@ -385,6 +386,7 @@ function check_ans(num) {
             }
         }
         document.getElementById("streak").innerHTML = localStreak;
+        document.getElementById("streak-count").innerHTML = localStreak;
         document.getElementById("ans").value = '';
         localStorage.setItem("streak", localStreak.toString());
         textc();
