@@ -109,6 +109,7 @@ function request(link, callback) {
 
 function closeModal() {
     document.getElementById("settingsButton").style.display = "none";
+    document.getElementById("infoButton").style.display = "none";
 }
 
 function saveLevel() {

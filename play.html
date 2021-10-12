@@ -60,7 +60,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
     </head>
     <body id="body" onresize="getHeight()" onload="initialFunction()" class="body">
         <div style="position: absolute; left: 0px; top: 5px;" class="container">
-            <i data-feather="alert-triangle" id="reportButtonImg" class="headerButton" style="padding-left: 3.5rem; color: rgb(250, 53, 53);" onclick="parent.open('https://artofproblemsolving.com/community/c1967976h2362114p19241124')" class="modalButton"></i>
+            <i data-feather="alert-triangle" id="reportButtonImg" class="headerButton" style="position: absolute; left: 70;" onclick="parent.open('https://artofproblemsolving.com/community/c1967976h2362114p19241124')"></i>
             <img alt="Information regarding this website, AMC Trainer. This also includes sources and credits attributed." id="infoButtonImg" src="img/info_button.png" class="headerButton" style="padding-left: 0px;" onclick="document.getElementById('infoButton').style.display='block'" class="modalButton">
             <div id="infoButton" style="position: fixed; z-index: 15" class="modal">
                 <div class="modalContent animateZoom">
@@ -89,8 +89,9 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
         <img alt="Personalize AMC Trainer to suit your preferences." id="settingsButtonImg" src="img/settings.svg" class="settings headerButton" style="top: 5px; right: 5px;" onclick="document.getElementById('settingsButton').style.display='block'" class="modalButton" id = "closeModal">
         <div style="position: fixed; z-index: 15;" id="settingsButton" class="modal">
             <main class="modalContent animateZoom">
+            <span onclick="closeModal()" style="position: absolute; right: 0; top: 0; border-top-right-radius: 12px; border-bottom-left-radius: 12px; font-size: 36px;" class="modalButton" id = "closeModal">&times</span>
                 <header class="container tab">
-                    <span onclick="document.getElementById('infoButton').style.display='none'" style="position: absolute; right: 0; top: 0; border-top-right-radius: 12px; border-bottom-left-radius: 12px; font-size: 36px;" class="modalButton">&times</span>
+                    <span onclick="closeModal()" style="position: absolute; right: 0; top: 0; border-top-right-radius: 12px; border-bottom-left-radius: 12px; font-size: 36px;" class="modalButton">&times</span>
                 </header>
 	        <p>
 		    <input class="button saveButton" onclick="saveSettings()" type="submit" value="save" aria-label="Save your settings.">
