@@ -22,7 +22,7 @@
 
 body {
   background-attachment: fixed;
-  background-image: linear-gradient(to right top, #65dfc9, #6cdbeb);
+  background-image: linear-gradient(to right top, #63b7dd, #63ddc7);
   background-position: top center;
   background-repeat: repeat-y;
   background-size: 100%;
@@ -30,7 +30,7 @@ body {
 }
 
 .button {
-  background-image: linear-gradient(to right, rgb(145, 254, 158) 20%, rgb(0, 201, 255) 80%);
+  background-image: linear-gradient(to right top, rgb(145, 254, 158) 20%, rgb(0, 201, 255) 80%);
   background-repeat: no-repeat;
   border: none;
   border-radius: 10px;
@@ -477,7 +477,6 @@ p {
 .settings-content {
   display: flex;
   flex-direction: column;
-  align-items: center;
   position: absolute;
   top: 0;
   left: 20%;
