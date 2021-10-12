@@ -2,6 +2,7 @@
 
 const modal = document.getElementById("settingsButton");
 const info = document.getElementById("infoButton");
+const streak = document.getElementById("streakModal");
 
 document.getElementsByClassName("tabButton")[0].click();
 
@@ -17,5 +18,7 @@ window.onclick = function(event) {
         modal.style.display = "none";
     } else if (event.target === info) {
         info.style.display = "none";
+    } else if (event.target === streak) {
+        streak.style.display = "none";
     }
 }
