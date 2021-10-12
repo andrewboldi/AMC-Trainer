@@ -233,11 +233,9 @@ function get_new_problem(flag=false) {
     }
     /*
                 let geolinks = ["https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php/2014_AMC_10A_Problems/Problem_23"]
-
                 let xhr4 = new XMLHttpRequest();
                 xhr4.open('GET', "https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php?title=Category:Introductory_Geometry_Problems&pagefrom=2010+AMC+12A+Problems%2FProblem+14", true);
                 xhr4.send();
-
                 xhr4.onreadystatechange = processt;
                 function processt(e) {
                     if (xhr4.readyState === 4 && xhr4.status === 200) {
