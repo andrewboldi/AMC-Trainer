@@ -194,10 +194,6 @@ background: url(https://cdn.artofproblemsolving.com/attachments/5/8/0e3aad833ef3
 #closeModal:active {
   opacity: 0.6;
 }
-
-
-
-
 .modalContent {
   background: white;
   background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.6));
@@ -214,6 +210,7 @@ background: url(https://cdn.artofproblemsolving.com/attachments/5/8/0e3aad833ef3
   font-weight: 600;
   color: #426696;
   overflow-y: scroll;
+  overflow: hidden;
 
  
  
@@ -476,11 +473,9 @@ p {
 }
 
 .settings-content {
-  display: flex;
-  flex-direction: column;
   position: absolute;
   top: 0;
-  left: 35%;
+  margin: 0 15em;
   overflow: hidden;
 }
 
