@@ -412,10 +412,8 @@ p {
 .tabButton {
   font-size: 16px;
   transition: all 0.2s;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
   background-color: transparent;
-
+  width: 100%;
 }
 
 
