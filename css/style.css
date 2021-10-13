@@ -537,9 +537,9 @@ bottom: 0;
   transform-origin: left;
 }
 
-@media (max-width: 400px) {
+@media (max-height: 300px) {
   .logo {
-    display: block;
+    display: none;
   }
   .modalContent{
   height: 90vh;
