@@ -209,8 +209,7 @@ background: url(https://cdn.artofproblemsolving.com/attachments/5/8/0e3aad833ef3
   font-family: 'Poppins';
   font-weight: 600;
   color: #426696;
-  overflow-y: scroll;
-  overflow: hidden;
+  overflow: auto;
 
  
  
@@ -476,7 +475,6 @@ p {
   position: absolute;
   top: 0;
   margin: 0 15em;
-  overflow: hidden;
 }
 
 .settings-navigation {
