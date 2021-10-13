@@ -433,3 +433,18 @@ function saveSettings()  // skipcq: JS-0239
     zenMode();
     closeModal();
 }
+
+function change(obj) { 
+    const all = document.querySelectorAll(".tabButton");
+    for(var i=0;i<all.length;i++){
+        all[i].style.background = 'transparent';
+        all[i].style.color = '#426696'
+    
+        }
+        obj.style.backgroundImage = 'linear-gradient(to right top, #63b7dd, #63ddc7)';
+        obj.style.width = "100%";
+        obj.style.borderRadius = '0px'
+        obj.style.color= 'white'
+   
+   
+}
