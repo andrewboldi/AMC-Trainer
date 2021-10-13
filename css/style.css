@@ -245,6 +245,7 @@ background: url(https://cdn.artofproblemsolving.com/attachments/5/8/0e3aad833ef3
   width: 75%;
   left: 10%;
   margin: 0.4rem;
+  bottom: 0;
 }
 
 
@@ -410,10 +411,11 @@ p {
 
 .tabButton {
   font-size: 16px;
-  transition: 0.2s;
+  transition: all 0.2s;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   background-color: transparent;
+
 }
 
 
@@ -480,16 +482,24 @@ p {
   background-color: rgba(255, 255, 255, 0.897);
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
+  filter: drop-shadow(0 18px 15px rgb(0 0 0 / 15%))
 }
 
-@media (max-width: 400px) {
-  .logo {
-    display: none;
-  }
-  .modalContent{
-  height: 90vh;
-  }
+.settings-navigation::-webkit-scrollbar {
+  background-color: #444;
+  width: 5px;
 }
+
+.settings-navigation::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border: 1px solid #444;
+  border-radius: 10px;
+}
+
+.settings-navigation::-webkit-scrollbar-track {
+  background-color: #444;
+}
+
 
 #problem.text a{
 color: #1273fa;
@@ -520,4 +530,19 @@ bottom: 0;
 #problem.text a:focus::after {
   transform: scaleX(1);
   transform-origin: left;
+}
+
+@media (max-width: 400px) {
+  .logo {
+    display: none;
+  }
+  .modalContent{
+  height: 90vh;
+  }
+}
+
+@media (max-height: 400px) {
+.saveButton {
+  bottom: auto;
+}
 }
