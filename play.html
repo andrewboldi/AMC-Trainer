@@ -20,7 +20,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
         <title>AMC Trainer!</title>
         <meta name="title" content="AMC Trainer!">
         <meta name="description" content="A FREE interactive 👆 trainer which generates math problems for your specific AMC level 📈 (such as AMC 8/10/12/AIME).">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale: 0.50, maximum-scale: 1.50, target-densityDpi=device-dpi">
 	
         <!-- Open Graph / Facebook -->
         <meta property="og:type" content="website">
@@ -90,31 +90,34 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
         <div style="position: fixed; z-index: 15;" id="settingsButton" class="modal">
             <main class="modalContent animateZoom">
             <span onclick="closeModal()" style="position: absolute; right: 0; top: 0; border-top-right-radius: 12px; border-bottom-left-radius: 12px; font-size: 36px;" class="modalButton" id="closeModal">&times</span>
-            <p>
-                <input class="button saveButton" onclick="saveSettings()" type="submit" value="save" aria-label="Save your settings.">
-            </p>
             <div class="settings-navigation"> 
-                <div class="tab-container">
                 <div class="logo">
                     <img src = "img/icon.png" style = "width: 80px; height: 80px; margin-left: 2.5rem; margin-top: 1rem;"  />
                     <h5>AMC Trainer Settings</h5>
                 </div>
-                <div class = "links">
-                <div class = "link">
-                    <h1 class="tabButton modalButton" onclick="changeTab(event, 'Options')">Options</h1>
+
+                <div class="links">
+                    <div class="link">
+                        <h1 class="tabButton modalButton" onclick="changeTab(event, 'Options')">Options</h1>
+                    </div>
+
+                    <div class="link">
+                        <h1 class="tabButton modalButton" onclick="changeTab(event, 'Colors')">Colors</h1>
+                    </div>
+
+                    <div class="link">
+                        <h1 class="tabButton modalButton" onclick="changeTab(event, 'Customization')">Customization</h1>
+                    </div>
+
                 </div>
-                <div class="link">
-                    <h1 class="tabButton modalButton" onclick="changeTab(event, 'Colors')">Colors</h1>
+
+                <br><br>
+                <div>
+                    <input class="button saveButton" onclick="saveSettings()" type="submit" value="save" aria-label="Save your settings.">
                 </div>
-                <div class = "link">
-                    <h1 class="tabButton modalButton" onclick="changeTab(event, 'Customization')">Customization</h1>
-                </div>
-            </div>
-</div>
         </div>
 
-
-        <main class = "settings-content">
+        <main class="settings-content">
                 <div id="Options" class="container tab">
                     <br><br>
                     <h2>Level</h2>
