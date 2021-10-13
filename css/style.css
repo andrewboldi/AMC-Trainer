@@ -498,3 +498,34 @@ align-items: flex-start;
   height: 90vh;
   }
 }
+
+#problem.text a{
+color: #1273fa;
+transition: background-color 0.3s ease;
+text-decoration: none;
+position: relative;
+}
+
+#problem.text a:active{
+  color: #0852b9;
+
+  }
+
+#problem.text a::after {
+  content: '';
+  transform: scaleX(0);
+transform-origin: right;
+width: 100% !important;
+height: 2px;
+left: 0;
+background: currentColor;
+transition: ease 0.5s;
+position: absolute;
+bottom: 0;
+}
+
+#problem.text a:hover::after,
+#problem.text a:focus::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
