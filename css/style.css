@@ -90,6 +90,7 @@ body {
   height: 30px;
   border: 2px solid white; 
   text-align: center;
+  color: white;
 }
 
 .chooseColor:hover {
@@ -148,6 +149,11 @@ body {
   background-image: none;
   color: rgb(0, 0, 0);
   cursor: text;
+}
+
+#logo {
+  display: block;
+  margin: 2em auto;
 }
 
 .modal {
@@ -532,7 +538,7 @@ bottom: 0;
 
 @media (max-width: 400px) {
   .logo {
-    display: none;
+    display: block;
   }
   .modalContent{
   height: 90vh;

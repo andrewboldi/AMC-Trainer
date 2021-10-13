@@ -98,15 +98,15 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
 
                 <div class="links">
                     <div class="link">
-                        <h1 class="tabButton modalButton" onclick="changeTab(this, event, 'Options'); change(this)">Options</h1>
+                        <h1 class="tabButton modalButton" onclick="changeTab(this, event, 'Options')">Options</h1>
                     </div>
 
                     <div class="link">
-                        <h1 class="tabButton modalButton" onclick="changeTab(this, event, 'Colors'); change(this)">Colors</h1>
+                        <h1 class="tabButton modalButton" onclick="changeTab(this, event, 'Colors')">Colors</h1>
                     </div>
 
                     <div class="link">
-                        <h1 class="tabButton modalButton" onclick="changeTab(this, event, 'Customization'); change(this)">Customization</h1>
+                        <h1 class="tabButton modalButton" onclick="changeTab(this, event, 'Customization')">Customization</h1>
                     </div>
 
                 </div>
@@ -211,7 +211,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
 
         </div>
 </div><script src="js/tab.js"></script>
-<img alt="The logo for the AMC Trainer website." class="img" id="logo" src="img/logo_blue.png" style="width: 26%; height: 20%; display:block; height: 4%; margin-top: 30px; margin-left: auto; margin-right: auto; margin-bottom: 30px;">
+<img alt="The logo for the AMC Trainer website." class="img" id="logo" src="img/logo_blue.png">
 <p style="position: absolute; z-index: 10;" id="Problems">
     <button type="button" onclick="document.getElementById('ans').value = ''; get_new_problem();" style="position: fixed; right: 10%; bottom: 10%; width: 12%; height: 7%; border-radius: 1rem; font-size: 1.6em;" id="new_problem" class="button">New</button>
 </p>
@@ -227,7 +227,6 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
     <span class="text" id="if_correct" style="display: none;"></span>
     <span onclick="giveUp()" class = "headerButton" style="cursor: pointer; position: absolute; margin-top: 5px; margin-left: 420px; text-align: center; font-size: 1.4em; ">&#127937</span>
 </p>
-<p></p>
 <p class="text">
     <span style="display: none;" id="get_solution"></span>
 </p>
@@ -236,14 +235,14 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
 <img alt="A drawing tool to allow for an on-screen whiteboard with various colors." src="img/pencil.svg" class="headerButton" style="right:9px; top: 80px;" name = "brush" onclick="toggle()"></ion-icon>
 <div id="draw" style="width: 100%; height: 100%; display: none;">
     <canvas style="position: absolute; top: 0; left: 0; z-index: 5;" cursor: pointer; id="can"></canvas>
-    <div class="chooseColor" style="top:170px;background:#FF4136; color: white;" id="red"    onclick="color(this); this.innerHTML='&#10004';"></div>
-    <div class="chooseColor" style="top:230px;background:#FF851B; color: white;" id="orange" onclick="color(this); this.innerHTML='&#10004';"></div>
-    <div class="chooseColor" style="top:290px;background:#FFDC00; color: white;" id="yellow" onclick="color(this); this.innerHTML='&#10004';"></div>
-    <div class="chooseColor" style="top:350px;background:#2ECC40; color: white;" id="green"  onclick="color(this); this.innerHTML='&#10004';"></div>
-    <div class="chooseColor" style="top:410px;background:#0074D9; color: white;" id="blue"   onclick="color(this); this.innerHTML='&#10004';"></div>
-    <div class="chooseColor" style="top:470px;background:#800080; color: white;" id="purple" onclick="color(this); this.innerHTML='&#10004';"></div>
-    <div class="chooseColor" style="top:530px;background:#000000; color: white;" id="black"  onclick="color(this); this.innerHTML='&#10004';"></div>
-    <div class="chooseColor" style="top:600px;background:#FFFFFF;" id="white"  onclick="color(this); this.innerHTML='&#10004';"></div>
+    <div class="chooseColor" style="top:170px;background:#FF4136;" id="red"    onclick="color(this);"></div>
+    <div class="chooseColor" style="top:230px;background:#FF851B;" id="orange" onclick="color(this);"></div>
+    <div class="chooseColor" style="top:290px;background:#FFDC00;" id="yellow" onclick="color(this);"></div>
+    <div class="chooseColor" style="top:350px;background:#2ECC40;" id="green"  onclick="color(this);"></div>
+    <div class="chooseColor" style="top:410px;background:#0074D9;" id="blue"   onclick="color(this);"></div>
+    <div class="chooseColor" style="top:470px;background:#800080;" id="purple" onclick="color(this);"></div>
+    <div class="chooseColor" style="top:530px;background:#000000;" id="black"  onclick="color(this);"></div>
+    <div class="chooseColor" style="top:600px;background:#FFFFFF; color: black; border: 2px solid black;" id="white"  onclick="color(this);"></div>
     <img class="chooseColor" style="top:660px;border-radius: 0%; border: none; width: 50px; height: 50px;" alt="Erase all drawings on the screen." src="img/eraser.png" id="eraser" onclick="erase();"/>
     <i class="fas fa-trash-alt" id="clr" size="23" onclick="clearScreen()" style="z-index: 10; position:absolute;top:740px;right:10px; font-size: 40px; width: 50px; cursor: pointer;"></i>
     <i data-feather="corner-down-left"  size="23" onclick="undo()" aria-label="Undo" style="z-index: 10; position:absolute;top:800px;right:15px; font-size: 40px; width: 50px; cursor: pointer;"></i>
