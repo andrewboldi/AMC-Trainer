@@ -168,17 +168,17 @@ background: url(https://cdn.artofproblemsolving.com/attachments/5/8/0e3aad833ef3
 }
 
 .modalButton {
-    white-space:nowrap;
-    display:inline-block;
-    padding:8px 16px;
-    overflow:hidden;
-    vertical-align:middle;
-    border:none;
-    text-decoration:none;
-    cursor:pointer;
-    text-align:center;
-  margin: 0px !important;
-  transition: background-color 0.3s;
+    white-space: nowrap;
+    display: inline-block;
+    padding: 8px 16px;
+    overflow: hidden;
+    vertical-align: middle;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    text-align: center;
+    margin: 0px !important;
+    transition: background-color 0.3s;
 }
 
 #closeModal:focus-within {
@@ -195,14 +195,13 @@ background: url(https://cdn.artofproblemsolving.com/attachments/5/8/0e3aad833ef3
   opacity: 0.6;
 }
 .modalContent {
-  background: white;
   background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.6));
   margin: auto;
   outline: 0;
   padding: 0;
   position: relative;
-  width: 60%;
-  height: 80vh;
+  width: 50%;
+  height: 50%;
   transition: 0.3s;
   border-radius: 15px !important;
   backdrop-filter: blur(2rem);
@@ -210,9 +209,6 @@ background: url(https://cdn.artofproblemsolving.com/attachments/5/8/0e3aad833ef3
   font-weight: 600;
   color: #426696;
   overflow: auto;
-
- 
- 
 }
 
 .modalContent h5 {
@@ -244,11 +240,10 @@ background: url(https://cdn.artofproblemsolving.com/attachments/5/8/0e3aad833ef3
 }
 
 .saveButton {
-  bottom: 5px;
   color: white;
   position: absolute;
-  right: 5px;
-  width: 70px;
+  width: 75%;
+  left: 10%;
   margin: 0.4rem;
 }
 
@@ -474,20 +469,18 @@ p {
 .settings-content {
   position: absolute;
   top: 0;
-  margin: 0 15em;
+  left: 10em;
 }
 
 .settings-navigation {
-  background-color: rgba(255, 255, 255, 0.897);
-  width: 10rem;  
-  height: 100vh;
-  position: fixed;
+  position: sticky;
   top: 0;
+  width: 10rem;  
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(255, 255, 255, 0.897);
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-display: flex;
-flex-direction: column;
-align-items: flex-start;
 }
 
 @media (max-width: 400px) {
