@@ -422,13 +422,11 @@ p {
   z-index: 16;
   display: none;
   height: 100%;
-  left: 0;
-  overflow: auto;
-  padding-top: 5%;
-  position: fixed;
   top: 0;
+  left: 0;
+  padding-top: 5%;
   width: 100%;
-  z-index: 20;
+  overflow: hidden;
 }
 
 .streak-modal-content {
@@ -441,6 +439,7 @@ p {
   transition: 0.3s;
   border-radius: 15px !important;
   height: 40%;
+  overflow: hidden;
 }
 
 #streak-count {
