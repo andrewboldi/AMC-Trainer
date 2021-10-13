@@ -24,6 +24,7 @@ function changeTab(obj, evt, tabName) { // skipcq: JS-0239
 window.onclick = function(event) {
     if (event.target === modal) {
         modal.style.display = "none";
+        saveSettings();
     } else if (event.target === info) {
         info.style.display = "none";
     } else if (event.target === streak) {
