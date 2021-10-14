@@ -432,7 +432,8 @@ p {
   left: 0;
   padding-top: 5%;
   width: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 .streak-modal-content {
