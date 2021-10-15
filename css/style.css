@@ -551,7 +551,7 @@ bottom: 0;
   }
 }
 
-@media (max-height: 400px) {
+@media (max-height: 500px) {
 .saveButton {
   bottom: auto;
 }
