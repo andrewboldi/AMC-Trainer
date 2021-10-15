@@ -507,19 +507,19 @@ p {
 }
 
 
-#problem.text a{
+.text a{
 color: #1273fa;
 transition: background-color 0.3s ease;
 text-decoration: none;
 position: relative;
 }
 
-#problem.text a:active{
+.text a:active{
   color: #0852b9;
 
   }
 
-#problem.text a::after {
+.text a::after {
   content: '';
   transform: scaleX(0);
 transform-origin: right;
