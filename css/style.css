@@ -532,8 +532,8 @@ position: absolute;
 bottom: 0;
 }
 
-#problem.text a:hover::after,
-#problem.text a:focus::after {
+.text a:hover::after,
+.text a:focus::after {
   transform: scaleX(1);
   transform-origin: left;
 }
