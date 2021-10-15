@@ -538,6 +538,10 @@ bottom: 0;
   transform-origin: left;
 }
 
+#ans.input.button {
+  color: black !important;
+}
+
 @media (max-height: 300px) {
   .logo {
     display: none;
