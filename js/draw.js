@@ -60,7 +60,7 @@ function draw() {
     ctx.beginPath();
     ctx.moveTo(prevX, prevY);
     if (ctx.globalCompositeOperation === "destination-out") {
-        ctx.arc(currX, currY, 40, 0, 2*Math.PI, false);
+        ctx.arc(currX, currY, 20, 0, 2*Math.PI, false);
     } else {
         ctx.lineWidth = 2;
         ctx.lineTo(currX, currY);
@@ -200,12 +200,18 @@ function color(obj) { // skipcq: JS-0239
     }
     );
     obj.innerHTML = "&#10004";
+    document.getElementById("body").style.cursor = "crosshair";
 }
 
 function erase() { // skipcq: JS-0239
+    document.querySelectorAll(".chooseColor").forEach(element => {
+        element.innerHTML = "";
+    }
+    );
     ctx.globalCompositeOperation = "destination-out";
     ctx.strokeStyle = "rgba(100,100,255,1)";
     ctx.fillStyle = "rgba(100, 100, 255, 1)";
+    document.getElementById("body").style.cursor = "url('img/circle_cursor.ico') 20 20, auto";
 }
 
 function clearScreen() { // skipcq: JS-0239

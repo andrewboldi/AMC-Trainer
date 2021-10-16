@@ -1,6 +1,7 @@
 * {
   user-select: none;
   font-family: inherit;
+  box-sizing: border-box;
 }
 
 #settingsButtonImg {
@@ -19,9 +20,9 @@
   animation: animatezoom 0.4s;
 }
 
-.body {
+body {
   background-attachment: fixed;
-  background-image: linear-gradient(to right, rgb(145, 254, 158), rgb(0, 201, 255));
+  background-image: linear-gradient(to right top, #63b7dd, #63ddc7);
   background-position: top center;
   background-repeat: repeat-y;
   background-size: 100%;
@@ -29,7 +30,7 @@
 }
 
 .button {
-  background-image: linear-gradient(to right, rgb(145, 254, 158), rgb(0, 201, 255));
+  background-image: linear-gradient(to right top, rgb(145, 254, 158) 20%, rgb(0, 201, 255) 80%);
   background-repeat: no-repeat;
   border: none;
   border-radius: 10px;
@@ -89,6 +90,7 @@
   height: 30px;
   border: 2px solid white; 
   text-align: center;
+  color: white;
 }
 
 .chooseColor:hover {
@@ -97,6 +99,8 @@
 
 .container {
   padding: 0.01em 16px;
+  display: flex;
+  flex: 1;
 }
 
 .ddl {
@@ -147,11 +151,15 @@
   cursor: text;
 }
 
+#logo {
+  display: block;
+  margin: 2em auto;
+}
+
 .modal {
   display: none;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
-  height: 100%;
+  background-color: rgba(0,0,0,0.1);
+  height: 150%;
   left: 0;
   overflow: auto;
   padding-top: 5%;
@@ -166,38 +174,52 @@ background: url(https://cdn.artofproblemsolving.com/attachments/5/8/0e3aad833ef3
 }
 
 .modalButton {
-    white-space:nowrap;
-    display:inline-block;
-    padding:8px 16px;
-    overflow:hidden;
-    vertical-align:middle;
-    border:none;
-    text-decoration:none;
-    cursor:pointer;
-    text-align:center;
-  margin: 0px !important;
+    white-space: nowrap;
+    display: inline-block;
+    padding: 8px 16px;
+    overflow: hidden;
+    vertical-align: middle;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    text-align: center;
+    margin: 0px !important;
+    transition: background-color 0.3s;
 }
 
-.modalButton:focus-within {
+#closeModal:focus-within {
   background-color: white;
   opacity: 0.9;
 }
 
-.modalButton:hover {
-  background-color: rgb(132, 243, 88);
-  opacity: 0.8;
+#closeModal:hover {
+  background-color: rgb(252, 94, 66);
+  color: white;
 }
 
+#closeModal:active {
+  opacity: 0.6;
+}
 .modalContent {
-  background-color: rgba(0, 201, 255, 0.9);
+  background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.6));
   margin: auto;
   outline: 0;
   padding: 0;
   position: relative;
-  width: 33%;
+  width: 50%;
+  height: 50%;
   transition: 0.3s;
   border-radius: 15px !important;
- 
+  backdrop-filter: blur(2rem);
+  font-family: 'Poppins';
+  font-weight: 600;
+  color: #426696;
+  overflow: auto;
+}
+
+.modalContent h5 {
+  margin-left: 0.6rem;
+  margin-top: 0;
 }
 
 .modalContent h2 {
@@ -205,10 +227,11 @@ background: url(https://cdn.artofproblemsolving.com/attachments/5/8/0e3aad833ef3
   border-radius: 5px;
   box-shadow: 0px 10px 24px 0px rgb(0 0 0 / 0.25);
   width: max-content;
-  padding: 0.1em 0.9em 0 0.1em;
+  padding: 0.1em 1.3em 0 0.6em;
   text-indent: 2ch;
   color: black;
 }
+
 
 .newFeature {
   background: #FE4E4E;
@@ -223,28 +246,14 @@ background: url(https://cdn.artofproblemsolving.com/attachments/5/8/0e3aad833ef3
 }
 
 .saveButton {
-  bottom: 5px;
   color: white;
   position: absolute;
-  right: 5px;
-  width: 70px;
+  width: 75%;
+  left: 10%;
   margin: 0.4rem;
+  bottom: 0;
 }
 
-.tabButton {
-  display: inline;
-  background-color: rgb(145, 254, 158);
-  font-size: 16px;
-  font-weight: bold;
-  padding: 8px 16px;
-  transition: 0.2s;
-  width: 150px;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-}
-
-.tabButton:hover {
-}
 
 .text {
   color: black;
@@ -357,11 +366,11 @@ p {
   text-align: center;
 }
 
-.fa-fire{
+#fire-icon{
   transition: color 0.3s;
 }
 
-.fa-fire:hover {
+#fire-icon:hover {
   color: red !important;
     
 }
@@ -400,7 +409,150 @@ p {
 
 .tab-container {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: left;
   justify-content: center;
   gap: 2rem;
+}
+
+.tabButton {
+  font-size: 16px;
+  transition: all 0.2s;
+  background-color: transparent;
+  width: 100%;
+}
+
+
+.streak-modal {
+  position: fixed;
+  z-index: 16;
+  display: none;
+  height: 100%;
+  top: 0;
+  left: 0;
+  padding-top: 5%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.streak-modal-content {
+  background-color: rgba(0, 201, 255, 0.9);
+  margin: auto;
+  outline: 0;
+  padding: 0;
+  position: relative;
+  width: 40%;
+  transition: 0.3s;
+  border-radius: 15px !important;
+  height: 40%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+#streak-count {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  color: white;
+  padding: 0.4em 0.4em;
+}
+
+.links {
+
+}
+
+.link {
+  transition: 0.3s ease;
+  width: 10rem;
+  text-align: center;
+  border-radius: 6px;
+}
+
+
+.link:hover {
+  background-color: #1b365d14;
+
+}
+
+.settings-content {
+  position: absolute;
+  top: 0;
+  left: 10em;
+}
+
+.settings-navigation {
+  position: sticky;
+  top: 0;
+  width: 10rem;  
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: rgba(255, 255, 255, 0.897);
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  filter: drop-shadow(0 18px 15px rgb(0 0 0 / 15%))
+}
+
+.settings-navigation::-webkit-scrollbar {
+  background-color: #444;
+  width: 5px;
+}
+
+.settings-navigation::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border: 1px solid #444;
+  border-radius: 10px;
+}
+
+.settings-navigation::-webkit-scrollbar-track {
+  background-color: #444;
+}
+
+
+.text a{
+color: #1273fa;
+transition: background-color 0.3s ease;
+text-decoration: none;
+position: relative;
+}
+
+.text a:active{
+  color: #0852b9;
+
+  }
+
+.text a::after {
+  content: '';
+  transform: scaleX(0);
+transform-origin: right;
+width: 100% !important;
+height: 2px;
+left: 0;
+background: currentColor;
+transition: ease 0.5s;
+position: absolute;
+bottom: 0;
+}
+
+.text a:hover::after,
+.text a:focus::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+#ans.input.button {
+  color: black !important;
+}
+
+@media (max-height: 300px) {
+  .logo {
+    display: none;
+  }
+  .modalContent{
+  height: 90vh;
+  }
+}
+
+@media (max-height: 500px) {
+.saveButton {
+  bottom: auto;
+}
 }
