@@ -77,6 +77,12 @@ function textc() {
     );
     document.getElementById("infoButtonImg").style.filter = desiredColor;
     document.getElementById("settingsButtonImg").style.filter = desiredColor;
+    document.getElementById("reportButtonImg").style.filter = desiredColor;
+    document.getElementById("brush").style.filter = desiredColor;
+    document.getElementById("eraser").style.filter = desiredColor;
+    document.getElementById("clr").style.filter = desiredColor;
+    document.getElementById("undo").style.filter = desiredColor;
+    document.getElementById("redo").style.filter = desiredColor;
 
 }
 
