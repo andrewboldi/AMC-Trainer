@@ -1,3 +1,8 @@
+:root {
+  --light-green:   #63ddc7;
+  --light-blue: #63b7dd;
+}
+
 * {
   user-select: none;
   font-family: inherit;
@@ -5,11 +10,11 @@
 }
 
 #settingsButtonImg {
-  transition: 0.3s;
+  transition: 0.2s !important;
 }
 
-#settingsButtonImg:hover {
-  transform: rotate(-45deg);
+#settingsButtonImg:active{
+  transform: rotate(-30deg);
 }
 
 #settingsButtonImg:hover body {
@@ -22,7 +27,7 @@
 
 body {
   background-attachment: fixed;
-  background-image: linear-gradient(to right top, #63b7dd, #63ddc7);
+  background-image: linear-gradient(to right top, var(--light-blue), var(--light-green));
   background-position: top center;
   background-repeat: repeat-y;
   background-size: 100%;
@@ -30,7 +35,7 @@ body {
 }
 
 .button {
-  background-image: linear-gradient(to right top, rgb(145, 254, 158) 20%, rgb(0, 201, 255) 80%);
+  background-image: linear-gradient(to right top, var(--light-green) 20%, var(--light-blue) 80%);
   background-repeat: no-repeat;
   border: none;
   border-radius: 10px;
@@ -125,15 +130,19 @@ body {
 
 .headerButton {
   cursor: pointer;
-  height: 40px;
   position: absolute;
   transition: 0.3s;
-  width: 40px;
+  width: 3rem;
+  height: 3rem;
   z-index: 10;
+  padding: 8px 8px 8px 8px;
+  border-radius: 50%;
 }
 
 .headerButton:hover {
-  transform: scale(1.08);
+  transform: translateY(-3px);
+  border-radius: 20px;
+  background-color: #dcdde1
 }
 
 .img:hover {
@@ -383,29 +392,22 @@ p {
 }
 
 .fa-trash-alt {
-  transition: ease 0.4s;
+  transition: ease-in-out .3s;
 }
 
 .fa-trash-alt:hover {
   color: red;
 }
 
-#reportButtonImg {
-  stroke-width: 2;
-  stroke: grey;
-  transition: all 0.3s;
-}
-
 #reportButtonImg:hover {
-  stroke: red;
-  transform: translateX(0)
+  color: red;  
 }
 
 #reportButtonImg:active {
-  fill: red;
-  stroke: rgb(255, 252, 84);
-  transform: scale(0.96, 0.96);
+  color: rgba(255, 1, 1, 0.493);
 }
+
+
 
 .tab-container {
   display: flex;
@@ -445,8 +447,7 @@ p {
   transition: 0.3s;
   border-radius: 15px !important;
   height: 40%;
-  overflow-x: hidden;
-  overflow-y: scroll;
+  overflow: hidden;
 }
 
 #streak-count {
@@ -460,16 +461,19 @@ p {
 }
 
 .link {
-  transition: 0.3s ease;
+  transition: 0.2s ease;
   width: 10rem;
   text-align: center;
-  border-radius: 6px;
 }
 
 
 .link:hover {
   background-color: #1b365d14;
 
+}
+
+.link:active {
+  background-color: #3d5c8d3d;
 }
 
 .settings-content {
@@ -542,6 +546,20 @@ bottom: 0;
   color: black !important;
 }
 
+#new_problem {
+  transition: 0.1s !important;
+  background: #96f588;
+}
+
+#new_problem:hover {
+  background: #8afc79;
+  transform: scale(1)
+}
+
+#new_problem:active {
+  opacity: 0.6;
+}
+
 @media (max-height: 300px) {
   .logo {
     display: none;
@@ -554,5 +572,9 @@ bottom: 0;
 @media (max-height: 500px) {
 .saveButton {
   bottom: auto;
+}
+
+#closeModal {
+  display: none;
 }
 }
