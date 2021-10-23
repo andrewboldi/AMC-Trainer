@@ -5,36 +5,37 @@ let localStreak;
 let type;
 let link = "";
 
+function getLocalSettings() {
+    return JSON.parse(localStorage.getItem("settingsObject"));
+}
 function logo() {
-    const color = document.getElementById("logoColor").value
-    document.getElementById("logo").src = `img/logo_${color}.png`
+    const color = getLocalSettings()["logoColor"];
+    document.getElementById("logoColor").value = color;
+    document.getElementById("logo").src = `img/logo_${color}.png`;
 }
 
 function textFont() {
-    if (localStorage.getItem("fontFamily") === null) {
-        localStorage.setItem("fontFamily", document.getElementById("fontFamily").value);
-    }
-    document.getElementById("fontFamily").value = localStorage.getItem("fontFamily");
-    document.getElementById("body").style.fontFamily = localStorage.getItem("fontFamily");
+    const font = getLocalSettings()["fontFamily"];
+    document.getElementById("fontFamily").value = font;
+    document.getElementById("body").style.fontFamily = font;
 }
-function saveFont() {
-    localStorage.setItem("fontFamily", document.getElementById("fontFamily").value);
-    textFont();
-}
-
 function zenMode() {
-    if (document.getElementById("zenModeOption").value === "On") {
+    const zenMode = getLocalSettings()["zenMode"];
+    if (zenMode === "On") {
 	document.getElementById("problem_id").style.opacity = 0.0;
     } else {
 	document.getElementById("problem_id").style.opacity = 1.0;
     }
+    document.getElementById("zenModeOption").value = zenMode;
 }
 function grad() {
-    let left = document.getElementById("g1").value;
-    let right = document.getElementById("g2").value;
+    let left = getLocalSettings("settingsObject")["bgColor1"];
+    let right = getLocalSettings("settingsObject")["bgColor2"];
+
     const hex2rgb = c => `rgb(${c.substr(1).match(/../g).map(x=>+`0x${x}`)})`;
     left = hex2rgb(left);
     right = hex2rgb(right);
+
     document.getElementById("body").style.backgroundImage = `linear-gradient(to right, ${left} 20%, ${right} 80%)`;
     document.querySelectorAll('.button').forEach(element => {
         element.style.backgroundImage = `linear-gradient(to right, ${left}, ${right})`;
@@ -44,46 +45,53 @@ function grad() {
         element.style.backgroundImage = "none";
     }
     );
-    //              document.getElementsByClassName("button").style.backgroundImage = `linear-gradient(to right, ${right}, ${left})`;
+    document.getElementById("g1").value = left; // set settings option to saved value
+    document.getElementById("g2").value = right;
 
 }
 function toggleWiggle() {
-    const val = document.getElementById("imgWiggle").value;
-    const a = document.getElementsByTagName("img");
-    if (val === "Off") {
-        for (let i = 0; i < a.length; i++) {
-            a[i].classList.add("imgNoHover");
-        }
-    } else {
-        for (let j = 0; j < a.length; j++) {
-            a[j].classList.remove("imgNoHover");
+    const val = getLocalSettings()["imgWiggle"];
+    document.querySelectorAll("img").forEach(element => {
+        if (val === "Off") {
+            element.classList.add("imgNoHover");
+        } else {
+            element.classList.remove("imgNoHover");
         }
     }
+    );
+    document.getElementById("imgWiggle").value = val;
 }
 function textc() {
-    let desiredColor = document.getElementById("textColor").value;
-    document.querySelectorAll('.text').forEach(element=>{
+    const desiredColor = getLocalSettings()["textColor"];
+    document.querySelectorAll('.text, button').forEach(element => {
         element.style.color = desiredColor;
     }
     );
-    document.querySelectorAll('.button').forEach(element=>{
-        element.style.color = desiredColor;
+    const imgDesiredColor = ((desiredColor === "black") ? "invert(0)" : "invert(1)");
+    document.querySelectorAll('latex, img').forEach(element => {
+        element.style.filter = imgDesiredColor;
     }
     );
-    desiredColor = ((desiredColor === "black") ? "invert(0)" : "invert(1)");
-    document.querySelectorAll('.text img').forEach(element=>{
-        element.style.filter = desiredColor;
+    document.querySelectorAll('.logoIcon').forEach(element => {
+        element.style.filter = "invert(0)";
     }
     );
-    document.getElementById("infoButtonImg").style.filter = desiredColor;
-    document.getElementById("settingsButtonImg").style.filter = desiredColor;
-    document.getElementById("reportButtonImg").style.filter = desiredColor;
-    document.getElementById("brush").style.filter = desiredColor;
-    document.getElementById("eraser").style.filter = desiredColor;
-    document.getElementById("clr").style.filter = desiredColor;
-    document.getElementById("undo").style.filter = desiredColor;
-    document.getElementById("redo").style.filter = desiredColor;
+    document.getElementById("new_problem").style.filter = "invert(0)";
+    document.getElementById("textColor").value = desiredColor;
 
+}
+function saveToDevice() {
+    const storageObject = {
+        "level": document.getElementById("levelDropdown").value,
+        "textColor": document.getElementById("textColor").value,
+        "bgColor1": document.getElementById("g1").value,
+        "bgColor2": document.getElementById("g2").value,
+        "logoColor": document.getElementById("logoColor").value,
+        "zenMode": document.getElementById("zenModeOption").value,
+        "imgWiggle": document.getElementById("imgWiggle").value,
+        "fontFamily": document.getElementById("fontFamily").value
+    }
+    localStorage.setItem("settingsObject", JSON.stringify(storageObject));
 }
 
 let realAns;
@@ -120,20 +128,19 @@ function closeModal() {
 }
 
 function saveLevel() {
-    const t = document.getElementById("ddlViewBy").value;
-    localStorage.setItem("type", t);
+    const t = document.getElementById("levelDropdown").value;
+    // localStorage.setItem("type", t);
 }
 
 function get_new_problem(flag=false) {
     let rest;
     getHeight(); // skipcq: JS-0125
-    textFont();
     if (localStorage.getItem("type") === null) {
         localStorage.setItem("type", "All");
     }
 
     type = localStorage.getItem("type");
-    document.getElementById("ddlViewBy").value = localStorage.getItem("type");
+    document.getElementById("levelDropdown").value = localStorage.getItem("type");
 
     try {
         localStreak = localStorage.getItem("streak");
@@ -273,7 +280,6 @@ function get_new_problem(flag=false) {
         probcode = probcode.replaceAll("\\n'", "\n").replaceAll("\\n", "\n").replaceAll("b'", "");
         document.getElementById("problem").innerHTML = probcode;
         textc();
-        toggleWiggle();
     }
     request(link, handleProbcode);
 
@@ -282,21 +288,19 @@ function get_new_problem(flag=false) {
         solcode = solcode.replaceAll("\\n'", "\n").replaceAll("\\n", "\n").replaceAll("b'", "");
         document.getElementById("get_solution").innerHTML = solcode;
         textc();
-        toggleWiggle();
     }
     request(link.replaceAll("!", "$"), handleSolcode);
 
     function handleAns(response) {
         realAns = response;
         realAns = realAns.split("b'")[1].split("'")[0];
-        textc();
     }
     request(answer_key_link, handleAns);
 
     document.getElementById("problem_id").innerHTML = problem_id;
     document.getElementById("check_ans").style.display = "flex";
-    textc();
 
+    textc();
 }
 
 function initialFunction()  // skipcq: JS-0239 
@@ -313,6 +317,11 @@ function initialFunction()  // skipcq: JS-0239
         answer_key_link = localStorage.getItem("answer");
         problem_id = localStorage.getItem("problemID");
         get_new_problem(true);
+    }
+    if (localStorage.getItem("settingsObject") === null) {
+        saveToDevice();
+    } else {
+        saveSettings(true);
     }
 }
 
@@ -395,12 +404,12 @@ function check_ans(num) {
         document.getElementById("streak-count").innerHTML = localStreak;
         document.getElementById("ans").value = '';
         localStorage.setItem("streak", localStreak.toString());
-        textc();
         toggleWiggle();
     } else {
         alert("Enter a valid response!");
         document.getElementById("ans").value = '';
     }
+    textc();
 }
 
 function giveUp()  // skipcq: JS-0239 
@@ -428,14 +437,17 @@ document.onkeydown = function(e) {
         redo(); // skipcq: JS-0125
     }
 }
-function saveSettings()  // skipcq: JS-0239 
+function saveSettings(initial=false)  // skipcq: JS-0239 
 {
+    if (!initial) {
+        saveToDevice();
+    }
     saveLevel();
-    grad();
     textc();
+    grad();
+    textFont();
     logo(); 
     toggleWiggle();
-    saveFont();
     zenMode();
     closeModal();
 }

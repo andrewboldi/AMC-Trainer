@@ -10,14 +10,11 @@
 }
 
 #settingsButtonImg {
-  transition: 0.2s !important;
+  transition-duration: 0.2s !important;
 }
 
-#settingsButtonImg:active{
-  transform: rotate(-30deg);
-}
-
-#settingsButtonImg:hover body {
+#settingsButtonImg:hover{
+  transform: rotate(-30deg) translateX(-10%);
   overflow: hidden !important;
 }
 
@@ -136,7 +133,6 @@ body {
   height: 3rem;
   z-index: 10;
   padding: 8px 8px 8px 8px;
-  border-radius: 50%;
 }
 
 .headerButton:hover {
@@ -145,7 +141,7 @@ body {
   background-color: #dcdde1
 }
 
-.img:hover {
+img:hover {
   animation: shake 2s;
   animation-iteration-count: 200000;
 }
@@ -391,23 +387,10 @@ p {
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
 
-.fa-trash-alt {
+#clr:hover {
   transition: ease-in-out .3s;
+  filter: invert(16%) sepia(78%) saturate(7182%) hue-rotate(1deg) brightness(99%) contrast(120%);
 }
-
-.fa-trash-alt:hover {
-  color: red;
-}
-
-#reportButtonImg:hover {
-  color: red;  
-}
-
-#reportButtonImg:active {
-  color: rgba(255, 1, 1, 0.493);
-}
-
-
 
 .tab-container {
   display: flex;

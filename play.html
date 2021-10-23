@@ -60,12 +60,12 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
     </head>
     <body id="body" onresize="getHeight()" onload="initialFunction()" class="body">
         <div style="position: absolute; left: 0px; top: 5px;" class="container">
-            <ion-icon name="alert-circle-outline" alt= "Report an error" id="reportButtonImg" class="headerButton" style="position: absolute; left: 90px;" onclick="parent.open('https://artofproblemsolving.com/community/c1967976h2362114p19241124')"></ion-icon>
-            <ion-icon name="information-circle-outline" alt="Information regarding this website, AMC Trainer. This also includes sources and credits attributed." id="infoButtonImg" class="headerButton"onclick="document.getElementById('infoButton').style.display='block'" class="modalButton"></ion-icon>
+            <img src="img/report.svg" alt= "Report an error" id="reportButtonImg" class="headerButton" style="position: absolute; left: 90px;" onclick="parent.open('https://artofproblemsolving.com/community/c1967976h2362114p19241124')">
+            <img src="img/help.svg" alt="Information regarding this website, AMC Trainer. This also includes sources and credits attributed." id="infoButtonImg" class="headerButton"onclick="document.getElementById('infoButton').style.display='block'" class="modalButton">
             <div id="infoButton" style="position: fixed; z-index: 15" class="modal">
                 <div class="modalContent animateZoom">
                     <header class="container">
-                        <span onclick="closeModal()" style="position: absolute; right: 0; top: 0; border-top-right-radius: 12px; border-bottom-left-radius: 12px; font-size: 36px;" class="modalButton" id = "closeModal">&times</span>
+                        <span onclick="closeModal()" style="position: absolute; right: 0; top: 0; border-top-right-radius: 12px; border-bottom-left-radius: 12px; font-size: 36px;" class="modalButton" id="closeModal">&times</span>
                         <h2>Credits</h2>
                     </header>
                     <div class="container">
@@ -86,13 +86,13 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
             </div>
 
         </div>
-        <ion-icon name="settings-outline" alt="Personalize AMC Trainer to suit your preferences." id="settingsButtonImg" class="settings headerButton" style="top: 5px; right: 5px;" onclick="document.getElementById('settingsButton').style.display = 'block'" class="modalButton" id="closeModal"></ion-icon>
+        <img src="img/settings.svg" alt="Personalize AMC Trainer to suit your preferences." id="settingsButtonImg" class="settings headerButton" style="top: 5px; right: 5px;" onclick="document.getElementById('settingsButton').style.display = 'block'" class="modalButton" id="closeModal">
         <div style="position: fixed; z-index: 15;" id="settingsButton" class="modal">
             <main class="modalContent animateZoom">
             <span onclick="closeModal()" style="position: absolute; right: 0; top: 0; border-top-right-radius: 12px; border-bottom-left-radius: 12px; font-size: 36px;" class="modalButton" id="closeModal">&times</span>
             <div class="settings-navigation"> 
                 <div class="logo">
-                    <img src = "img/icon.png" style = "width: 80px; height: 80px; margin-left: 2.5rem; margin-top: 1rem;"  />
+                    <img class="logoIcon" src="img/icon.png" style="width: 80px; height: 80px; margin-left: 2.5rem; margin-top: 1rem;"  />
                     <h5>AMC Trainer Settings</h5>
                 </div>
 
@@ -121,8 +121,8 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
                 <div id="Options" class="container tab">
                     <br><br>
                     <h2>Level</h2>
-                    <select id="ddlViewBy" class="ddl button">
-                        <div class = "level-option-container">
+                    <select id="levelDropdown" class="ddl button">
+                        <div class="level-option-container">
                             <option value=8>AMC 8</option>
                             <option value=10>AMC 10</option>
                             <option value=12>AMC 12</option>
@@ -211,9 +211,9 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
 
         </div>
 </div><script src="js/tab.js"></script>
-<img alt="The logo for the AMC Trainer website." class="img" id="logo" src="img/logo_blue.png">
+<img src="img/logo_blue.png" alt="The logo for the AMC Trainer website." class="logoIcon" id="logo">
 <p style="position: absolute; z-index: 10;" id="Problems">
-    <ion-icon type="button" name="arrow-forward-outline" onclick="document.getElementById('ans').value = ''; get_new_problem();" style="position: fixed; right: 10%; bottom: 10%; width: 12%; height: 7%; border-radius: 1rem;" id="new_problem" class="button"></ion-icon>
+    <button type="button" onclick="document.getElementById('ans').value = ''; get_new_problem();" style="position: fixed; right: 10%; bottom: 10%; width: 12%; height: 7%; border-radius: 1rem; font-size: 1.6em;" id="new_problem" class="button"><img src="img/arrow-right.svg"></button>
 </p>
 <strong>
     <p class="text" id="problem_id" style="font-size: 24px;"></p>
@@ -232,7 +232,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
 </p>
 <br><br>
 
-<ion-icon alt="A drawing tool to allow for an on-screen whiteboard with various colors." class="headerButton" style="right:9px; top: 80px;" name = "brush-outline" onclick="toggle()" id="brush"></ion-icon>
+<img src="img/draw.svg" alt="A drawing tool to allow for an on-screen whiteboard with various colors." class="text headerButton" style="right:9px; top: 80px;" onclick="toggle()">
 <div id="draw" style="width: 100%; height: 100%; display: none;">
     <canvas style="position: absolute; top: 0; left: 0; z-index: 5;" cursor: pointer; id="can"></canvas>
     <div class="chooseColor" style="top:170px;background:#FF4136;" id="red"    onclick="color(this);"></div>
@@ -244,10 +244,10 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
     <div class="chooseColor" style="top:530px;background:#000000;" id="black"  onclick="color(this);"></div>
     <div class="chooseColor" style="top:600px;background:#FFFFFF; color: black; border: 2px solid black;" id="white"  onclick="color(this);"></div>
   
-    <img class="chooseColor" style="top:660px;border-radius: 0%; border: none; width: 50px; height: 50px;" alt="Erase all drawings on the screen." src="img/eraser.png" id="eraser" onclick="erase();"/>
-    <i class="fas fa-trash-alt" id="clr" size="23" onclick="clearScreen()" style="z-index: 10; position:absolute;top:740px;right:10px; font-size: 40px; width: 50px; cursor: pointer;"></i>
-    <i data-feather="corner-down-left"  size="23" id ="undo" onclick="undo()" aria-label="Undo" style="z-index: 10; position:absolute;top:800px;right:15px; font-size: 40px; width: 50px; cursor: pointer;"></i>
-    <i data-feather="corner-down-right" size="23" id ="redo" onclick="redo()" aria-label="Redo" style="z-index: 10; position:absolute;top:850px;right:15px; font-size: 40px; width: 50px; cursor: pointer;"></i>
+    <img src="img/eraser.svg" class="text chooseColor" style="top:660px; border-radius: 0%; border: none; width: 40px; height: 50px; transform: rotate(45deg);" alt="Erase all drawings on the screen." id="eraser" onclick="erase();"/>
+    <img src="img/trash.svg" class="text" id="clr" onclick="clearScreen()" style="z-index: 10; position:absolute;top:740px;right:10px; font-size: 40px; width: 50px; cursor: pointer;">
+    <img src="img/corner-down-left.svg" class="text" id="undo" onclick="undo()" aria-label="Undo" style="z-index: 10; position:absolute;top:800px;right:15px; font-size: 40px; width: 50px; cursor: pointer;">
+    <img src="img/corner-down-right.svg" class="text" id="redo" onclick="redo()" aria-label="Redo" style="z-index: 10; position:absolute;top:850px;right:15px; font-size: 40px; width: 50px; cursor: pointer;">
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
