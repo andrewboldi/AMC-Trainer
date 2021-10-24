@@ -29,12 +29,12 @@ function zenMode() {
     document.getElementById("zenModeOption").value = zenMode;
 }
 function grad() {
-    let left = getLocalSettings("settingsObject")["bgColor1"];
-    let right = getLocalSettings("settingsObject")["bgColor2"];
+    const bgColor1 = getLocalSettings("settingsObject")["bgColor1"];
+    const bgColor2 = getLocalSettings("settingsObject")["bgColor2"];
 
     const hex2rgb = c => `rgb(${c.substr(1).match(/../g).map(x=>+`0x${x}`)})`;
-    left = hex2rgb(left);
-    right = hex2rgb(right);
+    const left = hex2rgb(bgColor1);
+    const right = hex2rgb(bgColor2);
 
     document.getElementById("body").style.backgroundImage = `linear-gradient(to right, ${left} 20%, ${right} 80%)`;
     document.querySelectorAll('.button').forEach(element => {
@@ -45,8 +45,8 @@ function grad() {
         element.style.backgroundImage = "none";
     }
     );
-    document.getElementById("g1").value = left; // set settings option to saved value
-    document.getElementById("g2").value = right;
+    document.getElementById("g1").value = bgColor1; // set settings option to saved value
+    document.getElementById("g2").value = bgColor2;
 
 }
 function toggleWiggle() {
