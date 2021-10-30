@@ -213,7 +213,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
 </div><script src="js/tab.js"></script>
 <img src="img/logo_blue.png" alt="The logo for the AMC Trainer website." class="logoIcon" id="logo">
 <p style="position: absolute; z-index: 10;" id="Problems">
-    <button type="button" onclick="document.getElementById('ans').value = ''; get_new_problem();" style="position: fixed; right: 10%; bottom: 10%; width: 12%; height: 7%; border-radius: 1rem; font-size: 1.6em;" id="new_problem" class="button"><img src="img/arrow-right.svg"></button>
+    <button type="button" onclick="document.getElementById('ans').value = ''; get_new_problem(); clearScreen();" style="position: fixed; right: 10%; bottom: 10%; width: 12%; height: 7%; border-radius: 1rem; font-size: 1.6em;" id="new_problem" class="button"><img src="img/arrow-right.svg"></button>
 </p>
 <strong>
     <p class="text" id="problem_id" style="font-size: 24px;"></p>
@@ -241,7 +241,7 @@ GNU GENERAL PUBLIC LICENSE FOR MORE DETAILS.
     <div class="chooseColor" style="top:350px;background:#2ECC40;" id="green"  onclick="color(this);"></div>
     <div class="chooseColor" style="top:410px;background:#0074D9;" id="blue"   onclick="color(this);"></div>
     <div class="chooseColor" style="top:470px;background:#800080;" id="purple" onclick="color(this);"></div>
-    <div class="chooseColor" style="top:530px;background:#000000;" id="black"  onclick="color(this);"></div>
+    <div class="chooseColor" style="top:530px;background:#000000;" id="black"  onclick="color(this);">&#10004</div>
     <div class="chooseColor" style="top:600px;background:#FFFFFF; color: black; border: 2px solid black;" id="white"  onclick="color(this);"></div>
   
     <img src="img/eraser.svg" class="text chooseColor" style="top:660px; border-radius: 0%; border: none; width: 40px; height: 50px; transform: rotate(45deg);" alt="Erase all drawings on the screen." id="eraser" onclick="erase();"/>

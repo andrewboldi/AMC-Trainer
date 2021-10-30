@@ -215,13 +215,13 @@ function erase() { // skipcq: JS-0239
 }
 
 function clearScreen() { // skipcq: JS-0239
-    const m = confirm("Are you sure you want to clear?");
-    if (m) {
-	undoList = [];
-        ctx.clearRect(0, 0, width, height);
-        undoList[0] = canvas.getContext("2d").getImageData(0, 0, width, height);
-        temp = null;
-        document.getElementById("draw").style.display = "none";
+    try {
+      undoList = [];
+      ctx.clearRect(0, 0, width, height);
+      undoList[0] = canvas.getContext("2d").getImageData(0, 0, width, height);
+      temp = null;
+    } catch (e) {
+      ; // This will err if draw tool hasn't been activated
     }
 }
 

@@ -429,6 +429,7 @@ document.getElementById("ans").addEventListener('keyup', function(event) {
 document.onkeydown = function(e) {
     if (e.ctrlKey && e.keyCode === 13) {
         get_new_problem();
+        clearScreen();
     }
     if (e.ctrlKey && e.keyCode === 90) {
         undo(); // skipcq: JS-0125
