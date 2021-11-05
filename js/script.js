@@ -127,20 +127,13 @@ function closeModal() {
     document.getElementById("streakModal").style.display = "none";
 }
 
-function saveLevel() {
-    const t = document.getElementById("levelDropdown").value;
-    // localStorage.setItem("type", t);
-}
-
 function get_new_problem(flag=false) {
     let rest;
     getHeight(); // skipcq: JS-0125
-    if (localStorage.getItem("type") === null) {
-        localStorage.setItem("type", "All");
-    }
 
-    type = localStorage.getItem("type");
-    document.getElementById("levelDropdown").value = localStorage.getItem("type");
+    type = localStorage.getItem("settingsObject")["level"];
+    console.log(type);
+    document.getElementById("levelDropdown").value = type;
 
     try {
         localStreak = localStorage.getItem("streak");
@@ -307,6 +300,7 @@ function initialFunction()  // skipcq: JS-0239
 {
     feather.replace(); // skipcq: JS-0125
     getHeight(); // skipcq: JS-0125
+    /*
     if (localStorage.getItem("problem") === null) {
         localStorage.setItem("problem", "");
         localStorage.setItem("answer", "");
@@ -318,11 +312,13 @@ function initialFunction()  // skipcq: JS-0239
         problem_id = localStorage.getItem("problemID");
         get_new_problem(true);
     }
+    */
     if (localStorage.getItem("settingsObject") === null) {
         saveToDevice();
     } else {
         saveSettings(true);
     }
+    get_new_problem(false);
 }
 
 function conf() {
@@ -443,7 +439,6 @@ function saveSettings(initial=false)  // skipcq: JS-0239
     if (!initial) {
         saveToDevice();
     }
-    saveLevel();
     textc();
     grad();
     textFont();
