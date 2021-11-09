@@ -80,6 +80,9 @@ function textc() {
     document.getElementById("textColor").value = desiredColor;
 
 }
+function saveLevel() {
+ //   localStorage.setItem("settingsObject");
+ }
 function saveToDevice() {
     const storageObject = {
         "level": document.getElementById("levelDropdown").value,
@@ -131,8 +134,7 @@ function get_new_problem(flag=false) {
     let rest;
     getHeight(); // skipcq: JS-0125
 
-    type = localStorage.getItem("settingsObject")["level"];
-    console.log(type);
+    type = getLocalSettings()["level"];
     document.getElementById("levelDropdown").value = type;
 
     try {
@@ -439,6 +441,7 @@ function saveSettings(initial=false)  // skipcq: JS-0239
     if (!initial) {
         saveToDevice();
     }
+    saveLevel();
     textc();
     grad();
     textFont();
