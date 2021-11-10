@@ -127,19 +127,11 @@ function closeModal() {
     document.getElementById("streakModal").style.display = "none";
 }
 
-function saveLevel() {
-    const t = document.getElementById("levelDropdown").value;
-    // localStorage.setItem("type", t);
-}
-
 function get_new_problem(flag=false) {
     let rest;
     getHeight(); // skipcq: JS-0125
-    if (localStorage.getItem("type") === null) {
-        localStorage.setItem("type", "All");
-    }
 
-    type = localStorage.getItem("type");
+    type = getLocalSettings()["level"];
     document.getElementById("levelDropdown").value = localStorage.getItem("type");
 
     try {
@@ -317,7 +309,7 @@ function initialFunction()  // skipcq: JS-0239
         localStorage.setItem("problem", "");
         localStorage.setItem("answer", "");
         localStorage.setItem("problemID", "");
-        get_new_problem();
+        get_new_problem(false);
     } else {
         link = localStorage.getItem("problem");
         answer_key_link = localStorage.getItem("answer");
