@@ -127,20 +127,12 @@ function closeModal() {
     document.getElementById("streakModal").style.display = "none";
 }
 
-function saveLevel() {
-    const t = document.getElementById("levelDropdown").value;
-    // localStorage.setItem("type", t);
-}
-
 function get_new_problem(flag=false) {
     let rest;
     getHeight(); // skipcq: JS-0125
-    if (localStorage.getItem("type") === null) {
-        localStorage.setItem("type", "All");
-    }
 
-    type = localStorage.getItem("type");
-    document.getElementById("levelDropdown").value = localStorage.getItem("type");
+    type = getLocalSettings()["level"];
+    document.getElementById("levelDropdown").value = type;
 
     try {
         localStreak = localStorage.getItem("streak");
@@ -260,68 +252,11 @@ function get_new_problem(flag=false) {
                         georesp = georesp.split("<ul><li>")[1];
                         georesp = georesp.split("</li></ul>")[0];
                         georesp = "<ul><li>".concat(georesp, "</li></ul>");
-                        console.log(georesp);
-                    }
-                }
-                if (subject === "Geo") {
-                    link = geolinks[0];
-                    problem_id = geolinks[0].split("https://wandering-sky-a896.cbracketdash.workers.dev/?https://artofproblemsolving.com/wiki/index.php/")[1].replaceAll("_", " ").replaceAll("Problems/Problem", "#");
-                } else if (subject === "Alg") {
-                    link = shuffle(alglinks)[0];
-                } else if (subject === "C+P") {
-                    link = shuffle(cplinks)[0];
-                } else if (subject === "NT") {
-                    link = shuffle(ntlinks)[0];
-                }
-                */
-    let probcode;
-    function handleProbcode(response) {
-        probcode = response;
-        probcode = probcode.replaceAll("\\n'", "\n").replaceAll("\\n", "\n").replaceAll("b'", "");
-        document.getElementById("problem").innerHTML = probcode;
-        textc();
-    }
-    request(link, handleProbcode);
-
-    function handleSolcode(response) {
-        solcode = response;
-        solcode = solcode.replaceAll("\\n'", "\n").replaceAll("\\n", "\n").replaceAll("b'", "");
-        document.getElementById("get_solution").innerHTML = solcode;
-        textc();
-    }
-    request(link.replaceAll("!", "$"), handleSolcode);
-
-    function handleAns(response) {
-        realAns = response;
-        realAns = realAns.split("b'")[1].split("'")[0];
-    }
-    request(answer_key_link, handleAns);
-
-    document.getElementById("problem_id").innerHTML = problem_id;
-    document.getElementById("check_ans").style.display = "flex";
-
-    textc();
-}
-
-function initialFunction()  // skipcq: JS-0239 
-{
-    feather.replace(); // skipcq: JS-0125
-    getHeight(); // skipcq: JS-0125
-    if (localStorage.getItem("problem") === null) {
-        localStorage.setItem("problem", "");
-        localStorage.setItem("answer", "");
-        localStorage.setItem("problemID", "");
-        get_new_problem();
-    } else {
+                        console.log("found problem");
         link = localStorage.getItem("problem");
         answer_key_link = localStorage.getItem("answer");
         problem_id = localStorage.getItem("problemID");
         get_new_problem(true);
-    }
-    if (localStorage.getItem("settingsObject") === null) {
-        saveToDevice();
-    } else {
-        saveSettings(true);
     }
 }
 
@@ -443,7 +378,6 @@ function saveSettings(initial=false)  // skipcq: JS-0239
     if (!initial) {
         saveToDevice();
     }
-    saveLevel();
     textc();
     grad();
     textFont();
