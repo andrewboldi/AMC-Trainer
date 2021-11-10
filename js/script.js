@@ -307,6 +307,12 @@ function initialFunction()  // skipcq: JS-0239
 {
     feather.replace(); // skipcq: JS-0125
     getHeight(); // skipcq: JS-0125
+  
+    if (localStorage.getItem("settingsObject") === null) {
+        saveToDevice();
+    } else {
+        saveSettings(true);
+    }
     if (localStorage.getItem("problem") === null) {
         localStorage.setItem("problem", "");
         localStorage.setItem("answer", "");
@@ -317,11 +323,6 @@ function initialFunction()  // skipcq: JS-0239
         answer_key_link = localStorage.getItem("answer");
         problem_id = localStorage.getItem("problemID");
         get_new_problem(true);
-    }
-    if (localStorage.getItem("settingsObject") === null) {
-        saveToDevice();
-    } else {
-        saveSettings(true);
     }
 }
 
@@ -443,7 +444,6 @@ function saveSettings(initial=false)  // skipcq: JS-0239
     if (!initial) {
         saveToDevice();
     }
-    saveLevel();
     textc();
     grad();
     textFont();
