@@ -132,7 +132,7 @@ function get_new_problem(flag=false) {
     getHeight(); // skipcq: JS-0125
 
     type = getLocalSettings()["level"];
-    document.getElementById("levelDropdown").value = localStorage.getItem("type");
+    document.getElementById("levelDropdown").value = type;
 
     try {
         localStreak = localStorage.getItem("streak");
