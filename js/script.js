@@ -152,7 +152,7 @@ function get_new_problem(flag=false) {
 
     let arr2 = [];
     let yr = 0;
-    for (let i = 2000; i < 2022; i++) {
+    for (let i = 2000; i < 2021; i++) {
         arr2.push(i);
     }
     [yr, ...rest] = shuffle(arr2); // yr = shuffle(arr2)[0];
