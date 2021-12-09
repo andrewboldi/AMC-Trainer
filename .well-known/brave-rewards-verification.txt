@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: amctrainer.com
+Token: 2026eeec7384e7a94ed7e0b22a4aa59135c63965a3639386d48b225c8c3f3d92
