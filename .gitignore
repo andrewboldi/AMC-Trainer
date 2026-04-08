@@ -1,3 +1,8 @@
+node_modules/
+build/
+.svelte-kit/
+.env
+.env.*
+worker/.dev.vars
 todo
 bg.html
-node_modules/
