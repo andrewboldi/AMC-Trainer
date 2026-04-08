@@ -88,8 +88,14 @@
 		bind:this={answerInput}
 		examType={$problem.examType}
 		onSubmit={handleSubmit}
-		onGiveUp={giveUp}
+		onGiveUp={() => { if (confirm('Are you sure you want to give up?')) giveUp(); }}
 	/>
+{/if}
+
+{#if $problem.status === 'error'}
+	<p class="text" style="text-align: center;">
+		Failed to load problem. <button class="button" style="width: auto; padding: 0 20px; margin: 0;" onclick={handleNext}>Try another</button>
+	</p>
 {/if}
 
 {#if $problem.status === 'correct' || $problem.status === 'gave_up'}

@@ -14,12 +14,13 @@
 		{problemId}
 	</p>
 </strong>
-<p class="text">
+<div class="text" style:--img-filter={textInvertFilter}>
 	{@html problemHtml}
-</p>
+</div>
 
 <style>
-	:global(.text img) {
+	.text :global(img),
+	.text :global(latex) {
 		filter: var(--img-filter, invert(0));
 	}
 </style>
