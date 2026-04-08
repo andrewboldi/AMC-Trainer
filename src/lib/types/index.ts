@@ -1,6 +1,6 @@
 export type ExamLevel = 'All' | '8' | '10' | '12' | 'AIME';
 export type ExamType = '8' | '10' | '12' | 'AIME';
-export type ProblemStatus = 'loading' | 'answering' | 'correct' | 'gave_up';
+export type ProblemStatus = 'loading' | 'answering' | 'correct' | 'gave_up' | 'error';
 export type ValidationResult = 'correct' | 'incorrect' | 'invalid_format';
 
 export interface ProblemUrls {

@@ -7,6 +7,13 @@
 	let { solutionHtml, textInvertFilter }: Props = $props();
 </script>
 
-<p class="text">
+<div class="text" style:--img-filter={textInvertFilter}>
 	{@html solutionHtml}
-</p>
+</div>
+
+<style>
+	.text :global(img),
+	.text :global(latex) {
+		filter: var(--img-filter, invert(0));
+	}
+</style>

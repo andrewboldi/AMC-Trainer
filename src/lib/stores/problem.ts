@@ -36,20 +36,24 @@ export async function loadNewProblem(level: ExamLevel): Promise<void> {
 		localStorage.setItem('problemType', urls.examType);
 	}
 
-	const [problemHtml, solutionHtml, correctAnswer] = await Promise.all([
-		fetchProblem(urls.problemUrl),
-		fetchSolution(urls.solutionUrl),
-		fetchAnswer(urls.answerUrl)
-	]);
+	try {
+		const [problemHtml, solutionHtml, correctAnswer] = await Promise.all([
+			fetchProblem(urls.problemUrl),
+			fetchSolution(urls.solutionUrl),
+			fetchAnswer(urls.answerUrl)
+		]);
 
-	problem.set({
-		problemId: urls.problemId,
-		problemHtml,
-		solutionHtml,
-		correctAnswer,
-		examType: urls.examType,
-		status: 'answering'
-	});
+		problem.set({
+			problemId: urls.problemId,
+			problemHtml,
+			solutionHtml,
+			correctAnswer,
+			examType: urls.examType,
+			status: 'answering'
+		});
+	} catch {
+		problem.update((s) => ({ ...s, status: 'error' }));
+	}
 }
 
 export async function loadSavedProblem(): Promise<void> {
@@ -75,20 +79,24 @@ export async function loadSavedProblem(): Promise<void> {
 
 	const solutionUrl = problemUrl.replaceAll('!', '$');
 
-	const [problemHtml, solutionHtml, correctAnswer] = await Promise.all([
-		fetchProblem(problemUrl),
-		fetchSolution(solutionUrl),
-		fetchAnswer(answerUrl)
-	]);
+	try {
+		const [problemHtml, solutionHtml, correctAnswer] = await Promise.all([
+			fetchProblem(problemUrl),
+			fetchSolution(solutionUrl),
+			fetchAnswer(answerUrl)
+		]);
 
-	problem.set({
-		problemId,
-		problemHtml,
-		solutionHtml,
-		correctAnswer,
-		examType,
-		status: 'answering'
-	});
+		problem.set({
+			problemId,
+			problemHtml,
+			solutionHtml,
+			correctAnswer,
+			examType,
+			status: 'answering'
+		});
+	} catch {
+		problem.update((s) => ({ ...s, status: 'error' }));
+	}
 }
 
 export function submitAnswer(userAnswer: string): 'correct' | 'incorrect' | 'invalid_format' {
@@ -108,7 +116,6 @@ export function submitAnswer(userAnswer: string): 'correct' | 'incorrect' | 'inv
 }
 
 export function giveUp(): void {
-	if (!confirm('Are you sure you want to give up?')) return;
 	streak.reset();
 	problem.update((s) => ({ ...s, status: 'gave_up' }));
 	if (browser) localStorage.removeItem('problem');
