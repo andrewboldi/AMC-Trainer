@@ -86,6 +86,7 @@ def post_batch(api_url: str, api_key: str, batch: list[dict]) -> int:
     req = Request(url, data=data, method="POST")
     req.add_header("Content-Type", "application/json")
     req.add_header("X-API-Key", api_key)
+    req.add_header("User-Agent", "AMC-Trainer-Migration/1.0")
 
     try:
         with urlopen(req) as resp:
