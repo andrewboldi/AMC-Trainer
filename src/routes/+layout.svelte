@@ -4,8 +4,17 @@
 	import 'katex/dist/katex.min.css';
 	import '../app.css';
 	import { settings } from '$lib/stores/settings';
+	import { page } from '$app/state';
 
 	let { children } = $props();
+
+	// Track SPA navigations in Google Analytics
+	$effect(() => {
+		const path = page.url.pathname;
+		if (typeof gtag === 'function') {
+			gtag('config', 'G-P98FJ92R7Z', { page_path: path });
+		}
+	});
 
 	function hexToRgb(hex: string): string {
 		const r = parseInt(hex.slice(1, 3), 16);
