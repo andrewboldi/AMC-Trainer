@@ -71,10 +71,12 @@ export function renderLatexInContainer(container: HTMLElement): void {
 	for (const toc of tocElements) {
 		toc.remove();
 	}
-	// Also remove any "Contents" text/heading that precedes a TOC list
+	// Remove any element whose only text content is "Contents"
+	// (may be a heading, div, span, or other wrapper)
 	const allElements = container.querySelectorAll('*');
 	for (const el of allElements) {
-		if (el.textContent?.trim() === 'Contents' && el.tagName.match(/^H[1-6]$/)) {
+		const text = el.textContent?.trim();
+		if (text === 'Contents' && el.children.length === 0) {
 			el.remove();
 		}
 	}
