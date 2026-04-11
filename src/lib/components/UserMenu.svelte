@@ -36,7 +36,7 @@
 		gap: 0.5rem;
 		position: absolute;
 		top: 12px;
-		right: 140px;
+		left: 175px;
 		z-index: 10;
 	}
 	.avatar {
@@ -62,7 +62,7 @@
 	.sign-in-btn {
 		position: absolute;
 		top: 12px;
-		right: 140px;
+		left: 175px;
 		z-index: 10;
 		background: white;
 		border: 1px solid #ddd;
