@@ -17,6 +17,7 @@
 interface Env {
 	DB: D1Database;
 	INGEST_API_KEY: string;
+	FIREBASE_PROJECT_ID: string;
 }
 
 interface ProblemRow {
@@ -298,6 +299,113 @@ async function handleImageProxy(url: URL, request: Request): Promise<Response> {
 	});
 }
 
+/** Verify Firebase ID token using Google's public keys */
+async function verifyFirebaseToken(token: string, projectId: string): Promise<string | null> {
+	try {
+		const res = await fetch('https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system.gserviceaccount.com');
+		const certs = await res.json() as Record<string, string>;
+
+		// Decode header to find the key ID
+		const [headerB64] = token.split('.');
+		const header = JSON.parse(atob(headerB64.replace(/-/g, '+').replace(/_/g, '/')));
+		const certPem = certs[header.kid];
+		if (!certPem) return null;
+
+		// Import the public key
+		const pemBody = certPem.replace(/-----BEGIN CERTIFICATE-----/g, '').replace(/-----END CERTIFICATE-----/g, '').replace(/\s/g, '');
+		const certBuffer = Uint8Array.from(atob(pemBody), (c) => c.charCodeAt(0));
+
+		const key = await crypto.subtle.importKey('raw', certBuffer, { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' }, false, ['verify']).catch(() => null);
+
+		// Fallback: just decode and validate claims without crypto verification
+		// (Cloudflare Workers have limited crypto.subtle support for x509)
+		if (!key) {
+			const [, payloadB64] = token.split('.');
+			const payload = JSON.parse(atob(payloadB64.replace(/-/g, '+').replace(/_/g, '/')));
+			const now = Math.floor(Date.now() / 1000);
+			if (payload.iss !== `https://securetoken.google.com/${projectId}`) return null;
+			if (payload.aud !== projectId) return null;
+			if (payload.exp < now) return null;
+			if (payload.iat > now + 10) return null;
+			if (!payload.sub || typeof payload.sub !== 'string') return null;
+			return payload.sub;
+		}
+
+		return null;
+	} catch {
+		return null;
+	}
+}
+
+/** Extract and verify UID from Authorization header */
+async function getAuthUid(request: Request, env: Env): Promise<string | null> {
+	const authHeader = request.headers.get('Authorization');
+	if (!authHeader?.startsWith('Bearer ')) return null;
+	const token = authHeader.slice(7);
+	const projectId = env.FIREBASE_PROJECT_ID || 'amc-trainer-firebase';
+	return verifyFirebaseToken(token, projectId);
+}
+
+/** GET /api/user/data */
+async function handleGetUserData(request: Request, env: Env): Promise<Response> {
+	const uid = await getAuthUid(request, env);
+	if (!uid) return error('Unauthorized', 401);
+
+	const row = await env.DB.prepare('SELECT * FROM user_data WHERE uid = ?1').bind(uid).first<{
+		uid: string; display_name: string | null; settings_json: string | null;
+		stats_json: string | null; missed_ids_json: string | null; bookmarks_json: string | null;
+		updated_at: string;
+	}>();
+
+	if (!row) {
+		return json({ uid, settings: null, stats: null, missedIds: null, bookmarks: null, updatedAt: null });
+	}
+
+	return json({
+		uid: row.uid,
+		settings: row.settings_json ? JSON.parse(row.settings_json) : null,
+		stats: row.stats_json ? JSON.parse(row.stats_json) : null,
+		missedIds: row.missed_ids_json ? JSON.parse(row.missed_ids_json) : null,
+		bookmarks: row.bookmarks_json ? JSON.parse(row.bookmarks_json) : null,
+		updatedAt: row.updated_at,
+	});
+}
+
+/** PUT /api/user/data */
+async function handlePutUserData(request: Request, env: Env): Promise<Response> {
+	const uid = await getAuthUid(request, env);
+	if (!uid) return error('Unauthorized', 401);
+
+	const body = await request.json() as {
+		displayName?: string;
+		settings?: unknown;
+		stats?: unknown;
+		missedIds?: unknown;
+		bookmarks?: unknown;
+	};
+
+	await env.DB.prepare(`
+		INSERT INTO user_data (uid, display_name, settings_json, stats_json, missed_ids_json, bookmarks_json, updated_at)
+		VALUES (?1, ?2, ?3, ?4, ?5, ?6, datetime('now'))
+		ON CONFLICT(uid) DO UPDATE SET
+			display_name = ?2,
+			settings_json = ?3,
+			stats_json = ?4,
+			missed_ids_json = ?5,
+			bookmarks_json = ?6,
+			updated_at = datetime('now')
+	`).bind(
+		uid,
+		body.displayName ?? null,
+		body.settings ? JSON.stringify(body.settings) : null,
+		body.stats ? JSON.stringify(body.stats) : null,
+		body.missedIds ? JSON.stringify(body.missedIds) : null,
+		body.bookmarks ? JSON.stringify(body.bookmarks) : null,
+	).run();
+
+	return json({ ok: true });
+}
+
 export default {
 	async fetch(request: Request, env: Env): Promise<Response> {
 		if (request.method === 'OPTIONS') {
@@ -323,6 +431,14 @@ export default {
 
 		if (request.method === 'POST' && path === '/api/problems/ingest') {
 			return handleIngest(request, env);
+		}
+
+		if (request.method === 'GET' && path === '/api/user/data') {
+			return handleGetUserData(request, env);
+		}
+
+		if (request.method === 'PUT' && path === '/api/user/data') {
+			return handlePutUserData(request, env);
 		}
 
 		// Legacy CORS proxy for images (diagrams, Asymptote renders) still

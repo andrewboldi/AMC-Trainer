@@ -1,6 +1,7 @@
 import { writable } from 'svelte/store';
 import { browser } from '$app/environment';
 import { onAuthChange } from '$lib/services/auth';
+import { loadFromCloud, saveToCloud } from '$lib/services/sync';
 
 export interface UserState {
 	signedIn: boolean;
@@ -28,9 +29,17 @@ function createUserStore() {
 					displayName: firebaseUser.displayName,
 					photoURL: firebaseUser.photoURL
 				});
+				loadFromCloud();
 			} else {
 				set(EMPTY);
 			}
+		});
+
+		// Save to cloud before leaving page
+		window.addEventListener('beforeunload', () => {
+			const state = { signedIn: false } as UserState;
+			subscribe((s) => { Object.assign(state, s); })();
+			if (state.signedIn) saveToCloud();
 		});
 	}
 

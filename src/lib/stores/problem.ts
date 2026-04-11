@@ -5,6 +5,7 @@ import { fetchRandomProblem, fetchProblemById } from '$lib/services/aopsClient';
 import { validateAnswer } from '$lib/services/answerValidator';
 import { streak } from './streak';
 import { stats } from './stats';
+import { scheduleSave } from '$lib/services/sync';
 
 const RECENT_KEY = 'recentProblemIds';
 const RECENT_MAX = 50;
@@ -134,9 +135,11 @@ export function submitAnswer(userAnswer: string): 'correct' | 'incorrect' | 'inv
 		stats.record(state.id, state.subject, state.difficulty, true);
 		problem.update((s) => ({ ...s, status: 'correct' }));
 		if (browser) localStorage.removeItem('savedProblemId');
+		scheduleSave();
 	} else if (result === 'incorrect') {
 		streak.reset();
 		stats.record(state.id, state.subject, state.difficulty, false);
+		scheduleSave();
 	}
 
 	return result;
