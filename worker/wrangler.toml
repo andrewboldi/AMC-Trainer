@@ -1,0 +1,8 @@
+name = "wandering-sky-a896"
+main = "src/worker.ts"
+compatibility_date = "2026-04-08"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "amc-problems"
+database_id = "11342f9d-e8b0-454a-ae65-7652192befa4"
