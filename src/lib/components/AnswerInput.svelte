@@ -75,6 +75,7 @@
 	}
 	.submit-btn {
 		padding: 0 20px;
+		color: var(--text-color) !important;
 	}
 	.give-up {
 		cursor: pointer;
