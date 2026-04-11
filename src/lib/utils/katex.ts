@@ -66,6 +66,19 @@ export function renderLatexInContainer(container: HTMLElement): void {
 		}
 	}
 
+	// Remove Table of Contents blocks injected by the AoPS wiki
+	const tocElements = container.querySelectorAll('.toc, #toc, [id*="toctitle"]');
+	for (const toc of tocElements) {
+		toc.remove();
+	}
+	// Also remove any "Contents" text/heading that precedes a TOC list
+	const allElements = container.querySelectorAll('*');
+	for (const el of allElements) {
+		if (el.textContent?.trim() === 'Contents' && el.tagName.match(/^H[1-6]$/)) {
+			el.remove();
+		}
+	}
+
 	// Hide [asy] Asymptote source code blocks (can't render client-side)
 	// These appear as raw text in <p> elements
 	const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
