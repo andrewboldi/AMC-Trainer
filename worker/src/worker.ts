@@ -254,6 +254,27 @@ async function handleIngest(request: Request, env: Env): Promise<Response> {
 	return json({ inserted: results.length });
 }
 
+/** Legacy image proxy — forwards requests to external URLs (AoPS diagrams, etc.) */
+async function handleImageProxy(url: URL, request: Request): Promise<Response> {
+	const targetUrl = decodeURIComponent(url.search.slice(1));
+	if (!targetUrl.startsWith('https://')) {
+		return error('Invalid proxy URL', 400);
+	}
+
+	const response = await fetch(targetUrl, {
+		headers: { 'User-Agent': 'AMC-Trainer-Proxy/2.0' },
+	});
+
+	const headers = new Headers(response.headers);
+	headers.set('Access-Control-Allow-Origin', '*');
+	headers.set('Cache-Control', 'public, max-age=86400');
+
+	return new Response(response.body, {
+		status: response.status,
+		headers,
+	});
+}
+
 export default {
 	async fetch(request: Request, env: Env): Promise<Response> {
 		if (request.method === 'OPTIONS') {
@@ -279,6 +300,12 @@ export default {
 
 		if (request.method === 'POST' && path === '/api/problems/ingest') {
 			return handleIngest(request, env);
+		}
+
+		// Legacy CORS proxy for images (diagrams, Asymptote renders) still
+		// referenced in stored HTML as ?https://...
+		if (request.method === 'GET' && url.search.startsWith('?')) {
+			return handleImageProxy(url, request);
 		}
 
 		return error('Not found', 404);
