@@ -5,6 +5,26 @@ import { fetchRandomProblem, fetchProblemById } from '$lib/services/aopsClient';
 import { validateAnswer } from '$lib/services/answerValidator';
 import { streak } from './streak';
 
+const RECENT_KEY = 'recentProblemIds';
+const RECENT_MAX = 50;
+
+function getRecentIds(): number[] {
+	if (!browser) return [];
+	try {
+		return JSON.parse(localStorage.getItem(RECENT_KEY) || '[]');
+	} catch { return []; }
+}
+
+function addRecentId(id: number): void {
+	if (!browser) return;
+	const recent = getRecentIds();
+	if (!recent.includes(id)) {
+		recent.push(id);
+		if (recent.length > RECENT_MAX) recent.shift();
+	}
+	localStorage.setItem(RECENT_KEY, JSON.stringify(recent));
+}
+
 const EMPTY_STATE: ProblemState = {
 	id: 0,
 	problemId: '',
@@ -26,7 +46,12 @@ export async function loadNewProblem(filter: ProblemFilter): Promise<void> {
 	problem.set({ ...EMPTY_STATE, status: 'loading' });
 
 	try {
-		const data = await fetchRandomProblem(filter);
+		const recent = getRecentIds();
+		let data = await fetchRandomProblem(filter);
+		for (let i = 0; i < 3 && recent.includes(data.id); i++) {
+			data = await fetchRandomProblem(filter);
+		}
+		addRecentId(data.id);
 
 		if (browser) {
 			localStorage.setItem('savedProblemId', data.id.toString());
