@@ -1,81 +1,286 @@
+/**
+ * AMC Trainer API Worker
+ *
+ * REST API backed by Cloudflare D1 (SQLite) serving AMC/AIME math competition problems.
+ *
+ * Routes:
+ *   GET  /api/problem/random  — random problem matching filters (level, subject, difficulty)
+ *   GET  /api/problem/:id     — specific problem by ID
+ *   GET  /api/stats           — problem counts by exam and subject
+ *   POST /api/problems/ingest — bulk upsert (API-key protected)
+ *
+ * Environment bindings:
+ *   DB             — D1 database
+ *   INGEST_API_KEY — secret for ingest endpoint auth
+ */
+
 interface Env {
-	GITHUB_TOKEN: string;
-	IP_DATA: KVNamespace;
+	DB: D1Database;
+	INGEST_API_KEY: string;
 }
 
-const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/cbracketdash/amcProblems/main';
+interface ProblemRow {
+	id: number;
+	year: number;
+	exam_name: string;
+	exam_base: string;
+	variant: string | null;
+	problem_num: number;
+	subject: string | null;
+	difficulty: number;
+	problem_html: string;
+	solution_html: string;
+	answer: string;
+}
 
-const PREFIX_TO_PATH: Record<string, string> = {
-	'!': 'problems',
-	'$': 'solutions',
-	'|': 'answers'
+interface ProblemResponse {
+	id: number;
+	year: number;
+	examName: string;
+	problemNum: number;
+	subject: string | null;
+	difficulty: number;
+	problemHtml: string;
+	solutionHtml: string;
+	answer: string;
+}
+
+const VALID_LEVELS = ['AMC_8', 'AMC_10', 'AMC_12', 'AIME', 'All'] as const;
+const VALID_SUBJECTS = ['algebra', 'geometry', 'combinatorics', 'number_theory'] as const;
+
+const CORS_HEADERS = {
+	'Access-Control-Allow-Origin': '*',
+	'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+	'Access-Control-Allow-Headers': 'Content-Type, X-API-Key',
 };
 
-function stripHeaders(request: Request): Record<string, string> {
-	const headers: Record<string, string> = {};
-	for (const [key, value] of request.headers.entries()) {
-		if (
-			!key.match(/^origin/) &&
-			!key.match(/eferer/) &&
-			!key.match(/^cf-/) &&
-			!key.match(/^x-forw/) &&
-			!key.match(/^x-cors-headers/)
-		) {
-			headers[key] = value;
-		}
-	}
-	return headers;
+function json(data: unknown, status = 200): Response {
+	return new Response(JSON.stringify(data), {
+		status,
+		headers: { 'Content-Type': 'application/json', ...CORS_HEADERS },
+	});
 }
 
-async function logIp(env: Env, ip: string | null): Promise<void> {
-	if (!ip) return;
-	try {
-		const current = await env.IP_DATA.get(ip);
-		const entry = (current ?? '') + ';' + Date.now().toString();
-		await env.IP_DATA.put(ip, entry);
-	} catch (e) {
-		console.error('IP logging failed:', e);
+function error(message: string, status: number): Response {
+	return json({ error: message }, status);
+}
+
+function formatRow(row: ProblemRow): ProblemResponse {
+	return {
+		id: row.id,
+		year: row.year,
+		examName: row.exam_name,
+		problemNum: row.problem_num,
+		subject: row.subject,
+		difficulty: row.difficulty,
+		problemHtml: row.problem_html,
+		solutionHtml: row.solution_html,
+		answer: row.answer,
+	};
+}
+
+/**
+ * Compute universal difficulty (1-10) from exam type and problem number.
+ *
+ * Scale is designed so the same number means roughly the same challenge
+ * regardless of exam. Overlaps are intentional:
+ *   AMC 10 hard (#21-25, diff 6) ≈ AMC 12 med-hard (#16-20, diff 6) ≈ AIME easy (#1-3, diff 6)
+ */
+export function computeDifficulty(examBase: string, problemNum: number): number {
+	switch (examBase) {
+		case 'AMC_8':
+		case 'AJHSME':
+			if (problemNum <= 8) return 1;
+			if (problemNum <= 16) return 2;
+			if (problemNum <= 21) return 3;
+			return 4;
+		case 'AMC_10':
+			if (problemNum <= 5) return 2;
+			if (problemNum <= 10) return 3;
+			if (problemNum <= 15) return 4;
+			if (problemNum <= 20) return 5;
+			return 6;
+		case 'AMC_12':
+			if (problemNum <= 5) return 3;
+			if (problemNum <= 10) return 4;
+			if (problemNum <= 15) return 5;
+			if (problemNum <= 20) return 6;
+			return 7;
+		case 'AIME':
+			if (problemNum <= 3) return 6;
+			if (problemNum <= 6) return 7;
+			if (problemNum <= 9) return 8;
+			if (problemNum <= 12) return 9;
+			return 10;
+		default:
+			return 5;
 	}
+}
+
+/** GET /api/problem/random?level=AMC_10&subject=geometry&difficulty_min=3&difficulty_max=7 */
+async function handleRandomProblem(url: URL, env: Env): Promise<Response> {
+	const level = url.searchParams.get('level');
+	if (!level || !VALID_LEVELS.includes(level as typeof VALID_LEVELS[number])) {
+		return error('Missing or invalid "level" param. Valid: AMC_8, AMC_10, AMC_12, AIME, All', 400);
+	}
+
+	const subject = url.searchParams.get('subject');
+	if (subject && !VALID_SUBJECTS.includes(subject as typeof VALID_SUBJECTS[number])) {
+		return error('Invalid "subject" param. Valid: algebra, geometry, combinatorics, number_theory', 400);
+	}
+
+	const diffMin = parseInt(url.searchParams.get('difficulty_min') ?? '1', 10);
+	const diffMax = parseInt(url.searchParams.get('difficulty_max') ?? '10', 10);
+	if (diffMin < 1 || diffMax > 10 || diffMin > diffMax) {
+		return error('difficulty_min/difficulty_max must be 1-10 with min <= max', 400);
+	}
+
+	const conditions: string[] = ['difficulty BETWEEN ?1 AND ?2'];
+	const bindings: (string | number)[] = [diffMin, diffMax];
+	let paramIdx = 3;
+
+	if (level !== 'All') {
+		// Map user-facing levels to exam_base values
+		const examBase = level === 'AMC_8' ? "exam_base IN ('AMC_8', 'AJHSME')" : `exam_base = ?${paramIdx}`;
+		if (level !== 'AMC_8') {
+			conditions.push(`exam_base = ?${paramIdx}`);
+			bindings.push(level);
+			paramIdx++;
+		} else {
+			conditions.push("exam_base IN ('AMC_8', 'AJHSME')");
+		}
+	}
+
+	if (subject) {
+		conditions.push(`subject = ?${paramIdx}`);
+		bindings.push(subject);
+		paramIdx++;
+	}
+
+	const where = conditions.join(' AND ');
+	const sql = `SELECT * FROM problems WHERE ${where} ORDER BY RANDOM() LIMIT 1`;
+	const result = await env.DB.prepare(sql).bind(...bindings).first<ProblemRow>();
+
+	if (!result) {
+		return error('No problems found matching filters', 404);
+	}
+
+	return json(formatRow(result));
+}
+
+/** GET /api/problem/:id */
+async function handleGetProblem(id: string, env: Env): Promise<Response> {
+	const numId = parseInt(id, 10);
+	if (isNaN(numId)) {
+		return error('Invalid problem ID', 400);
+	}
+
+	const result = await env.DB.prepare('SELECT * FROM problems WHERE id = ?1')
+		.bind(numId)
+		.first<ProblemRow>();
+
+	if (!result) {
+		return error('Problem not found', 404);
+	}
+
+	return json(formatRow(result));
+}
+
+/** GET /api/stats */
+async function handleStats(env: Env): Promise<Response> {
+	const byExam = await env.DB.prepare(
+		'SELECT exam_base, COUNT(*) as count FROM problems GROUP BY exam_base ORDER BY exam_base'
+	).all();
+
+	const bySubject = await env.DB.prepare(
+		"SELECT COALESCE(subject, 'untagged') as subject, COUNT(*) as count FROM problems GROUP BY subject ORDER BY subject"
+	).all();
+
+	const total = await env.DB.prepare('SELECT COUNT(*) as count FROM problems').first<{ count: number }>();
+
+	return json({
+		total: total?.count ?? 0,
+		byExam: byExam.results,
+		bySubject: bySubject.results,
+	});
+}
+
+/** POST /api/problems/ingest — bulk upsert, API-key protected */
+async function handleIngest(request: Request, env: Env): Promise<Response> {
+	const apiKey = request.headers.get('X-API-Key');
+	if (!apiKey || apiKey !== env.INGEST_API_KEY) {
+		return error('Unauthorized', 401);
+	}
+
+	const body = await request.json() as Array<{
+		year: number;
+		exam_name: string;
+		exam_base: string;
+		variant: string | null;
+		problem_num: number;
+		subject: string | null;
+		problem_html: string;
+		solution_html: string;
+		answer: string;
+	}>;
+
+	if (!Array.isArray(body) || body.length === 0) {
+		return error('Body must be a non-empty array of problem objects', 400);
+	}
+
+	const stmt = env.DB.prepare(
+		`INSERT OR REPLACE INTO problems
+		 (year, exam_name, exam_base, variant, problem_num, subject, difficulty, problem_html, solution_html, answer, updated_at)
+		 VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, datetime('now'))`
+	);
+
+	const batch = body.map((p) =>
+		stmt.bind(
+			p.year,
+			p.exam_name,
+			p.exam_base,
+			p.variant,
+			p.problem_num,
+			p.subject,
+			computeDifficulty(p.exam_base, p.problem_num),
+			p.problem_html,
+			p.solution_html,
+			p.answer
+		)
+	);
+
+	const results = await env.DB.batch(batch);
+
+	return json({ inserted: results.length });
 }
 
 export default {
-	async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+	async fetch(request: Request, env: Env): Promise<Response> {
+		if (request.method === 'OPTIONS') {
+			return new Response(null, { status: 204, headers: CORS_HEADERS });
+		}
+
 		const url = new URL(request.url);
-		const isOptions = request.method === 'OPTIONS';
+		const path = url.pathname;
 
-		if (!url.search.startsWith('?')) {
-			return new Response('Bad request', { status: 400 });
+		// Route matching
+		if (request.method === 'GET' && path === '/api/problem/random') {
+			return handleRandomProblem(url, env);
 		}
 
-		const fetchUrl = decodeURIComponent(decodeURIComponent(url.search.slice(1)));
-		const ip = request.headers.get('CF-Connecting-IP');
-		ctx.waitUntil(logIp(env, ip));
-
-		const prefix = fetchUrl[0];
-		const path = PREFIX_TO_PATH[prefix];
-
-		if (!path) {
-			return new Response('Unknown prefix', { status: 400 });
+		const problemMatch = path.match(/^\/api\/problem\/(\d+)$/);
+		if (request.method === 'GET' && problemMatch) {
+			return handleGetProblem(problemMatch[1], env);
 		}
 
-		const filename = fetchUrl.replaceAll(prefix, '');
-		const githubUrl = `${GITHUB_RAW_BASE}/${path}/${filename}`;
-
-		const headers = stripHeaders(request);
-		headers['Authorization'] = `token ${env.GITHUB_TOKEN}`;
-
-		const response = await fetch(githubUrl, { headers });
-		const responseHeaders = new Headers(response.headers);
-
-		if (isOptions) {
-			return new Response(null, { status: 200, headers: responseHeaders });
+		if (request.method === 'GET' && path === '/api/stats') {
+			return handleStats(env);
 		}
 
-		const body = await response.arrayBuffer();
-		return new Response(body, {
-			status: response.status,
-			statusText: response.statusText,
-			headers: responseHeaders
-		});
-	}
+		if (request.method === 'POST' && path === '/api/problems/ingest') {
+			return handleIngest(request, env);
+		}
+
+		return error('Not found', 404);
+	},
 };

@@ -1,42 +1,33 @@
 /**
- * Cleans the raw response from the CORS proxy.
- * The proxy returns content with Python-style string artifacts.
+ * AMC Trainer API client.
+ *
+ * Communicates with the Cloudflare Worker REST API backed by D1.
+ * Single request per problem — no more 3-fetch pattern or response cleaning.
  */
-function cleanHtml(raw: string): string {
-	return raw
-		.replaceAll("\\n'", '\n')
-		.replaceAll('\\n', '\n')
-		.replaceAll("b'", '');
-}
 
-/**
- * Extracts the answer string from the proxy response.
- * Format is: b'X' where X is the answer (a letter or 3-digit number).
- */
-function extractAnswer(raw: string): string {
-	const match = raw.match(/b'([^']+)'/);
-	return match ? match[1] : raw.trim();
-}
+import type { ProblemFilter, ProblemResponse } from '$lib/types';
 
-async function fetchText(url: string): Promise<string> {
-	const response = await fetch(url);
-	if (!response.ok) {
-		throw new Error(`Failed to fetch ${url}: ${response.status}`);
+const API_BASE = 'https://wandering-sky-a896.cbracketdash.workers.dev';
+
+export async function fetchRandomProblem(params: ProblemFilter): Promise<ProblemResponse> {
+	const query = new URLSearchParams();
+	query.set('level', params.level);
+	if (params.subject) query.set('subject', params.subject);
+	if (params.difficultyMin !== undefined) query.set('difficulty_min', params.difficultyMin.toString());
+	if (params.difficultyMax !== undefined) query.set('difficulty_max', params.difficultyMax.toString());
+
+	const res = await fetch(`${API_BASE}/api/problem/random?${query}`);
+	if (!res.ok) {
+		const body = await res.json().catch(() => ({ error: 'Unknown error' }));
+		throw new Error((body as { error: string }).error ?? `HTTP ${res.status}`);
 	}
-	return response.text();
+	return res.json();
 }
 
-export async function fetchProblem(url: string): Promise<string> {
-	const raw = await fetchText(url);
-	return cleanHtml(raw);
-}
-
-export async function fetchSolution(url: string): Promise<string> {
-	const raw = await fetchText(url);
-	return cleanHtml(raw);
-}
-
-export async function fetchAnswer(url: string): Promise<string> {
-	const raw = await fetchText(url);
-	return extractAnswer(raw);
+export async function fetchProblemById(id: number): Promise<ProblemResponse> {
+	const res = await fetch(`${API_BASE}/api/problem/${id}`);
+	if (!res.ok) {
+		throw new Error(`Problem ${id} not found`);
+	}
+	return res.json();
 }

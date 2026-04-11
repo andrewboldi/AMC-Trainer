@@ -1,4 +1,4 @@
-import type { ExamType, ValidationResult } from '$lib/types';
+import type { ValidationResult } from '$lib/types';
 
 const AMC_ANSWER_REGEX = /^[A-E]$/i;
 const AIME_ANSWER_REGEX = /^\d{3}$/;
@@ -6,7 +6,7 @@ const AIME_ANSWER_REGEX = /^\d{3}$/;
 export function validateAnswer(
 	userAnswer: string,
 	correctAnswer: string,
-	examType: ExamType
+	examType: string
 ): ValidationResult {
 	const normalized = userAnswer.trim().toUpperCase();
 	const isValidFormat =

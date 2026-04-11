@@ -4,6 +4,9 @@ import type { SettingsObject } from '$lib/types';
 
 const DEFAULT_SETTINGS: SettingsObject = {
 	level: 'All',
+	subject: null,
+	difficultyMin: 1,
+	difficultyMax: 10,
 	textColor: 'black',
 	bgColor1: '#63b7dd',
 	bgColor2: '#63ddc7',
