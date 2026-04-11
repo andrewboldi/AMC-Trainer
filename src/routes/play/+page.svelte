@@ -13,6 +13,7 @@
 
 	import DrawingCanvas from '$lib/components/DrawingCanvas.svelte';
 	import SettingsModal from '$lib/components/SettingsModal.svelte';
+	import UserMenu from '$lib/components/UserMenu.svelte';
 	import StatsModal from '$lib/components/StatsModal.svelte';
 	import InfoModal from '$lib/components/InfoModal.svelte';
 	import StreakModal from '$lib/components/StreakModal.svelte';
@@ -102,6 +103,8 @@
 </svelte:head>
 
 <svelte:window onkeydown={handleKeydown} />
+
+<UserMenu />
 
 <Header
 	streak={$streak}
