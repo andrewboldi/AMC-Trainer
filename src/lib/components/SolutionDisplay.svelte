@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { afterUpdate } from 'svelte';
 	import { renderLatexInContainer } from '$lib/utils/katex';
 
 	interface Props {
@@ -8,11 +7,11 @@
 	}
 
 	let { solutionHtml, textInvertFilter }: Props = $props();
-	let container: HTMLElement;
+	let container = $state<HTMLElement>(undefined!);
 
-	afterUpdate(() => {
-		if (container) {
-			renderLatexInContainer(container);
+	$effect(() => {
+		if (solutionHtml && container) {
+			queueMicrotask(() => renderLatexInContainer(container));
 		}
 	});
 </script>

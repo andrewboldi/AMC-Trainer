@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { afterUpdate } from 'svelte';
 	import { renderLatexInContainer } from '$lib/utils/katex';
 
 	interface Props {
@@ -10,11 +9,13 @@
 	}
 
 	let { problemId, problemHtml, zenMode, textInvertFilter }: Props = $props();
-	let container: HTMLElement;
+	let container = $state<HTMLElement>(undefined!);
 
-	afterUpdate(() => {
-		if (container) {
-			renderLatexInContainer(container);
+	$effect(() => {
+		// Read problemHtml to establish dependency
+		if (problemHtml && container) {
+			// Use a microtask to ensure {@html} has flushed to DOM
+			queueMicrotask(() => renderLatexInContainer(container));
 		}
 	});
 </script>
