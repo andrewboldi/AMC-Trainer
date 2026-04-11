@@ -425,7 +425,10 @@ img:hover {
 #new_problem {
 	transition: 0.1s !important;
 	background: var(--bg-color-2);
-	color: var(--text-color);
+}
+
+#new_problem img {
+	filter: var(--text-invert);
 }
 
 #new_problem:hover {
