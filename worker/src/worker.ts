@@ -117,12 +117,20 @@ export function computeDifficulty(examBase: string, problemNum: number): number 
 	}
 }
 
-/** GET /api/problem/random?level=AMC_10&subject=geometry&difficulty_min=3&difficulty_max=7 */
+/** GET /api/problem/random?level=AMC_10,AMC_12&subject=geometry&difficulty_min=3&difficulty_max=7 */
 async function handleRandomProblem(url: URL, env: Env): Promise<Response> {
-	const level = url.searchParams.get('level');
-	if (!level || !VALID_LEVELS.includes(level as typeof VALID_LEVELS[number])) {
-		return error('Missing or invalid "level" param. Valid: AMC_8, AMC_10, AMC_12, AIME, All', 400);
+	const levelParam = url.searchParams.get('level');
+	if (!levelParam) {
+		return error('Missing "level" param. Valid: AMC_8, AMC_10, AMC_12, AIME, All (comma-separated)', 400);
 	}
+
+	const levels = levelParam.split(',').map((s) => s.trim());
+	for (const l of levels) {
+		if (!VALID_LEVELS.includes(l as typeof VALID_LEVELS[number])) {
+			return error(`Invalid level "${l}". Valid: AMC_8, AMC_10, AMC_12, AIME, All`, 400);
+		}
+	}
+	const isAll = levels.includes('All');
 
 	const subject = url.searchParams.get('subject');
 	if (subject && !VALID_SUBJECTS.includes(subject as typeof VALID_SUBJECTS[number])) {
@@ -135,20 +143,25 @@ async function handleRandomProblem(url: URL, env: Env): Promise<Response> {
 		return error('difficulty_min/difficulty_max must be 1-10 with min <= max', 400);
 	}
 
-	const conditions: string[] = ['difficulty BETWEEN ?1 AND ?2'];
-	const bindings: (string | number)[] = [diffMin, diffMax];
-	let paramIdx = 3;
+	const yearMin = parseInt(url.searchParams.get('year_min') ?? '1900', 10);
+	const yearMax = parseInt(url.searchParams.get('year_max') ?? '2099', 10);
 
-	if (level !== 'All') {
-		// Map user-facing levels to exam_base values
-		const examBase = level === 'AMC_8' ? "exam_base IN ('AMC_8', 'AJHSME')" : `exam_base = ?${paramIdx}`;
-		if (level !== 'AMC_8') {
-			conditions.push(`exam_base = ?${paramIdx}`);
-			bindings.push(level);
-			paramIdx++;
-		} else {
-			conditions.push("exam_base IN ('AMC_8', 'AJHSME')");
+	const conditions: string[] = ['difficulty BETWEEN ?1 AND ?2', 'year BETWEEN ?3 AND ?4'];
+	const bindings: (string | number)[] = [diffMin, diffMax, yearMin, yearMax];
+	let paramIdx = 5;
+
+	if (!isAll) {
+		const examBaseClauses: string[] = [];
+		for (const level of levels) {
+			if (level === 'AMC_8') {
+				examBaseClauses.push("exam_base IN ('AMC_8', 'AJHSME')");
+			} else {
+				examBaseClauses.push(`exam_base = ?${paramIdx}`);
+				bindings.push(level);
+				paramIdx++;
+			}
 		}
+		conditions.push(`(${examBaseClauses.join(' OR ')})`);
 	}
 
 	if (subject) {

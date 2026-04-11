@@ -8,10 +8,12 @@ export type TextColor = 'black' | 'white';
 export type ToggleOption = 'On' | 'Off';
 
 export interface ProblemFilter {
-	level: ExamLevel;
+	level: ExamLevel | ExamLevel[];
 	subject?: Subject;
 	difficultyMin?: number;
 	difficultyMax?: number;
+	yearMin?: number;
+	yearMax?: number;
 }
 
 export interface ProblemResponse {
@@ -40,6 +42,7 @@ export interface ProblemState {
 
 export interface SettingsObject {
 	level: ExamLevel;
+	levels: ExamLevel[];
 	subject: Subject | null;
 	difficultyMin: number;
 	difficultyMax: number;
@@ -53,4 +56,6 @@ export interface SettingsObject {
 	timer: ToggleOption;
 	timerSeconds: number;
 	reviewMode: ToggleOption;
+	yearMin: number;
+	yearMax: number;
 }

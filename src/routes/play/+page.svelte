@@ -27,11 +27,15 @@
 	let historyStack: number[] = $state([]);
 
 	function getFilter() {
+		const levels = $settings.levels;
+		const level = levels.length === 4 ? 'All' as const : levels;
 		return {
-			level: $settings.level,
+			level,
 			subject: $settings.subject ?? undefined,
 			difficultyMin: $settings.difficultyMin,
 			difficultyMax: $settings.difficultyMax,
+			yearMin: $settings.yearMin,
+			yearMax: $settings.yearMax,
 		};
 	}
 

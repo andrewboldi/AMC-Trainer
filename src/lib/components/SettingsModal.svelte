@@ -42,14 +42,20 @@
 			<!-- Options -->
 			<div class="settings-section">
 				<h2>Level</h2>
-				<select class="ddl button" value={$settings.level}
-					onchange={(e) => settings.update(s => ({ ...s, level: (e.target as HTMLSelectElement).value as ExamLevel }))}>
-					<option value="AMC_8">AMC 8</option>
-					<option value="AMC_10">AMC 10</option>
-					<option value="AMC_12">AMC 12</option>
-					<option value="AIME">AIME</option>
-					<option value="All">All</option>
-				</select>
+				<div class="checkbox-group">
+					{#each [['AMC_8', 'AMC 8'], ['AMC_10', 'AMC 10'], ['AMC_12', 'AMC 12'], ['AIME', 'AIME']] as [value, label]}
+						<label class="checkbox-label">
+							<input type="checkbox" checked={$settings.levels.includes(value as ExamLevel)}
+								onchange={() => settings.update(s => {
+									const has = s.levels.includes(value as ExamLevel);
+									let next = has ? s.levels.filter(l => l !== value) : [...s.levels, value as ExamLevel];
+									if (next.length === 0) next = [value as ExamLevel];
+									return { ...s, levels: next, level: next.length === 4 ? 'All' : next[0] };
+								})} />
+							{label}
+						</label>
+					{/each}
+				</div>
 			</div>
 
 			<div class="settings-section">
@@ -62,6 +68,17 @@
 					<option value="combinatorics">Combinatorics</option>
 					<option value="number_theory">Number Theory</option>
 				</select>
+			</div>
+
+			<div class="settings-section">
+				<h2>Year Range</h2>
+				<div style="display: flex; align-items: center; gap: 0.5rem;">
+					<input class="button ddl" type="number" min="1983" max="2025" style="width: 70px;" value={$settings.yearMin}
+						oninput={(e) => { const val = parseInt((e.target as HTMLInputElement).value, 10); if (!isNaN(val)) settings.update(s => ({ ...s, yearMin: val })); }} />
+					<span style="font-weight: 600;">to</span>
+					<input class="button ddl" type="number" min="1983" max="2025" style="width: 70px;" value={$settings.yearMax}
+						oninput={(e) => { const val = parseInt((e.target as HTMLInputElement).value, 10); if (!isNaN(val)) settings.update(s => ({ ...s, yearMax: val })); }} />
+				</div>
 			</div>
 
 			<div class="settings-section">
@@ -209,6 +226,21 @@
 	.settings-section :global(h2) {
 		font-size: 0.9em;
 		margin-bottom: 0.4rem;
+	}
+
+	.checkbox-group {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.3rem 0.6rem;
+	}
+
+	.checkbox-label {
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
+		font-size: 0.8em;
+		font-weight: 600;
+		cursor: pointer;
 	}
 
 	.settings-section :global(.button) {

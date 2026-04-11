@@ -4,6 +4,7 @@ import type { SettingsObject } from '$lib/types';
 
 const DEFAULT_SETTINGS: SettingsObject = {
 	level: 'All',
+	levels: ['AMC_8', 'AMC_10', 'AMC_12', 'AIME'],
 	subject: null,
 	difficultyMin: 1,
 	difficultyMax: 10,
@@ -16,7 +17,9 @@ const DEFAULT_SETTINGS: SettingsObject = {
 	fontFamily: 'Poppins',
 	timer: 'Off',
 	timerSeconds: 180,
-	reviewMode: 'Off'
+	reviewMode: 'Off',
+	yearMin: 1983,
+	yearMax: 2025
 };
 
 function createSettingsStore() {
