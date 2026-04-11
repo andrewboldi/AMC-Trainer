@@ -8,6 +8,7 @@
 	import AnswerInput from '$lib/components/AnswerInput.svelte';
 	import SolutionDisplay from '$lib/components/SolutionDisplay.svelte';
 	import NextProblemButton from '$lib/components/NextProblemButton.svelte';
+	import Timer from '$lib/components/Timer.svelte';
 	import DrawingCanvas from '$lib/components/DrawingCanvas.svelte';
 	import SettingsModal from '$lib/components/SettingsModal.svelte';
 	import InfoModal from '$lib/components/InfoModal.svelte';
@@ -91,6 +92,10 @@
 	zenMode={$settings.zenMode === 'On'}
 	{textInvertFilter}
 />
+
+{#if $settings.timer === 'On' && ($problem.status === 'answering' || $problem.status === 'loading')}
+	<Timer running={$problem.status === 'answering'} />
+{/if}
 
 {#if $problem.status === 'answering' || $problem.status === 'loading'}
 	<AnswerInput

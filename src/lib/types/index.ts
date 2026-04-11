@@ -48,4 +48,6 @@ export interface SettingsObject {
 	zenMode: ToggleOption;
 	imgWiggle: ToggleOption;
 	fontFamily: string;
+	timer: ToggleOption;
+	timerSeconds: number;
 }

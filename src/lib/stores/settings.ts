@@ -13,7 +13,9 @@ const DEFAULT_SETTINGS: SettingsObject = {
 	logoColor: 'blue',
 	zenMode: 'Off',
 	imgWiggle: 'On',
-	fontFamily: 'Poppins'
+	fontFamily: 'Poppins',
+	timer: 'Off',
+	timerSeconds: 180
 };
 
 function createSettingsStore() {

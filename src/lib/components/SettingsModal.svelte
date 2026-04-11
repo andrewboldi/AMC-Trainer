@@ -138,6 +138,27 @@
 			</div>
 
 			<div class="settings-section">
+				<h2>Timer</h2>
+				<div style="display: flex; align-items: center; gap: 0.5rem;">
+					<select class="ddl button" style="width: 70px;" value={$settings.timer}
+						onchange={(e) => settings.update(s => ({ ...s, timer: (e.target as HTMLSelectElement).value as ToggleOption }))}>
+						<option value="Off">Off</option>
+						<option value="On">On</option>
+					</select>
+					{#if $settings.timer === 'On'}
+						<select class="ddl button" style="width: 90px;" value={$settings.timerSeconds}
+							onchange={(e) => settings.update(s => ({ ...s, timerSeconds: parseInt((e.target as HTMLSelectElement).value, 10) }))}>
+							<option value={60}>1 min</option>
+							<option value={120}>2 min</option>
+							<option value={180}>3 min</option>
+							<option value={300}>5 min</option>
+							<option value={600}>10 min</option>
+						</select>
+					{/if}
+				</div>
+			</div>
+
+			<div class="settings-section">
 				<h2>Font Family</h2>
 				<select class="ddl button" value={$settings.fontFamily}
 					onchange={(e) => settings.update(s => ({ ...s, fontFamily: (e.target as HTMLSelectElement).value }))}>
