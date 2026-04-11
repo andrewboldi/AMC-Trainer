@@ -30,6 +30,7 @@
 	style:--bg-color-1={hexToRgb($settings.bgColor1)}
 	style:--bg-color-2={hexToRgb($settings.bgColor2)}
 	style:--text-color={$settings.textColor}
+	style:--text-invert={$settings.textColor === 'white' ? 'invert(1)' : 'invert(0)'}
 	style:font-family={$settings.fontFamily}
 >
 	{@render children()}

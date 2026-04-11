@@ -46,6 +46,10 @@ p {
 	filter: invert(0);
 }
 
+img.text {
+	filter: var(--text-invert);
+}
+
 .text a {
 	color: #1273fa;
 	transition: background-color 0.3s ease;
@@ -155,6 +159,7 @@ p {
 	height: 3rem;
 	z-index: 10;
 	padding: 8px;
+	filter: var(--text-invert);
 }
 
 .headerButton:hover {
@@ -226,13 +231,13 @@ img:hover {
 }
 
 .modalContent h2 {
-	background-color: #91fe9e;
+	background-color: var(--bg-color-2);
 	border-radius: 5px;
 	box-shadow: 0px 10px 24px 0px rgb(0 0 0 / 0.25);
 	width: max-content;
 	padding: 0.1em 1.3em 0 0.6em;
 	text-indent: 2ch;
-	color: black;
+	color: var(--text-color);
 }
 
 .modalButton {
@@ -419,11 +424,13 @@ img:hover {
 /* Next problem button */
 #new_problem {
 	transition: 0.1s !important;
-	background: #96f588;
+	background: var(--bg-color-2);
+	color: var(--text-color);
 }
 
 #new_problem:hover {
-	background: #8afc79;
+	background: var(--bg-color-2);
+	filter: brightness(1.1);
 	transform: scale(1);
 }
 
