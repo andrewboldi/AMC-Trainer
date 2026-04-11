@@ -33,7 +33,7 @@
 	];
 
 	function resizeCanvas() {
-		if (!canvas || !visible) return;
+		if (!canvas || !visible || !ctx) return;
 		const body = document.body;
 		const html = document.documentElement;
 		height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
@@ -50,13 +50,14 @@
 		if (visible && canvas) {
 			ctx = canvas.getContext('2d')!;
 			resizeCanvas();
-			if (undoStack.length === 0) {
+			if (ctx && undoStack.length === 0) {
 				undoStack.push(ctx.getImageData(0, 0, width, height));
 			}
 		}
 	});
 
 	function draw() {
+		if (!ctx) return;
 		ctx.beginPath();
 		ctx.moveTo(prevX, prevY);
 		if (tool === 'eraser') {
@@ -78,6 +79,7 @@
 	}
 
 	function handleMouseDown(e: MouseEvent) {
+		if (!ctx) return;
 		prevX = currX;
 		prevY = currY;
 		currX = e.clientX - canvas.offsetLeft;

@@ -255,9 +255,19 @@ async function handleIngest(request: Request, env: Env): Promise<Response> {
 }
 
 /** Legacy image proxy — forwards requests to external URLs (AoPS diagrams, etc.) */
+const ALLOWED_PROXY_HOSTS = ['latex.artofproblemsolving.com', 'artofproblemsolving.com', 'wiki-images.artofproblemsolving.com'];
+
 async function handleImageProxy(url: URL, request: Request): Promise<Response> {
 	const targetUrl = decodeURIComponent(url.search.slice(1));
 	if (!targetUrl.startsWith('https://')) {
+		return error('Invalid proxy URL', 400);
+	}
+	try {
+		const parsed = new URL(targetUrl);
+		if (!ALLOWED_PROXY_HOSTS.includes(parsed.hostname)) {
+			return error('Proxy domain not allowed', 403);
+		}
+	} catch {
 		return error('Invalid proxy URL', 400);
 	}
 
