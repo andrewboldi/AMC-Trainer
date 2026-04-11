@@ -24,4 +24,9 @@
 	.text :global(img:not(.latex)) {
 		filter: var(--img-filter, invert(0));
 	}
+	.text :global(h1),
+	.text :global(h2),
+	.text :global(h3) {
+		text-align: center;
+	}
 </style>
