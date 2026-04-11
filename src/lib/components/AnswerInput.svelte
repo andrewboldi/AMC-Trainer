@@ -1,11 +1,18 @@
 <script lang="ts">
+	import Timer from './Timer.svelte';
+
 	interface Props {
 		examType: string;
 		onSubmit: (answer: string) => void;
 		onGiveUp: () => void;
+		timerEnabled?: boolean;
+		timerRunning?: boolean;
+		timerSeconds?: number;
+		bookmarked?: boolean;
+		onBookmarkToggle?: () => void;
 	}
 
-	let { examType, onSubmit, onGiveUp }: Props = $props();
+	let { examType, onSubmit, onGiveUp, timerEnabled = false, timerRunning = false, timerSeconds = 180, bookmarked = false, onBookmarkToggle }: Props = $props();
 	let answer = $state('');
 	let shaking = $state(false);
 
@@ -51,6 +58,15 @@
 	<!-- svelte-ignore a11y_click_events_have_key_events -->
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<span class="give-up" onclick={onGiveUp} title="Give up">&#127937;</span>
+	{#if timerEnabled}
+		<Timer running={timerRunning} />
+	{/if}
+	{#if onBookmarkToggle}
+		<!-- svelte-ignore a11y_click_events_have_key_events -->
+		<!-- svelte-ignore a11y_no_static_element_interactions -->
+		<span class="bookmark-icon" onclick={onBookmarkToggle} title={bookmarked ? 'Remove bookmark' : 'Bookmark problem'}
+			style="opacity: {bookmarked ? 1 : 0.3};">&#x1F516;</span>
+	{/if}
 </div>
 
 <style>
@@ -81,5 +97,11 @@
 		cursor: pointer;
 		font-size: 1.4em;
 		margin-left: 12px;
+	}
+	.bookmark-icon {
+		cursor: pointer;
+		font-size: 1.4em;
+		margin-left: 8px;
+		transition: opacity 0.2s;
 	}
 </style>

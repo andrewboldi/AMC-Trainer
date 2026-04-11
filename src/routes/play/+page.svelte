@@ -10,7 +10,7 @@
 	import SolutionDisplay from '$lib/components/SolutionDisplay.svelte';
 	import NextProblemButton from '$lib/components/NextProblemButton.svelte';
 	import PrevProblemButton from '$lib/components/PrevProblemButton.svelte';
-	import Timer from '$lib/components/Timer.svelte';
+
 	import DrawingCanvas from '$lib/components/DrawingCanvas.svelte';
 	import SettingsModal from '$lib/components/SettingsModal.svelte';
 	import StatsModal from '$lib/components/StatsModal.svelte';
@@ -126,25 +126,16 @@
 	{textInvertFilter}
 />
 
-{#if $problem.id && $problem.status !== 'loading'}
-	<!-- svelte-ignore a11y_click_events_have_key_events -->
-	<!-- svelte-ignore a11y_no_static_element_interactions -->
-	<div class="bookmark-btn text" onclick={() => bookmarks.toggle($problem.id)}
-		style="text-align: center; cursor: pointer; font-size: 1.5em; opacity: {$bookmarks.includes($problem.id) ? 1 : 0.3};">
-		&#x1F516;
-	</div>
-{/if}
-
-{#if $settings.timer === 'On' && ($problem.status === 'answering' || $problem.status === 'loading')}
-	<Timer running={$problem.status === 'answering'} />
-{/if}
-
 {#if $problem.status === 'answering' || $problem.status === 'loading'}
 	<AnswerInput
 		bind:this={answerInput}
 		examType={$problem.examType}
 		onSubmit={handleSubmit}
 		onGiveUp={() => { if (confirm('Are you sure you want to give up?')) giveUp(); }}
+		timerEnabled={$settings.timer === 'On'}
+		timerRunning={$problem.status === 'answering'}
+		bookmarked={$bookmarks.includes($problem.id)}
+		onBookmarkToggle={() => bookmarks.toggle($problem.id)}
 	/>
 {/if}
 
