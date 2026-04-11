@@ -1,54 +1,44 @@
 import { writable, get } from 'svelte/store';
 import { browser } from '$app/environment';
-import type { ExamLevel, ExamType, ProblemState } from '$lib/types';
-import { generateProblemUrls } from '$lib/services/problemGenerator';
-import { fetchProblem, fetchSolution, fetchAnswer } from '$lib/services/aopsClient';
+import type { ProblemState, ProblemFilter } from '$lib/types';
+import { fetchRandomProblem, fetchProblemById } from '$lib/services/aopsClient';
 import { validateAnswer } from '$lib/services/answerValidator';
 import { streak } from './streak';
 
 const EMPTY_STATE: ProblemState = {
+	id: 0,
 	problemId: '',
 	problemHtml: '',
 	solutionHtml: '',
 	correctAnswer: '',
-	examType: '8',
+	examType: '',
 	status: 'loading'
 };
 
 export const problem = writable<ProblemState>(EMPTY_STATE);
 
-export async function loadNewProblem(level: ExamLevel): Promise<void> {
-	const urls = generateProblemUrls(level);
+function formatProblemId(examName: string, year: number, num: number): string {
+	const display = examName.replace(/_/g, ' ');
+	return `${year} ${display} #${num}`;
+}
 
-	problem.set({
-		problemId: urls.problemId,
-		problemHtml: '',
-		solutionHtml: '',
-		correctAnswer: '',
-		examType: urls.examType,
-		status: 'loading'
-	});
-
-	if (browser) {
-		localStorage.setItem('problem', urls.problemUrl);
-		localStorage.setItem('answer', urls.answerUrl);
-		localStorage.setItem('problemID', urls.problemId);
-		localStorage.setItem('problemType', urls.examType);
-	}
+export async function loadNewProblem(filter: ProblemFilter): Promise<void> {
+	problem.set({ ...EMPTY_STATE, status: 'loading' });
 
 	try {
-		const [problemHtml, solutionHtml, correctAnswer] = await Promise.all([
-			fetchProblem(urls.problemUrl),
-			fetchSolution(urls.solutionUrl),
-			fetchAnswer(urls.answerUrl)
-		]);
+		const data = await fetchRandomProblem(filter);
+
+		if (browser) {
+			localStorage.setItem('savedProblemId', data.id.toString());
+		}
 
 		problem.set({
-			problemId: urls.problemId,
-			problemHtml,
-			solutionHtml,
-			correctAnswer,
-			examType: urls.examType,
+			id: data.id,
+			problemId: formatProblemId(data.examName, data.year, data.problemNum),
+			problemHtml: data.problemHtml,
+			solutionHtml: data.solutionHtml,
+			correctAnswer: data.answer,
+			examType: data.examName.includes('AIME') ? 'AIME' : 'AMC',
 			status: 'answering'
 		});
 	} catch {
@@ -59,39 +49,21 @@ export async function loadNewProblem(level: ExamLevel): Promise<void> {
 export async function loadSavedProblem(): Promise<void> {
 	if (!browser) return;
 
-	const problemUrl = localStorage.getItem('problem') || '';
-	const answerUrl = localStorage.getItem('answer') || '';
-	const problemId = localStorage.getItem('problemID') || '';
-	const examType = (localStorage.getItem('problemType') || '8') as ExamType;
+	const savedId = localStorage.getItem('savedProblemId');
+	if (!savedId) return;
 
-	if (!problemUrl) {
-		return;
-	}
-
-	problem.set({
-		problemId,
-		problemHtml: '',
-		solutionHtml: '',
-		correctAnswer: '',
-		examType,
-		status: 'loading'
-	});
-
-	const solutionUrl = problemUrl.replaceAll('!', '$');
+	problem.set({ ...EMPTY_STATE, status: 'loading' });
 
 	try {
-		const [problemHtml, solutionHtml, correctAnswer] = await Promise.all([
-			fetchProblem(problemUrl),
-			fetchSolution(solutionUrl),
-			fetchAnswer(answerUrl)
-		]);
+		const data = await fetchProblemById(parseInt(savedId, 10));
 
 		problem.set({
-			problemId,
-			problemHtml,
-			solutionHtml,
-			correctAnswer,
-			examType,
+			id: data.id,
+			problemId: formatProblemId(data.examName, data.year, data.problemNum),
+			problemHtml: data.problemHtml,
+			solutionHtml: data.solutionHtml,
+			correctAnswer: data.answer,
+			examType: data.examName.includes('AIME') ? 'AIME' : 'AMC',
 			status: 'answering'
 		});
 	} catch {
@@ -101,15 +73,15 @@ export async function loadSavedProblem(): Promise<void> {
 
 export function submitAnswer(userAnswer: string): 'correct' | 'incorrect' | 'invalid_format' {
 	const state = get(problem);
-	const result = validateAnswer(userAnswer, state.correctAnswer, state.examType);
+	const examType = state.examType === 'AIME' ? 'AIME' : '8';
+	const result = validateAnswer(userAnswer, state.correctAnswer, examType as '8' | '10' | '12' | 'AIME');
 
 	if (result === 'correct') {
 		streak.increment();
 		problem.update((s) => ({ ...s, status: 'correct' }));
-		if (browser) localStorage.removeItem('problem');
+		if (browser) localStorage.removeItem('savedProblemId');
 	} else if (result === 'incorrect') {
 		streak.reset();
-		// Don't change status — user keeps trying. Shake handled by UI.
 	}
 
 	return result;
@@ -118,5 +90,5 @@ export function submitAnswer(userAnswer: string): 'correct' | 'incorrect' | 'inv
 export function giveUp(): void {
 	streak.reset();
 	problem.update((s) => ({ ...s, status: 'gave_up' }));
-	if (browser) localStorage.removeItem('problem');
+	if (browser) localStorage.removeItem('savedProblemId');
 }

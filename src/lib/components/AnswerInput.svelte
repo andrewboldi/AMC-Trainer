@@ -1,8 +1,6 @@
 <script lang="ts">
-	import type { ExamType } from '$lib/types';
-
 	interface Props {
-		examType: ExamType;
+		examType: string;
 		onSubmit: (answer: string) => void;
 		onGiveUp: () => void;
 	}

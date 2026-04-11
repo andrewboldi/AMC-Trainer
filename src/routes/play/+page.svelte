@@ -21,12 +21,21 @@
 	let drawingCanvas: DrawingCanvas;
 	let answerInput: AnswerInput;
 
+	function getFilter() {
+		return {
+			level: $settings.level,
+			subject: $settings.subject ?? undefined,
+			difficultyMin: $settings.difficultyMin,
+			difficultyMax: $settings.difficultyMax,
+		};
+	}
+
 	onMount(() => {
-		const hasSaved = localStorage.getItem('problem');
-		if (hasSaved) {
+		const savedId = localStorage.getItem('savedProblemId');
+		if (savedId) {
 			loadSavedProblem();
 		} else {
-			loadNewProblem($settings.level);
+			loadNewProblem(getFilter());
 		}
 	});
 
@@ -40,7 +49,7 @@
 	}
 
 	function handleNext() {
-		loadNewProblem($settings.level);
+		loadNewProblem(getFilter());
 		drawingCanvas?.clearScreen();
 	}
 
