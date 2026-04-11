@@ -4,6 +4,7 @@ import type { ProblemState, ProblemFilter } from '$lib/types';
 import { fetchRandomProblem, fetchProblemById } from '$lib/services/aopsClient';
 import { validateAnswer } from '$lib/services/answerValidator';
 import { streak } from './streak';
+import { stats } from './stats';
 
 const RECENT_KEY = 'recentProblemIds';
 const RECENT_MAX = 50;
@@ -32,6 +33,8 @@ const EMPTY_STATE: ProblemState = {
 	solutionHtml: '',
 	correctAnswer: '',
 	examType: '',
+	subject: null,
+	difficulty: 0,
 	status: 'loading'
 };
 
@@ -64,6 +67,8 @@ export async function loadNewProblem(filter: ProblemFilter): Promise<void> {
 			solutionHtml: data.solutionHtml,
 			correctAnswer: data.answer,
 			examType: data.examName.includes('AIME') ? 'AIME' : 'AMC',
+			subject: data.subject,
+			difficulty: data.difficulty,
 			status: 'answering'
 		});
 	} catch {
@@ -89,8 +94,31 @@ export async function loadSavedProblem(): Promise<void> {
 			solutionHtml: data.solutionHtml,
 			correctAnswer: data.answer,
 			examType: data.examName.includes('AIME') ? 'AIME' : 'AMC',
+			subject: data.subject,
+			difficulty: data.difficulty,
 			status: 'answering'
 		});
+	} catch {
+		problem.update((s) => ({ ...s, status: 'error' }));
+	}
+}
+
+export async function loadProblemById(id: number): Promise<void> {
+	problem.set({ ...EMPTY_STATE, status: 'loading' });
+	try {
+		const data = await fetchProblemById(id);
+		problem.set({
+			id: data.id,
+			problemId: formatProblemId(data.examName, data.year, data.problemNum),
+			problemHtml: data.problemHtml,
+			solutionHtml: data.solutionHtml,
+			correctAnswer: data.answer,
+			examType: data.examName.includes('AIME') ? 'AIME' : 'AMC',
+			subject: data.subject,
+			difficulty: data.difficulty,
+			status: 'answering'
+		});
+		if (browser) localStorage.setItem('savedProblemId', data.id.toString());
 	} catch {
 		problem.update((s) => ({ ...s, status: 'error' }));
 	}
@@ -103,10 +131,12 @@ export function submitAnswer(userAnswer: string): 'correct' | 'incorrect' | 'inv
 
 	if (result === 'correct') {
 		streak.increment();
+		stats.record(state.id, state.subject, state.difficulty, true);
 		problem.update((s) => ({ ...s, status: 'correct' }));
 		if (browser) localStorage.removeItem('savedProblemId');
 	} else if (result === 'incorrect') {
 		streak.reset();
+		stats.record(state.id, state.subject, state.difficulty, false);
 	}
 
 	return result;

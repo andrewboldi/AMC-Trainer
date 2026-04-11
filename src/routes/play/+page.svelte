@@ -11,6 +11,7 @@
 	import Timer from '$lib/components/Timer.svelte';
 	import DrawingCanvas from '$lib/components/DrawingCanvas.svelte';
 	import SettingsModal from '$lib/components/SettingsModal.svelte';
+	import StatsModal from '$lib/components/StatsModal.svelte';
 	import InfoModal from '$lib/components/InfoModal.svelte';
 	import StreakModal from '$lib/components/StreakModal.svelte';
 	import { fireConfetti } from '$lib/components/Confetti.svelte';
@@ -18,6 +19,7 @@
 	let showSettings = $state(false);
 	let showInfo = $state(false);
 	let showStreak = $state(false);
+	let showStats = $state(false);
 	let drawingVisible = $state(false);
 	let drawingCanvas: DrawingCanvas;
 	let answerInput: AnswerInput;
@@ -77,6 +79,7 @@
 	onSettingsClick={() => showSettings = true}
 	onInfoClick={() => showInfo = true}
 	onStreakClick={() => showStreak = true}
+	onStatsClick={() => showStats = true}
 />
 
 <img
@@ -138,4 +141,8 @@
 
 {#if showStreak}
 	<StreakModal streak={$streak} onClose={() => showStreak = false} />
+{/if}
+
+{#if showStats}
+	<StatsModal onClose={() => showStats = false} />
 {/if}

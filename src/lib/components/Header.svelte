@@ -5,17 +5,25 @@
 		onSettingsClick: () => void;
 		onInfoClick: () => void;
 		onStreakClick: () => void;
+		onStatsClick: () => void;
 	}
 
-	let { streak, logoColor, onSettingsClick, onInfoClick, onStreakClick }: Props = $props();
+	let { streak, logoColor, onSettingsClick, onInfoClick, onStreakClick, onStatsClick }: Props = $props();
 </script>
 
 <div class="header-bar">
 	<img
+		src="/img/bar-chart.svg"
+		alt="Stats"
+		class="headerButton"
+		style="position: absolute; left: 90px; top: 5px;"
+		onclick={onStatsClick}
+	/>
+	<img
 		src="/img/report.svg"
 		alt="Report an error"
 		class="headerButton"
-		style="position: absolute; left: 90px; top: 5px;"
+		style="position: absolute; left: 175px; top: 5px;"
 		onclick={() => window.open('https://artofproblemsolving.com/community/c1967976h2362114p19241124')}
 	/>
 	<img

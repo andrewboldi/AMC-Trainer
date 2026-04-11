@@ -33,6 +33,8 @@ export interface ProblemState {
 	solutionHtml: string;
 	correctAnswer: string;
 	examType: string;
+	subject: string | null;
+	difficulty: number;
 	status: ProblemStatus;
 }
 
