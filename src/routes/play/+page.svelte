@@ -3,6 +3,7 @@
 	import { settings } from '$lib/stores/settings';
 	import { streak } from '$lib/stores/streak';
 	import { problem, loadNewProblem, loadSavedProblem, loadReviewProblem, loadProblemById, submitAnswer, giveUp } from '$lib/stores/problem';
+	import { bookmarks } from '$lib/stores/bookmarks';
 	import Header from '$lib/components/Header.svelte';
 	import ProblemDisplay from '$lib/components/ProblemDisplay.svelte';
 	import AnswerInput from '$lib/components/AnswerInput.svelte';
@@ -61,9 +62,15 @@
 		if ($problem.id) {
 			historyStack = [...historyStack, $problem.id].slice(-20);
 		}
-		if ($settings.reviewMode === 'On') {
+		if ($settings.reviewMode === 'Review') {
 			const loaded = await loadReviewProblem();
-			if (!loaded) {
+			if (!loaded) loadNewProblem(getFilter());
+		} else if ($settings.reviewMode === 'Bookmarks') {
+			const ids = bookmarks.getAll();
+			if (ids.length > 0) {
+				const randomId = ids[Math.floor(Math.random() * ids.length)];
+				await loadProblemById(randomId);
+			} else {
 				loadNewProblem(getFilter());
 			}
 		} else {
@@ -118,6 +125,15 @@
 	zenMode={$settings.zenMode === 'On'}
 	{textInvertFilter}
 />
+
+{#if $problem.id && $problem.status !== 'loading'}
+	<!-- svelte-ignore a11y_click_events_have_key_events -->
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
+	<div class="bookmark-btn text" onclick={() => bookmarks.toggle($problem.id)}
+		style="text-align: center; cursor: pointer; font-size: 1.5em; opacity: {$bookmarks.includes($problem.id) ? 1 : 0.3};">
+		&#x1F516;
+	</div>
+{/if}
 
 {#if $settings.timer === 'On' && ($problem.status === 'answering' || $problem.status === 'loading')}
 	<Timer running={$problem.status === 'answering'} />

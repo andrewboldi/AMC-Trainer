@@ -176,11 +176,12 @@
 			</div>
 
 			<div class="settings-section">
-				<h2>Review Mode</h2>
+				<h2>Practice Mode</h2>
 				<select class="ddl button" value={$settings.reviewMode}
-					onchange={(e) => settings.update(s => ({ ...s, reviewMode: (e.target as HTMLSelectElement).value as ToggleOption }))}>
-					<option value="Off">Off</option>
-					<option value="On">On</option>
+					onchange={(e) => settings.update(s => ({ ...s, reviewMode: (e.target as HTMLSelectElement).value as 'Off' | 'Review' | 'Bookmarks' }))}>
+					<option value="Off">Random</option>
+					<option value="Review">Review Missed</option>
+					<option value="Bookmarks">Bookmarks</option>
 				</select>
 			</div>
 

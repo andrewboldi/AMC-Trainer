@@ -13,18 +13,18 @@
 
 <div class="header-bar">
 	<img
-		src="/img/bar-chart.svg"
-		alt="Stats"
-		class="headerButton"
-		style="position: absolute; left: 90px; top: 5px;"
-		onclick={onStatsClick}
-	/>
-	<img
 		src="/img/report.svg"
 		alt="Report an error"
 		class="headerButton"
-		style="position: absolute; left: 175px; top: 5px;"
+		style="position: absolute; left: 90px; top: 5px;"
 		onclick={() => window.open('https://artofproblemsolving.com/community/c1967976h2362114p19241124')}
+	/>
+	<img
+		src="/img/bar-chart.svg"
+		alt="Stats"
+		class="headerButton"
+		style="position: absolute; right: 50px; top: 5px;"
+		onclick={onStatsClick}
 	/>
 	<img
 		src="/img/help.svg"

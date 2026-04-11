@@ -55,7 +55,7 @@ export interface SettingsObject {
 	fontFamily: string;
 	timer: ToggleOption;
 	timerSeconds: number;
-	reviewMode: ToggleOption;
+	reviewMode: 'Off' | 'Review' | 'Bookmarks';
 	yearMin: number;
 	yearMax: number;
 }

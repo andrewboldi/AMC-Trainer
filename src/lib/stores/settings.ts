@@ -17,7 +17,7 @@ const DEFAULT_SETTINGS: SettingsObject = {
 	fontFamily: 'Poppins',
 	timer: 'Off',
 	timerSeconds: 180,
-	reviewMode: 'Off',
+	reviewMode: 'Off' as const,
 	yearMin: 1983,
 	yearMax: 2025
 };
