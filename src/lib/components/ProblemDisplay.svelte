@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { afterUpdate } from 'svelte';
 	import { renderLatexInContainer } from '$lib/utils/katex';
 
 	interface Props {
@@ -11,10 +12,9 @@
 	let { problemId, problemHtml, zenMode, textInvertFilter }: Props = $props();
 	let container: HTMLElement;
 
-	$effect(() => {
-		if (container && problemHtml) {
-			// Wait for {@html} to render, then replace latex images
-			requestAnimationFrame(() => renderLatexInContainer(container));
+	afterUpdate(() => {
+		if (container) {
+			renderLatexInContainer(container);
 		}
 	});
 </script>

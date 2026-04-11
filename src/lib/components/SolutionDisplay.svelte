@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { afterUpdate } from 'svelte';
 	import { renderLatexInContainer } from '$lib/utils/katex';
 
 	interface Props {
@@ -9,9 +10,9 @@
 	let { solutionHtml, textInvertFilter }: Props = $props();
 	let container: HTMLElement;
 
-	$effect(() => {
-		if (container && solutionHtml) {
-			requestAnimationFrame(() => renderLatexInContainer(container));
+	afterUpdate(() => {
+		if (container) {
+			renderLatexInContainer(container);
 		}
 	});
 </script>
