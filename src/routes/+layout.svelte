@@ -1,6 +1,7 @@
 <script lang="ts">
 	import '@fontsource/poppins/100.css';
 	import '@fontsource/poppins/200.css';
+	import 'katex/dist/katex.min.css';
 	import '../app.css';
 	import { settings } from '$lib/stores/settings';
 

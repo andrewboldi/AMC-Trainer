@@ -20,7 +20,8 @@
     "vite": "^6.0.0"
   },
   "dependencies": {
+    "@fontsource/poppins": "^5.1.0",
     "canvas-confetti": "^1.9.3",
-    "@fontsource/poppins": "^5.1.0"
+    "katex": "^0.16.45"
   }
 }

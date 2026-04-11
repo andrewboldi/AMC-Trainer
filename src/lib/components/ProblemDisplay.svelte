@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { renderLatexInContainer } from '$lib/utils/katex';
+
 	interface Props {
 		problemId: string;
 		problemHtml: string;
@@ -7,6 +9,14 @@
 	}
 
 	let { problemId, problemHtml, zenMode, textInvertFilter }: Props = $props();
+	let container: HTMLElement;
+
+	$effect(() => {
+		if (container && problemHtml) {
+			// Wait for {@html} to render, then replace latex images
+			requestAnimationFrame(() => renderLatexInContainer(container));
+		}
+	});
 </script>
 
 <strong>
@@ -14,13 +24,12 @@
 		{problemId}
 	</p>
 </strong>
-<div class="text" style:--img-filter={textInvertFilter}>
+<div class="text" bind:this={container} style:--img-filter={textInvertFilter}>
 	{@html problemHtml}
 </div>
 
 <style>
-	.text :global(img),
-	.text :global(latex) {
+	.text :global(img:not(.latex)) {
 		filter: var(--img-filter, invert(0));
 	}
 </style>
