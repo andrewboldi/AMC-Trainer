@@ -159,6 +159,15 @@
 			</div>
 
 			<div class="settings-section">
+				<h2>Review Mode</h2>
+				<select class="ddl button" value={$settings.reviewMode}
+					onchange={(e) => settings.update(s => ({ ...s, reviewMode: (e.target as HTMLSelectElement).value as ToggleOption }))}>
+					<option value="Off">Off</option>
+					<option value="On">On</option>
+				</select>
+			</div>
+
+			<div class="settings-section">
 				<h2>Font Family</h2>
 				<select class="ddl button" value={$settings.fontFamily}
 					onchange={(e) => settings.update(s => ({ ...s, fontFamily: (e.target as HTMLSelectElement).value }))}>

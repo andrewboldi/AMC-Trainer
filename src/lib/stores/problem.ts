@@ -143,7 +143,17 @@ export function submitAnswer(userAnswer: string): 'correct' | 'incorrect' | 'inv
 }
 
 export function giveUp(): void {
+	const state = get(problem);
 	streak.reset();
+	stats.record(state.id, state.subject, state.difficulty, false);
 	problem.update((s) => ({ ...s, status: 'gave_up' }));
 	if (browser) localStorage.removeItem('savedProblemId');
+}
+
+export async function loadReviewProblem(): Promise<boolean> {
+	const missed = stats.getMissedIds();
+	if (missed.length === 0) return false;
+	const randomId = missed[Math.floor(Math.random() * missed.length)];
+	await loadProblemById(randomId);
+	return true;
 }

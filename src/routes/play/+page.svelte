@@ -2,12 +2,13 @@
 	import { onMount } from 'svelte';
 	import { settings } from '$lib/stores/settings';
 	import { streak } from '$lib/stores/streak';
-	import { problem, loadNewProblem, loadSavedProblem, submitAnswer, giveUp } from '$lib/stores/problem';
+	import { problem, loadNewProblem, loadSavedProblem, loadReviewProblem, loadProblemById, submitAnswer, giveUp } from '$lib/stores/problem';
 	import Header from '$lib/components/Header.svelte';
 	import ProblemDisplay from '$lib/components/ProblemDisplay.svelte';
 	import AnswerInput from '$lib/components/AnswerInput.svelte';
 	import SolutionDisplay from '$lib/components/SolutionDisplay.svelte';
 	import NextProblemButton from '$lib/components/NextProblemButton.svelte';
+	import PrevProblemButton from '$lib/components/PrevProblemButton.svelte';
 	import Timer from '$lib/components/Timer.svelte';
 	import DrawingCanvas from '$lib/components/DrawingCanvas.svelte';
 	import SettingsModal from '$lib/components/SettingsModal.svelte';
@@ -23,6 +24,7 @@
 	let drawingVisible = $state(false);
 	let drawingCanvas: DrawingCanvas;
 	let answerInput: AnswerInput;
+	let historyStack: number[] = $state([]);
 
 	function getFilter() {
 		return {
@@ -51,9 +53,26 @@
 		}
 	}
 
-	function handleNext() {
-		loadNewProblem(getFilter());
+	async function handleNext() {
+		if ($problem.id) {
+			historyStack = [...historyStack, $problem.id].slice(-20);
+		}
+		if ($settings.reviewMode === 'On') {
+			const loaded = await loadReviewProblem();
+			if (!loaded) {
+				loadNewProblem(getFilter());
+			}
+		} else {
+			loadNewProblem(getFilter());
+		}
 		drawingCanvas?.clearScreen();
+	}
+
+	async function handlePrev() {
+		if (historyStack.length === 0) return;
+		const prevId = historyStack[historyStack.length - 1];
+		historyStack = historyStack.slice(0, -1);
+		await loadProblemById(prevId);
 	}
 
 	function handleKeydown(e: KeyboardEvent) {
@@ -119,6 +138,7 @@
 	<SolutionDisplay solutionHtml={$problem.solutionHtml} {textInvertFilter} />
 {/if}
 
+<PrevProblemButton onPrev={handlePrev} disabled={historyStack.length === 0} />
 <NextProblemButton onNext={handleNext} />
 
 <img

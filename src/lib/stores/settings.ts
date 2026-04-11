@@ -15,7 +15,8 @@ const DEFAULT_SETTINGS: SettingsObject = {
 	imgWiggle: 'On',
 	fontFamily: 'Poppins',
 	timer: 'Off',
-	timerSeconds: 180
+	timerSeconds: 180,
+	reviewMode: 'Off'
 };
 
 function createSettingsStore() {

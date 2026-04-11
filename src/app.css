@@ -422,6 +422,30 @@ img:hover {
 }
 
 /* Next problem button */
+#prev_problem {
+	transition: 0.1s !important;
+	background: var(--bg-color-2);
+}
+
+#prev_problem img {
+	filter: var(--text-invert);
+}
+
+#prev_problem:hover {
+	filter: brightness(1.1);
+	transform: scale(1);
+}
+
+#prev_problem:active {
+	opacity: 0.6;
+}
+
+#prev_problem:disabled {
+	cursor: default;
+	transform: none;
+	filter: none;
+}
+
 #new_problem {
 	transition: 0.1s !important;
 	background: var(--bg-color-2);
