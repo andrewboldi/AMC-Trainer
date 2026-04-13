@@ -40,6 +40,7 @@
 	.app {
 		min-height: 100vh;
 		overflow: auto;
+		color: var(--text-color);
 		background-attachment: fixed;
 		background-image: linear-gradient(to right, var(--bg-color-1) 20%, var(--bg-color-2) 80%);
 		background-position: top center;
