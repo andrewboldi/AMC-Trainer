@@ -4,10 +4,13 @@
   "type": "module",
   "scripts": {
     "dev": "wrangler dev",
-    "deploy": "wrangler deploy"
+    "deploy": "wrangler deploy",
+    "test": "bun test src/",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240620.0",
+    "@types/bun": "^1.4.2",
     "wrangler": "^4.0.0"
   }
 }

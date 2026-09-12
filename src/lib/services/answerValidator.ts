@@ -15,5 +15,12 @@ export function validateAnswer(
 			: AMC_ANSWER_REGEX.test(normalized);
 
 	if (!isValidFormat) return 'invalid_format';
+
+	// AIME answers are integers 0-999 that the wiki may store padded ("007") or
+	// bare ("7"). Compare numerically so grading is correct either way.
+	if (examType === 'AIME') {
+		return Number(normalized) === Number(correctAnswer.trim()) ? 'correct' : 'incorrect';
+	}
+
 	return normalized === correctAnswer.toUpperCase() ? 'correct' : 'incorrect';
 }

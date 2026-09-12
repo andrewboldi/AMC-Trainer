@@ -51,8 +51,8 @@ const VALID_SUBJECTS = ['algebra', 'geometry', 'combinatorics', 'number_theory']
 
 const CORS_HEADERS = {
 	'Access-Control-Allow-Origin': '*',
-	'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-	'Access-Control-Allow-Headers': 'Content-Type, X-API-Key',
+	'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS',
+	'Access-Control-Allow-Headers': 'Content-Type, X-API-Key, Authorization',
 };
 
 function json(data: unknown, status = 200): Response {
@@ -118,64 +118,160 @@ export function computeDifficulty(examBase: string, problemNum: number): number 
 	}
 }
 
-/** GET /api/problem/random?level=AMC_10,AMC_12&subject=geometry&difficulty_min=3&difficulty_max=7 */
-async function handleRandomProblem(url: URL, env: Env): Promise<Response> {
+/**
+ * Compact problem index — one entry per problem holding only the filterable
+ * columns, as a tuple to keep the serialized form small.
+ *
+ * Picking a random row with `ORDER BY RANDOM()` forces SQLite to scan every
+ * matching row into a temp B-tree and sort it, and D1 bills rows *scanned*,
+ * not returned. That cost ~4.6k rows read per problem served, which exhausts
+ * the daily free-tier quota in roughly a thousand problem loads. Keeping this
+ * index hot instead lets us filter in memory and read exactly one row by
+ * primary key.
+ */
+type IndexEntry = [id: number, examBase: string, subject: string | null, difficulty: number, year: number];
+
+const INDEX_TTL_SECONDS = 3600;
+
+let indexCache: { entries: IndexEntry[]; expires: number } | null = null;
+
+/** Clear the in-isolate index cache. Test hook for simulating a cold start. */
+export async function resetIndexCacheForTest(): Promise<void> {
+	indexCache = null;
+}
+
+/** Read every problem's filterable columns. Costs a full table scan — callers must be rare. */
+async function scanProblemIndex(env: Env): Promise<IndexEntry[]> {
+	const { results } = await env.DB.prepare(
+		'SELECT id, exam_base, subject, difficulty, year FROM problems'
+	).all<{ id: number; exam_base: string; subject: string | null; difficulty: number; year: number }>();
+	return results.map((r) => [r.id, r.exam_base, r.subject, r.difficulty, r.year]);
+}
+
+/** Rebuild the persisted index row from the problems table. */
+export async function rebuildProblemIndex(env: Env): Promise<IndexEntry[]> {
+	const entries = await scanProblemIndex(env);
+	await env.DB.prepare(
+		`INSERT INTO problem_index (id, data, updated_at) VALUES (1, ?1, datetime('now'))
+		 ON CONFLICT(id) DO UPDATE SET data = ?1, updated_at = datetime('now')`
+	).bind(JSON.stringify(entries)).run();
+	indexCache = { entries, expires: Date.now() + INDEX_TTL_SECONDS * 1000 };
+	return entries;
+}
+
+/**
+ * Load the problem index: isolate memory first, then the single persisted row
+ * (one row read), rebuilding from a scan only when that row is missing.
+ *
+ * Deliberately not backed by the Cache API — cache operations are only
+ * functional on custom domains, and this Worker serves from workers.dev, where
+ * they would silently no-op and send every cold isolate back to a full scan.
+ */
+async function loadProblemIndex(env: Env): Promise<IndexEntry[]> {
+	const now = Date.now();
+	if (indexCache && indexCache.expires > now) return indexCache.entries;
+
+	try {
+		const row = await env.DB.prepare('SELECT data FROM problem_index WHERE id = 1').first<{ data: string }>();
+		if (row) {
+			const entries = JSON.parse(row.data) as IndexEntry[];
+			indexCache = { entries, expires: now + INDEX_TTL_SECONDS * 1000 };
+			return entries;
+		}
+		return await rebuildProblemIndex(env);
+	} catch (e) {
+		// Most likely the 0002 migration has not been applied to this database yet.
+		// Serve correctly off a scan rather than failing every request.
+		console.error('problem_index unavailable, falling back to full scan:', e);
+		const entries = await scanProblemIndex(env);
+		indexCache = { entries, expires: now + INDEX_TTL_SECONDS * 1000 };
+		return entries;
+	}
+}
+
+export interface ProblemFilter {
+	levels: string[];
+	isAll: boolean;
+	subject: string | null;
+	diffMin: number;
+	diffMax: number;
+	yearMin: number;
+	yearMax: number;
+}
+
+/**
+ * Parse an integer query param. Rejects anything non-integral — `parseInt`
+ * turns "abc" into NaN, which silently slips past every range comparison.
+ */
+function intParam(url: URL, name: string, fallback: number): number | null {
+	const raw = url.searchParams.get(name);
+	if (raw === null || raw === '') return fallback;
+	const n = Number(raw);
+	return Number.isInteger(n) ? n : null;
+}
+
+/** Parse and validate the filter query params shared by the random endpoint. */
+export function parseFilter(url: URL): { filter: ProblemFilter } | { error: string } {
 	const levelParam = url.searchParams.get('level');
 	if (!levelParam) {
-		return error('Missing "level" param. Valid: AMC_8, AMC_10, AMC_12, AIME, All (comma-separated)', 400);
+		return { error: 'Missing "level" param. Valid: AMC_8, AMC_10, AMC_12, AIME, All (comma-separated)' };
 	}
 
 	const levels = levelParam.split(',').map((s) => s.trim());
 	for (const l of levels) {
 		if (!VALID_LEVELS.includes(l as typeof VALID_LEVELS[number])) {
-			return error(`Invalid level "${l}". Valid: AMC_8, AMC_10, AMC_12, AIME, All`, 400);
+			return { error: `Invalid level "${l}". Valid: AMC_8, AMC_10, AMC_12, AIME, All` };
 		}
 	}
-	const isAll = levels.includes('All');
 
 	const subject = url.searchParams.get('subject');
 	if (subject && !VALID_SUBJECTS.includes(subject as typeof VALID_SUBJECTS[number])) {
-		return error('Invalid "subject" param. Valid: algebra, geometry, combinatorics, number_theory', 400);
+		return { error: 'Invalid "subject" param. Valid: algebra, geometry, combinatorics, number_theory' };
 	}
 
-	const diffMin = parseInt(url.searchParams.get('difficulty_min') ?? '1', 10);
-	const diffMax = parseInt(url.searchParams.get('difficulty_max') ?? '10', 10);
-	if (diffMin < 1 || diffMax > 10 || diffMin > diffMax) {
-		return error('difficulty_min/difficulty_max must be 1-10 with min <= max', 400);
+	const diffMin = intParam(url, 'difficulty_min', 1);
+	const diffMax = intParam(url, 'difficulty_max', 10);
+	if (diffMin === null || diffMax === null || diffMin < 1 || diffMax > 10 || diffMin > diffMax) {
+		return { error: 'difficulty_min/difficulty_max must be integers 1-10 with min <= max' };
 	}
 
-	const yearMin = parseInt(url.searchParams.get('year_min') ?? '1900', 10);
-	const yearMax = parseInt(url.searchParams.get('year_max') ?? '2099', 10);
-
-	const conditions: string[] = ['difficulty BETWEEN ?1 AND ?2', 'year BETWEEN ?3 AND ?4'];
-	const bindings: (string | number)[] = [diffMin, diffMax, yearMin, yearMax];
-	let paramIdx = 5;
-
-	if (!isAll) {
-		const examBaseClauses: string[] = [];
-		for (const level of levels) {
-			if (level === 'AMC_8') {
-				examBaseClauses.push("exam_base IN ('AMC_8', 'AJHSME')");
-			} else {
-				examBaseClauses.push(`exam_base = ?${paramIdx}`);
-				bindings.push(level);
-				paramIdx++;
-			}
-		}
-		conditions.push(`(${examBaseClauses.join(' OR ')})`);
+	const yearMin = intParam(url, 'year_min', 1900);
+	const yearMax = intParam(url, 'year_max', 2099);
+	if (yearMin === null || yearMax === null || yearMin > yearMax) {
+		return { error: 'year_min/year_max must be integers with min <= max' };
 	}
 
-	if (subject) {
-		conditions.push(`subject = ?${paramIdx}`);
-		bindings.push(subject);
-		paramIdx++;
-	}
+	return { filter: { levels, isAll: levels.includes('All'), subject, diffMin, diffMax, yearMin, yearMax } };
+}
 
-	const where = conditions.join(' AND ');
-	const sql = `SELECT * FROM problems WHERE ${where} ORDER BY RANDOM() LIMIT 1`;
-	const result = await env.DB.prepare(sql).bind(...bindings).first<ProblemRow>();
+/** Does an index entry satisfy the filter? Mirrors the old SQL WHERE clause. */
+export function matchesFilter(entry: IndexEntry, f: ProblemFilter): boolean {
+	const [, examBase, subject, difficulty, year] = entry;
+	if (difficulty < f.diffMin || difficulty > f.diffMax) return false;
+	if (year < f.yearMin || year > f.yearMax) return false;
+	if (f.subject !== null && subject !== f.subject) return false;
+	if (f.isAll) return true;
+	return f.levels.some((l) => (l === 'AMC_8' ? examBase === 'AMC_8' || examBase === 'AJHSME' : examBase === l));
+}
 
+/** GET /api/problem/random?level=AMC_10,AMC_12&subject=geometry&difficulty_min=3&difficulty_max=7 */
+async function handleRandomProblem(url: URL, env: Env): Promise<Response> {
+	const parsed = parseFilter(url);
+	if ('error' in parsed) return error(parsed.error, 400);
+
+	const index = await loadProblemIndex(env);
+	const candidates = index.filter((e) => matchesFilter(e, parsed.filter));
+	if (candidates.length === 0) return error('No problems found matching filters', 404);
+
+	const pickedId = candidates[Math.floor(Math.random() * candidates.length)][0];
+	const result = await env.DB.prepare('SELECT * FROM problems WHERE id = ?1')
+		.bind(pickedId)
+		.first<ProblemRow>();
+
+	// An index entry with no matching row means the index is stale; rebuild it so
+	// the next request selects from reality.
 	if (!result) {
+		await rebuildProblemIndex(env);
 		return error('No problems found matching filters', 404);
 	}
 
@@ -200,22 +296,30 @@ async function handleGetProblem(id: string, env: Env): Promise<Response> {
 	return json(formatRow(result));
 }
 
-/** GET /api/stats */
+/**
+ * GET /api/stats — counts by exam and subject.
+ *
+ * Derived from the problem index rather than three GROUP BY/COUNT aggregates,
+ * which each scanned the whole table (~13.7k rows read per public hit).
+ */
 async function handleStats(env: Env): Promise<Response> {
-	const byExam = await env.DB.prepare(
-		'SELECT exam_base, COUNT(*) as count FROM problems GROUP BY exam_base ORDER BY exam_base'
-	).all();
+	const index = await loadProblemIndex(env);
 
-	const bySubject = await env.DB.prepare(
-		"SELECT COALESCE(subject, 'untagged') as subject, COUNT(*) as count FROM problems GROUP BY subject ORDER BY subject"
-	).all();
+	const examCounts = new Map<string, number>();
+	const subjectCounts = new Map<string, number>();
+	for (const [, examBase, subject] of index) {
+		examCounts.set(examBase, (examCounts.get(examBase) ?? 0) + 1);
+		const key = subject ?? 'untagged';
+		subjectCounts.set(key, (subjectCounts.get(key) ?? 0) + 1);
+	}
 
-	const total = await env.DB.prepare('SELECT COUNT(*) as count FROM problems').first<{ count: number }>();
+	const sorted = (m: Map<string, number>, key: string) =>
+		[...m.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([k, count]) => ({ [key]: k, count }));
 
 	return json({
-		total: total?.count ?? 0,
-		byExam: byExam.results,
-		bySubject: bySubject.results,
+		total: index.length,
+		byExam: sorted(examCounts, 'exam_base'),
+		bySubject: sorted(subjectCounts, 'subject'),
 	});
 }
 
@@ -242,10 +346,17 @@ async function handleIngest(request: Request, env: Env): Promise<Response> {
 		return error('Body must be a non-empty array of problem objects', 400);
 	}
 
+	// ON CONFLICT ... DO UPDATE rather than INSERT OR REPLACE: REPLACE deletes the
+	// existing row and reinserts it, handing the problem a brand-new AUTOINCREMENT
+	// id. Saved problems, bookmarks and missed-problem lists all reference these
+	// ids, so a re-scrape used to silently repoint them at unrelated problems.
 	const stmt = env.DB.prepare(
-		`INSERT OR REPLACE INTO problems
+		`INSERT INTO problems
 		 (year, exam_name, exam_base, variant, problem_num, subject, difficulty, problem_html, solution_html, answer, updated_at)
-		 VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, datetime('now'))`
+		 VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, datetime('now'))
+		 ON CONFLICT(year, exam_name, problem_num) DO UPDATE SET
+		   exam_base = ?3, variant = ?4, subject = ?6, difficulty = ?7,
+		   problem_html = ?8, solution_html = ?9, answer = ?10, updated_at = datetime('now')`
 	);
 
 	const batch = body.map((p) =>
@@ -264,6 +375,14 @@ async function handleIngest(request: Request, env: Env): Promise<Response> {
 	);
 
 	const results = await env.DB.batch(batch);
+	// Rebuild eagerly so newly ingested problems are immediately selectable. A
+	// failure here must not report the ingest itself as failed.
+	try {
+		await rebuildProblemIndex(env);
+	} catch (e) {
+		console.error('problem_index rebuild after ingest failed:', e);
+		indexCache = null;
+	}
 
 	return json({ inserted: results.length });
 }
@@ -272,11 +391,14 @@ async function handleIngest(request: Request, env: Env): Promise<Response> {
 const ALLOWED_PROXY_HOSTS = ['latex.artofproblemsolving.com', 'artofproblemsolving.com', 'wiki-images.artofproblemsolving.com'];
 
 async function handleImageProxy(url: URL, request: Request): Promise<Response> {
-	const targetUrl = decodeURIComponent(url.search.slice(1));
-	if (!targetUrl.startsWith('https://')) {
-		return error('Invalid proxy URL', 400);
-	}
+	// decodeURIComponent throws on malformed escapes (e.g. "/?%"), so it has to
+	// sit inside the try alongside URL parsing.
+	let targetUrl: string;
 	try {
+		targetUrl = decodeURIComponent(url.search.slice(1));
+		if (!targetUrl.startsWith('https://')) {
+			return error('Invalid proxy URL', 400);
+		}
 		const parsed = new URL(targetUrl);
 		if (!ALLOWED_PROXY_HOSTS.includes(parsed.hostname)) {
 			return error('Proxy domain not allowed', 403);
@@ -290,8 +412,9 @@ async function handleImageProxy(url: URL, request: Request): Promise<Response> {
 	});
 
 	const headers = new Headers(response.headers);
+	headers.delete('Set-Cookie');
 	headers.set('Access-Control-Allow-Origin', '*');
-	headers.set('Cache-Control', 'public, max-age=86400');
+	headers.set('Cache-Control', response.ok ? 'public, max-age=86400' : 'no-store');
 
 	return new Response(response.body, {
 		status: response.status,
@@ -299,39 +422,83 @@ async function handleImageProxy(url: URL, request: Request): Promise<Response> {
 	});
 }
 
-/** Verify Firebase ID token using Google's public keys */
+/**
+ * Google's Firebase token signing keys, in JWK form.
+ *
+ * The x509 endpoint returns PEM certificates, which `crypto.subtle.importKey`
+ * cannot load ('raw' is not a valid format for RSA keys, so the import always
+ * threw). The JWK endpoint imports natively, which is what makes real
+ * signature verification possible here.
+ */
+const JWKS_URL = 'https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com';
+
+let jwksCache: { keys: Record<string, JsonWebKey>; expires: number } | null = null;
+
+async function getSigningKeys(): Promise<Record<string, JsonWebKey>> {
+	const now = Date.now();
+	if (jwksCache && jwksCache.expires > now) return jwksCache.keys;
+
+	const res = await fetch(JWKS_URL);
+	if (!res.ok) throw new Error(`JWKS fetch failed: ${res.status}`);
+	const body = (await res.json()) as { keys: Array<JsonWebKey & { kid: string }> };
+
+	const keys: Record<string, JsonWebKey> = {};
+	for (const k of body.keys) keys[k.kid] = k;
+
+	const maxAge = Number(/max-age=(\d+)/.exec(res.headers.get('Cache-Control') ?? '')?.[1] ?? 3600);
+	jwksCache = { keys, expires: now + maxAge * 1000 };
+	return keys;
+}
+
+export function base64UrlToBytes(input: string): Uint8Array {
+	const b64 = input.replace(/-/g, '+').replace(/_/g, '/').padEnd(Math.ceil(input.length / 4) * 4, '=');
+	return Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
+}
+
+/**
+ * Verify a Firebase ID token and return its uid.
+ *
+ * Checks the RS256 signature against Google's published keys before reading any
+ * claim. Fails closed: a token that cannot be verified is rejected outright.
+ */
 async function verifyFirebaseToken(token: string, projectId: string): Promise<string | null> {
 	try {
-		const res = await fetch('https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system.gserviceaccount.com');
-		const certs = await res.json() as Record<string, string>;
+		const parts = token.split('.');
+		if (parts.length !== 3) return null;
+		const [headerB64, payloadB64, signatureB64] = parts;
 
-		// Decode header to find the key ID
-		const [headerB64] = token.split('.');
-		const header = JSON.parse(atob(headerB64.replace(/-/g, '+').replace(/_/g, '/')));
-		const certPem = certs[header.kid];
-		if (!certPem) return null;
+		const header = JSON.parse(new TextDecoder().decode(base64UrlToBytes(headerB64)));
+		if (header.alg !== 'RS256' || typeof header.kid !== 'string') return null;
 
-		// Import the public key
-		const pemBody = certPem.replace(/-----BEGIN CERTIFICATE-----/g, '').replace(/-----END CERTIFICATE-----/g, '').replace(/\s/g, '');
-		const certBuffer = Uint8Array.from(atob(pemBody), (c) => c.charCodeAt(0));
+		const jwk = (await getSigningKeys())[header.kid];
+		if (!jwk) return null;
 
-		const key = await crypto.subtle.importKey('raw', certBuffer, { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' }, false, ['verify']).catch(() => null);
+		const key = await crypto.subtle.importKey(
+			'jwk',
+			jwk,
+			{ name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' },
+			false,
+			['verify']
+		);
 
-		// Fallback: just decode and validate claims without crypto verification
-		// (Cloudflare Workers have limited crypto.subtle support for x509)
-		if (!key) {
-			const [, payloadB64] = token.split('.');
-			const payload = JSON.parse(atob(payloadB64.replace(/-/g, '+').replace(/_/g, '/')));
-			const now = Math.floor(Date.now() / 1000);
-			if (payload.iss !== `https://securetoken.google.com/${projectId}`) return null;
-			if (payload.aud !== projectId) return null;
-			if (payload.exp < now) return null;
-			if (payload.iat > now + 10) return null;
-			if (!payload.sub || typeof payload.sub !== 'string') return null;
-			return payload.sub;
-		}
+		const signed = new TextEncoder().encode(`${headerB64}.${payloadB64}`);
+		const valid = await crypto.subtle.verify(
+			'RSASSA-PKCS1-v1_5',
+			key,
+			base64UrlToBytes(signatureB64),
+			signed
+		);
+		if (!valid) return null;
 
-		return null;
+		const payload = JSON.parse(new TextDecoder().decode(base64UrlToBytes(payloadB64)));
+		const now = Math.floor(Date.now() / 1000);
+		if (payload.iss !== `https://securetoken.google.com/${projectId}`) return null;
+		if (payload.aud !== projectId) return null;
+		if (typeof payload.exp !== 'number' || payload.exp <= now) return null;
+		if (typeof payload.iat !== 'number' || payload.iat > now + 60) return null;
+		if (typeof payload.sub !== 'string' || payload.sub === '') return null;
+
+		return payload.sub;
 	} catch {
 		return null;
 	}
@@ -408,6 +575,16 @@ async function handlePutUserData(request: Request, env: Env): Promise<Response> 
 
 export default {
 	async fetch(request: Request, env: Env): Promise<Response> {
+		try {
+			return await route(request, env);
+		} catch (e) {
+			console.error('Unhandled error:', e);
+			return error('Internal error', 500);
+		}
+	},
+};
+
+async function route(request: Request, env: Env): Promise<Response> {
 		if (request.method === 'OPTIONS') {
 			return new Response(null, { status: 204, headers: CORS_HEADERS });
 		}
@@ -448,5 +625,4 @@ export default {
 		}
 
 		return error('Not found', 404);
-	},
-};
+}
