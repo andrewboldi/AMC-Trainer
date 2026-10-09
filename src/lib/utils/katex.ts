@@ -1,8 +1,13 @@
 import katex from 'katex';
 
 /**
- * Process a DOM container to replace <img class="latex"> elements
- * with KaTeX-rendered math. Leaves non-latex images (diagrams, figures) untouched.
+ * Process a DOM container to replace the wiki's pre-rendered math images with
+ * KaTeX. Leaves non-math images (diagrams, figures) untouched.
+ *
+ * The wiki uses two classes: `latex` for inline math and `latexcenter` for
+ * centered display blocks. Only `latex` used to be selected, so every display
+ * block -- around 18.7k of them, including all the align environments -- stayed
+ * a proxied PNG instead of being typeset.
  * Also hides [asy] Asymptote source blocks that can't be rendered client-side.
  *
  * The AoPS-scraped HTML stores LaTeX source in the `alt` attribute
@@ -12,11 +17,28 @@ import katex from 'katex';
  *   \[...\]     display math
  *   \(...\)     inline math
  *   bare text   treated as inline math
+ *
+ * A `latexcenter` image is a centered block, so it starts in display mode
+ * regardless of which delimiters (if any) the wiki wrapped it in.
+ *
+ * Display-only environments (\begin{align*} and friends) are stored bare by the
+ * wiki, with no delimiter at all, so they are detected separately below.
  */
 
-function stripDelimiters(alt: string): { latex: string; displayMode: boolean } {
+/**
+ * Environments KaTeX will only parse in display mode -- used inline it refuses
+ * outright with "{align*} can be used only in display mode", which surfaces as
+ * red error text rather than math. The AoPS wiki emits these with no $$ or \[
+ * wrapper, so no delimiter branch would ever set display mode for them.
+ *
+ * Deliberately excludes environments that render fine inline (aligned, cases,
+ * array, the matrix family, split) and `multline`, which KaTeX does not implement.
+ */
+const DISPLAY_ONLY_ENV = /^\\begin\{(?:align|alignat|gather|equation|CD)\*?\}/;
+
+export function stripDelimiters(alt: string, centered = false): { latex: string; displayMode: boolean } {
 	let latex = alt.trim();
-	let displayMode = false;
+	let displayMode = centered;
 
 	if (latex.startsWith('$$') && latex.endsWith('$$')) {
 		latex = latex.slice(2, -2);
@@ -30,22 +52,36 @@ function stripDelimiters(alt: string): { latex: string; displayMode: boolean } {
 		latex = latex.slice(1, -1);
 	}
 
+	// KaTeX has no eqnarray environment at all, so these render as "No such
+	// environment" in either mode. align* is the closest equivalent and accepts
+	// the same &=& row separators.
+	latex = latex.replace(/\\(begin|end)\{eqnarray\*?\}/g, '\\$1{align*}');
+
+	// Promotion is one-way: an environment that cannot render inline forces
+	// display mode, but nothing here demotes math that was already display.
+	if (DISPLAY_ONLY_ENV.test(latex.trimStart())) {
+		displayMode = true;
+	}
+
 	return { latex, displayMode };
 }
 
 export function renderLatexInContainer(container: HTMLElement): void {
-	// Replace <img class="latex"> with KaTeX
-	const images = container.querySelectorAll<HTMLImageElement>('img.latex');
+	const images = container.querySelectorAll<HTMLImageElement>('img.latex, img.latexcenter');
 
 	for (const img of images) {
 		const alt = img.getAttribute('alt');
 		if (!alt) continue;
 
-		const { latex, displayMode } = stripDelimiters(alt);
+		const { latex, displayMode } = stripDelimiters(alt, img.classList.contains('latexcenter'));
 
 		try {
+			// throwOnError, so anything KaTeX cannot typeset lands in the catch below
+			// and keeps the wiki's own image. With it off KaTeX returns error markup
+			// rather than throwing, and roughly 1.4k blocks that are prose, tabular,
+			// tikzpicture or [asy] source would render as red error text.
 			const rendered = katex.renderToString(latex, {
-				throwOnError: false,
+				throwOnError: true,
 				displayMode,
 				output: 'html',
 			});
@@ -62,7 +98,8 @@ export function renderLatexInContainer(container: HTMLElement): void {
 				img.replaceWith(span);
 			}
 		} catch {
-			// If KaTeX fails, leave the original image in place
+			// Not typesettable (prose, tabular, tikzpicture, [asy] source...) --
+			// leave the wiki's pre-rendered image exactly as it is.
 		}
 	}
 
