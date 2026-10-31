@@ -66,6 +66,37 @@ export function stripDelimiters(alt: string, centered = false): { latex: string;
 	return { latex, displayMode };
 }
 
+/**
+ * What to do with one image's alt text: the typeset KaTeX markup, or `null` to leave
+ * the wiki's pre-rendered image exactly as it is.
+ */
+export function typesetAlt(alt: string, centered = false): { html: string; displayMode: boolean } | null {
+	// Asymptote diagrams are `latexcenter` images too, with the [asy] source as their alt.
+	// That source is not LaTeX, but KaTeX parses a lot of it anyway and would typeset it as
+	// a run of italic code in place of the diagram, so it cannot be left to the catch below.
+	// Trimmed first so this sees the same text stripDelimiters does.
+	if (alt.trimStart().startsWith('[asy]')) return null;
+
+	const { latex, displayMode } = stripDelimiters(alt, centered);
+
+	try {
+		// throwOnError, so anything KaTeX cannot typeset lands in the catch below
+		// and keeps the wiki's own image. With it off KaTeX returns error markup
+		// rather than throwing, and prose, tabular or tikzpicture blocks would
+		// render as red error text.
+		const html = katex.renderToString(latex, {
+			throwOnError: true,
+			displayMode,
+			output: 'html',
+		});
+		return { html, displayMode };
+	} catch {
+		// Not typesettable (prose, tabular, tikzpicture...) -- leave the wiki's
+		// pre-rendered image exactly as it is.
+		return null;
+	}
+}
+
 export function renderLatexInContainer(container: HTMLElement): void {
 	const images = container.querySelectorAll<HTMLImageElement>('img.latex, img.latexcenter');
 
@@ -73,33 +104,19 @@ export function renderLatexInContainer(container: HTMLElement): void {
 		const alt = img.getAttribute('alt');
 		if (!alt) continue;
 
-		const { latex, displayMode } = stripDelimiters(alt, img.classList.contains('latexcenter'));
+		const typeset = typesetAlt(alt, img.classList.contains('latexcenter'));
+		if (!typeset) continue;
 
-		try {
-			// throwOnError, so anything KaTeX cannot typeset lands in the catch below
-			// and keeps the wiki's own image. With it off KaTeX returns error markup
-			// rather than throwing, and roughly 1.4k blocks that are prose, tabular,
-			// tikzpicture or [asy] source would render as red error text.
-			const rendered = katex.renderToString(latex, {
-				throwOnError: true,
-				displayMode,
-				output: 'html',
-			});
-
-			if (displayMode) {
-				const div = document.createElement('div');
-				div.innerHTML = rendered;
-				div.className = 'katex-rendered katex-display-block';
-				img.replaceWith(div);
-			} else {
-				const span = document.createElement('span');
-				span.innerHTML = rendered;
-				span.className = 'katex-rendered';
-				img.replaceWith(span);
-			}
-		} catch {
-			// Not typesettable (prose, tabular, tikzpicture, [asy] source...) --
-			// leave the wiki's pre-rendered image exactly as it is.
+		if (typeset.displayMode) {
+			const div = document.createElement('div');
+			div.innerHTML = typeset.html;
+			div.className = 'katex-rendered katex-display-block';
+			img.replaceWith(div);
+		} else {
+			const span = document.createElement('span');
+			span.innerHTML = typeset.html;
+			span.className = 'katex-rendered';
+			img.replaceWith(span);
 		}
 	}
 

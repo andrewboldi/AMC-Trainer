@@ -11,7 +11,7 @@
  */
 import { describe, it, expect } from 'bun:test';
 import katex from 'katex';
-import { stripDelimiters } from './katex';
+import { stripDelimiters, typesetAlt } from './katex';
 
 /** Does this actually render, or does KaTeX emit its error markup? */
 function rendersCleanly(alt: string): boolean {
@@ -161,5 +161,74 @@ describe('promotion is one-way', () => {
 	it('promotes an inline-wrapped align, since it cannot render inline', () => {
 		const { displayMode } = stripDelimiters(String.raw`$\begin{align*} a &= b \end{align*}$`);
 		expect(displayMode).toBe(true);
+	});
+});
+
+/**
+ * Asymptote diagrams are `latexcenter` images: the wiki renders each one to a PNG and keeps the
+ * [asy] source as its alt. That source is not LaTeX, but a lot of it is still valid KaTeX input,
+ * so "KaTeX threw" does not reliably keep the PNG. In the scraped corpus 671 of 2,094 diagrams
+ * (265 problem statements) typeset without error and replaced the picture with a run of italic
+ * code -- 2022 AMC 8 #23, 2023 AMC 8 #9 and 2022 AMC 12B #18 among them. The other 1,423 kept
+ * their PNG only because a label("$A$", ...) put a `$` in the source, which KaTeX rejects.
+ *
+ * Real alt values from the corpus, HTML-decoded the way getAttribute returns them.
+ */
+const REAL_ASY = {
+	'2022 AMC 8 #23': '[asy] //diagram size(5cm); defaultpen(linewidth(1.5)); real r = 0.37; path equi = r * dir(-30) -- (r+0.03) * dir(90) -- r * dir(210) -- cycle; draw((0,0)--(0,3)--(3,3)--(3,0)--cycle); draw((0,1)--(3,1)--(3,2)--(0,2)--cycle); draw((1,0)--(1,3)--(2,3)--(2,0)--cycle); draw(circle((3/2,5/2),1/3)); draw(circle((5/2,1/2),1/3)); draw(circle((3/2,3/2),1/3)); draw(shift(0.5,0.38) * equi); draw(shift(1.5,0.38) * equi); draw(shift(0.5,1.38) * equi); draw(shift(2.5,1.38) * equi); draw(shift(0.5,2.38) * equi); draw(shift(2.5,2.38) * equi); [/asy]',
+	'2023 AMC 8 #9': '[asy] // Diagram by TheMathGuyd. Found cubic, so graph is perfect. import graph; size(8cm); int i; for(i=1; i<9; i=i+1) { draw((-0.2,2i-1)--(16.2,2i-1), mediumgrey); draw((2i-1,-0.2)--(2i-1,16.2), mediumgrey); draw((-0.2,2i)--(16.2,2i), grey); draw((2i,-0.2)--(2i,16.2), grey); } Label f;  f.p=fontsize(6);  xaxis(-0.5,17.8,Ticks(f, 2.0),Arrow());  yaxis(-0.5,17.8,Ticks(f, 2.0),Arrow());  real f(real x)  {  return -0.03125 x^(3) + 0.75x^(2) - 5.125 x + 14.5;  }  draw(graph(f,0,15.225),currentpen+1); real dpt=2; real ts=0.75; transform st=scale(ts); label(rotate(90)*st*"Elevation (meters)",(-dpt,8)); label(st*"Time (seconds)",(8,-dpt)); [/asy]',
+	'2022 AMC 12B #18': '[asy]         import geometry;         unitsize(0.6cm);          void ds(pair x) {             filldraw(x -- (1,0) + x -- (1,1) + x -- (0,1)+x -- cycle,mediumgray,invisible);         }          ds((1,1));         ds((2,1));         ds((3,1));         ds((1,3));          for (int i = 0; i <= 5; ++i) {             draw((0,i)--(5,i));             draw((i,0)--(i,5));         }          label("Initial", (2.5,-1));         draw((6,2.5)--(8,2.5),Arrow);          ds((10,2));         ds((11,1));         ds((11,0));          for (int i = 0; i <= 5; ++i) {             draw((9,i)--(14,i));             draw((i+9,0)--(i+9,5));         }          label("Transformed", (11.5,-1)); [/asy]',
+};
+// KaTeX rejects this one because of the `$` in its label, so it always kept its PNG.
+const REAL_ASY_DOLLAR_LABEL = '[asy] draw(Arc((0,0), 4, 0, 270)); draw((0,-4)--(0,0)--(4,0)); label("$4$", (2,0), S); [/asy]';
+
+/** Would renderLatexInContainer replace this image? A boolean keeps a failure from dumping KaTeX markup. */
+const isTypeset = (alt: string, centered = false) => typesetAlt(alt, centered) !== null;
+
+describe('Asymptote diagrams keep the wiki image', () => {
+	it('KaTeX accepts the source as math, so a thrown error cannot be what keeps the PNG', () => {
+		for (const alt of Object.values(REAL_ASY)) {
+			const { latex, displayMode } = stripDelimiters(alt, true);
+			expect(() => katex.renderToString(latex, { throwOnError: true, displayMode, output: 'html' })).not.toThrow();
+		}
+	});
+
+	for (const [problem, alt] of Object.entries(REAL_ASY)) {
+		it(`is not typeset for ${problem}`, () => {
+			expect(isTypeset(alt, true)).toBe(false);
+		});
+	}
+
+	it('is not typeset when KaTeX would have rejected the source anyway', () => {
+		expect(isTypeset(REAL_ASY_DOLLAR_LABEL, true)).toBe(false);
+	});
+
+	it('ignores leading whitespace, as stripDelimiters does', () => {
+		expect(isTypeset(`\n  ${REAL_ASY['2022 AMC 8 #23']}`, true)).toBe(false);
+	});
+
+	it('only applies to alts that start with [asy]', () => {
+		expect(isTypeset(String.raw`$\text{see [asy]}$`)).toBe(true);
+	});
+});
+
+describe('typesetAlt', () => {
+	it('typesets inline math as inline KaTeX', () => {
+		const typeset = typesetAlt(String.raw`$5 \times 5$`);
+		expect(typeset?.displayMode).toBe(false);
+		expect(typeset?.html).toContain('class="katex"');
+	});
+
+	it('typesets a centered image as display math even without delimiters', () => {
+		expect(typesetAlt('x^2 + y^2 = z^2', true)?.displayMode).toBe(true);
+	});
+
+	it('typesets a bare align block as display math', () => {
+		expect(typesetAlt(REAL.alignStar, true)?.displayMode).toBe(true);
+	});
+
+	it('leaves prose the wiki rendered as an image alone', () => {
+		const prose = String.raw`Manually, we can find \( D_1 = 10 \), and so \[ x = 1 \] follows.`;
+		expect(isTypeset(prose, true)).toBe(false);
 	});
 });
