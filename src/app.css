@@ -46,6 +46,14 @@ p {
 	filter: invert(0);
 }
 
+/* The wiki marks centered display blocks `latexcenter`. The ones KaTeX cannot typeset (diagrams,
+   tables) stay as images, and left inline the paragraph text wraps around them. The margin
+   matches KaTeX's own .katex-display so display equations and diagrams space alike. */
+.text img.latexcenter {
+	display: block;
+	margin: 1em auto;
+}
+
 img.text {
 	filter: var(--text-invert);
 }
